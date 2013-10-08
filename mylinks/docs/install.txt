@@ -1,0 +1,61 @@
+INSTALL/UNISTALL
+=================
+----------------------------------------------
+New Installation
+----------------------------------------------
+To install this module:
+1. Upload the contents of the 'mylinks' folder into your site root.
+2. Rename the directory to something else if you'd like.
+3. Install this module just like any other Xoops module, from
+   the Modules Administration menu. Once properly installed, you
+   should see the mylinks icon on your XOOPS Admin screen.
+4. Navigate to the mylinks dropdown menu, click on 'Preferences'.
+5. Set the module preferences by selecting Preferences->Mylinks
+   in the dropdown menu.
+6. You may import a list of predefined categories into the database
+   by going into the MyLinks module Admin and then selecting
+   'Add/Edit Links'.  Click the button on the bottom of the page
+   that asks you if you want to import the default categories.
+   NOTE: Do NOT use this feature if you plan to import data from
+   a previous installation!
+7. See ./mylinks/docs/readme.txt for more advanced configuration
+   options.
+
+----------------------------------------------
+Upgrade An Installation
+----------------------------------------------
+To upgrade this module:
+1. Make a backup of your site (including the database)!
+2. Upload the contents of the 'mylinks' folder into the folder
+   on your site where mylinks is installed (typically this is in
+   './modules/mylinks' however if you renamed the file before
+   installation it may be in a different folder).
+     NOTE: Renaming is not supported for an module upgrade.  You must
+           leave the module directory unchanged.  You may not change the
+           module directory name once it has been installed!  If you want
+           to put the module into a different directory you must make a
+           data backup of your module data (using phpMyAdmin or equiv),
+           deactivate and then uninstall the old version of mylinks
+           completely.  It is recommended that you delete the old mylinks
+           directory and all it's files from the server.  Then follow the
+           instructions above for a new Installation.
+3. Navigate to the XOOPS Admin screen.
+4. Select Modules->System->Modules in the drop down menu
+5. Deactivate the mylinks module
+6. Install the module using the Admin panel
+7. Navigate to the module preferences by selecting
+   Preferences->Mylinks in the dropdown menu.
+8. See ./mylinks/docs/readme.txt for more advanced configuration
+   options.
+9. Reactivate the module in the Admin panel.
+
+----------------------------------------------
+Uninstall
+----------------------------------------------
+To uninstall this module:
+1. Navigate to the XOOPS Admin screen.
+2. Select Modules->System->Modules in the drop down menu
+3. Deactivate the mylinks module
+4. Uninstall the mylinks module
+5. Using a ftp program or hosting console delete all the files in the
+   directory where mylinks was installed.
