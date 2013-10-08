@@ -1,0 +1,123 @@
+v3.11 RC4 [2013/07/03]
+=================================
++ fixed category image display bug
++ changed editor selection to use XOOPS Preferences editor
++ changed error handler since XOOPS ErrorHandler class is deprecated in 2.5.4+
++ changed shot (thumbnail) provider to use classes
+++ added Heartrails thumbnail provider
+++ added PagePeeker thumbnail provider
+++ added ShrinkTheWeb thumbnail provider
+++ added Thumbalizr thumbnail provider
+++ updated Nemui thumbnail provider
+++ updated Thumbshots thumbnail provider to new API
++ removed duplicate _AM_MYLINKS_IGNORE in nederlands translation
+
+v3.11 RC3 [2013/03/25]
+=================================
++ added language defines to include all defines for 3.11 (most are non-translated)
++ fixed rss and atom feeds so they validate
++ fixed bug for invalid include of utility class (no longer needed)
++ fixed bug in MylinksCategoryHandler::getCatTitles to get title field
++ fixed site link bug in tell-a-friend
++ removed ./language/nederlands/changelog.txt - it was not being used
++ updated ./docs/install.txt and ./docs/readme.txt
++ changed _MD_AM_DBUPDATED with _MD_MYLINKS_DBUPDATED
++ changed revision to RC3
+
+v3.11 RC2 [2013/02/18]
+=================================
++ added templates to xoopsversion for rss, atom and pda templates
++ added missing files for template administration
++ fixed addSlashes issue for a link's description and title
++ fixed link count per category calculation routine
++ fixed frontside admin link to modify a link (from ./admin/index.php to .admin/main.php)
++ fixed do not allow voting on inactive links
++ fixed approve/edit/ignore action buttons on listModReq form(s) in Admin panel
++ fixed form title on Modified Links page in Admin panel
++ fixed missing '< / div >' in ./templates/mylinks_link.html
++ fixed incorrect url to view category in Random Link block
++ fixed incorrect category displayed when listing Modified Links in Admin panel
++ removed admin templates from xoopsversion. They did not exist and were not being used
++ removed "Make this my Homepage" link, security risk and was only supported in IE
++ improved html template(s)
++ improved html rendering by moving hard coded English strings to language file(s)
++ improved security in forms - many forms now use XoopsSecurity tokens
++ changed Tell-A-Friend to use server mailer form instead of user's email client
++ changed ereg_replace to str_replace in bookmark_qrcode_encoding() function
++ changed revision to RC2
+
+v3.11 RC [2011/05/01 - 2011/11/14] (ZySpec)
+=================================
++ added pre-install check to verify min versions for PHP/MySQL/Xoops
++ added category class to manage categories
++ added ability to bulk import categories on new installation
++ added Preferences option to include/exclude admin hits in hit counter
++ added full support (menu, page display) for 'Recent' links
++ added 'Most Recent' display block
++ added Random Listing display block
++ added nederlands translation (ÜberRookie)
++ added Preferences setting to select which auto screenshot provider to use
++ added input variable sanitization to eliminate SQL injection
++ added check to only display hits/ratings tables if there are hits>0 and ratings>0 respectively
++ changed to use XoopsObjectTree instead of deprecated XoopsTree class
++ changed deprecated 'TYPE' to 'ENGINE' in /sql/mysql.sql
++ changed from using xoops_module_header in templates to using xoTheme class
++ changed theme changer to disabled as the default (must enable in ./header.php)
++ changed 'letter' menu, only make char a hyperlink if there are web links with that letter
++ changed html/CSS in both admin and front side page display to be more XHTML compliant
++ changed block/group administration for XOOPS > 2.2 to be similar to XOOPS 2.0.x
++ changed hard coded language strings to language files
++ changed 'letter' menu characters to language file to ease translation
++ changed numerous configuration options from ./header.php to module Preferences
++ changed most module icons to /images/icons directory
++ changed Action buttons in listBrokenLinks to standard icons (Mamba)
++ changed code to reduce PHP CodeSniffer errors based on Zend Coding Standards
++ fixed various english language typos and grammer (Mamba / ZySpec)
++ fixed missing language definition strings in admin
++ fixed bug in ./admin/about.php to display release status
++ fixed bug in ./rating.php where checking for form submitted with no rating selected
++ fixed bug where module couldn't be relocated to alternate directory
++ removed display of 'Modify' link if user is not logged in
++ removed additional XOOPS search block in ./singlelink.php display
++ removed ./include/xoopssearchform.php as it's no longer used
++ general code cleanup to improve readability
++ updated readme.txt
++ updated to the latest ModuleAdmin 1.1, incl. use of images (mamba)
++ added icon information to BrokenLinks (mamba)
++ renamed /admin/footer.php to /admin/admin_footer.php (the same for header.php)(mamba)
++ moved changelog to /docs
+
+
+v3.10 [2011/02/23] (Mamba)
+=================================
++ Changed to standardized XOOPS Module GUI
+
+Ver3.0-[2008-11-25] (Wanikoo)
+=================================
++ bookmark button
++ bug/typo fix!(Sorry for my stupid mistake!!)
++ Code refined
++ etc.
+
+-Ver2.5-[2008-05-27]
+=================================
++ minimize/restore button
++ Internal search block
++ enhanced page-navigation
++ etc.
+
+-Ver2.0-[2008-04-20]
+=================================
++ Category Jump box
++ print button
++ pdf button
++ qrcode button ( qrcode module needed! )
++ etc.
+
+-Ver1.5-
+=================================
++ Module Theme changer
++ Search function!
++ Index Browsing
++ Code refined
++ etc.
