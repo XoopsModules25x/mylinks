@@ -50,8 +50,8 @@ class mylinksCategory_base extends XoopsObject
 
     /**
      * Generates path from the root id to a given id($id)
-     * @param int $id
-     * @param string $path
+     * @param  int    $id
+     * @param  string $path
      * @return string
      */
     function getPathFromId($id = NULL, $path = '')
@@ -63,6 +63,7 @@ class mylinksCategory_base extends XoopsObject
         if ($this->pid != 0) {
             $path = $this->getPathFromId($this->pid, $path);
         }
+
         return $path;
     }
 }
@@ -83,10 +84,10 @@ class mylinksCategoryHandler_base extends XoopsPersistableObjectHandler
     /**
      *
      * Retrieve category names from Database
-     * @param unknown $cats - integer, returns single category name,
-     * 						  array returns array of category names
-     * 						  NULL return all category names
-     * @return array return category titles with category ID as key
+     * @param  unknown $cats - integer, returns single category name,
+     *                       array returns array of category names
+     *                       NULL return all category names
+     * @return array   return category titles with category ID as key
      */
     function getCatTitles ( $cats = NULL )
     {
@@ -108,6 +109,7 @@ class mylinksCategoryHandler_base extends XoopsPersistableObjectHandler
                 $catTitles[$catItem['cid']] = $catItem['title'];
             }
         }
+
         return $catTitles;
     }
 }

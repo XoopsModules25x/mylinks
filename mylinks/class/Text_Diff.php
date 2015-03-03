@@ -25,9 +25,9 @@ class Text_Diff {
     /**
      * Computes diffs between sequences of strings.
      *
-     * @param array $from_lines  An array of strings.  Typically these are
-     *                           lines from a file.
-     * @param array $to_lines    An array of strings.
+     * @param array $from_lines An array of strings.  Typically these are
+     *                          lines from a file.
+     * @param array $to_lines   An array of strings.
      */
     function Text_Diff($from_lines, $to_lines)
     {
@@ -60,10 +60,10 @@ class Text_Diff {
      * $rev = $diff->reverse();
      * </code>
      *
-     * @return Text_Diff  A Diff object representing the inverse of the
-     *                    original diff.  Note that we purposely don't return a
-     *                    reference here, since this essentially is a clone()
-     *                    method.
+     * @return Text_Diff A Diff object representing the inverse of the
+     *                   original diff.  Note that we purposely don't return a
+     *                   reference here, since this essentially is a clone()
+     *                   method.
      */
     function reverse()
     {
@@ -76,13 +76,14 @@ class Text_Diff {
         foreach ($this->_edits as $edit) {
             $rev->_edits[] = $edit->reverse();
         }
+
         return $rev;
     }
 
     /**
      * Checks for an empty diff.
      *
-     * @return boolean  True if two sequences were identical.
+     * @return boolean True if two sequences were identical.
      */
     function isEmpty()
     {
@@ -91,6 +92,7 @@ class Text_Diff {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -99,7 +101,7 @@ class Text_Diff {
      *
      * This is mostly for diagnostic purposes.
      *
-     * @return integer  The length of the LCS.
+     * @return integer The length of the LCS.
      */
     function lcs()
     {
@@ -109,6 +111,7 @@ class Text_Diff {
                 $lcs += count($edit->orig);
             }
         }
+
         return $lcs;
     }
 
@@ -117,7 +120,7 @@ class Text_Diff {
      *
      * This reconstructs the $from_lines parameter passed to the constructor.
      *
-     * @return array  The original sequence of strings.
+     * @return array The original sequence of strings.
      */
     function getOriginal()
     {
@@ -127,6 +130,7 @@ class Text_Diff {
                 array_splice($lines, count($lines), 0, $edit->orig);
             }
         }
+
         return $lines;
     }
 
@@ -135,7 +139,7 @@ class Text_Diff {
      *
      * This reconstructs the $to_lines parameter passed to the constructor.
      *
-     * @return array  The sequence of strings.
+     * @return array The sequence of strings.
      */
     function getFinal()
     {
@@ -145,6 +149,7 @@ class Text_Diff {
                 array_splice($lines, count($lines), 0, $edit->final);
             }
         }
+
         return $lines;
     }
 
@@ -152,7 +157,7 @@ class Text_Diff {
      * Removes trailing newlines from a line of text. This is meant to be used
      * with array_walk().
      *
-     * @param string $line  The line to trim.
+     * @param string  $line The line to trim.
      * @param integer $key  The index of the line in the array. Not used.
      */
     function _trimNewlines(&$line, $key)
@@ -209,15 +214,15 @@ class Text_MappedDiff extends Text_Diff {
      * This can be used to compute things like case-insensitve diffs, or diffs
      * which ignore changes in white-space.
      *
-     * @param array $from_lines         An array of strings.
-     * @param array $to_lines           An array of strings.
-     * @param array $mapped_from_lines  This array should have the same size
-     *                                  number of elements as $from_lines.  The
-     *                                  elements in $mapped_from_lines and
-     *                                  $mapped_to_lines are what is actually
-     *                                  compared when computing the diff.
-     * @param array $mapped_to_lines    This array should have the same number
-     *                                  of elements as $to_lines.
+     * @param array $from_lines        An array of strings.
+     * @param array $to_lines          An array of strings.
+     * @param array $mapped_from_lines This array should have the same size
+     *                                 number of elements as $from_lines.  The
+     *                                 elements in $mapped_from_lines and
+     *                                 $mapped_to_lines are what is actually
+     *                                 compared when computing the diff.
+     * @param array $mapped_to_lines   This array should have the same number
+     *                                 of elements as $to_lines.
      */
     function Text_MappedDiff($from_lines, $to_lines,
                              $mapped_from_lines, $mapped_to_lines)
@@ -525,6 +530,7 @@ class Text_Diff_Engine_native {
         if ($end == 0 || $ypos > $this->seq[$end]) {
             $this->seq[++$this->lcs] = $ypos;
             $this->in_seq[$ypos] = 1;
+
             return $this->lcs;
         }
 
@@ -543,6 +549,7 @@ class Text_Diff_Engine_native {
         $this->in_seq[$this->seq[$end]] = false;
         $this->seq[$end] = $ypos;
         $this->in_seq[$ypos] = 1;
+
         return $end;
     }
 

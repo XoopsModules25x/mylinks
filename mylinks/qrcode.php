@@ -104,6 +104,7 @@ function mylinks_qrcode_convert_encoding($str, $to = 'SJIS', $from = _CHARSET)
             foreach ($str as $key=>$val) {
                 $str[$key] = mylinks_qrcode_convert_encoding($val, $to, $from);
             }
+
             return $str;
         } else {
             return mb_convert_encoding($str, $to, $from);
@@ -118,6 +119,7 @@ function mylinks_qrcode_encoding($data="")
     $data = mylinks_qrcode_convert_encoding($data);
     $data = rawurlencode($data);
     $data = ereg_replace("%20", "+", $data);
+
     return $data;
 }
 

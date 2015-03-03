@@ -26,5 +26,4 @@ echo "<div class='adminfooter'>\n"
     ."  " . _AM_MYLINKS_ADMIN_FOOTER . "\n"
     ."</div>";
 
-
 xoops_cp_footer();

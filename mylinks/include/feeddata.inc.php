@@ -29,11 +29,12 @@ function mylinks_feednew($limit=0, $offset=0)
         $ret[$i]['time'] = $row['date'];       // date
 //        $ret[$i]['description'] = $row['description'];
         $ret[$i]['id'] = $row['lid'];          // atom feed
-        $ret[$i]['description'] = $myts->displayTarea( $row['description'], 0 );	//no html
+        $ret[$i]['description'] = $myts->displayTarea( $row['description'], 0 );    //no html
         $ret[$i]['cat_name'] = $row['ctitle']; // category
         $ret[$i]['hits'] = $row['hits'];       // counter
 //        $ret[$i]['uid'] = $row['submitter'];   // user name
         $i++;
     }
+
     return $ret;
 }

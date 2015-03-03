@@ -90,7 +90,6 @@ if (file_exists('./mymenu.php')) {
 
 echo "<h3 style='text-align:left;'>" . _AM_MYLINKS_TPLSETS . " : " . htmlspecialchars($tpl['tpl_type'], ENT_QUOTES) . " : " . htmlspecialchars($tpl['tpl_file'], ENT_QUOTES) . " (" . htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES) .")</h3>\n";
 
-
 // diff from file to selected DB template
 $basefilepath = XOOPS_ROOT_PATH . '/modules/' . $tpl['tpl_module'] . '/templates/' . ($tpl['tpl_type']=='block'?'blocks/':'') . $tpl['tpl_file'];
 $diff_from_file4disp = '';

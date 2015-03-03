@@ -115,7 +115,6 @@ define('NEWS_PDF_SUBJECT', 'Subject');
 define('NEWS_PDF_AUTHOR', _POSTEDBY);
 define('NEWS_PDF_DATE', _MD_POSTEDON);
 
-
 // For more details, refer to: http://fpdf.org
 class PDF_language extends PDF_Korean
 {
@@ -157,6 +156,7 @@ class PDF_language extends PDF_Korean
       $converted_text = @$xconv_handler->convert_encoding($text, $out_charset, $in_charset)
     ){
       $text = $converted_text;
+
       return;
     }
     if(XOOPS_USE_MULTIBYTES && function_exists('mb_convert_encoding')) $converted_text = @mb_convert_encoding($text, $out_charset, $in_charset);
@@ -165,4 +165,3 @@ class PDF_language extends PDF_Korean
     $text = empty($converted_text)?$text:$converted_text;
   }
 }
-?>

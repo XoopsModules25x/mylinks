@@ -80,6 +80,7 @@ function xoops_module_pre_install_mylinks_base(&$xoopsModule) {
             }
         }
     }
+
     return $retVal;
 }
 

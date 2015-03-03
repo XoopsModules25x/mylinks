@@ -40,6 +40,7 @@ function xoops_module_update_mylinks_base(&$xoopsModule, $prev_version)
             $success = xoops_module_pre_install_mylinks($xoopsModule);
         }
     }
+
     return $success;
 }
 /**

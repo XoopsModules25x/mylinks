@@ -213,7 +213,6 @@ if ($op == 'order') {
     exit();
 }
 
-
 if ( $op == 'order2' ) {
     if (!$xoopsGTicket->check( true , 'myblocksadmin')) {
         redirect_header(XOOPS_URL.'/', 3, $xoopsGTicket->getErrors());
@@ -304,7 +303,6 @@ if ('update' ==$op) {
     redirect_header('myblocksadmin.php', 1, $msg);
 }
 
-
 if ('delete_ok' == $op) {
 /*
     if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
@@ -378,7 +376,6 @@ if ('edit' == $op) {
     exit();
 }
 
-
 if ('clone' == $op) {
     xoops_cp_header();
     $myblock = new XoopsBlock($bid);
@@ -399,7 +396,6 @@ if ('clone' == $op) {
     xoops_cp_footer();
     exit();
 }
-
 
 if ('clone_ok' == $op) {
     // Ticket Check
@@ -615,8 +611,10 @@ function myblocksadmin_update_blockinstance($id, $bside, $bweight, $bvisible, $b
             $pageid = $page[1];
             $GLOBALS['xoopsDB']->query("INSERT INTO " . $GLOBALS['xoopsDB']->prefix('block_module_link')." VALUES (" . $instance->getVar('instanceid').", " . intval($mid) . ", " . intval($pageid) . ")");
         }
+
         return _MD_MYLINKS_AM_DBUPDATED;
     }
+
     return "Failed update of block instance. ID: {$id}";
 
 /*		// NAME for CUSTOM BLOCK

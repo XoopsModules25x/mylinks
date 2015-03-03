@@ -46,4 +46,3 @@ if(is_readable(NEWS_FPDF_PATH.'/language/'.$xoopsConfig['language'].'.php')){
   die('No Language File Readable!');
 }
 include NEWS_FPDF_PATH.'/makepdf_class.php';
-?>

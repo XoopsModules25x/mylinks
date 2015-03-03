@@ -27,11 +27,11 @@ class mylinksUtility
 {
 /**
      * Sanitize input variables
-     * @param string $global the input array ($_REQUEST, $_GET, $_POST)
-     * @param unknown_type $key the array key for variable to clean
-     * @param unknown_type $default the default value to use if filter fails
-     * @param string $type the variable type (string, email, url, int)
-     * @param array $limit 'min' 'max' keys - the lower/upper limit for integer values
+     * @param  string          $global  the input array ($_REQUEST, $_GET, $_POST)
+     * @param  unknown_type    $key     the array key for variable to clean
+     * @param  unknown_type    $default the default value to use if filter fails
+     * @param  string          $type    the variable type (string, email, url, int)
+     * @param  array           $limit   'min' 'max' keys - the lower/upper limit for integer values
      * @return number|Ambigous <boolean, unknown>
      */
     function mylinks_cleanVars( &$global, $key, $default = '', $type = 'int', $limit=NULL)
@@ -62,15 +62,16 @@ class mylinksUtility
                 break;
         }
         $ret = ($ret === false) ? $default : $ret;
+
         return $ret;
     }
     /**
      *
      * Temporary patch for error_handler processing
      * @deprecated
-     * @param string $msg message to display
-     * @param int $pages number of pages to jump back for link
-     * @param string $type error||info to add errorMsg CSS to display
+     * @param  string $msg   message to display
+     * @param  int    $pages number of pages to jump back for link
+     * @param  string $type  error||info to add errorMsg CSS to display
      * @return null
      */
     function show_message($msg, $pages=1, $type='error') {
@@ -93,6 +94,7 @@ class mylinksUtility
                   . "[ <a href=\'javascript:history.go(-{$pages})\'>" . _BACK . "</a> ]</div>";
            }
         include_once XOOPS_ROOT_PATH . '/footer.php';
+
         return;
     }
 }

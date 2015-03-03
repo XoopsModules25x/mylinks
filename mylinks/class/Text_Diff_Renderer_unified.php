@@ -28,6 +28,7 @@ class Text_Diff_Renderer_unified extends Text_Diff_Renderer {
         if ($ylen != 1) {
             $ybeg .= ',' . $ylen;
         }
+
         return "@@ -$xbeg +$ybeg @@";
     }
 

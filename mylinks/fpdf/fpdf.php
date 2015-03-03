@@ -433,6 +433,7 @@ function GetStringWidth($s)
   $l=strlen($s);
   for($i=0;$i<$l;$i++)
     $w+=$cw[$s{$i}];
+
   return $w*$this->FontSize/1000;
 }
 
@@ -586,6 +587,7 @@ function AddLink()
   //Create a new internal link
   $n=count($this->links)+1;
   $this->links[$n]=array(0,0);
+
   return $n;
 }
 
@@ -1050,6 +1052,7 @@ function Output($name='',$dest='')
       $f=fopen($name,'wb');
       if(!$f){
         $this->Error('Unable to create output file: '.$name);
+
         return null;
       }
       fwrite($f,$this->buffer,strlen($this->buffer));
@@ -1061,6 +1064,7 @@ function Output($name='',$dest='')
     default:
       $this->Error('Incorrect output destination: '.$dest);
   }
+
   return '';
 }
 
@@ -1083,6 +1087,7 @@ function _getfontpath()
 {
   if(!defined('FPDF_FONTPATH') && is_dir(dirname(__FILE__).'/font'))
     define('FPDF_FONTPATH',dirname(__FILE__).'/font/');
+
   return defined('FPDF_FONTPATH') ? FPDF_FONTPATH : '';
 }
 
@@ -1495,6 +1500,7 @@ function _dounderline($x,$y,$txt)
   $up=$this->CurrentFont['up'];
   $ut=$this->CurrentFont['ut'];
   $w=$this->GetStringWidth($txt)+$this->ws*substr_count($txt,' ');
+
   return sprintf('%.2f %.2f %.2f %.2f re f',$x*$this->k,($this->h-($y-$up/1000*$this->FontSize))*$this->k,$w*$this->k,-$ut/1000*$this->FontSizePt);
 }
 
@@ -1519,6 +1525,7 @@ function _parsejpg($file)
   while(!feof($f))
     $data.=fread($f,4096);
   fclose($f);
+
   return array('w'=>$a[0],'h'=>$a[1],'cs'=>$colspace,'bpc'=>$bpc,'f'=>'DCTDecode','data'=>$data);
 }
 
@@ -1602,6 +1609,7 @@ function _parsepng($file)
   if($colspace=='Indexed' && empty($pal))
     $this->Error('Missing palette in '.$file);
   fclose($f);
+
   return array('w'=>$w,'h'=>$h,'cs'=>$colspace,'bpc'=>$bpc,'f'=>'FlateDecode','parms'=>$parms,'pal'=>$pal,'trns'=>$trns,'data'=>$data);
 }
 
@@ -1609,6 +1617,7 @@ function _freadint($f)
 {
   //Read a 4-byte integer from file
   $a=unpack('Ni',fread($f,4));
+
   return $a['i'];
 }
 
@@ -1650,4 +1659,3 @@ if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT']=='contype')
 }
 
 }
-?>

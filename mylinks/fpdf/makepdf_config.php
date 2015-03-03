@@ -1,4 +1,4 @@
-<?
+<?php
 // makepdf_config.php,v1.1 2004/03/12 (c) by St@neCold
 // ---------------------------------------------------
 // For XOOPS2 - PHP Content Management System
@@ -18,7 +18,6 @@ $xmail=('mailto:'.checkEmail($xoopsConfig['adminmail'],true));
 
 //the slogan of your site
 $xslogan=xoops_substr($myts->htmlSpecialChars( $xoopsConfig['slogan'] ),0,20);
-
 
 //your logo name, located in .../makepdf/ (if you wish)
 //must be a png (best, recommended!), gif (only with gif.php!, slow) or jpg (good)

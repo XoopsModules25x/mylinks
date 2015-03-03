@@ -76,6 +76,7 @@ class MylinksPagepeeker implements MylinksThumbPlugin
         }
 
         $providerUrl = $providerUrl . $query;
+
         return $providerUrl;
     }
     public function getProviderName()
@@ -148,6 +149,7 @@ class MylinksPagepeeker implements MylinksThumbPlugin
             return $this->attribution;
         } else {
             $myts =& MyTextSanitizer::getInstance();
+
             return $myts->htmlSpecialChars($this->attribution);
         }
     }

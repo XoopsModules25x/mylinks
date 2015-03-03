@@ -51,6 +51,7 @@ class MylinksPageNav
                 $ret .= '<a href="' . $this->url . $next . '"><u>&raquo;</u></a> ';
             }
         }
+
         return $ret;
     }
 
@@ -80,6 +81,7 @@ class MylinksPageNav
             }
             $ret .= '</form>';
         }
+
         return $ret;
     }
 
@@ -118,6 +120,7 @@ class MylinksPageNav
             }
             $ret .= '</tr></table>';
         }
+
         return $ret;
     }
 }

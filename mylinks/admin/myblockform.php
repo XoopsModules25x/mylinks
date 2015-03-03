@@ -138,5 +138,6 @@ function check_browser_can_use_spaw()
             }
         }
     }
+
     return false;
 }

@@ -16,7 +16,6 @@ $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 $db   =& XoopsDatabaseFactory::getDatabaseConnection();
 $myts =& MyTextSanitizer::getInstance();
 
-
 // determine language
 $language = $xoopsConfig['language'];
 if (!file_exists("{$xoops_system_path}/language/{$language}/admin/tplsets.php")) {
@@ -217,7 +216,6 @@ if (file_exists('./mymenu.php')) {
 
 echo "<h3 style='text-align:left;'>" . _AM_MYLINKS_TPLSETS . " : {$target_mname}</h3>\n";
 
-
 // beginning of table & form
 echo "<form name='MainForm' action='?dirname=" . htmlspecialchars($target_dirname, ENT_QUOTES) . "' method='post'>\n"
     ."  " . $xoopsGTicket->getTicketHtml(__LINE__) . "\n"
@@ -320,6 +318,7 @@ function get_fingerprint( $lines )
             $str .= md5(trim($line));
         }
     }
+
     return md5($str);
 }
 

@@ -100,6 +100,7 @@ function wani_strip_crlf($text)
 {
     $text = preg_replace("/\r/", ' ', $text);
     $text = preg_replace("/\n/", ' ', $text);
+
     return $text;
 }
 
@@ -128,6 +129,7 @@ function wani_strip_space($text)
     $text = preg_replace("/&amp;nbsp;/i", ' ', $text);
     $text = preg_replace("/&nbsp;/i", ' ', $text);
     $text = preg_replace("/[\x20]+/", ' ', $text);
+
     return $text;
 }
 
@@ -138,6 +140,7 @@ function wani_strip_space($text)
 function wani_add_space($text)
 {
     $text = preg_replace("/>/", '> ', $text);
+
     return $text;
 }
 
@@ -177,6 +180,7 @@ function wani_html_special_chars_url($text)
     $text = wani_conv_js($text);
     $text = preg_replace('/&amp;/i', '&', $text);
     $text = htmlspecialchars($text, ENT_QUOTES);
+
     return $text;
 }
 
@@ -185,6 +189,7 @@ function wani_conv_js($text)
 {
     $text = preg_replace('/javascript:/si', 'java script:', $text);
     $text = preg_replace('/about:/si', 'about :', $text);
+
     return $text;
 }
 
@@ -197,6 +202,7 @@ function wani_strip_control_code($text)
     $text = preg_replace('/[\x0B-\x0C]/', ' ', $text);
     $text = preg_replace('/[\x0E-\x1F]/',' ',$text);
     $text = preg_replace('/[\x7F]/', ' ', $text);
+
     return $text;
 }
 
@@ -212,6 +218,7 @@ function wani_iso8601_date($time)
     $tzd  = date('O', $time);
     $tzd  = substr(chunk_split( $tzd, 3, ':' ), 0, 6);
     $date = date('Y-m-d\TH:i:s', $time) . $tzd;
+
     return $date;
 }
 
@@ -221,7 +228,9 @@ function wani_utf8_encode($text)
         if (function_exists('mb_convert_encoding')) {
             return mb_convert_encoding($text, 'UTF-8', _CHARSET);
         }
+
         return $text;
     }
+
     return utf8_encode($text);
 }

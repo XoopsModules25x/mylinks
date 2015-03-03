@@ -114,6 +114,7 @@ function GetMBStringWidth($s)
       $i+=2;
     }
   }
+
   return $l*$this->FontSize/1000;
 }
 
@@ -448,4 +449,3 @@ function _putType0($font)
   $this->_out('endobj');
 }
 }
-?>
