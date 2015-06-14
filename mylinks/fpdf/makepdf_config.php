@@ -41,5 +41,3 @@ $xsdatepage=_MD_PDF_PAGE;
 $xsopen=(_MD_POSTEDON);
 //the author string
 $xsauthor=_POSTEDBY.": ";
-
-?>
