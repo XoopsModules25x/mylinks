@@ -153,4 +153,3 @@ class PDF_language extends FPDF
     // refer to schinese.php for example
   }
 }
-?>

@@ -35,7 +35,6 @@ if (!defined('XOOPS_ROOT_PATH')) {
   die("XOOPS root path not defined");
 }
 
-
 //function hex2dec
 //returns an associative array (keys: R,G,B) from
 //a hex html code (e.g. #3FE5AA)
@@ -50,6 +49,7 @@ function hex2dec($couleur = "#000000"){
     $tbl_couleur['R']=$rouge;
     $tbl_couleur['G']=$vert;
     $tbl_couleur['B']=$bleu;
+
     return $tbl_couleur;
 }
 
@@ -61,9 +61,9 @@ function px2mm($px){
 function txtentities($html){
     $trans = get_html_translation_table(HTML_ENTITIES);
     $trans = array_flip($trans);
+
     return strtr($html, $trans);
 }
-
 
 ////////////////////////////////////
 
@@ -291,7 +291,7 @@ class PDF extends PDF_language
       $nh=$ih;
       //resizing in x-direction
       $xsflag=0;
-      if($iw>150)	{
+      if($iw>150)    {
         $xscale=150 / $iw;
         $yscale=$xscale;
         $nw=$xscale * $iw;
@@ -310,7 +310,7 @@ class PDF extends PDF_language
       //remark: without(!) the global factor $scale!
       //that's hard -> on the next page please...
       $yhflag=0;
-      if($yscale<0.33 and ($xsflag==1 or $ysflag==1))	{
+      if($yscale<0.33 and ($xsflag==1 or $ysflag==1))    {
         $nw=$xscale * $iw;
         $nh=$xscale * $ih;
         $ysflag==0;
@@ -347,7 +347,6 @@ class PDF extends PDF_language
     $this->Cell(0,10,$out,'T',0,'R',0,$pdf_config['mail']);
   }
 
-
   function _parsegif($file)
   {
     require_once 'gif.php'; //GIF class in pure PHP from Yamasoft (http://www.yamasoft.com/php-gif.zip)
@@ -357,6 +356,7 @@ class PDF extends PDF_language
     $gif=new CGIF();
     if(!$gif){
           $this->Error("GIF parser: unable to open file $file");
+
           return null;
       }
       if(empty($gif->m_img->m_data)) return null;
@@ -396,10 +396,10 @@ class PDF extends PDF_language
 
     if ($this->compress) {
       $data=gzcompress($data);
+
       return array( 'w'=>$w, 'h'=>$h, 'cs'=>$colspace, 'bpc'=>8, 'f'=>'FlateDecode', 'pal'=>$pal, 'trns'=>$trns, 'data'=>$data);
     } else {
       return array( 'w'=>$w, 'h'=>$h, 'cs'=>$colspace, 'bpc'=>8, 'pal'=>$pal, 'trns'=>$trns, 'data'=>$data);
     }
   }
 }
-?>

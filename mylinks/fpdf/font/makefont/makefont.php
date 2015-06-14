@@ -28,6 +28,7 @@ function ReadMap($enc)
     if(!isset($cc2gn[$i]))
       $cc2gn[$i]='.notdef';
   }
+
   return $cc2gn;
 }
 
@@ -129,6 +130,7 @@ function ReadAFM($file,&$map)
     }
   }
   $fm['Widths']=$widths;
+
   return $fm;
 }
 
@@ -180,6 +182,7 @@ function MakeFontDescriptor($fm,$symbolic)
   if(isset($fm['MissingWidth']))
     $fd.=",'MissingWidth'=>".$fm['MissingWidth'];
   $fd.=')';
+
   return $fd;
 }
 
@@ -205,6 +208,7 @@ function MakeWidthArray($fm)
       $s.="\n\t";
   }
   $s.=')';
+
   return $s;
 }
 
@@ -224,6 +228,7 @@ function MakeFontEncoding($map)
       $s.='/'.$map[$i].' ';
     }
   }
+
   return rtrim($s);
 }
 
@@ -239,12 +244,14 @@ function SaveToFile($file,$s,$mode='t')
 function ReadShort($f)
 {
   $a=unpack('n1n',fread($f,2));
+
   return $a['n'];
 }
 
 function ReadLong($f)
 {
   $a=unpack('N1N',fread($f,4));
+
   return $a['N'];
 }
 
@@ -272,6 +279,7 @@ function CheckTTF($file)
   if(!$found)
   {
     fclose($f);
+
     return;
   }
   fseek($f,4,SEEK_CUR);
@@ -413,4 +421,3 @@ function MakeFont($fontfile,$afmfile,$enc='cp1252',$patch=array(),$type='TrueTyp
   SaveToFile($basename.'.php',$s);
   echo 'Font definition file generated ('.$basename.'.php'.')<BR>';
 }
-?>

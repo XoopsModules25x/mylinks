@@ -54,5 +54,6 @@ function mylinks_search($queryarray, $andor, $limit, $offset, $userid)
         $ret[$i]['uid']   = $myrow['submitter'];
         $i++;
     }
+
     return $ret;
 }

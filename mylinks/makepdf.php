@@ -89,7 +89,6 @@ $puffer='<br /><br /><br />';
 //create the A4-PDF...
 $pdf_config['slogan']=$xoopsConfig['sitename'].' - '.$xoopsConfig['slogan'];
 
-
 $pdf=new PDF();
 if (method_exists($pdf, "encoding")) {
   $pdf->encoding($pdf_data, _CHARSET);

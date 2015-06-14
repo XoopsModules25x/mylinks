@@ -40,6 +40,7 @@ function newlinkgraphic($time, $status)
             $new = "&nbsp;<img src='" . mylinksGetIconURL('update.gif') . "' alt='" . _MD_MYLINKS_UPTHISWEEK . "' />";
         }
     }
+
     return $new;
 }
 
@@ -51,6 +52,7 @@ function popgraphic($hits)
     if (isset($hits) && ($hits >= $xoopsModuleConfig['popular'])) {
         $retVal = "&nbsp;<img src='" . mylinksGetIconURL('pop.gif') . "' alt='" . _MD_MYLINKS_POPULAR . "' />";
     }
+
     return $retVal;
 }
 
@@ -91,6 +93,7 @@ function convertorderbyin($orderby)
             $orderby = "date DESC";
             break;
     }
+
     return $orderby;
 }
 
@@ -125,6 +128,7 @@ function convertorderbytrans($orderby)
             $orderbyTrans = "" . _MD_MYLINKS_DATENEW . "";
             break;
     }
+
     return $orderbyTrans;
 }
 
@@ -159,6 +163,7 @@ function convertorderbyout($orderby)
             $orderby = "dateD";
             break;
     }
+
     return $orderby;
 }
 
@@ -228,6 +233,7 @@ function getTotalItems($sel_id=NULL, $status='', $oper='>')
     }
     $result = $GLOBALS['xoopsDB']->query($query);
     list($linkCount) = $GLOBALS['xoopsDB']->fetchRow($result);
+
     return $linkCount;
 }
 /*
@@ -339,6 +345,7 @@ function ml_wfd_letters()
         $counter++;
     }
     $letterchoice .= " ]";
+
     return $letterchoice;
 }
 
@@ -350,5 +357,6 @@ function ml_wfd_toolbar()
         $toolbar .= "<a href='submit.php' class='toolbar'>" . _MI_MYLINKS_SMNAME1 . "</a> | ";
     }
     $toolbar .= "<a href='topten.php?sort=2' class='toolbar'>" . _MI_MYLINKS_SMNAME2 . "</a> | <a href='topten.php?sort=1' class='toolbar'>" . _MI_MYLINKS_SMNAME3 . "</a> | <a href='topten.php?sort=3' class='toolbar'>" . _MI_MYLINKS_SMNAME4 . "</a> ]";
+
     return $toolbar;
 }

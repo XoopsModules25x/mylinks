@@ -81,5 +81,6 @@ function mylinks_notify_iteminfo($category, $item_id)
             $item['url']  = '';
             break;
     }
+
     return $item;
 }

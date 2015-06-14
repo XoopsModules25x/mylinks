@@ -60,6 +60,7 @@ class MylinksThumbalizr implements MylinksThumbPlugin
         $query = http_build_query($query_string);
         $query = empty($query) ? '' : '/?' . $query;
         $providerUrl = $this->provider_url . $query;
+
         return $providerUrl;
     }
     public function getProviderName()
@@ -99,6 +100,7 @@ class MylinksThumbalizr implements MylinksThumbPlugin
             return $this->attribution;
         } else {
             $myts =& MyTextSanitizer::getInstance();
+
             return $myts->htmlSpecialChars($this->attribution);
         }
     }

@@ -42,10 +42,10 @@ $modversion['image']       = "images/mylinks_slogo.png";
 $modversion['help']        = 'page=help';
 $modversion['license']     = 'GNU GPL 2.0';
 $modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html";
-$modversion["module_website_url"]	= "http://xoops.org";
-$modversion["module_website_name"]	= "XOOPS";
-$modversion["author_website_url"]	= "http://xoops.org";
-$modversion["author_website_name"]	= "XOOPS";
+$modversion["module_website_url"]    = "http://xoops.org";
+$modversion["module_website_name"]    = "XOOPS";
+$modversion["author_website_url"]    = "http://xoops.org";
+$modversion["author_website_name"]    = "XOOPS";
 
 //about
 $modversion['release_date']     = '2013/07/03';
@@ -112,7 +112,6 @@ $modversion['blocks'][3] = array(
                             'template'    => 'mylinks_block_rand.html'
                 );
 
-
 // Menu
 $modversion['hasMain'] = 1;
 $i = 1;
@@ -161,7 +160,6 @@ $modversion['comments']['callbackFile']        = 'include/comment_functions.php'
 $modversion['comments']['callback']['approve'] = 'mylinks_com_approve';
 $modversion['comments']['callback']['update']  = 'mylinks_com_update';
 
-
 // Templates
 $i = 1;
 $modversion['templates'][$i]['file']        = 'mylinks_brokenlink.html';
@@ -202,16 +200,16 @@ $modversion["templates"][$i]["file"] 		= "admin/" . $module_dirname . "_admin_he
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_ADMIN_HELP;
 */
 $i++;
-$modversion["templates"][$i]["file"] 		= 'mylinks_search_inc.html';
+$modversion["templates"][$i]["file"]        = 'mylinks_search_inc.html';
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_SEARCHINC;
 $i++;
-$modversion["templates"][$i]["file"] 		= 'mylinks_atom.html';
+$modversion["templates"][$i]["file"]        = 'mylinks_atom.html';
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_ATOM;
 $i++;
-$modversion["templates"][$i]["file"] 		= 'mylinks_pda.html';
+$modversion["templates"][$i]["file"]        = 'mylinks_pda.html';
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_PDA;
 $i++;
-$modversion["templates"][$i]["file"] 		= 'mylinks_rss.html';
+$modversion["templates"][$i]["file"]        = 'mylinks_rss.html';
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_RSS;
 
 // Config Settings (only for modules that need config settings generated automatically)
@@ -298,7 +296,6 @@ $modversion['config'][] = array(
                             'valuetype'   => 'int',
                             'default'     => 0
                           );
-
 
 $modversion['config'][] = array(
                             'name'        => 'shotwidth',
@@ -594,5 +591,4 @@ $modversion['notification']['event'][8]['mail_subject']  = _MI_MYLINKS_LINK_APPR
 if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
   include dirname( __FILE__ ) . "/include/onupdate.inc.php";
 }
-*/
-?>
+*/;

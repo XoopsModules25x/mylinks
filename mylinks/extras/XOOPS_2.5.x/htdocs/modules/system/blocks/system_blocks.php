@@ -74,6 +74,7 @@ function b_system_online_show()
         $block['online_members'] = $total - $guests;
         $block['online_guests'] = $guests;
         $block['lang_more'] = _MORE;
+
         return $block;
     } else {
         return false;
@@ -97,8 +98,10 @@ function b_system_login_show()
         } elseif ($xoopsConfig['usercookie']) {
             $block['lang_rememberme'] = _MB_SYSTEM_REMEMBERME;
         }
+
         return $block;
     }
+
     return false;
 }
 
@@ -137,6 +140,7 @@ function b_system_main_show()
             }
         }
     }
+
     return $block;
 }
 
@@ -145,6 +149,7 @@ function b_system_search_show()
     $block = array();
     $block['lang_search'] = _MB_SYSTEM_SEARCH;
     $block['lang_advsearch'] = _MB_SYSTEM_ADVS;
+
     return $block;
 }
 
@@ -171,6 +176,7 @@ function b_system_user_show()
     $block['new_messages'] = $pm_handler->getCount($criteria);
     $block['lang_inbox'] = _MB_SYSTEM_INBOX;
     $block['lang_adminmenu'] = _MB_SYSTEM_ADMENU;
+
     return $block;
 }
 
@@ -314,6 +320,7 @@ function b_system_info_show($options)
     }
     $block['logourl'] = XOOPS_URL.'/images/'.$options[2];
     $block['recommendlink'] = "<a href=\"javascript:openWithSelfMain('".XOOPS_URL."/misc.php?action=showpopups&amp;type=friend&amp;op=sendform&amp;t=".time()."','friend',".$options[0].",".$options[1].")\">"._MB_SYSTEM_RECO."</a>";
+
     return $block;
 }
 
@@ -338,6 +345,7 @@ function b_system_newmembers_show($options)
         $block['users'][$i]['name'] = $newmembers[$i]->getVar('uname');
         $block['users'][$i]['joindate'] = formatTimestamp($newmembers[$i]->getVar('user_regdate'), 's');
     }
+
     return $block;
 }
 
@@ -367,9 +375,9 @@ function b_system_topposters_show($options)
         $block['users'][$i]['name'] = $topposters[$i]->getVar('uname');
         $block['users'][$i]['posts'] = $topposters[$i]->getVar('posts');
     }
+
     return $block;
 }
-
 
 function b_system_comments_show($options)
 {
@@ -427,6 +435,7 @@ function b_system_comments_show($options)
         $block['comments'][] =& $com;
         unset($com);
     }
+
     return $block;
 }
 
@@ -472,6 +481,7 @@ function b_system_notification_show()
     $block['redirect_script'] = $script_name;
     $block['submit_button'] = _NOT_UPDATENOW;
     $block['notification_token'] = $GLOBALS['xoopsSecurity']->createToken();
+
     return $block;
 }
 
@@ -479,6 +489,7 @@ function b_system_comments_edit($options)
 {
     $inputtag = "<input type='text' name='options[]' value='".intval($options[0])."' />";
     $form = sprintf(_MB_SYSTEM_DISPLAYC, $inputtag);
+
     return $form;
 }
 
@@ -509,6 +520,7 @@ function b_system_topposters_edit($options)
         $form .= "<option value='$k'$sel>$v</option>";
     }
     $form .= "</select>";
+
     return $form;
 }
 
@@ -525,6 +537,7 @@ function b_system_newmembers_edit($options)
         $form .= " checked='checked'";
     }
     $form .= " />&nbsp;"._NO."";
+
     return $form;
 }
 
@@ -547,6 +560,7 @@ function b_system_info_edit($options)
         $chk = " checked=\"checked\"";
     }
     $form .= "&nbsp;<input type='radio' name='options[3]' value='0'".$chk." />"._NO."";
+
     return $form;
 }
 
@@ -569,6 +583,7 @@ function b_system_themes_show($options)
     }
 
     $block['theme_select'] .= '<br />('.sprintf(_MB_SYSTEM_NUMTHEME, '<strong>'.count($xoopsConfig['theme_set_allowed']).'</strong>').')<br />';
+
     return $block;
 }
 
@@ -588,7 +603,6 @@ function b_system_themes_edit($options)
     $form .= '&nbsp;<input type="radio" name="options[0]" value="0"'.$chk.' />'._NO;
     $form .= '<br />'._MB_SYSTEM_THWIDTH.'&nbsp;';
     $form .= "<input type='text' name='options[1]' value='".$options[1]."' />";
+
     return $form;
 }
-
-?>

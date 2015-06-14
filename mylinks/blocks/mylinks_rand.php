@@ -21,7 +21,6 @@
  * @since::      File available since Release 3.11
  */
 
-
 function b_mylinks_random_show()
 {
     global $xoopsDB, $xoopsConfig, $xoopsModule, $xoopsModuleConfig, $xoopsUser;
@@ -51,5 +50,6 @@ function b_mylinks_random_show()
         unset($catObj, $mylinksCatHandler);
         $block['content'] .= "<div style=\"text-align: right; font-size: x-small;\"><a href=\"" . XOOPS_URL . "/modules/{$mylinksDir}/index.php\">" . _MB_MYLINKS_SEEMORE . "</a></div>";
     }
+
     return $block;
 }

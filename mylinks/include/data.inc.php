@@ -43,12 +43,13 @@ function mylinks_new($limit=0, $offset=0)
 
         // atom feed
         $ret[$i]['id'] = $row['lid'];
-        $ret[$i]['description'] = $myts->displayTarea( $row['description'], 0);	//no html
+        $ret[$i]['description'] = $myts->displayTarea( $row['description'], 0);    //no html
         $ret[$i]['cat_name'] = $row['ctitle'];   // category
         $ret[$i]['hits'] = $row['hits'];         // counter
 //        $ret[$i]['uid'] = $row['submitter'];   // show user name
         $i++;
     }
+
     return $ret;
 }
 
@@ -62,6 +63,7 @@ function mylinks_num()
     if (empty($num)) {
         $num = 0;
     }
+
     return $num;
 }
 
@@ -87,5 +89,6 @@ function mylinks_data($limit=0, $offset=0)
         $ret[$i]['time']  = $row['date'];
         $i++;
     }
+
     return $ret;
 }

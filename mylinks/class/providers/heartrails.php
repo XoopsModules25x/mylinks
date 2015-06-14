@@ -52,6 +52,7 @@ class MylinksHeartrails implements MylinksThumbPlugin
     {
         $query = "/" . $this->image_width . "x" . $this->image_height . "/cool?" . $this->getSiteUrl();
         $providerUrl = $this->provider_url . $query;
+
         return $providerUrl;
     }
     public function getProviderName()
@@ -99,6 +100,7 @@ class MylinksHeartrails implements MylinksThumbPlugin
             return $this->attribution;
         } else {
             $myts =& MyTextSanitizer::getInstance();
+
             return $myts->htmlSpecialChars($this->attribution);
         }
     }

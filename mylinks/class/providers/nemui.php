@@ -53,6 +53,7 @@ class MylinksNemui implements MylinksThumbPlugin
         $sz = self::getShotSize();
         $image_size = $sz['width'] . "x" . $sz['height'];
         $providerUrl = $this->provider_url . "/shot/{$image_size}?" . $this->site_url;
+
         return $providerUrl;
     }
     public function getProviderName()
@@ -101,6 +102,7 @@ class MylinksNemui implements MylinksThumbPlugin
             return $this->attribution;
         } else {
             $myts =& MyTextSanitizer::getInstance();
+
             return $myts->htmlSpecialChars($this->attribution);
         }
     }

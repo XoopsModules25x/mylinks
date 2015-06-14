@@ -92,7 +92,6 @@ if ( empty($can_qrcode) ) {
 
 xoops_header(false);
 
-
 $myts =& MyTextSanitizer::getInstance();
 
 $sitetitle = $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle));
@@ -108,6 +107,7 @@ function bookmark_convert_encoding($str, $to = 'SJIS', $from = _CHARSET)
             foreach ($str as $key=>$val) {
                 $str[$key] = bookmark_convert_encoding($val, $to, $from);
             }
+
             return $str;
         } else {
             return mb_convert_encoding($str, $to, $from);
@@ -122,6 +122,7 @@ function bookmark_qrcode_encoding($data="")
     $data = bookmark_convert_encoding($data);
     $data = rawurlencode($data);
     $data = str_replace("%20", "+", $data);
+
     return $data;
 }
 
@@ -153,9 +154,9 @@ function zeroFill($a, $b)
     } else {
         $a = ($a>>$b);
     }
+
     return $a;
 }
-
 
 function mix($a, $b, $c)
 {
@@ -207,6 +208,7 @@ function GoogleCH($url, $length=null, $init=GOOGLE_MAGIC)
         case 1 : $a+=($url[$k+0]);
     }
     $mix = mix($a, $b, $c);
+
     return $mix[2];
 }
 
@@ -215,6 +217,7 @@ function strord($string)
     for ($i=0; $i<strlen($string); $i++) {
         $result[$i] = ord($string{$i});
     }
+
     return $result;
 }
 
@@ -243,6 +246,7 @@ function getrank($url)
         }
         fclose($fp);
     }
+
     return $pagerank;
 }
 //

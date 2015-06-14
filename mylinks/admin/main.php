@@ -54,7 +54,6 @@ $mylinksCatHandler =& xoops_getmodulehandler('category', $xoopsModule->getVar('d
 $catObjs = $mylinksCatHandler->getAll();
 $myCatTree = new XoopsObjectTree($catObjs, 'cid', 'pid');
 
-
 function listNewLinks()
 {
     global $xoopsDB, $myts, $myCatTree, $xoopsModule;
@@ -135,10 +134,9 @@ function linksConfigMenu()
     $catCount = $mylinksCatHandler->getCount();
     $linkimg_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/images/shots/");
 
-    xoops_cp_header() 	;
+    xoops_cp_header()    ;
     $indexAdmin = new ModuleAdmin();
     echo $indexAdmin->addNavigation('main.php?op=linksConfigMenu');
-
 
 //    echo "<h4>" . _MD_MYLINKS_WEBLINKSCONF . "</h4>\n";
 
