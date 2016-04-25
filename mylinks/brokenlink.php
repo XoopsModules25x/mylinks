@@ -64,6 +64,7 @@ if (!empty($_POST['submit'])) {
     include XOOPS_ROOT_PATH . '/header.php';
     //wanikoo
     $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
+    $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
     $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
     //
     $xoopsTpl->assign('lang_reportbroken', _MD_MYLINKS_REPORTBROKEN);

@@ -94,7 +94,7 @@ if (!empty($_POST['submit'])) {
     if ( 1 == $xoopsModuleConfig['autoapprove'] ) {
         $notification_handler->triggerEvent('global', 0, 'new_link', $tags);
         $notification_handler->triggerEvent('category', $cid, 'new_link', $tags);
-        redirect_header('index.php', 2, _MD_MYLINKS_RECEIVED . "<br />" . _MD_MYLINKS_ISAPPROVED . "");
+        redirect_header('index.php', 2, _MD_MYLINKS_RECEIVED . "<br>" . _MD_MYLINKS_ISAPPROVED . "");
     } else {
         $tags['WAITINGLINKS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listNewLinks';
         $notification_handler->triggerEvent('global', 0, 'link_submit', $tags);
@@ -117,6 +117,7 @@ if (!empty($_POST['submit'])) {
     include XOOPS_ROOT_PATH . '/header.php';
     //wanikoo
     $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
+    $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
     $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
     //
     ob_start();

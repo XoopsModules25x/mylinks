@@ -43,6 +43,7 @@ include XOOPS_ROOT_PATH . '/header.php';
 
 //wanikoo
 $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
+$xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
 $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
 //
 $xoopsTpl->assign('show_nav', false);  //set to not show nav bar
@@ -80,7 +81,7 @@ if (!isset($_GET['list'])) {
       $engineblocktitle .= sprintf(_MD_MYLINKS_EXTERNALSEARCH_KEYWORD, _MD_MYLINKS_CATEGORY, $thisCatTitle);
       $location_list=moremeta("meta_page","on");
       $metaresult = more_meta_page($location_list, $target="_blank", $display = false, $engineblocktitle);
-      $xoopsTpl->assign('moremetasearch', "<br /><br />".$metaresult);
+      $xoopsTpl->assign('moremetasearch', "<br><br>".$metaresult);
     } else {
       $xoopsTpl->assign('moremetasearch', '');
     }
@@ -101,7 +102,7 @@ if (!isset($_GET['list'])) {
     }
 
     $path = "{$homePath}{$path}{$itemPath}";
-    $path = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt='' /> ", $path);
+    $path = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $path);
 
     $xoopsTpl->assign('category_path', $path);
     $xoopsTpl->assign('category_id', $cid);
@@ -216,7 +217,7 @@ if ( $numrows > 0 ) {
     while (list($lid, $cid, $ltitle, $url, $logourl, $status, $time, $hits, $rating, $votes, $comments, $description) = $xoopsDB->fetchRow($result)) {
         if (!empty($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
             $isadmin = true;
-            $adminlink = "<a href='" . XOOPSMYLINKURL . "/admin/main.php?op=modLink&amp;lid={$lid}'><img src='" . mylinksGetIconURL('edit.png') . "' style='border-width: 0px;' alt='" . _MD_MYLINKS_EDITTHISLINK . "' /></a>";
+            $adminlink = "<a href='" . XOOPSMYLINKURL . "/admin/main.php?op=modLink&amp;lid={$lid}'><img src='" . mylinksGetIconURL('edit.png') . "' style='border-width: 0px;' alt='" . _MD_MYLINKS_EDITTHISLINK . "'></a>";
         } else {
             $isadmin = false;
             $adminlink = '';
@@ -234,7 +235,7 @@ if ( $numrows > 0 ) {
         }
 
         $path = "{$homePath}{$path}{$itemPath}";
-        $path = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt='' /> ", $path);
+        $path = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $path);
         $new = newlinkgraphic($time, $status);
         $pop = popgraphic($hits);
         //by wanikoo
@@ -350,7 +351,7 @@ $xoopsTpl->assign('xoops_pagetitle', $xoopsModule->getVar('name').' - '.$thisPag
 $catjumpbox = "<form name='catjumpbox' method='get' action='viewcat.php'>\n"
        ."  <strong>"._MD_MYLINKS_CATEGORYC."</strong>&nbsp;\n"
        ."  " . $myCatTree->makeSelBox('cid', 'title', ' - ', $cid) . "\n"
-       ."  &nbsp;<input type='submit' value='" . _SUBMIT . "' />\n</form>\n";
+       ."  &nbsp;<input type='submit' value='" . _SUBMIT . "'>\n</form>\n";
 $xoopsTpl->assign('mylinksjumpbox', $catjumpbox);
 
 include_once XOOPSMYLINKPATH . '/footer.php';

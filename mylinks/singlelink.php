@@ -42,6 +42,7 @@ include XOOPS_ROOT_PATH . '/header.php';
 
 //wanikoo
 $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
+$xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
 $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
 //
 
@@ -63,15 +64,15 @@ while ( $myParent != 0 ) {
 }
 
 $nicePathFromId = "{$homePath}{$nicePathFromId}{$niceItemPath}";
-$nicePathFromId = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt='' /> ", $nicePathFromId);
+$nicePathFromId = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $nicePathFromId);
 $pathFromId     = _MD_MYLINKS_MAIN . "/{$pathFromId}{$itemPath}";
-$pathFromId     = str_replace("/", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt='' /> ", $pathFromId);
+$pathFromId     = str_replace("/", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $pathFromId);
 $xoopsTpl->assign('category_path', $nicePathFromId);
 
 $xoopsTpl->assign('anontellafriend', $GLOBALS['xoopsModuleConfig']['anontellafriend']);
 
 if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
-    $adminlink = "<a href='" . XOOPSMYLINKURL . "/admin/main.php?op=modLink&amp;lid={$lid}'><img src='" . mylinksGetIconURL("edit.png") . "' style='border-width: 0px;' alt='" . _MD_MYLINKS_EDITTHISLINK . "' title='" . _MD_MYLINKS_EDITTHISLINK . "' /></a>";
+    $adminlink = "<a href='" . XOOPSMYLINKURL . "/admin/main.php?op=modLink&amp;lid={$lid}'><img src='" . mylinksGetIconURL("edit.png") . "' style='border-width: 0px;' alt='" . _MD_MYLINKS_EDITTHISLINK . "' title='" . _MD_MYLINKS_EDITTHISLINK . "'></a>";
 } else {
     $adminlink = '';
 }
@@ -164,7 +165,7 @@ if (file_exists(XOOPS_ROOT_PATH."/include/moremetasearch.php")&&$mylinks_show_ex
   $engineblocktitle .= sprintf(_MD_MYLINKS_EXTERNALSEARCH_KEYWORD, _MD_MYLINKS_TITLE, $thisltitle);
   $location_list=moremeta("meta_page","on");
   $metaresult = more_meta_page($location_list, $target="_blank", $display = false, $engineblocktitle);
-  $xoopsTpl->assign('moremetasearch', "<br /><br />".$metaresult);
+  $xoopsTpl->assign('moremetasearch', "<br><br>".$metaresult);
 } else {
   $xoopsTpl->assign('moremetasearch', '');
 }
@@ -215,7 +216,7 @@ $xoopsTpl->assign('xoops_pagetitle', $xoopsModule->getVar('name') . ' - ' . $myt
 $catjumpbox = "<form name='catjumpbox' method='get' action='viewcat.php'>\n"
              ."  <strong>" . _MD_MYLINKS_CATEGORYC . "</strong>&nbsp;\n"
              ."  " . $myCatTree->makeSelBox("title", "title", $cid) . "&nbsp;\n"
-             ."  <input type='submit' value='" . _SUBMIT . "' />\n"
+             ."  <input type='submit' value='" . _SUBMIT . "'>\n"
              ."</form>\n";
 $xoopsTpl->assign('mylinksjumpbox', $catjumpbox);
 

@@ -55,7 +55,7 @@ $form->addElement(new XoopsFormText(_AM_MYLINKS_TITLE, 'btitle', 50, 255, $block
 if ( $block['is_custom'] ) {
 
     // Custom Block's textarea
-    $notice_for_tags = '<span style="font-size:x-small;font-weight:bold;">'._AM_USEFULTAGS.'</span><br /><span style="font-size:x-small;font-weight:normal;">'.sprintf(_AM_BLOCKTAG1, '{X_SITEURL}', XOOPS_URL.'/').'</span>';
+    $notice_for_tags = '<span style="font-size:x-small;font-weight:bold;">'._AM_USEFULTAGS.'</span><br><span style="font-size:x-small;font-weight:normal;">'.sprintf(_AM_BLOCKTAG1, '{X_SITEURL}', XOOPS_URL.'/').'</span>';
     $current_op = @$_GET['op'] == 'clone' ? 'clone' : 'edit';
     $uri_to_myself = XOOPS_URL . "/modules/blocksadmin/admin/admin.php?fct=blocksadmin&amp;op=$current_op&amp;bid={$block['bid']}";
 
@@ -69,13 +69,13 @@ if ( $block['is_custom'] ) {
         $sw = new SPAW_Wysiwyg('bcontent', $block['content']);
         $sw->show();
         $textarea = new XoopsFormLabel(_AM_CONTENT, ob_get_contents());
-        $textarea->setDescription($notice_for_tags . "<br /><br /><a href='$uri_to_myself&amp;usespaw=0'>NORMAL</a>");
+        $textarea->setDescription($notice_for_tags . "<br><br><a href='$uri_to_myself&amp;usespaw=0'>NORMAL</a>");
         ob_end_clean();
     } else {
         $myts =& MyTextSanitizer::getInstance();
         $textarea = new XoopsFormDhtmlTextArea(_AM_CONTENT, 'bcontent', $myts->htmlSpecialChars( $block['content'] ), 15, 70);
         if ($can_use_spaw) {
-            $textarea->setDescription($notice_for_tags . "<br /><br /><a href='$uri_to_myself&amp;usespaw=1'>SPAW</a>");
+            $textarea->setDescription($notice_for_tags . "<br><br><a href='$uri_to_myself&amp;usespaw=1'>SPAW</a>");
         } else {
             $textarea->setDescription($notice_for_tags);
         }

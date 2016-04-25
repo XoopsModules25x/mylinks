@@ -233,7 +233,7 @@ define("_MD_MYLINKS_QRCODE","QrCode");
 define("_MD_MYLINKS_THEMECHANGER","Theme Changer: ");
 define("_MD_MYLINKS_INTERNALSEARCH","Internal Search");
 define("_MD_MYLINKS_EXTERNALSEARCH","* More Search with External Search Engines *");
-define("_MD_MYLINKS_EXTERNALSEARCH_KEYWORD","<br />Keyword => %s (<font color='red'><b>%s</b></font>)");
+define("_MD_MYLINKS_EXTERNALSEARCH_KEYWORD","<br>Keyword => %s (<font color='red'><b>%s</b></font>)");
 define("_MD_MYLINKS_BOOKMARK_SERVICE","Social Bookmark Service");
 define("_MD_MYLINKS_FEEDSUBSCRIPT_SERVICE","Feed Subscription Service");
 define("_MD_MYLINKS_BOOKMARK_ADDTO","Add this website To...");

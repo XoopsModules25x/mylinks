@@ -3,15 +3,15 @@
 <{elseif $mylinksadcodes.submit}>
 <{$mylinksadcodes.submit}>
 <{/if}>
-<br /><br />
+<br><br>
 <{if $mylinksshowlogo}>
-<div style='text-align: center;'><{$mylinkslogoimage}></div><br />
+<div style='text-align: center;'><{$mylinkslogoimage}></div><br>
 <{/if}>
 <{if $mylinksshowsearch}>
 <{include file='db:mylinks_search_inc.html'}>
 <{/if}>
 <{if $catarray.toolbar}>
-<div class='toolbar'><{$catarray.toolbar}></div><br />
+<div class='toolbar'><{$catarray.toolbar}></div><br>
 <{/if}>
 <{if $mylinksshowthemechanger}>
 <table style='margin: 0px; width: 100%;'>
@@ -46,7 +46,7 @@
               <div style='text-align: left; font-weight: bold;'><{$lang_sitetitle}></div>
             </td>
             <td class='even'>
-              <input type='text' name='title' size='50' maxlength='100' />
+              <input type='text' name='title' size='50' maxlength='100'>
             </td>
           </tr>
           <tr>
@@ -54,7 +54,7 @@
               <div style='text-align: left; font-weight: bold;'><{$lang_siteurl}></div>
             </td>
             <td class='odd'>
-              <input type='text' name='url' size='50' maxlength='255' value='http://' />
+              <input type='text' name='url' size='50' maxlength='255' value='http://'>
             </td>
           </tr>
           <tr>
@@ -84,8 +84,8 @@
               </td>
           </tr>
         </table>
-      <br />
-      <div style='text-align: center;'><input type='submit' name='submit' class='button' value='<{$lang_submit}>' />&nbsp;<input type='button' value='<{$lang_cancel}>' onclick='javascript:history.go(-1)' /></div>
+      <br>
+      <div style='text-align: center;'><input type='submit' name='submit' class='button' value='<{$lang_submit}>'>&nbsp;<input type='button' value='<{$lang_cancel}>' onclick='javascript:history.go(-1)'></div>
     </form>
   </td>
 </tr>

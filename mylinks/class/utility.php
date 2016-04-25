@@ -7,8 +7,8 @@
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
  * @subpackage:: class
- * @author::     zyspec (owners@zyspec.com)
- * @version::    $Id: utility.php 11819 2013-07-09 18:21:40Z zyspec $
+ * @author::     zyspec <owners@zyspec.com>
+ * @version::    $Id: $
  * @since::     File available since Release 3.11
  */
 
@@ -18,7 +18,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  * MylinksUtility
  *
  * @package::   mylinks
- * @author::    zyspec (owners@zyspec.com), Herve Thouzard
+ * @author::    zyspec <owners@zyspec.com>, Herve Thouzard
  * @copyright:: Copyright (c) 2010 ZySpec Incorporated, Herve Thouzard
  * @version::   $Id: utility.php 11819 2013-07-09 18:21:40Z zyspec $
  * @access::    public
@@ -84,13 +84,13 @@ class mylinksUtility
                 break;
         }
         include_once XOOPS_ROOT_PATH . '/header.php';
-        echo "<div{$div_class}><strong>{$xoopsConfig['sitename']} Error</strong><br /><br />\n"
-           . "Error Code: {$e_code}<br /><br /><br />\n"
-           . "<strong>ERROR:</strong> {$msg}<br />\n";
+        echo "<div{$div_class}><strong>{$xoopsConfig['sitename']} Error</strong><br><br>\n"
+           . "Error Code: {$e_code}<br><br><br>\n"
+           . "<strong>ERROR:</strong> {$msg}<br>\n";
            $pages = intval($pages);
            if (0 != $pages) {
                $pages = '-' . abs($pages);
-               echo "<br /><br />\n"
+               echo "<br><br>\n"
                   . "[ <a href=\'javascript:history.go(-{$pages})\'>" . _BACK . "</a> ]</div>";
            }
         include_once XOOPS_ROOT_PATH . '/footer.php';

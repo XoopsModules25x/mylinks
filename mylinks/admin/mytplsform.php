@@ -127,17 +127,17 @@ if ($tpl['tpl_tplset'] != 'default') {
 }
 
 echo "<form name='diff_form' id='diff_form' action='' method='get'>\n"
-    ."  <input type='checkbox' name='display_diff2file' value='1' onClick=\"if(this.checked){document.getElementById('diff2file').style.display='block'}else{document.getElementById('diff2file').style.display='none'};\" id='display_diff2file' checked='checked' />&nbsp;<label for='display_diff2file'>diff from file</label>\n"
+    ."  <input type='checkbox' name='display_diff2file' value='1' onClick=\"if(this.checked){document.getElementById('diff2file').style.display='block'}else{document.getElementById('diff2file').style.display='none'};\" id='display_diff2file' checked='checked'>&nbsp;<label for='display_diff2file'>diff from file</label>\n"
     ."  <pre id='diff2file' style='display:block;border:1px solid black;'>{$diff_from_file4disp}</pre>\n"
-    ."  <input type='checkbox' name='display_diff2default' value='1' onClick=\"if(this.checked){document.getElementById('diff2default').style.display='block'}else{document.getElementById('diff2default').style.display='none'};\" id='display_diff2default' />&nbsp;<label for='display_diff2default'>diff from default</label>\n"
+    ."  <input type='checkbox' name='display_diff2default' value='1' onClick=\"if(this.checked){document.getElementById('diff2default').style.display='block'}else{document.getElementById('diff2default').style.display='none'};\" id='display_diff2default'>&nbsp;<label for='display_diff2default'>diff from default</label>\n"
     ."  <pre id='diff2default' style='display:none;border:1px solid black;'>{$diff_from_default4disp}</pre>\n"
     ."</form>\n"
     ."<form name='MainForm' action='?tpl_file=" . htmlspecialchars($tpl['tpl_file'], ENT_QUOTES) . "&amp;tpl_tplset=" . htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES) . "' method='post'>\n"
     ."  " . $xoopsGTicket->getTicketHtml(__LINE__) . "\n"
     ."  <textarea name='tpl_source' wrap='off' style='width: 600px; height: 400px;'>" . htmlspecialchars($tpl['tpl_source'], ENT_QUOTES) . "</textarea>\n"
-    ."  <br />\n"
-    ."  <input type='submit' name='do_modify' value='" . _SUBMIT . "' />\n"
-    ."  <input type='reset' name='reset' value='" . _RESET . "' />\n"
+    ."  <br>\n"
+    ."  <input type='submit' name='do_modify' value='" . _SUBMIT . "'>\n"
+    ."  <input type='reset' name='reset' value='" . _RESET . "'>\n"
     ."</form>\n";
 
 xoops_cp_footer();

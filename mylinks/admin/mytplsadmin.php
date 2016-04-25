@@ -6,7 +6,7 @@
 // ------------------------------------------------------------------------- //
 
 include_once '../../../include/cp_header.php';
-include 'admin_header.php';
+include __DIR__ . '/admin_header.php';
 //include_once XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar("dirname") . "/class/admin.php";
 include_once '../include/gtickets.php';
 include_once XOOPS_ROOT_PATH . '/class/template.php';
@@ -174,7 +174,7 @@ if (is_array(@$_POST['del_do'])) {
                     $tpl_id = intval($tpl_id);
                     $db->query("DELETE FROM " . $db->prefix("tplfile")   . " WHERE tpl_id=$tpl_id");
                     $db->query("DELETE FROM " . $db->prefix("tplsource") . " WHERE tpl_id=$tpl_id");
-        //			xoops_template_touch( $tpl_id ); // TODO
+        //            xoops_template_touch( $tpl_id ); // TODO
                 }
             }
             redirect_header('mytplsadmin.php?dirname='.$target_dirname, 1, _MD_MYLINKS_DBUPDATED);
@@ -197,7 +197,7 @@ while (list($tplset) = $db->fetchRow($srs)) {
     $tplset4disp = htmlspecialchars($tplset, ENT_QUOTES);
     $tplsets[] = $tplset;
     $th_style = $tplset == $xoopsConfig['template_set'] ? "style='color: yellow;'" : "";
-    $tplsets_th4disp .= "<th $th_style><input type='checkbox' onclick=\"with(document.MainForm){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].name.indexOf('{$tplset4disp}_check')>=0){elements[i].checked=this.checked;}}}\" />DB-{$tplset4disp}</th>";
+    $tplsets_th4disp .= "<th $th_style><input type='checkbox' onclick=\"with(document.MainForm){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].name.indexOf('{$tplset4disp}_check')>=0){elements[i].checked=this.checked;}}}\">DB-{$tplset4disp}</th>";
     $tplset_options .= "<option value='{$tplset4disp}'>{$tplset4disp}</option>\n";
 }
 
@@ -223,7 +223,7 @@ echo "<form name='MainForm' action='?dirname=" . htmlspecialchars($target_dirnam
     ."    <tr>\n"
     ."      <th>" . _AM_MYLINKS_FILENAME . "</th>\n"
     ."      <th>type</th>\n"
-    ."      <th><input type='checkbox' onclick=\"with(document.MainForm){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].name.indexOf('basecheck')>=0){elements[i].checked=this.checked;}}}\" />file</th>\n"
+    ."      <th><input type='checkbox' onclick=\"with(document.MainForm){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].name.indexOf('basecheck')>=0){elements[i].checked=this.checked;}}}\">file</th>\n"
     ."        {$tplsets_th4disp}\n"
     ."    </tr>\n";
 
@@ -244,17 +244,17 @@ while (list($tpl_file, $tpl_desc, $type, $count) = $db->fetchRow($frs)) {
         ."          <dd>" . htmlspecialchars($tpl_desc, ENT_QUOTES) . "</dd>\n"
         ."        </dl>\n"
         ."      </td>\n"
-        ."      <td class='{$evenodd}'>{$type}<br />({$count})</td>\n";
+        ."      <td class='{$evenodd}'>{$type}<br>({$count})</td>\n";
 
     // the base file template column
     $basefilepath = XOOPS_ROOT_PATH . "/modules/{$target_dirname}/templates/" . ($type=='block'?'blocks/':'') . $tpl_file;
     if (file_exists($basefilepath)) {
         $fingerprint = get_fingerprint( file( $basefilepath ) );
         $fingerprints[ $fingerprint ] = 1;
-        echo "      <td class='{$evenodd}'>" . formatTimestamp(filemtime($basefilepath), 'm') . "<br />" . substr($fingerprint, 0, 16) . ""
-            ."<br /><input type='checkbox' name='basecheck[$tpl_file]' value='1' /></td>\n";
+        echo "      <td class='{$evenodd}'>" . formatTimestamp(filemtime($basefilepath), 'm') . "<br>" . substr($fingerprint, 0, 16) . ""
+            ."<br><input type='checkbox' name='basecheck[$tpl_file]' value='1'></td>\n";
     } else {
-        echo "      <td class='{$evenodd}'><br /></td>";
+        echo "      <td class='{$evenodd}'><br></td>";
     }
 
     // db template columns
@@ -276,7 +276,7 @@ while (list($tpl_file, $tpl_desc, $type, $count) = $db->fetchRow($frs)) {
                 $style = $fingerprint_styles[$fingerprint_style_count];
                 $fingerprints[ $fingerprint ] = $style;
             }
-            echo "      <td class='$evenodd' style='$style'>".formatTimestamp($tpl['tpl_lastmodified'],'m').'<br />'.substr($fingerprint, 0, 16)."<br /><input type='checkbox' name='{$tplset4disp}_check[{$tpl_file}]' value='1' /> &nbsp; <a href='mytplsform.php?tpl_file=".htmlspecialchars($tpl['tpl_file'], ENT_QUOTES)."&amp;tpl_tplset=".htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES)."'>"._EDIT."</a> ($numrows)</td>\n";
+            echo "      <td class='$evenodd' style='$style'>".formatTimestamp($tpl['tpl_lastmodified'],'m').'<br>'.substr($fingerprint, 0, 16)."<br><input type='checkbox' name='{$tplset4disp}_check[{$tpl_file}]' value='1'> &nbsp; <a href='mytplsform.php?tpl_file=".htmlspecialchars($tpl['tpl_file'], ENT_QUOTES)."&amp;tpl_tplset=".htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES)."'>"._EDIT."</a> ($numrows)</td>\n";
         }
     }
 
@@ -286,20 +286,20 @@ while (list($tpl_file, $tpl_desc, $type, $count) = $db->fetchRow($frs)) {
 // command submit ROW
 echo "    <tr>\n"
     ."      <td class='head'>\n"
-    ."         " . _CLONE . ": <br />\n"
-    ."         <select name='clone_tplset_from'>{$tplset_options}</select>-&gt;<input type='text' name='clone_tplset_to' size='8' /><input type='submit' name='clone_tplset_do' value='" . _AM_MYLINKS_GENERATE . "' />\n"
-    ."		</td>\n"
+    ."         " . _CLONE . ": <br>\n"
+    ."         <select name='clone_tplset_from'>{$tplset_options}</select>-&gt;<input type='text' name='clone_tplset_to' size='8'><input type='submit' name='clone_tplset_do' value='" . _AM_MYLINKS_GENERATE . "'>\n"
+    ."        </td>\n"
     ."      <td class='head'></td>\n"
     ."      <td class='head'>\n"
-    ."        <input name='copyf2db_do' type='submit' value='copy to-&gt;' /><br />\n"
+    ."        <input name='copyf2db_do' type='submit' value='copy to-&gt;'><br>\n"
     ."        <select name='copyf2db_to'>{$tplset_options}</select>\n"
     ."      </td>\n";
 
   foreach ($tplsets as $tplset) {
     $tplset4disp = htmlspecialchars($tplset, ENT_QUOTES);
     echo "      <td class='head'>\n"
-      ."        " . ($tplset=='default' ? "" : "<input name='del_do[{$tplset4disp}]' type='submit' value='" . _DELETE . "' onclick='return confirm(\"" . _DELETE . " OK?\");' /><br />") ."\n"
-    ."        <input name='copy_do[{$tplset4disp}]' type='submit' value='copy to-&gt;' /><br />\n"
+      ."        " . ($tplset=='default' ? "" : "<input name='del_do[{$tplset4disp}]' type='submit' value='" . _DELETE . "' onclick='return confirm(\"" . _DELETE . " OK?\");'><br>") ."\n"
+    ."        <input name='copy_do[{$tplset4disp}]' type='submit' value='copy to-&gt;'><br>\n"
     ."        <select name='copy_to[{$tplset4disp}]'>$tplset_options</select>\n"
     ."      </td>\n";
   }
@@ -308,7 +308,7 @@ echo "    </tr>\n"
   ."  </table>\n"
   ."</form>\n";
 // end of table & form
-include 'admin_footer.php';
+include __DIR__ . '/admin_footer.php';
 
 function get_fingerprint( $lines )
 {

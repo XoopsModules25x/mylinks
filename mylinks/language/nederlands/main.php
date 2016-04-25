@@ -111,10 +111,10 @@ define("_MD_MYLINKS_NOMATCH","Geen overeenkomsten gevonden");
 //define("_MD_MYLINKS_CANCEL","Annuleren");
 
 define("_MD_MYLINKS_ALREADYREPORTED","Je hebt al een rapport verstuurd over deze gebroken link.");
-define("_MD_MYLINKS_MUSTREGFIRST","Sorry, je hebt geen permissie om deze aktie uit te voeren.<br />Eerst registreren en/of aanmelden!");
+define("_MD_MYLINKS_MUSTREGFIRST","Sorry, je hebt geen permissie om deze aktie uit te voeren.<br>Eerst registreren en/of aanmelden!");
 define("_MD_MYLINKS_NORATING","Geen keuze gemaakt.");
-define("_MD_MYLINKS_CANTVOTEOWN","Je kan geen link beoordelen die je zelf hebt ingezonden.<br />Alle beoordelingen worden opgeslaan en bekeken.");
-define("_MD_MYLINKS_VOTEONCE2","De gekozen link maar eenmalig beoordelen.<br />Alle beoordelingen worden opgeslaan en bekeken.");
+define("_MD_MYLINKS_CANTVOTEOWN","Je kan geen link beoordelen die je zelf hebt ingezonden.<br>Alle beoordelingen worden opgeslaan en bekeken.");
+define("_MD_MYLINKS_VOTEONCE2","De gekozen link maar eenmalig beoordelen.<br>Alle beoordelingen worden opgeslaan en bekeken.");
 
 //%%%%%%	Module Name 'MyLinks' (Admin)	 %%%%%
 
@@ -213,7 +213,7 @@ define("_MD_MYLINKS_FEEDSUBSCRIPT_DESC","Klik hier om op deze feed te abonneren!
 define("_MD_MYLINKS_THEMECHANGER","Thema Wisselaar: ");
 define("_MD_MYLINKS_INTERNALSEARCH","Intern Zoeken");
 define("_MD_MYLINKS_EXTERNALSEARCH","* Meer zoeken met Externe Zoek Machines *");
-define("_MD_MYLINKS_EXTERNALSEARCH_KEYWORD","<br />Sleutelwoord => %s (<span style='color: red;'><strong>%s</strong></span>)");
+define("_MD_MYLINKS_EXTERNALSEARCH_KEYWORD","<br>Sleutelwoord => %s (<span style='color: red;'><strong>%s</strong></span>)");
 define("_MD_MYLINKS_BOOKMARK_SERVICE","Social Bookmark Service");
 define("_MD_MYLINKS_FEEDSUBSCRIPT_SERVICE","Feed abonnement Service");
 define("_MD_MYLINKS_BOOKMARK_ADDTO","Deze website toevoegen aan...");

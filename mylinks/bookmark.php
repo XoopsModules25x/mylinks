@@ -127,17 +127,17 @@ function bookmark_qrcode_encoding($data="")
 }
 
 $qrcodedata_url = bookmark_qrcode_encoding($siteurl);
-$siteqrcode = "<img alt='".$siteurl."' title='".$siteurl."'src='".XOOPS_URL."/modules/qrcode/qrcode_image.php?d=$qrcodedata_url&amp;e=M&amp;s=4&amp;v=0&amp;t=P&amp;rgb=000000' />\n";
+$siteqrcode = "<img alt='".$siteurl."' title='".$siteurl."'src='".XOOPS_URL."/modules/qrcode/qrcode_image.php?d=$qrcodedata_url&amp;e=M&amp;s=4&amp;v=0&amp;t=P&amp;rgb=000000'>\n";
 
 /*
 $qrcodedata_docomo_bookmark = bookmark_qrcode_encoding("MEBKM:TITLE:".$sitetitle.";URL:".$siteurl.";;");
-$bookmarkqrcode_docomo = "<img alt='docomo' title='docomo'src='".XOOPS_URL."/modules/qrcode/qrcode_image.php?d=$qrcodedata_docomo_bookmark&amp;e=M&amp;s=4&amp;v=0&amp;t=P&amp;rgb=000000' />\n";
+$bookmarkqrcode_docomo = "<img alt='docomo' title='docomo'src='".XOOPS_URL."/modules/qrcode/qrcode_image.php?d=$qrcodedata_docomo_bookmark&amp;e=M&amp;s=4&amp;v=0&amp;t=P&amp;rgb=000000'>\n";
 
 $qrcodedata_softbank_bookmark = bookmark_qrcode_encoding("TITLE:".$sitetitle."\r\nURL:".$siteurl."\r\n");
-$bookmarkqrcode_softbank = "<img alt='softbank and au' title='softbank and au'src='".XOOPS_URL."/modules/qrcode/qrcode_image.php?d=$qrcodedata_softbank_bookmark&amp;e=M&amp;s=4&amp;v=0&amp;t=P&amp;rgb=000000' />\n";
+$bookmarkqrcode_softbank = "<img alt='softbank and au' title='softbank and au'src='".XOOPS_URL."/modules/qrcode/qrcode_image.php?d=$qrcodedata_softbank_bookmark&amp;e=M&amp;s=4&amp;v=0&amp;t=P&amp;rgb=000000'>\n";
 
 $qrcodedata_bookmark = bookmark_qrcode_encoding("TITLE:\r\n".$sitetitle."\r\nURL:\r\n".$siteurl."\r\n");
-$bookmarkqrcode = "<img alt='title and url' title='title and url'src='".XOOPS_URL."/modules/qrcode/qrcode_image.php?d=$qrcodedata_bookmark&amp;e=M&amp;s=4&amp;v=0&amp;t=P&amp;rgb=000000' />\n";
+$bookmarkqrcode = "<img alt='title and url' title='title and url'src='".XOOPS_URL."/modules/qrcode/qrcode_image.php?d=$qrcodedata_bookmark&amp;e=M&amp;s=4&amp;v=0&amp;t=P&amp;rgb=000000'>\n";
 */
 
 //google pagerank
@@ -229,7 +229,7 @@ function getrank($url)
     $fp = fsockopen("www.google.com", 80, $errno, $errstr, 30);
     if (!$fp) {
         $pagerank = "-1";
-        //echo "$errstr ($errno)<br />\n";
+        //echo "$errstr ($errno)<br>\n";
     } else {
         $out = "GET /search?client=navclient-auto&ch=". $ch .  "&features=Rank&q=info:" . $url . " HTTP/1.1\r\n";
         $out .= "Host: www.google.com\r\n";
@@ -287,92 +287,92 @@ var addtoMethod=0;
   <table style="width: 95%; margin: auto;" class="outer">
     <tr><td colspan="2" style="text-align: center;"><h3>'._MD_MYLINKS_BOOKMARK_SERVICE.'</h3></td></tr>
     <tr><td class="head" style="text-align: center; font-weight: bold;">' . _MD_MYLINKS_SITETITLE . '</td><td class="even" style="text-align: center;">'.$sitetitle.'</td></tr>
-    <tr><td class="head" style="text-align: center; font-weight: bold;">' . _MD_MYLINKS_SITEURL . '</td><td class="even" style="text-align: center;"><a href="'.$siteurl.'" target="_blank">'.$siteurl.'</a><br />(&nbsp;<strong>Google PageRank :</strong>&nbsp;<img src="'.XOOPSMYLINKIMGURL.'/addto/pr'.getrank($siteurl).'.gif" alt="pagerank" />&nbsp;)</td></tr>';
+    <tr><td class="head" style="text-align: center; font-weight: bold;">' . _MD_MYLINKS_SITEURL . '</td><td class="even" style="text-align: center;"><a href="'.$siteurl.'" target="_blank">'.$siteurl.'</a><br>(&nbsp;<strong>Google PageRank :</strong>&nbsp;<img src="'.XOOPSMYLINKIMGURL.'/addto/pr'.getrank($siteurl).'.gif" alt="pagerank">&nbsp;)</td></tr>';
 if ( $mylinks_can_qrcode ) {
-            echo '<tr><td  class="head" style="text-align: center; font-weight: bold;">' . _MD_MYLINKS_QRCODE . '<br />(' . _MD_MYLINKS_SITEURL . ')</td><td class="even" style="text-align: center;">'.$siteqrcode.'</td></tr>';
+            echo '<tr><td  class="head" style="text-align: center; font-weight: bold;">' . _MD_MYLINKS_QRCODE . '<br>(' . _MD_MYLINKS_SITEURL . ')</td><td class="even" style="text-align: center;">'.$siteqrcode.'</td></tr>';
 }
   echo '
     <tr><td class="head" style="text-align: center; font-weight: bold;">' . _MD_MYLINKS_WEBBROWSER . '</td><td  class="even" style="text-align: center;">
       <a href="javascript:void(0);" onclick="bookmarksite(\''.$sitetitle.'\', \''.$siteurl.'\');">' . _MD_MYLINKS_BROWSERBOOKMARK . '</a>
     </td></tr>
   </table>
-  <br /><br />
+  <br><br>
 <table style="width: 90%; margin: auto;">
 <tr class="foot"><td colspan="2" style="text-align: center; font-weight: bold;">'._MD_MYLINKS_BOOKMARK_ADDTO.'...</td></tr>
 <tr><td class="even">
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Blink"><a style="cursor:pointer;" onclick="addto(1,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Blink.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Blink" /> Blink</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Blink.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Blink"> Blink</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Delicious"><a style="cursor:pointer;" onclick="addto(2,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Delicious.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Del.icio.us" /> Del.icio.us</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Delicious.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Del.icio.us"> Del.icio.us</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Digg"><a style="cursor:pointer;" onclick="addto(3,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Digg.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Digg" /> Digg</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Digg.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Digg"> Digg</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Furl"><a style="cursor:pointer;" onclick="addto(4,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Furl.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Furl" /> Furl</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Furl.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Furl"> Furl</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Blue Dot"><a style="cursor:pointer;" onclick="addto(9,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Bluedot.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Bluedot" /> Blue Dot</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Bluedot.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Bluedot"> Blue Dot</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' BookmarkTracker"><a style="cursor:pointer;" onclick="addto(11,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Bookmarktracker.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Bookmarktracker" /> BookmarkTracker</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Bookmarktracker.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Bookmarktracker"> BookmarkTracker</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Hatena"><a style="cursor:pointer;" onclick="addto(13,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Hatena.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Hatena" /> Hatena</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Hatena.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Hatena"> Hatena</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Magnolia"><a style="cursor:pointer;" onclick="addto(15,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Magnolia.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Magnolia" /> Magnolia</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Magnolia.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Magnolia"> Magnolia</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Nifty Clip"><a style="cursor:pointer;" onclick="addto(17,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Niftyclip.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Nifty Clip" /> Nifty Clip</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Niftyclip.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Nifty Clip"> Nifty Clip</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Pookmark"><a style="cursor:pointer;" onclick="addto(19,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Pookmark.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Pookmark" /> Pookmark</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Pookmark.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Pookmark"> Pookmark</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Tailrank"><a style="cursor:pointer;" onclick="addto(21,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Tailrank.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Tailrank" /> Tailrank</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Tailrank.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Tailrank"> Tailrank</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Technorati"><a style="cursor:pointer;" onclick="addto(23,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Technorati.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Technorati" /> Technorati</a></span>
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Technorati.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Technorati"> Technorati</a></span>
 
   </td>
   <td class="odd">
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Google"><a style="cursor:pointer;" onclick="addto(5,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Google.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Google" /> Google</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Google.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Google"> Google</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Simpy"><a style="cursor:pointer;" onclick="addto(6,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Simpy.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Simpy" /> Simpy</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Simpy.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Simpy"> Simpy</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Spurl"><a style="cursor:pointer;" onclick="addto(8,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Spurl.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Spurl" /> Spurl</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Spurl.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Spurl"> Spurl</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Yahoo! MyWeb"><a style="cursor:pointer;" onclick="addto(7,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Yahoo.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Y!MyWeb" /> Y! MyWeb</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Yahoo.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Y!MyWeb"> Y! MyWeb</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Blogmarks"><a style="cursor:pointer;" onclick="addto(10,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Blogmarks.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Blogmarks" /> Blogmarks</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Blogmarks.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Blogmarks"> Blogmarks</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' FC2"><a style="cursor:pointer;" onclick="addto(12,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_FC2.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="FC2" /> FC2 Bookmark</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_FC2.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="FC2"> FC2 Bookmark</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Livedoor Clip"><a style="cursor:pointer;" onclick="addto(14,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Livedoorclip.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Livedoor Clip" /> Livedoor Clip</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Livedoorclip.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Livedoor Clip"> Livedoor Clip</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Netscape"><a style="cursor:pointer;" onclick="addto(16,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Netscape.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Netscape" /> Netscape</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Netscape.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Netscape"> Netscape</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Newsvine"><a style="cursor:pointer;" onclick="addto(18,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Newsvine.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Newsvine" /> Newsvine</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Newsvine.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Newsvine"> Newsvine</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Reddit"><a style="cursor:pointer;" onclick="addto(20,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Reddit.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Reddit" /> Reddit</a></span>
-<br />
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Reddit.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Reddit"> Reddit</a></span>
+<br>
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Windows Live"><a style="cursor:pointer;" onclick="addto(22,\''.$siteurl_en.'\', \''.$sitetitle_en.'\')">
-<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Windowslive.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Windows Live" /> Windows Live</a></span>
+<img src="'.XOOPSMYLINKIMGURL.'/addto/AddTo_Windowslive.gif" style="width: 16px; height: 16px; border-width: 0px;" alt="Windows Live"> Windows Live</a></span>
   </td>
   </tr></table>
-<br /><br />
+<br><br>
 ';
 
 xoops_footer();

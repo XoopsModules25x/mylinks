@@ -48,10 +48,10 @@ $modversion["author_website_url"]    = "http://xoops.org";
 $modversion["author_website_name"]    = "XOOPS";
 
 //about
-$modversion['release_date']     = '2013/07/03';
-$modversion['module_status']    = "RC4";
-$modversion['min_php']          = '5.2.0';
-$modversion['min_xoops']        = '2.5.0';
+$modversion['release_date']     = '2016/04/25';
+$modversion['module_status']    = "RC5";
+$modversion['min_php']          = '5.3.0';
+$modversion['min_xoops']        = '2.5.7';
 $modversion['min_db']           = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
 $modversion['min_admin']        = '1.1';
 $modversion['dirmoduleadmin']   = '/Frameworks/moduleclasses/moduleadmin';
@@ -129,9 +129,9 @@ if ($mylinksModule =& $hModule->getByDirname($module_dirname)) {
 //$modversion['sub'][1]['name'] = _MI_MYLINKS_SMNAME1;
 //$modversion['sub'][1]['url']  = "submit.php";
 /*
- * sort =	1	Top Rated
- * 			2	Popular
- * 			3	Most Recent
+ * sort =    1    Top Rated
+ *             2    Popular
+ *             3    Most Recent
  */
 $modversion['sub'][$i] = array('name' => _MI_MYLINKS_SMNAME3,
                                'url'  => "topten.php?sort=1");
@@ -190,13 +190,13 @@ $modversion['templates'][$i]['file']        = 'mylinks_viewcat.html';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_VIEWCAT;
 /*
 $i++;
-$modversion["templates"][$i]["file"] 		= "admin/" . $module_dirname . "_admin_index.html";
+$modversion["templates"][$i]["file"]         = "admin/" . $module_dirname . "_admin_index.html";
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_ADMIN_INDEX;
 $i++;
-$modversion["templates"][$i]["file"] 		= "admin/" . $module_dirname . "_admin_about.html";
+$modversion["templates"][$i]["file"]         = "admin/" . $module_dirname . "_admin_about.html";
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_ADMIN_ABOUT;
 $i++;
-$modversion["templates"][$i]["file"] 		= "admin/" . $module_dirname . "_admin_help.html";
+$modversion["templates"][$i]["file"]         = "admin/" . $module_dirname . "_admin_help.html";
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_ADMIN_HELP;
 */
 $i++;

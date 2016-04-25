@@ -94,7 +94,7 @@ define('_MI_MYLINKS_USEFRAMEDSC','');
 define('_MI_MYLINKS_USESHOTSDSC','');
 define('_MI_MYLINKS_SHOTWIDTHDSC','');
 define('_MI_MYLINKS_SHOTPROVIDERDSC','Provider for screen shots if images from image directory are not used.');
-define('_MI_MYLINKS_DISPATTRDSC', 'Some providers require you display an image attribution<br />Do not disable this unless you are sure.');
+define('_MI_MYLINKS_DISPATTRDSC', 'Some providers require you display an image attribution<br>Do not disable this unless you are sure.');
 define('_MI_MYLINKS_SHOTPUBKEYDSC', 'Enter the primary (or public) key if required by shot provider service.');
 define('_MI_MYLINKS_SHOTPRIVKEYDSC', 'Enter the secondary (or private) key if required by shot provider service.');
 define('_MI_MYLINKS_AUTOAPPROVEDSC','');
