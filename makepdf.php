@@ -41,7 +41,7 @@ if ( empty($lid) || empty($cid) ) {
     redirect_header('index.php', 3, _MD_MYLINKS_IDERROR);
 }
 
-$result = $xoopsDB->query("SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM " . $xoopsDB->prefix("mylinks_links") . " l, " . $xoopsDB->prefix("mylinks_text") . " t WHERE l.lid={$lid} AND l.lid=t.lid AND status>0");
+$result = $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM ' . $xoopsDB->prefix('mylinks_links') . ' l, ' . $xoopsDB->prefix('mylinks_text') . " t WHERE l.lid={$lid} AND l.lid=t.lid AND status>0");
 list($lid, $cid, $ltitle, $url, $logourl, $status, $time, $hits, $rating, $votes, $comments, $description) = $xoopsDB->fetchRow($result);
 
 if ( empty($lid) ) {
@@ -51,7 +51,7 @@ if ( empty($lid) ) {
 switch ($mylinks_can_pdf)
 {
     case _MD_MYLINKS_MEMBERONLY:
-        $can_pdf = ( $xoopsUser ) ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
+        $can_pdf = $xoopsUser ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
     case _MD_MYLINKS_ALLOW:
         $can_pdf = _MD_MYLINKS_ALLOW;
         break;
@@ -90,7 +90,7 @@ $puffer='<br><br><br>';
 $pdf_config['slogan']=$xoopsConfig['sitename'].' - '.$xoopsConfig['slogan'];
 
 $pdf=new PDF();
-if (method_exists($pdf, "encoding")) {
+if (method_exists($pdf, 'encoding')) {
   $pdf->encoding($pdf_data, _CHARSET);
 }
 $pdf->SetCreator($pdf_config['creator']);

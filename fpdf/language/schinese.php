@@ -29,13 +29,13 @@
 // Project: The XOOPS Project                                                //
 // ------------------------------------------------------------------------- //
 if (!defined('XOOPS_ROOT_PATH')) {
-  die("XOOPS root path not defined");
+  die('XOOPS root path not defined');
 }
 
 require NEWS_FPDF_PATH.'/chinese.php';
 
 // For end users
-$valid_pfd_charset = "GB2312";
+$valid_pfd_charset = 'GB2312';
 
 $pdf_config['margin'] = array(
   'left'=>25,
@@ -109,9 +109,9 @@ $pdf_config['dateformat'] = _DATESTRING;
 $pdf_config['footerpage'] = _MD_PDF_PAGE;
 
 // For local support sites
-define('NEWS_PDF_FORUM', 'ÂÛÌ³');
-define('NEWS_PDF_TOPIC', 'Ö÷Ìâ');
-define('NEWS_PDF_SUBJECT', '±êÌâ');
+define('NEWS_PDF_FORUM', 'ï¿½ï¿½Ì³');
+define('NEWS_PDF_TOPIC', 'ï¿½ï¿½ï¿½ï¿½');
+define('NEWS_PDF_SUBJECT', 'ï¿½ï¿½ï¿½ï¿½');
 define('NEWS_PDF_AUTHOR', _POSTEDBY);
 define('NEWS_PDF_DATE', _MD_POSTEDON);
 
@@ -123,10 +123,10 @@ class PDF_language extends PDF_Chinese
       //Call parent constructor
       $this->FPDF($orientation,$unit,$format);
       //Initialization
-    $this->AddGBhwFont('simsun','ËÎÌå');
-    $this->AddGBhwFont('simhei','ºÚÌå');
-    $this->AddGBhwFont('simkai','¿¬Ìå_GB2312');
-    $this->AddGBhwFont('sinfang','·ÂËÎ_GB2312');
+    $this->AddGBhwFont('simsun','ï¿½ï¿½ï¿½ï¿½');
+    $this->AddGBhwFont('simhei','ï¿½ï¿½ï¿½ï¿½');
+    $this->AddGBhwFont('simkai','ï¿½ï¿½ï¿½ï¿½_GB2312');
+    $this->AddGBhwFont('sinfang','ï¿½ï¿½ï¿½ï¿½_GB2312');
   }
 
   function Error($msg)
@@ -134,13 +134,13 @@ class PDF_language extends PDF_Chinese
     global $pdf_config;
     if($pdf_config['action_on_error']){
       //Fatal error
-      die('<B>FPDF ´íÎó: </B>'.$msg);
+      die('<B>FPDF ï¿½ï¿½ï¿½ï¿½: </B>'.$msg);
     }
   }
 
   function encoding(&$text, $in_charset)
   {
-    $out_charset = $GLOBALS["valid_pfd_charset"];
+    $out_charset = $GLOBALS['valid_pfd_charset'];
       if (empty($in_charset) || empty($out_charset) || !strcasecmp($out_charset, $in_charset)) return;
 
       if(is_array($text) && count($text)>0){
@@ -154,7 +154,7 @@ class PDF_language extends PDF_Chinese
 
   function _encoding(&$text, $in_charset, $out_charset)
   {
-    if(function_exists("xoopschina_convert_encoding")) {
+    if(function_exists('xoopschina_convert_encoding')) {
       $text = xoopschina_convert_encoding($text, $in_charset, $out_charset);
 
       return;
@@ -170,7 +170,7 @@ class PDF_language extends PDF_Chinese
     }
     if(XOOPS_USE_MULTIBYTES && function_exists('mb_convert_encoding')) $converted_text = @mb_convert_encoding($text, $out_charset, $in_charset);
     else
-    if(function_exists('iconv')) $converted_text = @iconv($in_charset, $out_charset . "//TRANSLIT", $text);
+    if(function_exists('iconv')) $converted_text = @iconv($in_charset, $out_charset . '//TRANSLIT', $text);
     $text = empty($converted_text)?$text:$converted_text;
   }
 }

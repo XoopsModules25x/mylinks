@@ -54,7 +54,7 @@ $max     = (!isset($max)) ? $min + $show : $max;
 //$orderby = mylinksUtility::mylinks_cleanVars($_GET, 'orderby', 'title ASC', 'string');
 $orderby = mylinksUtility::mylinks_cleanVars($_GET, 'orderby', 'titleA', 'string');
 $validSortVals = array('titleA', 'hitsA', 'ratingA', 'dateA', 'titleD', 'hitsD', 'ratingD', 'dateD');
-$orderby = (in_array($orderby, $validSortVals)) ? $orderby : 'titleA';
+$orderby = in_array($orderby, $validSortVals) ? $orderby : 'titleA';
 
 // list
 //TODO: need to sanitize $_GET['list']
@@ -64,7 +64,7 @@ if (!isset($_GET['list'])) {
     $imgurl = '';
     if (is_object($catObj) && !empty($catObj)) {
         $thisCatTitle = $myts->htmlSpecialChars($catObj->getVar('title'));
-        if ( $catObj->getVar('imgurl') && (($catObj->getVar('imgurl') != "http://") && ($catObj->getVar('imgurl') != '')) ) {
+        if ( $catObj->getVar('imgurl') && (($catObj->getVar('imgurl') != 'http://') && ($catObj->getVar('imgurl') != '')) ) {
             $imgurl = $myts->htmlSpecialChars($catObj->getVar('imgurl'));
         }
     } else {
@@ -91,18 +91,18 @@ if (!isset($_GET['list'])) {
     $xoopsTpl->assign('lang_categoryfeed', _MD_MYLINKS_FEED_CAT);
 
     //$thisCatObj = $mylinksCatHandler->get($cid);
-    $homePath   = "<a href='" . XOOPSMYLINKURL . "/index.php'>" . _MD_MYLINKS_MAIN . "</a>&nbsp;:&nbsp;";
+    $homePath   = "<a href='" . XOOPSMYLINKURL . "/index.php'>" . _MD_MYLINKS_MAIN . '</a>&nbsp;:&nbsp;';
     $itemPath   = $catObj->getVar('title');
     $path       = '';
     $myParent = $catObj->getVar('pid');
     while ( $myParent != 0 ) {
         $ancestorObj = $myCatTree->getByKey($myParent);
-        $path  = "<a href='" . XOOPSMYLINKURL . "/viewcat.php?cid=" . $ancestorObj->getVar('cid') . "'>" . $ancestorObj->getVar('title') . "</a>&nbsp;:&nbsp;{$path}";
+        $path  = "<a href='" . XOOPSMYLINKURL . '/viewcat.php?cid=' . $ancestorObj->getVar('cid') . "'>" . $ancestorObj->getVar('title') . "</a>&nbsp;:&nbsp;{$path}";
         $myParent = $ancestorObj->getVar('pid');
     }
 
     $path = "{$homePath}{$path}{$itemPath}";
-    $path = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $path);
+    $path = str_replace('&nbsp;:&nbsp;', " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $path);
 
     $xoopsTpl->assign('category_path', $path);
     $xoopsTpl->assign('category_id', $cid);
@@ -123,7 +123,7 @@ if (!isset($_GET['list'])) {
         foreach ($gchildCatObjs as $gchildCatObj) {
             $gchtitle = $myts->htmlSpecialChars($gchildCatObj->getVar('title'));
             $gchildCategories .= ($i>0) ? ', ' : '';
-            $gchildCategories .= "<a href='" . XOOPSMYLINKURL . "/viewcat.php?cid=" . $gchildCatObj->getVar('cid') . "'>{$gchtitle}</a>";
+            $gchildCategories .= "<a href='" . XOOPSMYLINKURL . '/viewcat.php?cid=' . $gchildCatObj->getVar('cid') . "'>{$gchtitle}</a>";
             if ($i < $lpLimit) {
                 $i++;
             } else {
@@ -141,11 +141,11 @@ if (!isset($_GET['list'])) {
         $count++;
     }
 
-    $LinkCountResult=$xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("mylinks_links") . " WHERE cid='{$cid}' AND status>0");
+    $LinkCountResult=$xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE cid='{$cid}' AND status>0");
 } else {
     $list    = $_GET['list'];
 //    $orderby = "title ASC";
-    $orderby = "titleA";
+    $orderby = 'titleA';
 
     $xoopsTpl->assign('list_mode', true);
     //TODO:  need to filter $_GET['list'] input var
@@ -153,13 +153,13 @@ if (!isset($_GET['list'])) {
     $thisPageTitle = $categoryPath;
     $xoopsTpl->assign('category_path', $categoryPath );
 
-    $LinkCountResult=$xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("mylinks_links") . " WHERE title LIKE '" . $myts->addSlashes($_GET['list']) . "%' AND status>0");
+    $LinkCountResult=$xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE title LIKE '" . $myts->addSlashes($_GET['list']) . "%' AND status>0");
 }
 $useShots = $xoopsModuleConfig['useshots'];
 if (1 == $useShots) {
     $shotWidth = $xoopsModuleConfig['shotwidth'];
-    $xoopsTpl->assign(array('shotwidth'         => $shotWidth . "px",
-//                            'tablewidth'        => ($shotWidth + 10) . "px",
+    $xoopsTpl->assign(array('shotwidth'         => $shotWidth . 'px',
+                            //                            'tablewidth'        => ($shotWidth + 10) . "px",
                             'show_screenshot'   => true,
                             'lang_noscreenshot' => _MD_MYLINKS_NOSHOTS)
     );
@@ -200,17 +200,17 @@ if ( $numrows > 0 ) {
     }
 
     if (!isset($_GET['list'])) {
-        $sql = "SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM "
-              . $xoopsDB->prefix("mylinks_links") . " l, "
-              . $xoopsDB->prefix("mylinks_text") . " t "
-              ."WHERE cid='{$cid}' AND l.lid=t.lid AND status>0 "
-              ."ORDER BY " . convertorderbyin($orderby) . "";
+        $sql = 'SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM '
+               . $xoopsDB->prefix('mylinks_links') . ' l, '
+               . $xoopsDB->prefix('mylinks_text') . ' t '
+               . "WHERE cid='{$cid}' AND l.lid=t.lid AND status>0 "
+               . 'ORDER BY ' . convertorderbyin($orderby) . '';
     } else {
-        $sql = "SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM "
-              . $xoopsDB->prefix("mylinks_links") . " l, "
-              . $xoopsDB->prefix("mylinks_text") . " t "
-              ."WHERE l.title LIKE '" . $myts->addSlashes($_GET['list']) . "%' AND l.lid=t.lid AND status>0 "
-              ."ORDER BY " . convertorderbyin($orderby) . "";
+        $sql = 'SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM '
+               . $xoopsDB->prefix('mylinks_links') . ' l, '
+               . $xoopsDB->prefix('mylinks_text') . ' t '
+               . "WHERE l.title LIKE '" . $myts->addSlashes($_GET['list']) . "%' AND l.lid=t.lid AND status>0 "
+               . 'ORDER BY ' . convertorderbyin($orderby) . '';
     }
     $shotAttribution = '';
     $result=$xoopsDB->query($sql, $show, $min);
@@ -224,18 +224,18 @@ if ( $numrows > 0 ) {
         }
         $votestring = (1 == $votes) ? _MD_MYLINKS_ONEVOTE : sprintf(_MD_MYLINKS_NUMVOTES, $votes);
         $thisCatObj = $mylinksCatHandler->get($cid);
-        $homePath   = "<a href='" . XOOPSMYLINKURL . "/index.php'>" . _MD_MYLINKS_MAIN . "</a>&nbsp;:&nbsp;";
+        $homePath   = "<a href='" . XOOPSMYLINKURL . "/index.php'>" . _MD_MYLINKS_MAIN . '</a>&nbsp;:&nbsp;';
         $itemPath   = $thisCatObj->getVar('title');
         $path       = '';
         $myParent = $thisCatObj->getVar('pid');
         while ( $myParent != 0 ) {
             $ancestorObj = $myCatTree->getByKey($myParent);
-            $path  = "<a href='" . XOOPSMYLINKURL . "/viewcat.php?cid=" . $ancestorObj->getVar('cid') . "'>" . $ancestorObj->getVar('title') . "</a>&nbsp;:&nbsp;{$path}";
+            $path  = "<a href='" . XOOPSMYLINKURL . '/viewcat.php?cid=' . $ancestorObj->getVar('cid') . "'>" . $ancestorObj->getVar('title') . "</a>&nbsp;:&nbsp;{$path}";
             $myParent = $ancestorObj->getVar('pid');
         }
 
         $path = "{$homePath}{$path}{$itemPath}";
-        $path = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $path);
+        $path = str_replace('&nbsp;:&nbsp;', " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $path);
         $new = newlinkgraphic($time, $status);
         $pop = popgraphic($hits);
         //by wanikoo
@@ -243,17 +243,17 @@ if ( $numrows > 0 ) {
         $shotImgSrc = $shotImgHref = '';
         if ($useShots) {
             $shotProvider = mb_strtolower($xoopsModuleConfig['shotprovider']);
-            $shotImgHref = XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/visit.php?cid={$cid}&amp;lid={$lid}";
+            $shotImgHref = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/visit.php?cid={$cid}&amp;lid={$lid}";
             $logourl = trim($logourl);
             if (!empty($logourl)) {
                 if (file_exists(XOOPSMYLINKIMGPATH . "/{$mylinks_theme}")) {
                     $shotImgSrc = XOOPSMYLINKIMGURL . "/{$mylinks_theme}/shots/" . $myts->htmlSpecialChars($logourl);
                 } else {
-                    $shotImgSrc = XOOPSMYLINKIMGURL . "/shots/" . $myts->htmlSpecialChars($logourl);
+                    $shotImgSrc = XOOPSMYLINKIMGURL . '/shots/' . $myts->htmlSpecialChars($logourl);
                 }
             } elseif (_NONE != $shotProvider) {
-                if (file_exists(XOOPS_ROOT_PATH . DIRECTORY_SEPARATOR . "modules" . DIRECTORY_SEPARATOR . $xoopsModule->getVar('dirname') . DIRECTORY_SEPARATOR . "class" . DIRECTORY_SEPARATOR . "providers" . DIRECTORY_SEPARATOR . mb_strtolower($shotProvider) . ".php")) {
-                    include_once XOOPS_ROOT_PATH . DIRECTORY_SEPARATOR . "modules" . DIRECTORY_SEPARATOR . $xoopsModule->getVar('dirname') . DIRECTORY_SEPARATOR . "class" . DIRECTORY_SEPARATOR . "providers" . DIRECTORY_SEPARATOR . mb_strtolower($shotProvider) . ".php";
+                if (file_exists(XOOPS_ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $xoopsModule->getVar('dirname') . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'providers' . DIRECTORY_SEPARATOR . mb_strtolower($shotProvider) . '.php')) {
+                    include_once XOOPS_ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $xoopsModule->getVar('dirname') . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'providers' . DIRECTORY_SEPARATOR . mb_strtolower($shotProvider) . '.php';
                     $shotClass = ucfirst($xoopsModule->getVar('dirname')) . ucfirst($shotProvider);
                     $shotObj = new $shotClass;
                     $shotObj->setProviderPublicKey($xoopsModuleConfig['shotpubkey']);
@@ -280,7 +280,7 @@ if ( $numrows > 0 ) {
                                          'title'         => $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle)).$new.$pop,
                                          'category'      => $path,
                                          'logourl'       => $myts->htmlSpecialChars(trim($logourl)),
-                                         'updated'       => formatTimestamp($time, "m"),
+                                         'updated'       => formatTimestamp($time, 'm'),
                                          'description'   => $myts->displayTarea($myts->stripSlashesGPC($description), 0),
                                          'adminlink'     => $adminlink,
                                          'hits'          => $hits,
@@ -326,10 +326,10 @@ $xoopsTpl->assign('mylinksthemeoption', $mylinkstheme_select);
 //wanikoo end
 
 //wanikoo search
-if ( file_exists(XOOPS_ROOT_PATH."/language/".$xoopsConfig['language']."/search.php") ) {
-   include_once XOOPS_ROOT_PATH."/language/".$xoopsConfig['language']."/search.php";
+if ( file_exists(XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php') ) {
+   include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
 } else {
-   include_once XOOPS_ROOT_PATH."/language/english/search.php";
+   include_once XOOPS_ROOT_PATH . '/language/english/search.php';
 }
 $xoopsTpl->assign('lang_all', _SR_ALL);
 $xoopsTpl->assign('lang_any', _SR_ANY);
@@ -349,8 +349,8 @@ $xoopsTpl->assign('catarray', $catarray);
 $xoopsTpl->assign('xoops_pagetitle', $xoopsModule->getVar('name').' - '.$thisPageTitle);
 //category jump box
 $catjumpbox = "<form name='catjumpbox' method='get' action='viewcat.php'>\n"
-       ."  <strong>"._MD_MYLINKS_CATEGORYC."</strong>&nbsp;\n"
-       ."  " . $myCatTree->makeSelBox('cid', 'title', ' - ', $cid) . "\n"
+              . '  <strong>' . _MD_MYLINKS_CATEGORYC . "</strong>&nbsp;\n"
+              . '  ' . $myCatTree->makeSelBox('cid', 'title', ' - ', $cid) . "\n"
        ."  &nbsp;<input type='submit' value='" . _SUBMIT . "'>\n</form>\n";
 $xoopsTpl->assign('mylinksjumpbox', $catjumpbox);
 

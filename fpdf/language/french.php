@@ -31,7 +31,7 @@
 
 // For end users
 if (!defined('XOOPS_ROOT_PATH')) {
-  die("XOOPS root path not defined");
+  die('XOOPS root path not defined');
 }
 
 $valid_pfd_charset = 'ISO-8859-1';
@@ -135,7 +135,7 @@ class PDF_language extends FPDF
 
   function encoding(&$text, $in_charset)
   {
-    $out_charset = $GLOBALS["valid_pfd_charset"];
+    $out_charset = $GLOBALS['valid_pfd_charset'];
       if (empty($in_charset) || empty($out_charset) || !strcasecmp($out_charset, $in_charset)) return;
 
       if(is_array($text) && count($text)>0){
@@ -159,7 +159,7 @@ class PDF_language extends FPDF
     }
     if(XOOPS_USE_MULTIBYTES && function_exists('mb_convert_encoding')) $converted_text = @mb_convert_encoding($text, $out_charset, $in_charset);
     else
-    if(function_exists('iconv')) $converted_text = @iconv($in_charset, $out_charset . "//TRANSLIT", $text);
+    if(function_exists('iconv')) $converted_text = @iconv($in_charset, $out_charset . '//TRANSLIT', $text);
     $text = empty($converted_text)?$text:$converted_text;
   }
 }

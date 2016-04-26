@@ -28,7 +28,7 @@
 function mylinks_notify_iteminfo($category, $item_id)
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $xoopsDB;
-    $dirname = basename(dirname(dirname(__FILE__)));
+    $dirname = basename(dirname(__DIR__));
 
     $item_id = (isset($item_id) && (intval($item_id) > 0)) ? intval($item_id) : 0;
 
@@ -64,7 +64,7 @@ function mylinks_notify_iteminfo($category, $item_id)
             }
             break;
         case 'link':
-            $sql          = "SELECT cid,title FROM " . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$item_id}";
+            $sql          = 'SELECT cid,title FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$item_id}";
             $result       = $xoopsDB->query($sql); // TODO: error check
             $result_array = $xoopsDB->fetchArray($result);
             if (!empty($result_array['title'])) {

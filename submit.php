@@ -42,7 +42,7 @@ if (!empty($_POST['submit'])) {
 //    $eh = new ErrorHandler; //ErrorHandler object
     $submitter = !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
 
-    $msg = "";
+    $msg = '';
     switch ( true ) {
         case ( empty( $_POST['title'] ) ):
             $msg .= _MD_MYLINKS_ERRORTITLE;
@@ -66,7 +66,7 @@ if (!empty($_POST['submit'])) {
     $mylinksAdmin = ( is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()) ) ? true : false;
     $status       = ( ( 1 == $xoopsModuleConfig['autoapprove'] ) || $mylinksAdmin ) ? 1 : 0;
 
-    $sql = sprintf("INSERT INTO %s (lid, cid, title, url, logourl, submitter, status, date, hits, rating, votes, comments) VALUES (%u, %u, '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u)", $xoopsDB->prefix("mylinks_links"), $newid, $cid, $title, $url, ' ', $submitter, $status, $date, 0, 0, 0, 0);
+    $sql = sprintf("INSERT INTO %s (lid, cid, title, url, logourl, submitter, status, date, hits, rating, votes, comments) VALUES (%u, %u, '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u)", $xoopsDB->prefix('mylinks_links'), $newid, $cid, $title, $url, ' ', $submitter, $status, $date, 0, 0, 0, 0);
     $result = $xoopsDB->query($sql);
     if ( !$result ) {
         mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
@@ -75,7 +75,7 @@ if (!empty($_POST['submit'])) {
     if ( 0 == $newid ) {
         $newid = $xoopsDB->getInsertId();
     }
-    $sql = sprintf("INSERT INTO %s (lid, description) VALUES (%u, '%s')", $xoopsDB->prefix("mylinks_text"), $newid, $description);
+    $sql = sprintf("INSERT INTO %s (lid, description) VALUES (%u, '%s')", $xoopsDB->prefix('mylinks_text'), $newid, $description);
     $result = $xoopsDB->query($sql);
     if ( !$result ) {
         mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
@@ -85,16 +85,16 @@ if (!empty($_POST['submit'])) {
     $notification_handler =& xoops_getHandler('notification');
     $tags = array();
     $tags['LINK_NAME'] = $title;
-    $tags['LINK_URL'] = XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/singlelink.php?cid={$cid}&amp;lid={$newid}";
-    $sql = "SELECT title FROM " . $xoopsDB->prefix("mylinks_cat") . " WHERE cid={$cid}";
+    $tags['LINK_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/singlelink.php?cid={$cid}&amp;lid={$newid}";
+    $sql = 'SELECT title FROM ' . $xoopsDB->prefix('mylinks_cat') . " WHERE cid={$cid}";
     $result = $xoopsDB->query($sql);
     $row = $xoopsDB->fetchArray($result);
     $tags['CATEGORY_NAME'] = $row['title'];
-    $tags['CATEGORY_URL'] = XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/viewcat.php?cid={$cid}";
+    $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/viewcat.php?cid={$cid}";
     if ( 1 == $xoopsModuleConfig['autoapprove'] ) {
         $notification_handler->triggerEvent('global', 0, 'new_link', $tags);
         $notification_handler->triggerEvent('category', $cid, 'new_link', $tags);
-        redirect_header('index.php', 2, _MD_MYLINKS_RECEIVED . "<br>" . _MD_MYLINKS_ISAPPROVED . "");
+        redirect_header('index.php', 2, _MD_MYLINKS_RECEIVED . '<br>' . _MD_MYLINKS_ISAPPROVED . '');
     } else {
         $tags['WAITINGLINKS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listNewLinks';
         $notification_handler->triggerEvent('global', 0, 'link_submit', $tags);
@@ -162,8 +162,8 @@ if (!empty($_POST['submit'])) {
     $xoopsTpl->assign('mylinksthemeoption', $mylinkstheme_select);
 
     //wanikoo search
-    if (file_exists(XOOPS_ROOT_PATH."/language/".$xoopsConfig['language']."/search.php")) {
-       include_once XOOPS_ROOT_PATH."/language/".$xoopsConfig['language']."/search.php";
+    if (file_exists(XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php')) {
+       include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
     } else {
        include_once XOOPS_ROOT_PATH . '/language/english/search.php';
     }

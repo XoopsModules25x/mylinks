@@ -34,20 +34,20 @@ include_once './class/utility.php';
 if (!empty($_POST['submit'])) {
     global $xoopsDB;
 
-    $ip     = getenv("REMOTE_ADDR");
+    $ip     = getenv('REMOTE_ADDR');
     $lid    = mylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min'=>0));
     $cid    = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min'=>0));
     $rating = mylinksUtility::mylinks_cleanVars($_POST, 'rating', 0, 'int', array('min'=>0));
 
     // make sure listing is active
-    $result=$xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid} AND status>0");
+    $result=$xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid} AND status>0");
     if (!$xoopsDB->fetchRow($result)) {
         redirect_header($_SERVER['PHP_SELF'], 3, _MD_MYLINKS_NORECORDFOUND);
         exit();
     }
 
 //    $eh = new ErrorHandler; //ErrorHandler object
-    $ratinguser = (empty($xoopsUser)) ? 0 : $xoopsUser->getVar('uid');
+    $ratinguser = empty($xoopsUser) ? 0 : $xoopsUser->getVar('uid');
 
     //Make sure only 1 anonymous from an IP in a single day.
     $anonwaitdays = 1;
@@ -63,7 +63,7 @@ if (!empty($_POST['submit'])) {
 
     // Check if Link POSTER is voting (UNLESS Anonymous users allowed to post)
     if ($ratinguser != 0) {
-        $result=$xoopsDB->query("SELECT submitter FROM " . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid}");
+        $result=$xoopsDB->query('SELECT submitter FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid}");
         while(list($ratinguserDB) = $xoopsDB->fetchRow($result)) {
             if ($ratinguserDB == $ratinguser) {
                 redirect_header('index.php', 4, _MD_MYLINKS_CANTVOTEOWN);
@@ -72,7 +72,7 @@ if (!empty($_POST['submit'])) {
         }
 
         // Check if REG user is trying to vote twice.
-        $result=$xoopsDB->query("SELECT ratinguser FROM " . $xoopsDB->prefix("mylinks_votedata") . " WHERE lid={$lid}");
+        $result=$xoopsDB->query('SELECT ratinguser FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE lid={$lid}");
         while(list($ratinguserDB) = $xoopsDB->fetchRow($result)) {
             if ($ratinguserDB == $ratinguser) {
                 redirect_header('index.php', 4, _MD_MYLINKS_VOTEONCE2);
@@ -84,7 +84,7 @@ if (!empty($_POST['submit'])) {
 
         // Check if ANONYMOUS user is trying to vote more than once per day.
         $yesterday = (time()-(86400 * $anonwaitdays));
-        $result=$xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("mylinks_votedata") . " WHERE lid={$lid} AND ratinguser=0 AND ratinghostname = '{$ip}' AND ratingtimestamp > {$yesterday}");
+        $result=$xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE lid={$lid} AND ratinguser=0 AND ratinghostname = '{$ip}' AND ratingtimestamp > {$yesterday}");
         list($anonvotecount) = $xoopsDB->fetchRow($result);
         if ($anonvotecount > 0) {
             redirect_header('index.php', 4, _MD_MYLINKS_VOTEONCE2);
@@ -97,9 +97,9 @@ if (!empty($_POST['submit'])) {
     }
 */
     //All is well.  Add to Line Item Rate to DB.
-    $newid = $xoopsDB->genId($xoopsDB->prefix("mylinks_votedata")."_ratingid_seq");
+    $newid = $xoopsDB->genId($xoopsDB->prefix('mylinks_votedata') . '_ratingid_seq');
     $datetime = time();
-    $sql = sprintf("INSERT INTO %s (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp) VALUES (%u, %u, %u, %u, '%s', %u)", $xoopsDB->prefix("mylinks_votedata"), $newid, $lid, $ratinguser, $rating, $ip, $datetime);
+    $sql = sprintf("INSERT INTO %s (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp) VALUES (%u, %u, %u, %u, '%s', %u)", $xoopsDB->prefix('mylinks_votedata'), $newid, $lid, $ratinguser, $rating, $ip, $datetime);
     $result = $xoopsDB->query($sql);
     if (!$result) {
         mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
@@ -108,7 +108,7 @@ if (!empty($_POST['submit'])) {
 
     //All is well.  Calculate Score & Add to Summary (for quick retrieval & sorting) to DB.
     updaterating($lid);
-    $ratemessage = _MD_MYLINKS_VOTEAPPRE . "<br>" . sprintf(_MD_MYLINKS_THANKURATE, htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES));
+    $ratemessage = _MD_MYLINKS_VOTEAPPRE . '<br>' . sprintf(_MD_MYLINKS_THANKURATE, htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES));
     redirect_header('index.php', 2, $ratemessage);
     exit();
 
@@ -124,7 +124,7 @@ if (!empty($_POST['submit'])) {
 
     $lid    = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min'=>0));
     $cid    = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min'=>0));
-    $result=$xoopsDB->query("SELECT title FROM " . $xoopsDB->prefix("mylinks_links") ." WHERE lid={$lid}");
+    $result=$xoopsDB->query('SELECT title FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid}");
     //TODO:  need error checking here in case invalid lid
     list($title) = $xoopsDB->fetchRow($result);
     $xoopsTpl->assign('link', array('id' => $lid, 'cid' => $cid, 'title' => $myts->htmlSpecialChars($myts->stripSlashesGPC($title))));

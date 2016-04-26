@@ -9,7 +9,7 @@
 * You may use and modify this software as you wish.                            *
 *******************************************************************************/
 if (!defined('XOOPS_ROOT_PATH')) {
-  die("XOOPS root path not defined");
+  die('XOOPS root path not defined');
 }
 
 if(!class_exists('FPDF'))
@@ -1085,8 +1085,8 @@ function _dochecks()
 
 function _getfontpath()
 {
-  if(!defined('FPDF_FONTPATH') && is_dir(dirname(__FILE__).'/font'))
-    define('FPDF_FONTPATH',dirname(__FILE__).'/font/');
+  if(!defined('FPDF_FONTPATH') && is_dir(__DIR__.'/font'))
+    define('FPDF_FONTPATH',__DIR__.'/font/');
 
   return defined('FPDF_FONTPATH') ? FPDF_FONTPATH : '';
 }
@@ -1110,7 +1110,7 @@ function _putpages()
     $wPt=$this->fhPt;
     $hPt=$this->fwPt;
   }
-  $filter=($this->compress) ? '/Filter /FlateDecode ' : '';
+  $filter= $this->compress ? '/Filter /FlateDecode ' : '';
   for($n=1;$n<=$nb;$n++)
   {
     //Page
@@ -1142,7 +1142,7 @@ function _putpages()
     $this->_out('/Contents '.($this->n+1).' 0 R>>');
     $this->_out('endobj');
     //Page content
-    $p=($this->compress) ? gzcompress($this->pages[$n]) : $this->pages[$n];
+    $p= $this->compress ? gzcompress($this->pages[$n]) : $this->pages[$n];
     $this->_newobj();
     $this->_out('<<'.$filter.'/Length '.strlen($p).'>>');
     $this->_putstream($p);
@@ -1281,7 +1281,7 @@ function _putfonts()
 
 function _putimages()
 {
-  $filter=($this->compress) ? '/Filter /FlateDecode ' : '';
+  $filter= $this->compress ? '/Filter /FlateDecode ' : '';
   reset($this->images);
   while(list($file,$info)=each($this->images))
   {
@@ -1319,7 +1319,7 @@ function _putimages()
     if($info['cs']=='Indexed')
     {
       $this->_newobj();
-      $pal=($this->compress) ? gzcompress($info['pal']) : $info['pal'];
+      $pal= $this->compress ? gzcompress($info['pal']) : $info['pal'];
       $this->_out('<<'.$filter.'/Length '.strlen($pal).'>>');
       $this->_putstream($pal);
       $this->_out('endobj');

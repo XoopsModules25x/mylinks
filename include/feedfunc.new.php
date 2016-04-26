@@ -2,7 +2,7 @@
 
 function mylinks_get_new($param)
 {
-    $modulename = basename(dirname(dirname(__FILE__)));
+    $modulename = basename(dirname(__DIR__));
     include_once(XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feeddata.inc.php");
 
     // parameter
@@ -47,7 +47,7 @@ function wani_make_html_title( $title )
         return '';
     }
     $title = strip_tags($title);
-    $title = ( mb_strlen($title) > 100) ? mb_strimwidth( $title, 0, 100, " ..." ) : $title;
+    $title = ( mb_strlen($title) > 100) ? mb_strimwidth($title, 0, 100, ' ...') : $title;
     $title = wani_html_special_chars( $title );
 
     return $title;
@@ -84,7 +84,7 @@ function wani_make_html_summary( $sum, $max )
         $sum = wani_strip_space($sum);
     }
 
-    $sum = (mb_strlen($sum) > $max) ? mb_strimwidth($sum, 0, $max, " ...") : $sum;
+    $sum = (mb_strlen($sum) > $max) ? mb_strimwidth($sum, 0, $max, ' ...') : $sum;
 
     // sanitize
     $sum = wani_html_special_chars($sum);
@@ -122,12 +122,12 @@ function wani_strip_space($text)
 
     if ( ($xoopsConfig['language'] == 'japanese') && function_exists('mb_convert_kana') ) {
         // zenkaku to hankaku
-        $text = mb_convert_kana($text, "s");
+        $text = mb_convert_kana($text, 's');
     }
 
     // in MyTextSanitizer, replace "&nbsp;" to "&amp;nbsp;"
-    $text = preg_replace("/&amp;nbsp;/i", ' ', $text);
-    $text = preg_replace("/&nbsp;/i", ' ', $text);
+    $text = preg_replace('/&amp;nbsp;/i', ' ', $text);
+    $text = preg_replace('/&nbsp;/i', ' ', $text);
     $text = preg_replace("/[\x20]+/", ' ', $text);
 
     return $text;
@@ -139,7 +139,7 @@ function wani_strip_space($text)
 // --------------------------------------------------------
 function wani_add_space($text)
 {
-    $text = preg_replace("/>/", '> ', $text);
+    $text = preg_replace('/>/', '> ', $text);
 
     return $text;
 }

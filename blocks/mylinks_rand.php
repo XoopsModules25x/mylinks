@@ -23,16 +23,16 @@
 function b_mylinks_random_show()
 {
     global $xoopsDB, $xoopsConfig, $xoopsModule, $xoopsModuleConfig, $xoopsUser;
-    $mylinksDir = basename(dirname(dirname(__FILE__)));
+    $mylinksDir = basename(dirname(__DIR__));
     $myts =& MyTextSanitizer::getInstance();
 
     $block = array();
 
-    $result = $xoopsDB->query("SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM " . $xoopsDB->prefix("mylinks_links") . " l, " . $xoopsDB->prefix("mylinks_text") . " t WHERE l.lid=t.lid AND status>0 ORDER BY RAND() LIMIT 0,1");
+    $result = $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM ' . $xoopsDB->prefix('mylinks_links') . ' l, ' . $xoopsDB->prefix('mylinks_text') . ' t WHERE l.lid=t.lid AND status>0 ORDER BY RAND() LIMIT 0,1');
     if ($result) {
         list($lid, $cid, $ltitle, $url, $logourl, $status, $time, $hits, $rating, $votes, $comments, $description) = $xoopsDB->fetchRow($result);
         $link        = $myts->displayTarea(ucfirst($myts->stripSlashesGPC($ltitle)));
-        $description = $myts->displayTarea(mb_substr($myts->stripSlashesGPC($description), 0, 100)) . "...";
+        $description = $myts->displayTarea(mb_substr($myts->stripSlashesGPC($description), 0, 100)) . '...';
 
         $mylinksCatHandler = xoops_getmodulehandler('category', $mylinksDir);
         $catObj = $mylinksCatHandler->get($cid);
@@ -47,7 +47,7 @@ function b_mylinks_random_show()
         $block['content'] = "<div style=\"font-size: 12px; font-weight: bold; background-color: #ccc; padding: 4px; margin: 0;\"><a href=\"" . XOOPS_URL . "/modules/{$mylinksDir}/viewcat.php?cid={$cid}\">{$categoryName}</a></div>";
         $block['content'] .= "<div style=\"padding: 4px 0 0 0; color: #456;\"><h5 style=\"margin: 0;\"><a href=\"".XOOPS_URL."/modules/{$mylinksDir}/singlelink.php?lid={$lid}\">{$link}</a></h5></div><div>{$description}</div>";
         unset($catObj, $mylinksCatHandler);
-        $block['content'] .= "<div style=\"text-align: right; font-size: x-small;\"><a href=\"" . XOOPS_URL . "/modules/{$mylinksDir}/index.php\">" . _MB_MYLINKS_SEEMORE . "</a></div>";
+        $block['content'] .= "<div style=\"text-align: right; font-size: x-small;\"><a href=\"" . XOOPS_URL . "/modules/{$mylinksDir}/index.php\">" . _MB_MYLINKS_SEEMORE . '</a></div>';
     }
 
     return $block;

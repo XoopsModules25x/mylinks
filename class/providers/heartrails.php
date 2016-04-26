@@ -32,7 +32,7 @@
  * @since::         3.11
  * @author::     zyspec <owner@zyspec.com>
  */
-require_once XOOPS_ROOT_PATH . "/modules/mylinks/class/thumbplugin.interface.php";
+require_once XOOPS_ROOT_PATH . '/modules/mylinks/class/thumbplugin.interface.php';
 class MylinksHeartrails implements MylinksThumbPlugin
 {
     private $image_width     = 0;
@@ -40,16 +40,16 @@ class MylinksHeartrails implements MylinksThumbPlugin
     protected $image_ratio   = 1.33;  // (4:3)
     private $site_url        = null;
     private $key             = null;
-    private $attribution     = "";
-    private $provider_url    = "http://capture.heartrails.com";
-    private $provider_name   = "Heartrails";
+    private $attribution     = '';
+    private $provider_url    = 'http://capture.heartrails.com';
+    private $provider_name   = 'Heartrails';
 
     function __construct()
     {
     }
     public function getProviderUrl()
     {
-        $query = "/" . $this->image_width . "x" . $this->image_height . "/cool?" . $this->getSiteUrl();
+        $query = '/' . $this->image_width . 'x' . $this->image_height . '/cool?' . $this->getSiteUrl();
         $providerUrl = $this->provider_url . $query;
 
         return $providerUrl;

@@ -21,7 +21,7 @@ echo "<div class='adminfooter'>\n"
    . "    <a href='" . $GLOBALS['xoopsModule']->getInfo('author_website_url') . "' target='_blank'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='" . $GLOBALS['xoopsModule']->getInfo('author_website_name') . "' title='" . $GLOBALS['xoopsModule']->getInfo('author_website_name') . "'></a>\n"
    . "  </div>\n"
    . "  <div class='center smallsmall italic pad5'>\n"
-   . "    " . _AM_MYLINKS_MAINTAINED_BY
+     . '    ' . _AM_MYLINKS_MAINTAINED_BY
    . " <a class='tooltip' rel='external' href='http://" . $GLOBALS['xoopsModule']->getInfo('module_website_url') . "' "
    . "title='" . _AM_MYLINKS_MAINTAINED_TITLE . "'>" . _AM_MYLINKS_MAINTAINED_TEXT . "</a>\n"
    . "  </div>\n"

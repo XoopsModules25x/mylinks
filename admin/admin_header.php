@@ -17,7 +17,7 @@
  * @author::     Magic.Shao <magic.shao@gmail.com> - Susheng Yang <ezskyyoung@gmail.com>
 **/
 
-$path = dirname(dirname(dirname(dirname(__FILE__))));
+$path = dirname(dirname(dirname(__DIR__)));
 include_once $path . '/mainfile.php';
 include_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
@@ -25,7 +25,7 @@ require_once $path . '/include/cp_header.php';
 global $xoopsModule;
 
 $thisModuleDir = $GLOBALS['xoopsModule']->getVar('dirname');
-$thisModulePath = dirname(dirname(__FILE__));
+$thisModulePath = dirname(__DIR__);
 
 // Load language files
 xoops_loadLanguage('admin', $thisModuleDir);
@@ -39,5 +39,5 @@ $pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
 if ( file_exists($GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php'))){
         include_once $GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php');
     }else{
-        redirect_header("../../../admin.php", 5, _AM_MODULEADMIN_MISSING, false);
+        redirect_header('../../../admin.php', 5, _AM_MODULEADMIN_MISSING, false);
     }

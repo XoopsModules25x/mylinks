@@ -3,7 +3,7 @@
 include '../../mainfile.php';
 include_once XOOPS_ROOT_PATH . '/class/template.php';
 error_reporting(0);
-$modulename = basename(dirname(__FILE__));
+$modulename = basename(__DIR__);
 include_once XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feedfunc.new.php";
 
 $param_array = array(
@@ -40,20 +40,20 @@ if (!$tpl->is_cached('file:'.$template) || !$cache) {
         $tpl->assign('self_link', XOOPS_URL . "/modules/{$modulename}/rss.php");
         $tpl->assign('channel_link', XOOPS_URL . '/');
         $tpl->assign('channel_desc', wani_utf8_encode(htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES)));
-        $tpl->assign('channel_lastbuild', wani_utf8_encode(date("r")));
+        $tpl->assign('channel_lastbuild', wani_utf8_encode(date('r')));
         $tpl->assign('channel_webmaster', $xoopsConfig['adminmail'] . '(' . $xoopsConfig['sitename'] . ')');
         $tpl->assign('channel_editor', $xoopsConfig['adminmail'] . '(' . $xoopsConfig['sitename'] . ')');
         $tpl->assign('channel_category', 'New Contents of Mylinks');
         $tpl->assign('channel_generator', XOOPS_VERSION);
         $tpl->assign('channel_language', _LANGCODE);
         $tpl->assign('image_url', XOOPS_URL."/$logo");
-        $tpl->assign('channel_pubdate', wani_utf8_encode(date("r")));
+        $tpl->assign('channel_pubdate', wani_utf8_encode(date('r')));
 //        $tpl->assign('channel_copyright', 'wanisys' );
 
         $dimention = getimagesize(XOOPS_ROOT_PATH . "/{$logo}");
 
-        $width  = (empty($dimention[0])) ? 88 : ($dimention[0] > 144) ? 144 : $dimention[0];
-        $height = (empty($dimention[1])) ? 31 : ($dimention[1] > 400) ? 400 : $dimention[1];
+        $width  = empty($dimention[0]) ? 88 : ($dimention[0] > 144) ? 144 : $dimention[0];
+        $height = empty($dimention[1]) ? 31 : ($dimention[1] > 400) ? 400 : $dimention[1];
 
         $tpl->assign('image_title', wani_utf8_encode(htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES)));
         $tpl->assign('image_width', $width);
@@ -65,7 +65,7 @@ if (!$tpl->is_cached('file:'.$template) || !$cache) {
             $link    = $new['link'];
             $pubdate = '';
             if ( isset($new['time']) ) {
-                $pubdate = wani_utf8_encode(date("r", $new['time']));
+                $pubdate = wani_utf8_encode(date('r', $new['time']));
             }
             $description = '';
             if (isset($new['description'])) {

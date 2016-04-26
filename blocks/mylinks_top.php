@@ -37,23 +37,23 @@ function b_mylinks_top_show($options)
     global $xoopsDB;
     $block = array();
     //ver2.5
-    $modulename = basename(dirname(dirname(__FILE__)));
+    $modulename = basename(dirname(__DIR__));
     $myts =& MyTextSanitizer::getInstance();
-    $result = $xoopsDB->query("SELECT lid, cid, title, date, hits FROM " . $xoopsDB->prefix("mylinks_links") . " WHERE status>0 ORDER BY " . $options[0] . " DESC",$options[1],0);
+    $result = $xoopsDB->query('SELECT lid, cid, title, date, hits FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status>0 ORDER BY ' . $options[0] . ' DESC', $options[1], 0);
     while ($myrow = $xoopsDB->fetchArray($result)) {
         $link = array();
         $title = $myts->htmlSpecialChars($myts->stripSlashesGPC($myrow['title']));
 //        if ( !XOOPS_USE_MULTIBYTES ) {
             if (mb_strlen($title) >= $options[2]) {
-                $title = mb_substr($title,0,($options[2] -1)) . "...";
+                $title = mb_substr($title, 0, $options[2] - 1) . '...';
             }
 //        }
         $link['id']    = $myrow['lid'];
         $link['cid']   = $myrow['cid'];
         $link['title'] = $title;
-        if ($options[0] == "date") {
+        if ($options[0] == 'date') {
             $link['date'] = formatTimestamp($myrow['date'],'s');
-        } elseif ($options[0] == "hits") {
+        } elseif ($options[0] == 'hits') {
             $link['hits'] = $myrow['hits'];
         }
         $block['links'][] = $link;
@@ -66,13 +66,13 @@ function b_mylinks_top_show($options)
 
 function b_mylinks_top_edit($options)
 {
-    $form = "" . _MB_MYLINKS_DISP . "&nbsp;";
+    $form = '' . _MB_MYLINKS_DISP . '&nbsp;';
     if ('date' === $options[0]) {
         $form .= "<input type='hidden' name='options[]' value='date'>";
     } else {
         $form .= "<input type='hidden' name='options[]' value='hits'>";
     }
-    $form .= "<input type='text' name='options[]' value='" . $options[1] . "'>&nbsp;" . _MB_MYLINKS_LINKS . "";
-    $form .= "&nbsp;<br>" . _MB_MYLINKS_CHARS . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "'>&nbsp;" . _MB_MYLINKS_LENGTH . "";
+    $form .= "<input type='text' name='options[]' value='" . $options[1] . "'>&nbsp;" . _MB_MYLINKS_LINKS . '';
+    $form .= '&nbsp;<br>' . _MB_MYLINKS_CHARS . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "'>&nbsp;" . _MB_MYLINKS_LENGTH . '';
     return $form;
 }

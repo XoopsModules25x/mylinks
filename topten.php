@@ -32,7 +32,7 @@ $catObjs           = $mylinksCatHandler->getAll();
 $myCatTree         = new XoopsObjectTree($catObjs, 'cid', 'pid');
 
 $xoopsOption['template_main'] = 'mylinks_topten.html';
-include XOOPS_ROOT_PATH."/header.php";
+include XOOPS_ROOT_PATH . '/header.php';
 //wanikoo
 $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
 $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
@@ -47,11 +47,11 @@ switch ($sort)
 {
     case '1':  // Popular
         $sort = _MD_MYLINKS_RATING;
-        $sortDB = "rating";
+        $sortDB = 'rating';
         break;
     case '3':  // Most Recent
         $sort = _MD_MYLINKS_RECENT;
-        $sortDB = "date";
+        $sortDB = 'date';
         break;
     case '2':  // Rating
     default:
@@ -83,7 +83,7 @@ $catElements       = array('title');
 $mainCatTitleArray = $mylinksCatHandler->getAll($criteria, $catElements, false, true);
 $mainCatIdArray    = array_keys($mainCatTitleArray);
 $catCount          = count($mainCatIdArray);
-$mainCatIds        = ($catCount) ? '(' . implode(',', $mainCatIdArray) . ')' : '';
+$mainCatIds        = $catCount ? '(' . implode(',', $mainCatIdArray) . ')' : '';
 $rankings          = array();
 
 foreach ($mainCatIdArray as $catKey) {
@@ -94,9 +94,9 @@ foreach ($mainCatIdArray as $catKey) {
     }
     array_push($treeIds, $catKey);
     $subcatIds = '(' . implode(',', $treeIds) . ')';
-    $sql = "SELECT lid, cid, title, hits, rating, votes FROM "
-          ."" . $xoopsDB->prefix("mylinks_links") . ""
-          ." WHERE status>0 AND {$sortDB}>0 AND cid IN {$subcatIds} ORDER BY {$sortDB} DESC LIMIT 0,10";
+    $sql = 'SELECT lid, cid, title, hits, rating, votes FROM '
+           . '' . $xoopsDB->prefix('mylinks_links') . ''
+           . " WHERE status>0 AND {$sortDB}>0 AND cid IN {$subcatIds} ORDER BY {$sortDB} DESC LIMIT 0,10";
     $result = $xoopsDB->query($sql);
     if ($result) {
         $catTitle = $myts->htmlSpecialChars($mainCatTitleArray[$catKey]['title']);
@@ -105,16 +105,16 @@ foreach ($mainCatIdArray as $catKey) {
         while (list($lid,$lcid,$ltitle,$hits,$rating,$votes)=$xoopsDB->fetchRow($result)) {
             $thisCatObj = $mylinksCatHandler->get($lcid);
 //            $homePath   = "<a href='" . XOOPSMYLINKURL . "/index.php'>" . _MD_MYLINKS_MAIN . "</a>&nbsp;:&nbsp;";
-            $itemPath   = "<a href='" . XOOPSMYLINKURL . "/viewcat.php?cid={$lcid}'>" . $thisCatObj->getVar('title') . "</a>";
+            $itemPath   = "<a href='" . XOOPSMYLINKURL . "/viewcat.php?cid={$lcid}'>" . $thisCatObj->getVar('title') . '</a>';
             $path       = '';
             $myParent = $thisCatObj->getVar('pid');
             while ( $myParent != 0 ) {
                 $ancestorObj = $myCatTree->getByKey($myParent);
-                $path  = "<a href='" . XOOPSMYLINKURL . "/viewcat.php?cid=" . $ancestorObj->getVar('cid') . "'>" . $ancestorObj->getVar('title') . "</a>&nbsp;:&nbsp;{$path}";
+                $path  = "<a href='" . XOOPSMYLINKURL . '/viewcat.php?cid=' . $ancestorObj->getVar('cid') . "'>" . $ancestorObj->getVar('title') . "</a>&nbsp;:&nbsp;{$path}";
                 $myParent = $ancestorObj->getVar('pid');
             }
             $path = "{$path}{$itemPath}";
-            $path = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $path);
+            $path = str_replace('&nbsp;:&nbsp;', " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $path);
 
             $thisRanking = array( 'id'       => $lid,
                                   'cid'      => $catKey,
@@ -150,7 +150,7 @@ foreach ($GLOBALS['mylinks_allowed_theme'] as $mymylinkstheme) {
 
 $mylinkstheme_select = '<select name="mylinks_theme_select" onchange="submit();" size="1">'.$mymylinkstheme_options.'</select>';
 
-$xoopsTpl->assign("mylinksthemeoption", $mylinkstheme_select);
+$xoopsTpl->assign('mylinksthemeoption', $mylinkstheme_select);
 
 //wanikoo search
 xoops_loadLanguage('search');

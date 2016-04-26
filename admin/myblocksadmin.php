@@ -52,7 +52,7 @@ if (!empty($_GET['dirname'])) {
 if (!empty($target_module) && is_object($target_module)) {
     // specified by dirname
     $target_mid = $target_module->getVar('mid');
-    $target_mname = $target_module->getVar('name') . "&nbsp;" . sprintf( "(%2.2f)", $target_module->getVar('version') / 100.0);
+    $target_mname = $target_module->getVar('name') . '&nbsp;' . sprintf('(%2.2f)', $target_module->getVar('version') / 100.0);
     $query4redirect = '?dirname=' . urlencode(strip_tags($_GET['dirname']));
 } elseif (isset($_GET['mid']) && $_GET['mid'] == 0 || $xoopsModule->getVar('dirname') == 'blocksadmin') {
     $target_mid     = 0;
@@ -73,7 +73,7 @@ if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
 //$block_arr =& XoopsBlock::getByModule( $target_mid );
 $db =& XoopsDatabaseFactory::getDatabaseConnection();
-$sql = "SELECT * FROM " . $db->prefix("newblocks") . " WHERE mid='{$target_mid}' ORDER BY visible DESC,side,weight";
+$sql = 'SELECT * FROM ' . $db->prefix('newblocks') . " WHERE mid='{$target_mid}' ORDER BY visible DESC,side,weight";
 $result = $db->query($sql);
 $block_arr = array();
 while ($myrow = $db->fetchArray($result)) {
@@ -86,7 +86,7 @@ function list_groups()
 
     $item_list = array();
     foreach (array_keys($block_arr) as $i) {
-        $item_list[ $block_arr[$i]->getVar("bid") ] = $block_arr[$i]->getVar("title");
+        $item_list[ $block_arr[$i]->getVar('bid') ] = $block_arr[$i]->getVar('title');
     }
 
     $form = new MyXoopsGroupPermForm(_AM_MYLINKS_AGDS, 1, 'block_read', '');
@@ -106,7 +106,7 @@ if (!empty($_POST['submit'])) {
     }
 
     include 'mygroupperm.php';
-    redirect_header(XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/admin/myblocksadmin.php{$query4redirect}", 1, _MD_MYLINKS_DBUPDATED);
+    redirect_header(XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/admin/myblocksadmin.php{$query4redirect}", 1, _MD_MYLINKS_DBUPDATED);
 }
 
 xoops_cp_header();

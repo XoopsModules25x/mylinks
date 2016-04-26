@@ -37,10 +37,10 @@ if (empty($lid)) {
 $cid   = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min'=>0));
 
 if (!$xoopsUser || (!$xoopsUser->isAdmin($xoopsModule->mid())) || ($xoopsUser->isAdmin($xoopsModule->mid()) && $xoopsModuleConfig['incadmin'])) {
-    $sql = sprintf("UPDATE %s SET hits = hits+1 WHERE lid = %u AND status > 0", $xoopsDB->prefix("mylinks_links"), $lid);
+    $sql = sprintf('UPDATE %s SET hits = hits+1 WHERE lid = %u AND status > 0', $xoopsDB->prefix('mylinks_links'), $lid);
     $xoopsDB->queryF($sql);
 }
-$result = $xoopsDB->query("SELECT url FROM " . $xoopsDB->prefix("mylinks_links") . " WHERE lid={$lid} AND status>0");
+$result = $xoopsDB->query('SELECT url FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid} AND status>0");
 list($url) = $xoopsDB->fetchRow($result);
 if (empty($url)) {
     header('Location: '.XOOPS_URL.'/');
@@ -50,12 +50,12 @@ $url = htmlspecialchars(preg_replace( '/javascript:/si' , 'java script:', $url )
 if ('' != $xoopsModuleConfig['frame']) {
     header('Content-Type:text/html; charset='._CHARSET);
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
     header('Cache-Control: no-store, no-cache, must-revalidate');
-    header("Cache-Control: post-check=0, pre-check=0", false);
-    header("Pragma: no-cache");
+    header('Cache-Control: post-check=0, pre-check=0', false);
+    header('Pragma: no-cache');
     echo "<html><head>\n"
-        ."<title>" . htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES) . "</title>\n"
+         . '<title>' . htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES) . "</title>\n"
         ."</head>\n"
         ."<frameset rows='70px,100%' cols='*' border='0' frameborder='0' framespacing='0' >\n"
         ."<frame src='myheader.php?url={$url}&amp;cid={$cid}&amp;lid={$lid}' frame name='xoopshead' scrolling='no' target='main' Noresize>\n"

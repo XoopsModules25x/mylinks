@@ -16,7 +16,7 @@
  */
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-$mylinksDir = basename(dirname(dirname(__FILE__)));
+$mylinksDir = basename(dirname(__DIR__));
 
 function xoops_module_update_mylinks_base(&$xoopsModule, $prev_version)
 {
