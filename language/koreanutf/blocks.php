@@ -31,7 +31,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
  * @author::     wanikoo <wani@wanisys.net>
- * @version::    $Id: blocks.php 11239 2013-03-16 04:08:34Z zyspec $
  */
 // Blocks
 define("_MB_MYLINKS_DISP", "Ã­â€˜Å“Ã¬â€¹Å“ÃªÂ±Â´Ã¬Ë†Ëœ");

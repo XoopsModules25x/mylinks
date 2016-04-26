@@ -3,18 +3,18 @@
 <{elseif $mylinksadcodes.singlelink}>
 <{$mylinksadcodes.singlelink}>
 <{/if}>
-<br /><br />
+<br><br>
 <{if $mylinksshowlogo}>
-<div class='center'><{$mylinkslogoimage}></div><br />
+<div class='center'><{$mylinkslogoimage}></div><br>
 <{/if}>
 <{if $mylinksshowsearch}>
 <{includeq file='db:mylinks_search_inc.html'}>
 <{/if}>
 <{if $catarray.letters}>
-<div class='itemPermaLink center'><{$catarray.letters}></div><br />
+<div class='itemPermaLink center'><{$catarray.letters}></div><br>
 <{/if}>
 <{if $catarray.toolbar}>
-<div class='toolbar'><{$catarray.toolbar}></div><br />
+<div class='toolbar'><{$catarray.toolbar}></div><br>
 <{/if}>
 <div class='newstitle bnone marg2 pad2'><{$category_path}></div>
 <{if $mylinksshowthemechanger}>
@@ -31,10 +31,10 @@
 <div class='right alignmiddle'><{$mylinksjumpbox}></div>
 <{*
 <div class='right' style='margin: 2em 6px -4em 0em;'>
-  <a href="javascript:mltoggleEffect('<{$mylinks_imgurl}>/icons', 'resizemlcomblock', 'mlcomsizeimage')"><img id='mlcomsizeimage' src='<{$mylinks_imgurl}>/icons/minimize.gif' alt='<{$lang_minimizeblock}>' title='<{$lang_minimizeblock}>' /></a>
+  <a href="javascript:mltoggleEffect('<{$mylinks_imgurl}>/icons', 'resizemlcomblock', 'mlcomsizeimage')"><img id='mlcomsizeimage' src='<{$mylinks_imgurl}>/icons/minimize.gif' alt='<{$lang_minimizeblock}>' title='<{$lang_minimizeblock}>'></a>
 </div>
 *}>
-<div id='resizemlcomblock' class='block'>
+<div id='resizemlcomblock' style='display: block;'>
   <div class='center pad3 marg3'>
     <{$moremetasearch}>
   </div>

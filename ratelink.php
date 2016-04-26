@@ -108,7 +108,7 @@ if (!empty($_POST['submit'])) {
 
     //All is well.  Calculate Score & Add to Summary (for quick retrieval & sorting) to DB.
     updaterating($lid);
-    $ratemessage = _MD_MYLINKS_VOTEAPPRE . "<br />" . sprintf(_MD_MYLINKS_THANKURATE, htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES));
+    $ratemessage = _MD_MYLINKS_VOTEAPPRE . "<br>" . sprintf(_MD_MYLINKS_THANKURATE, htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES));
     redirect_header('index.php', 2, $ratemessage);
     exit();
 
@@ -119,6 +119,7 @@ if (!empty($_POST['submit'])) {
 
     //wanikoo
     $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
+    $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
     $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
 
     $lid    = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min'=>0));

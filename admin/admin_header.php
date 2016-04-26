@@ -15,7 +15,6 @@
  * @subpackage:: admin
  * @since::		 2.5.0
  * @author::     Magic.Shao <magic.shao@gmail.com> - Susheng Yang <ezskyyoung@gmail.com>
- * @version::    $Id $
 **/
 
 $path = dirname(dirname(dirname(dirname(__FILE__))));

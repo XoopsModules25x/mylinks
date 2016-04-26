@@ -41,7 +41,7 @@ if (!is_object($xoopsModule)) {
 }
 
 // set target_module if specified by $_GET['dirname']
-$module_handler =& xoops_gethandler('module');
+$module_handler =& xoops_getHandler('module');
 
 if (!empty($_GET['dirname'])) {
     $target_module =& $module_handler->getByDirname($_GET['dirname']);
@@ -65,7 +65,7 @@ if (!empty($target_module) && is_object($target_module)) {
 }
 
 // check access right (needs system_admin of BLOCK)
-$sysperm_handler =& xoops_gethandler('groupperm');
+$sysperm_handler =& xoops_getHandler('groupperm');
 if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser->getGroups())) {
     redirect_header( XOOPS_URL . '/user.php', 1, _NOPERM );
 }

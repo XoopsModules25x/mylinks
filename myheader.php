@@ -51,7 +51,7 @@ $mail_body = rawurlencode(sprintf(_MD_MYLINKS_INTLINKFOUND, $xoopsConfig['sitena
 echo "</head><body>"
     ."<table style='width: 100%; border-width: 0px; margin:0px; padding: 0px;'>\n"
     ."   <tr>\n"
-    ."     <td style='width: 150px;'><a href='" . XOOPS_URL . "' target='_blank'><img src='" . XOOPS_URL . "/images/logo.gif' alt='' /></a></td>\n"
+    ."     <td style='width: 150px;'><a href='" . XOOPS_URL . "' target='_blank'><img src='" . XOOPS_URL . "/images/logo.gif' alt=''></a></td>\n"
     ."     <td style='width: 100%; text-align: center;'>\n"
     ."       <table class='bg3' style='width: 95%; margin: 2px; padding: 3px; border-width: 0px; border: #e0e0e0 1px solid;'>\n"
     ."         <tr>\n"

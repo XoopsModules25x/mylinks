@@ -35,6 +35,7 @@ $xoopsOption['template_main'] = 'mylinks_topten.html';
 include XOOPS_ROOT_PATH."/header.php";
 //wanikoo
 $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
+$xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
 $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
 //
 
@@ -103,7 +104,7 @@ foreach ($mainCatIdArray as $catKey) {
         $rank = 1;
         while (list($lid,$lcid,$ltitle,$hits,$rating,$votes)=$xoopsDB->fetchRow($result)) {
             $thisCatObj = $mylinksCatHandler->get($lcid);
-            $homePath   = "<a href='" . XOOPSMYLINKURL . "/index.php'>" . _MD_MYLINKS_MAIN . "</a>&nbsp;:&nbsp;";
+//            $homePath   = "<a href='" . XOOPSMYLINKURL . "/index.php'>" . _MD_MYLINKS_MAIN . "</a>&nbsp;:&nbsp;";
             $itemPath   = "<a href='" . XOOPSMYLINKURL . "/viewcat.php?cid={$lcid}'>" . $thisCatObj->getVar('title') . "</a>";
             $path       = '';
             $myParent = $thisCatObj->getVar('pid');
@@ -113,7 +114,7 @@ foreach ($mainCatIdArray as $catKey) {
                 $myParent = $ancestorObj->getVar('pid');
             }
             $path = "{$path}{$itemPath}";
-            $path = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt='' /> ", $path);
+            $path = str_replace("&nbsp;:&nbsp;", " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $path);
 
             $thisRanking = array( 'id'       => $lid,
                                   'cid'      => $catKey,

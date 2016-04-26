@@ -8,9 +8,8 @@
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
  * @subpackage:: admin
- * @since::		 unknown
+ * @since::         unknown
  * @author::     Thatware - http://thatware.org/
- * @version::    $Id: main.php 11819 2013-07-09 18:21:40Z zyspec $
  */
 // ------------------------------------------------------------------------- //
 //                XOOPS - PHP Content Management System                      //
@@ -68,7 +67,7 @@ function listNewLinks()
 
     //@TODO: change to use XoopsForm
     echo "<table  class='outer' style='width: 100%; border-width: 0px; margin: 1px;'>\n"
-        ."  <tr><th colspan='7'>" . sprintf(_MD_MYLINKS_LINKSWAITING, $numrows) . "<br /></th></tr>\n";
+        ."  <tr><th colspan='7'>" . sprintf(_MD_MYLINKS_LINKSWAITING, $numrows) . "<br></th></tr>\n";
     if ( $numrows > 0 ) {
         while (list($lid, $cid, $title, $url, $logourl, $submitterid) = $xoopsDB->fetchRow($result)) {
             $result2 = $xoopsDB->query("SELECT description FROM " . $xoopsDB->prefix("mylinks_text") . " WHERE lid='{$lid}'");
@@ -82,26 +81,26 @@ function listNewLinks()
             $submitter = XoopsUser::getUnameFromId($submitterid);
             echo "  <tr><td>\n"
               ."    <form action='main.php' method='post'>\n"
-              ."	    <table style='width: 80%;'>\n"
+              ."        <table style='width: 80%;'>\n"
               ."          <tr><td style='text-align: right; nowrap='nowrap'>" . _MD_MYLINKS_SUBMITTER . "</td>\n"
               ."            <td><a href=\"".XOOPS_URL."/userinfo.php?uid=".$submitterid."\">$submitter</a></td>\n"
-              ."		  </tr>\n"
+              ."          </tr>\n"
               ."          <tr><td style='text-align: right;' nowrap='nowrap'>" . _MD_MYLINKS_SITETITLE . "</td>\n"
-              ."            <td><input type='text' name='title' size='50' maxlength='100' value='{$title}' /></td>\n"
-              ."		  </tr>\n"
-              ."		  <tr><td style='text-align: right;' nowrap='nowrap'>" . _MD_MYLINKS_SITEURL . "</td>\n"
-              ."		    <td><input type='text' name='url' size='50' maxlength='250' value='{$url}' />&nbsp;\n"
+              ."            <td><input type='text' name='title' size='50' maxlength='100' value='{$title}'></td>\n"
+              ."          </tr>\n"
+              ."          <tr><td style='text-align: right;' nowrap='nowrap'>" . _MD_MYLINKS_SITEURL . "</td>\n"
+              ."            <td><input type='text' name='url' size='50' maxlength='250' value='{$url}'>&nbsp;\n"
               ."              [&nbsp;<a href='" . preg_replace("/javascript:/si", 'java script:', $url) . "' target='_blank'>" . _MD_MYLINKS_VISIT . "</a>&nbsp;]\n"
-              ."			</td>\n"
-              ."		  </tr>\n"
-              ."		  <tr><td style='text-align: right;' nowrap'nowrap'>" . _MD_MYLINKS_CATEGORYC . "</td>\n"
+              ."            </td>\n"
+              ."          </tr>\n"
+              ."          <tr><td style='text-align: right;' nowrap'nowrap'>" . _MD_MYLINKS_CATEGORYC . "</td>\n"
               ."            <td>" . $myCatTree->makeSelBox("cid", "title", '- ', $cid) . "</td>\n"
               ."          </tr>\n"
               ."        <tr><td style='text-align: right; vertical-align: top;' nowrap='nowrap'>" . _MD_MYLINKS_DESCRIPTIONC . "</td>\n"
               ."          <td><textarea name='description' cols='60' rows='5'>{$description}</textarea></td>\n"
               ."        </tr>\n"
               ."        <tr><td style='text-align: right; nowrap='nowrap'>" . _MD_MYLINKS_SHOTIMAGE . "</td>\n"
-              ."			<td><select size='1' name='logourl'><option value=' '>------</option>";
+              ."            <td><select size='1' name='logourl'><option value=' '>------</option>";
             foreach ($linkimg_array as $image){
                 echo "<option value='{$image}'>{$image}</option>";
             }
@@ -110,12 +109,12 @@ function listNewLinks()
                 ."        </tr>\n"
                 ."        <tr><td></td><td>" . sprintf(_MD_MYLINKS_SHOTMUST, $shotdir) . "</td></tr>\n"
                 ."      </table>\n"
-                ."      <br /><input type='hidden' name='op' value='approve' />\n"
-                ."		<input type='hidden' name='lid' value='{$lid}' />\n"
-                ."      <input type='submit' value='" . _MD_MYLINKS_APPROVE . "' />\n"
+                ."      <br><input type='hidden' name='op' value='approve'>\n"
+                ."        <input type='hidden' name='lid' value='{$lid}'>\n"
+                ."      <input type='submit' value='" . _MD_MYLINKS_APPROVE . "'>\n"
                 ."    </form>\n";
-            echo "    <form action='main.php?op=delNewLink&amp;lid={$lid}' method='post'><input type='submit' value='" . _DELETE . "' /></form>\n"
-                ."    <br /><br />\n"
+            echo "    <form action='main.php?op=delNewLink&amp;lid={$lid}' method='post'><input type='submit' value='" . _DELETE . "'></form>\n"
+                ."    <br><br>\n"
                 ."  </td></tr>\n";
         }
     } else {
@@ -134,7 +133,7 @@ function linksConfigMenu()
     $catCount = $mylinksCatHandler->getCount();
     $linkimg_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/images/shots/");
 
-    xoops_cp_header()    ;
+    xoops_cp_header();
     $indexAdmin = new ModuleAdmin();
     echo $indexAdmin->addNavigation('main.php?op=linksConfigMenu');
 
@@ -150,19 +149,19 @@ function linksConfigMenu()
           ."      <table style='width: 80%;'>\n"
           ."        <tr>\n"
           ."          <td style='text-align: right;'>" . _MD_MYLINKS_SITETITLE . "</td>\n"
-          ."			<td><input type='text' name='title' size='50' maxlength='100' /></td>\n"
-          ."		  </tr>\n"
+          ."            <td><input type='text' name='title' size='50' maxlength='100'></td>\n"
+          ."          </tr>\n"
           ."        <tr>\n"
           ."          <td style='text-align: right;' nowrap='nowrap'>" . _MD_MYLINKS_SITEURL . "</td>\n"
-          ."          <td><input type='text' name='url' size='50' maxlength='250' value='http://' /></td>\n"
+          ."          <td><input type='text' name='url' size='50' maxlength='250' value='http://'></td>\n"
           ."        </tr>\n"
           ."        <tr>\n"
           ."          <td style='text-align: right;' nowrap='nowrap'>" . _MD_MYLINKS_CATEGORYC . "</td>\n"
           ."          <td>\n"
           ."            " . $myCatTree->makeSelBox("cid", "title") . "\n"
-          ."		    </td>\n"
-          ."		  </tr>\n"
-          ."		  <tr>\n"
+          ."            </td>\n"
+          ."          </tr>\n"
+          ."          <tr>\n"
           ."          <td style='text-align: right; vertical-align: top;' nowrap='nowrap'>" . _MD_MYLINKS_DESCRIPTIONC . "</td>\n"
           ."          <td>";
         xoopsCodeTarea("descarea", 60, 8);
@@ -179,15 +178,15 @@ function linksConfigMenu()
           ."        </tr>\n";
         $shotdir = "<strong>" . XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/images/shots/</strong>";
         echo "        <tr><td></td><td>" . sprintf(_MD_MYLINKS_SHOTMUST, $shotdir) . "</td></tr>\n"
-            ."      </table><br />\n"
+            ."      </table><br>\n"
             ."      <div style='text-align: center;'>\n"
-            ."        <input type='hidden' name='op' value='addLink' />\n"
-            ."        <input type='submit' class='button' value='" . _ADD . "' />\n"
+            ."        <input type='hidden' name='op' value='addLink'>\n"
+            ."        <input type='submit' class='button' value='" . _ADD . "'>\n"
             ."      </div>\n"
             ."    </form>\n"
             ."  </td></tr>\n"
             ."</table>\n"
-            ."<br />\n";
+            ."<br>\n";
 
         // Modify Link
         $result2 = $xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("mylinks_links") . "");
@@ -198,10 +197,10 @@ function linksConfigMenu()
                 ."  <tr class='odd'><td style='text-align: center;'>\n"
                 ."    <form method='get' action='main.php'>\n"
                 ."      " . _MD_MYLINKS_LINKID . "\n"
-                ."      <input type='text' name='lid' size='12' maxlength='11' />\n"
-                ."      <input type='hidden' name='fct' value='mylinks' />\n"
-                ."      <input type='hidden' name='op' value='modLink' /><br /><br />\n"
-                ."      <input type='submit' value='" . _MD_MYLINKS_MODIFY . "' />\n"
+                ."      <input type='text' name='lid' size='12' maxlength='11'>\n"
+                ."      <input type='hidden' name='fct' value='mylinks'>\n"
+                ."      <input type='hidden' name='op' value='modLink'><br><br>\n"
+                ."      <input type='submit' value='" . _MD_MYLINKS_MODIFY . "'>\n"
                 ."    </form>\n"
                 ."  </td></tr>\n"
                 ."</table>";
@@ -214,26 +213,26 @@ function linksConfigMenu()
         ."  <tr class='odd'><td style='text-align: center;'>\n"
         ."    <form method='post' action='main.php'>\n"
         ."      " . _MD_MYLINKS_TITLEC . "\n"
-        ."      <input type='text' name='title' size='30' maxlength='50' /><br />\n"
-        ."      " . _MD_MYLINKS_IMGURL . "<br />\n"
-        ."      <input type='text' name='imgurl' size='100' maxlength='150' value='http://' /><br /><br />\n"
-        ."	    <input type='hidden' name='cid' value='0' />\n"
-        ."      <input type='hidden' name='op' value='addCat' />\n"
-        ."      <input type='submit' value='" . _ADD . "' /><br />\n"
+        ."      <input type='text' name='title' size='30' maxlength='50'><br>\n"
+        ."      " . _MD_MYLINKS_IMGURL . "<br>\n"
+        ."      <input type='text' name='imgurl' size='100' maxlength='150' value='http://'><br><br>\n"
+        ."        <input type='hidden' name='cid' value='0'>\n"
+        ."      <input type='hidden' name='op' value='addCat'>\n"
+        ."      <input type='submit' value='" . _ADD . "'><br>\n"
         ."    </form>\n"
         ."  </td></tr>\n";
     if (!$catCount) {
         echo "  <tr><th style='font-size: larger;'>" . _MD_MYLINKS_IMPORTCATHDR . "</th></tr>\n"
             ."  <tr class='even'><td style='text-align: center;'>\n"
             ."    <form method='post' action='main.php'>\n"
-            ."      " . _MD_MYLINKS_IMPORTCATS . "<br />\n"
-            ."      <input type='hidden' name='op' value='importCats' />\n"
-            ."      <input type='hidden' name='ok' value='0' />\n"
-            ."      <input style='margin: .5em 0em;' type='submit' value='" . _SUBMIT . "' /><br />\n"
+            ."      " . _MD_MYLINKS_IMPORTCATS . "<br>\n"
+            ."      <input type='hidden' name='op' value='importCats'>\n"
+            ."      <input type='hidden' name='ok' value='0'>\n"
+            ."      <input style='margin: .5em 0em;' type='submit' value='" . _SUBMIT . "'><br>\n"
             ."    </form>\n"
             ."  </td></tr>"
             ."</table>\n"
-            ."<br />\n";
+            ."<br>\n";
     }
     // Add a New Sub-Category
     if ($catCount) {
@@ -242,14 +241,14 @@ function linksConfigMenu()
             ."  <tr class='odd'><td style='text-align: center;'>\n"
             ."    <form method='post' action='main.php'>\n"
             ."      " . _MD_MYLINKS_TITLEC . "\n"
-            ."      <input type='text' name='title' size='30' maxlength='50' />&nbsp;" . _MD_MYLINKS_IN . "&nbsp;\n"
+            ."      <input type='text' name='title' size='30' maxlength='50'>&nbsp;" . _MD_MYLINKS_IN . "&nbsp;\n"
             ."      " . $myCatTree->makeSelBox("pid", "title") . "\n"
-            ."      <input type='hidden' name='op' value='addCat' /><br /><br />\n"
-            ."      <input type='submit' value='" . _ADD . "' /><br />\n"
+            ."      <input type='hidden' name='op' value='addCat'><br><br>\n"
+            ."      <input type='submit' value='" . _ADD . "'><br>\n"
             ."    </form>\n"
             ."  </td></tr>\n"
             ."</table>\n"
-            ."<br />";
+            ."<br>";
     }
 
     // Modify Category Table Display
@@ -258,16 +257,16 @@ function linksConfigMenu()
             ."  <tr><th style='font-size: larger;'>" . _MD_MYLINKS_MODCAT . "</th></tr>\n"
             ."  <tr class='odd'><td style='text-align: center;'>\n"
             ."    <form method='get' action='main.php'>\n"
-//            ."      <h4>" . _MD_MYLINKS_MODCAT . "</h4><br />\n"
+//            ."      <h4>" . _MD_MYLINKS_MODCAT . "</h4><br>\n"
             ."      " . _MD_MYLINKS_CATEGORYC . "\n"
             ."      " . $myCatTree->makeSelBox("cid", "title") . "\n"
-            ."      <br /><br />\n"
-            ."      <input type='hidden' name='op' value='modCat' />\n"
-            ."      <input type='submit' value='" . _MD_MYLINKS_MODIFY . "' />\n"
+            ."      <br><br>\n"
+            ."      <input type='hidden' name='op' value='modCat'>\n"
+            ."      <input type='submit' value='" . _MD_MYLINKS_MODIFY . "'>\n"
             ."    </form>\n"
             ."  </td></tr>\n"
             ."</table>\n"
-            ."<br />\n";
+            ."<br>\n";
     }
     include 'admin_footer.php';
 }
@@ -306,16 +305,16 @@ function modLink()
         ."      <form method='post' action='main.php' style='display: inline;'>\n"
         ."        <table>\n"
         ."          <tr><td>" . _MD_MYLINKS_LINKID . "</td><td style='font-weight: bold;'>{$lid}</td></tr>\n"
-        ."          <tr><td>" . _MD_MYLINKS_SITETITLE . "</td><td><input type='text' name='title' value='{$title}' size='50' maxlength='100' /></td></tr>\n"
-        ."			<tr><td>" . _MD_MYLINKS_SITEURL . "</td><td><input type='text' name='url' value='{$url}' size='50' maxlength='250' /></td></tr>\n"
+        ."          <tr><td>" . _MD_MYLINKS_SITETITLE . "</td><td><input type='text' name='title' value='{$title}' size='50' maxlength='100'></td></tr>\n"
+        ."            <tr><td>" . _MD_MYLINKS_SITEURL . "</td><td><input type='text' name='url' value='{$url}' size='50' maxlength='250'></td></tr>\n"
         ."          <tr><td style='vertical-align: top;'>" . _MD_MYLINKS_DESCRIPTIONC . "</td><td>";
     xoopsCodeTarea("description", 60, 8);
     xoopsSmilies("description");
     echo "</td></tr>\n"
-        ."			<tr><td>" . _MD_MYLINKS_CATEGORYC . "</td><td>"
+        ."            <tr><td>" . _MD_MYLINKS_CATEGORYC . "</td><td>"
         ."" . $myCatTree->makeSelBox("cid", "title", '- ', $cid) . ""
         ."          </td></tr>\n"
-        ."			<tr><td>"._MD_MYLINKS_SHOTIMAGE."</td><td>"
+        ."            <tr><td>"._MD_MYLINKS_SHOTIMAGE."</td><td>"
         ."<select size='1' name='logourl'>"
         ."<option value=' '>------</option>";
     foreach ($linkimg_array as $image) {
@@ -328,34 +327,34 @@ function modLink()
     $shotdir = "<strong>" . XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/images/shots/</strong>";
     echo "          <tr><td>&nbsp;</td><td>" . sprintf(_MD_MYLINKS_SHOTMUST, $shotdir) . "</td></tr>\n"
         ."        </table>"
-        ."        <br /><br /><input type='hidden' name='lid' value='{$lid}' />\n"
-        ."        <input type='hidden' name='bknrptid' value='{$bknrptid}' />\n"
-        ."        <input type='hidden' name='op' value='modLinkS' />\n"
-        ."        <input type='submit' value='" . _MD_MYLINKS_MODIFY . "' />"
+        ."        <br><br><input type='hidden' name='lid' value='{$lid}'>\n"
+        ."        <input type='hidden' name='bknrptid' value='{$bknrptid}'>\n"
+        ."        <input type='hidden' name='op' value='modLinkS'>\n"
+        ."        <input type='submit' value='" . _MD_MYLINKS_MODIFY . "'>"
         ."      </form>\n"
-        ."		<form action='main.php?op=delLink&amp;lid={$lid}' method='post' style='margin-left: 1em; display: inline;'><input type='submit' value='" . _DELETE . "' /></form>\n"
-        ."		<form action='main.php?op=linksConfigMenu' method='post' style='margin-left: 1em; display: inline;'><input type='submit' value='" . _CANCEL . "' /></form>\n"
-        ."      <hr />";
+        ."        <form action='main.php?op=delLink&amp;lid={$lid}' method='post' style='margin-left: 1em; display: inline;'><input type='submit' value='" . _DELETE . "'></form>\n"
+        ."        <form action='main.php?op=linksConfigMenu' method='post' style='margin-left: 1em; display: inline;'><input type='submit' value='" . _CANCEL . "'></form>\n"
+        ."      <hr>";
 
     $result5=$xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("mylinks_votedata")." WHERE lid='{$lid}'");
     list($totalvotes) = $xoopsDB->fetchRow($result5);
     echo "      <table style='width: 100%;'>\n"
-        ."        <tr><td colspan='7' style='font-weight: bold;'>" . sprintf(_MD_MYLINKS_TOTALVOTES , $totalvotes) . "<br /><br /></td></tr>\n";
+        ."        <tr><td colspan='7' style='font-weight: bold;'>" . sprintf(_MD_MYLINKS_TOTALVOTES , $totalvotes) . "<br><br></td></tr>\n";
     // Show Registered Users Votes
     $result5=$xoopsDB->query("SELECT ratingid, ratinguser, rating, ratinghostname, ratingtimestamp FROM " . $xoopsDB->prefix("mylinks_votedata") . " WHERE lid='{$lid}' AND ratinguser >0 ORDER BY ratingtimestamp DESC");
     $votes = $xoopsDB->getRowsNum($result5);
-    echo "        <tr><td colspan='7' style='font-weight: bold;'><br /><br />" . sprintf(_MD_MYLINKS_USERTOTALVOTES, $votes) . "<br /><br /></td></tr>\n";
+    echo "        <tr><td colspan='7' style='font-weight: bold;'><br><br>" . sprintf(_MD_MYLINKS_USERTOTALVOTES, $votes) . "<br><br></td></tr>\n";
     echo "        <tr>\n"
         ."          <th>" . _MD_MYLINKS_USER . "  </th>\n"
         ."          <th>" . _MD_MYLINKS_IP . "  </th>\n"
         ."          <th>" . _MD_MYLINKS_RATING . "  </th>\n"
-        ."			<th>" . _MD_MYLINKS_USERAVG . "  </th>\n"
+        ."            <th>" . _MD_MYLINKS_USERAVG . "  </th>\n"
         ."          <th>" . _MD_MYLINKS_TOTALRATE . "  </th>\n"
         ."          <th>" . _MD_MYLINKS_DATE . "  </th>\n"
         ."          <th>" . _DELETE . "</td>\n"
         ."        </tr>\n";
     if ( 0 == $votes ) {
-        echo "        <tr><td style='text-align: center;' colspan='7'>" . _MD_MYLINKS_NOREGVOTES . "<br /></td></tr>\n";
+        echo "        <tr><td style='text-align: center;' colspan='7'>" . _MD_MYLINKS_NOREGVOTES . "<br></td></tr>\n";
     }
 
     $x = 0;
@@ -379,31 +378,31 @@ function modLink()
 */
         $ratingusername = XoopsUser::getUnameFromId($ratinguser);
         echo "        <tr>\n"
-            ."    		<td style='background-color: {$colorswitch};'>{$ratingusername}</td>\n"
-            ."    		<td style='background-color: {$colorswitch};'>{$ratinghostname}</td>\n"
-            ."    		<td style='background-color: {$colorswitch};'>{$rating}</td>\n"
-            ."    		<td style='background-color: {$colorswitch};'>{$useravgrating}</td>\n"
-            ."    		<td style='background-color: {$colorswitch};'>{$uservotes}</td>\n"
-            ."    		<td style='background-color: {$colorswitch};'>{$ratingtimestamp}</td>\n"
-            ."    		<td style='background-color: {$colorswitch}; text-align: center; font-weight: bold;'>\n"
-            ."      	  <form action='main.php?op=delVote&amp;lid={$lid}&amp;rid={$ratingid}' method='post'><input type='submit' value='X' /></form>\n"
-            ."    		</td>\n"
-            ."  	  </tr>\n";
+            ."            <td style='background-color: {$colorswitch};'>{$ratingusername}</td>\n"
+            ."            <td style='background-color: {$colorswitch};'>{$ratinghostname}</td>\n"
+            ."            <td style='background-color: {$colorswitch};'>{$rating}</td>\n"
+            ."            <td style='background-color: {$colorswitch};'>{$useravgrating}</td>\n"
+            ."            <td style='background-color: {$colorswitch};'>{$uservotes}</td>\n"
+            ."            <td style='background-color: {$colorswitch};'>{$ratingtimestamp}</td>\n"
+            ."            <td style='background-color: {$colorswitch}; text-align: center; font-weight: bold;'>\n"
+            ."            <form action='main.php?op=delVote&amp;lid={$lid}&amp;rid={$ratingid}' method='post'><input type='submit' value='X'></form>\n"
+            ."            </td>\n"
+            ."        </tr>\n";
         $x++;
         $colorswitch = ( $colorswitch == "#DDDDDD" ) ? "#FFFFFF" : "#DDDDDD";
     }
     // Show Unregistered Users Votes
     $result5=$xoopsDB->query("SELECT ratingid, rating, ratinghostname, ratingtimestamp FROM ".$xoopsDB->prefix("mylinks_votedata")." WHERE lid ='{$lid}' AND ratinguser='0' ORDER BY ratingtimestamp DESC");
     $votes = $xoopsDB->getRowsNum($result5);
-    echo "        <tr><td colspan='7' style='font-weight: bold;'><br /><br />" . sprintf(_MD_MYLINKS_ANONTOTALVOTES , $votes) . "<br /><br /></td></tr>\n"
+    echo "        <tr><td colspan='7' style='font-weight: bold;'><br><br>" . sprintf(_MD_MYLINKS_ANONTOTALVOTES , $votes) . "<br><br></td></tr>\n"
         ."        <tr>\n"
         ."          <th colspan='2'>" . _MD_MYLINKS_IP . "  </th>\n"
-        ."		    <th colspan='3' style='font-weight: bold;'>" . _MD_MYLINKS_RATING . "  </th>\n"
-        ."			<th style='font-weight: bold;'>" . _MD_MYLINKS_DATE . "  </th>\n"
-        ."          <th style='text-align: center; font-weight: bold;'>" . _DELETE . "<br /></th>\n"
+        ."            <th colspan='3' style='font-weight: bold;'>" . _MD_MYLINKS_RATING . "  </th>\n"
+        ."            <th style='font-weight: bold;'>" . _MD_MYLINKS_DATE . "  </th>\n"
+        ."          <th style='text-align: center; font-weight: bold;'>" . _DELETE . "<br></th>\n"
         ."        </tr>\n";
     if ( 0 == $votes ) {
-        echo "        <tr><td colspan='7' style='text-align: center;'>" . _MD_MYLINKS_NOUNREGVOTES . "<br /></td></tr>\n";
+        echo "        <tr><td colspan='7' style='text-align: center;'>" . _MD_MYLINKS_NOUNREGVOTES . "<br></td></tr>\n";
     }
     $x = 0;
     $colorswitch = "#DDDDDD";
@@ -414,13 +413,13 @@ function modLink()
           ."          <td colspan='3' style='background-color: {$colorswitch}'>{$rating}</td>\n"
           ."          <td style='background-color: {$colorswitch}'>{$formatted_date}</td>\n"
           ."          <td style='background-color: {$colorswitch} text-align: center; font-weight: bold;'>\n"
-          ."            <form action='main.php?op=delVote&amp;lid={$lid}&amp;rid={$ratingid}' method='post'><input type='submit' value='X' /></form>\n"
+          ."            <form action='main.php?op=delVote&amp;lid={$lid}&amp;rid={$ratingid}' method='post'><input type='submit' value='X'></form>\n"
           ."          </td>"
           ."        </tr>";
         $x++;
         $colorswitch = ( $colorswitch == "#DDDDDD" ) ? "#FFFFFF" : "#DDDDDD";
     }
-    echo "        <tr><td colspan='7'>&nbsp;<br /></td></tr>\n"
+    echo "        <tr><td colspan='7'>&nbsp;<br></td></tr>\n"
         ."      </table>\n"
         ."    </td>\n"
         ."  </tr>\n"
@@ -456,19 +455,19 @@ function listBrokenLinks()
     $indexAdmin = new ModuleAdmin();
     echo $indexAdmin->addNavigation('main.php?op=listBrokenLinks');
     $GLOBALS['xoTheme']->addStylesheet(mylinksGetStylePath('mylinks.css', 'include'));
-//    echo "<link rel='stylesheet' href='" . $GLOBALS['xoops']->url('browse.php?modules/mylinks/include/mylinks.css') . "' type='text/css' />";
+//    echo "<link rel='stylesheet' href='" . $GLOBALS['xoops']->url('browse.php?modules/mylinks/include/mylinks.css') . "' type='text/css'>";
 
     echo "<table class='outer' style='width: 100%; border-width: 0px; margin: 1px;'>\n"
-       . "  <tr><th>" . sprintf(_MD_MYLINKS_BROKENREPORTS, $totalBrokenLinks) . "<br /></th></tr>\n"
+       . "  <tr><th>" . sprintf(_MD_MYLINKS_BROKENREPORTS, $totalBrokenLinks) . "<br></th></tr>\n"
        . "  <tr class='odd'><td>\n";
 
     if ( 0 == $totalBrokenLinks ) {
         echo "    <span class='italic bold'>" . _MD_MYLINKS_NOBROKEN . "</span>";
     } else {
         $colorswitch = "#DDDDDD";
-        echo "<img src='{$pathIcon16}/on.png' /> = "._MD_MYLINKS_IGNOREDESC . "<br />"
-           . "<img src='{$pathIcon16}/edit.png' /> = " . _MD_MYLINKS_EDITDESC . "<br />"
-           . "<img src='{$pathIcon16}/delete.png' /> = ". _MD_MYLINKS_DELETEDESC .  "<br />"
+        echo "<img src='{$pathIcon16}/on.png' alt='"  ._MD_MYLINKS_IGNOREDESC . "'> = "._MD_MYLINKS_IGNOREDESC . "<br>"
+           . "<img src='{$pathIcon16}/edit.png' alt='" . _EDIT . "'> = " . _MD_MYLINKS_EDITDESC . "<br>"
+           . "<img src='{$pathIcon16}/delete.png' alt='" . _DELETE . "'> = ". _MD_MYLINKS_DELETEDESC .  "<br>"
            . "   <table class='center width100'>\n"
 //           ."      <tr><th colspan='6'>" . _MD_MYLINKS_DELETEDESC . "</th><tr>"
            . "      <tr>\n"
@@ -509,22 +508,22 @@ function listBrokenLinks()
 //                ."          <a href='main.php?op=modLink&amp;lid={$lid}&amp;bknrptid={$reportid}'><img src=". $pathIcon16 ."/edit.png alt='" . _EDIT . "' title='" . _EDIT . "'></a>\n"
 //                ."          <a href='main.php?op=delBrokenLinks&amp;lid={$lid}'><img src=". $pathIcon16 ."/delete.png alt='" . _DELETE . "' title='" . _DELETE . "'></a>\n"
                . "          <form class='inline' action='" . $_SERVER['PHP_SELF'] . "' method='post'>\n"
-               . "	           <input type='hidden' name='op' value='ignoreBrokenLinks' />\n"
-               . "	           <input type='hidden' name='bknrptid' value='{$reportid}' />\n"
+               . "               <input type='hidden' name='op' value='ignoreBrokenLinks'>\n"
+               . "               <input type='hidden' name='bknrptid' value='{$reportid}'>\n"
                . "            {$formToken}\n"
-               . "            <input type='button' title='" . _MD_MYLINKS_IGNOREDESC . "' alt='" . _AM_MYLINKS_IGNORE . "' id='image-button-on' onclick='this.form.submit();'></input>\n"
+               . "            <input type='button' title='" . _MD_MYLINKS_IGNOREDESC . "' alt='" . _AM_MYLINKS_IGNORE . "' id='image-button-on' onclick='this.form.submit();'>\n"
                . "          </form>\n"
                . "          <form class='inline' action='" . $_SERVER['PHP_SELF'] . "'?op=modLink&amp;lid={$lid} method='get'>\n"
-               . "            <input type='hidden' name='op' value='modLink' />\n"
-               . "            <input type='hidden' name='bknrptid' value='{$reportid}' />\n"
-               . "            <input type='hidden' name='lid' value={$lid} />\n"
-               . "            <input type='button' title='" . _MD_MYLINKS_EDITDESC . "' alt='" . _EDIT . "' id='image-button-edit' onclick='this.form.submit();'></input>\n"
+               . "            <input type='hidden' name='op' value='modLink'>\n"
+               . "            <input type='hidden' name='bknrptid' value='{$reportid}'>\n"
+               . "            <input type='hidden' name='lid' value={$lid}>\n"
+               . "            <input type='button' title='" . _MD_MYLINKS_EDITDESC . "' alt='" . _EDIT . "' id='image-button-edit' onclick='this.form.submit();'>\n"
                . "          </form>\n"
                . "          <form class='inline' action='" . $_SERVER['PHP_SELF'] . "' method='post'>\n"
-               . "	           <input type='hidden' name='op' value='delBrokenLinks' />\n"
-               . "	           <input type='hidden' name='lid' value='{$lid}' />\n"
+               . "               <input type='hidden' name='op' value='delBrokenLinks'>\n"
+               . "               <input type='hidden' name='lid' value='{$lid}'>\n"
                . "            {$formToken}\n"
-               . "            <input type='button' title='" . _MD_MYLINKS_DELETEDESC . "' alt='" . _DELETE . "' id='image-button-delete' onclick='this.form.submit();'></input>\n"
+               . "            <input type='button' title='" . _MD_MYLINKS_DELETEDESC . "' alt='" . _DELETE . "' id='image-button-delete' onclick='this.form.submit();'>\n"
                . "          </form>\n"
                . "        </td>\n"
                . "      </tr>\n";
@@ -636,16 +635,16 @@ function listModReq()
             echo "        <table style='border-width: 1px; border-color: black; padding: 5px; margin: auto; text-align: center; width: 800px;'>\n"
                 ."          <tr><td>\n"
                 ."            <table style='width: 100%; background-color: #DDDDDD'>\n"
-                ."			    <tr>\n"
+                ."                <tr>\n"
                 ."                <td style='vertical-align: top; width: 45%; font-weight: bold;'>" . _MD_MYLINKS_ORIGINAL . "</td>\n"
-                ."                <td rowspan='14' style='vertical-align: top; text-align: left; font-size: small;'><br />" . _MD_MYLINKS_DESCRIPTIONC . "<br />{$origdescription}</td>\n"
+                ."                <td rowspan='14' style='vertical-align: top; text-align: left; font-size: small;'><br>" . _MD_MYLINKS_DESCRIPTIONC . "<br>{$origdescription}</td>\n"
                 ."              </tr>\n"
                 ."              <tr><td style='vertical-align: top; width: 45%; font-size: small;'>" . _MD_MYLINKS_SITETITLE . "{$myts->stripSlashesGPC($origtitle)}</td></tr>\n"
                 ."              <tr><td style='vertical-align: top; width: 45%; font-size: small;'>" . _MD_MYLINKS_SITEURL . "{$origurl}</td></tr>\n"
                 ."              <tr><td style='vertical-align= top; width: 45%; font-size: small;'>" . _MD_MYLINKS_CATEGORYC . "{$origcidtitle}</td></tr>\n"
                 ."              <tr><td style='vertical-align: top; width: 45%; font-size: small;'>" . _MD_MYLINKS_SHOTIMAGE . "";
             if ( $xoopsModuleConfig['useshots'] && !empty($origlogourl) ) {
-                echo "<img src='" . XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/images/shots/{$origlogourl}' style='width: " . $xoopsModuleConfig['shotwidth'] . ";' />";
+                echo "<img src='" . XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/images/shots/{$origlogourl}' style='width: " . $xoopsModuleConfig['shotwidth'] . ";'>";
             } else {
                 echo "&nbsp;";
             }
@@ -654,16 +653,16 @@ function listModReq()
                 ."      </td></tr>\n"
                 ."      <tr><td>\n"
                 ."        <table style='width: 100%; background-color: #DDDDDD'>\n"
-                ."		    <tr>\n"
+                ."            <tr>\n"
                 ."            <td style='vertical-align: top; width: 45%; font-weight: bold;'>" . _MD_MYLINKS_PROPOSED . "</td>\n"
-                ."            <td rowspan='14' style='vertical-align: top; text-align: left; font-size: small;'><br />" . _MD_MYLINKS_DESCRIPTIONC . "<br />{$description}</td>\n"
+                ."            <td rowspan='14' style='vertical-align: top; text-align: left; font-size: small;'><br>" . _MD_MYLINKS_DESCRIPTIONC . "<br>{$description}</td>\n"
                 ."          </tr>\n"
                 ."          <tr><td style='vertical-align: top; width: 45%; font-size: small;'>" . _MD_MYLINKS_SITETITLE . "{$title}</td></tr>\n"
                 ."          <tr><td style='vertical-align: top; width: 45%; font-size: small;'>" . _MD_MYLINKS_SITEURL . "{$url}</td></tr>\n"
                 ."          <tr><td style='vertical-align: top; width: 45%; font-size: small;'>" . _MD_MYLINKS_CATEGORYC . "{$cidtitle}</td></tr>\n"
                 ."          <tr><td style='vertical-align: top; width: 45%; font-size: small;'>" . _MD_MYLINKS_SHOTIMAGE . "";
             if ( $xoopsModuleConfig['useshots'] == 1 && !empty($logourl) ) {
-                echo "<img src='" . XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/images/shots/{$logourl}' style='width: " . $xoopsModuleConfig['shotwidth'] . ";' alt='' />";
+                echo "<img src='" . XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/images/shots/{$logourl}' style='width: " . $xoopsModuleConfig['shotwidth'] . ";' alt='{$title}'>";
             } else {
                 echo "&nbsp;";
             }
@@ -686,24 +685,24 @@ function listModReq()
             echo "      <td style='text-align: center; font-size: small;'>\n"
 //                ."        <form style='display: inline; margin-right: 1.5em;' action='main.php?op=changeModReq&amp;requestid={$requestid}' method='get'>\n"
                 ."        <form style='display: inline; margin-right: 1.5em;' action='main.php' method='post'>\n"
-                ."          <input type='hidden' name='op' value='changeModReq' />\n"
-                ."          <input type='hidden' name='requestid' value='{$requestid}' />\n"
-                ."          <input type='submit' value='" . _MD_MYLINKS_APPROVE . "' />\n"
+                ."          <input type='hidden' name='op' value='changeModReq'>\n"
+                ."          <input type='hidden' name='requestid' value='{$requestid}'>\n"
+                ."          <input type='submit' value='" . _MD_MYLINKS_APPROVE . "'>\n"
                 ."        </form>\n"
 //                ."        <form style='display: inline; margin-right: 1.5em;' action='main.php?op=modLink&amp;lid={$lid}' method='get'>\n"
                 ."        <form style='display: inline; margin-right: 1.5em;' action='main.php' method='get'>\n"
                 ."          <input type='hidden' name='op' value='modLink'>\n"
                 ."          <input type='hidden' name='lid' value='{$lid}'>\n"
-                ."          <input type='submit' value='" . _EDIT . "' /></form>\n"
-//                ."        <form style='display: inline;' action='main.php?op=ignoreModReq&amp;requestid={$requestid}' method='post'><input type='submit' value='" . _MD_MYLINKS_IGNORE . "' /></form>\n"
+                ."          <input type='submit' value='" . _EDIT . "'></form>\n"
+//                ."        <form style='display: inline;' action='main.php?op=ignoreModReq&amp;requestid={$requestid}' method='post'><input type='submit' value='" . _MD_MYLINKS_IGNORE . "'></form>\n"
                 ."        <form style='display: inline;' action='main.php' method='post'>\n"
-                ."          <input type='hidden' name='op' value='ignoreModReq' />\n"
-                ."          <input type='hidden' name='requestid' value='{$requestid}' />\n"
-                ."          <input type='submit' value='" . _MD_MYLINKS_IGNORE . "' />\n"
+                ."          <input type='hidden' name='op' value='ignoreModReq'>\n"
+                ."          <input type='hidden' name='requestid' value='{$requestid}'>\n"
+                ."          <input type='submit' value='" . _MD_MYLINKS_IGNORE . "'>\n"
                 ."        </form>\n"
                 ."      </td>\n"
                 ."    </tr>\n"
-                ."  </table><br /><br />\n";
+                ."  </table><br><br>\n";
         }
         echo "    </td></tr></table>";
     } else {
@@ -836,7 +835,7 @@ function modCat()
 
     echo "<h4>" . _MD_MYLINKS_WEBLINKSCONF . "</h4>\n"
       ."<table class='outer' style='width: 100%; border-width: 0px; margin: 1px;'>\n"
-      ."  <tr><th>" . _MD_MYLINKS_MODCAT . "<br /></th></tr>\n"
+      ."  <tr><th>" . _MD_MYLINKS_MODCAT . "<br></th></tr>\n"
       ."  <tr class='odd'>\n"
       ."    <td>\n";
     $mylinksCatHandler =& xoops_getmodulehandler('category', $xoopsModule->getVar('dirname'));
@@ -852,25 +851,25 @@ function modCat()
         $imgurl = $myts->htmlSpecialChars($catObj->getVar('imgurl'),'n');
         $pid    = $catObj->getVar('pid');
         echo "      <form action='main.php' method='post'>" . _MD_MYLINKS_TITLEC . "\n"
-            ."        <input type='text' name='title' value='{$title}' size='51' maxlength='50' />\n"
-            ."		  <br /><br />\n";
+            ."        <input type='text' name='title' value='{$title}' size='51' maxlength='50'>\n"
+            ."          <br><br>\n";
         if ( 0 == $catObj->getVar('pid') ) {
-                echo "        " . _MD_MYLINKS_IMGURLMAIN . "<br />\n"
-                    ."        <input type='text' name='imgurl' value='{$imgurl}' size='100' maxlength='150' />\n"
-                    ."        <br /><br />\n";
+                echo "        " . _MD_MYLINKS_IMGURLMAIN . "<br>\n"
+                    ."        <input type='text' name='imgurl' value='{$imgurl}' size='100' maxlength='150'>\n"
+                    ."        <br><br>\n";
         }
         echo "        " . _MD_MYLINKS_PARENT . "&nbsp;\n"
             ."        " . $catListTree->makeSelBox("pid", "title", '- ', $pid, true) . "\n"
-            ."        <br />\n"
-            ."        <input type='hidden' name='cid' value='{$cid}' />\n"
-            ."        <input type='hidden' name='op' value='modCatS' /><br />\n"
-            ."        <input type='submit' value='" . _MD_MYLINKS_SAVE . "' />\n"
-            ."        <input type='button' value='" . _DELETE . "' onclick=\"location='main.php?pid={$pid}&amp;cid={$cid}&amp;op=delCat'\" />&nbsp;\n"
-            ."        <input type='button' value='" . _CANCEL . "' onclick=\"javascript:history.go(-1)\" />\n"
+            ."        <br>\n"
+            ."        <input type='hidden' name='cid' value='{$cid}'>\n"
+            ."        <input type='hidden' name='op' value='modCatS'><br>\n"
+            ."        <input type='submit' value='" . _MD_MYLINKS_SAVE . "'>\n"
+            ."        <input type='button' value='" . _DELETE . "' onclick=\"location='main.php?pid={$pid}&amp;cid={$cid}&amp;op=delCat'\">&nbsp;\n"
+            ."        <input type='button' value='" . _CANCEL . "' onclick=\"javascript:history.go(-1)\">\n"
             ."      </form>\n";
     } else {
         echo "  <tr><td>" . _MD_MYLINKS_CIDERROR . "</td></tr>\n"
-            ."  <tr><td><input type='button' value='" . _BACK . "' onclick=\"javascript:history.go(-1)\" /></td></tr>\n";
+            ."  <tr><td><input type='button' value='" . _BACK . "' onclick=\"javascript:history.go(-1)\"></td></tr>\n";
     }
     echo "    </td>\n"
         ."  </tr>\n"
@@ -927,13 +926,13 @@ function delCat()
         /**
          * nickname code:
          *
-         *	get all subcategories
+         *    get all subcategories
          *  get all links in these categories/subcategories
-         *	get all links in category & subcategories
-         *	delete all links in links, text, votedata, broken, & mod db tables that are in any of these categories
-         *	delete all comments and notifications for the links that have been deleted
-         *	delete category and all subcategories from category db table
-         *	delete all notifications for the categories that have been deleted
+         *    get all links in category & subcategories
+         *    delete all links in links, text, votedata, broken, & mod db tables that are in any of these categories
+         *    delete all comments and notifications for the links that have been deleted
+         *    delete category and all subcategories from category db table
+         *    delete all notifications for the categories that have been deleted
          */
         $mylinksCatHandler =& xoops_getmodulehandler('category', $xoopsModule->getVar('dirname'));
 
@@ -1050,7 +1049,7 @@ function addCat()
         $tags                  = array();
         $tags['CATEGORY_NAME'] = $title;
         $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/viewcat.php?cid=' . $newCatId;
-        $notification_handler  =& xoops_gethandler('notification');
+        $notification_handler  =& xoops_getHandler('notification');
         $notification_handler->triggerEvent('global', 0, 'new_category', $tags);
         redirect_header('index.php', 2, _MD_MYLINKS_NEWCATADDED);
 
@@ -1147,7 +1146,7 @@ function addLink()
     }
     if ( $error ) {
         xoops_cp_header();
-        $displayMsg = implode('<br />', $errormsg);
+        $displayMsg = implode('<br>', $errormsg);
         echo "<div style='text-align: center;'><fieldset>{$displayMsg}</fieldset></div>\n";
         xoops_cp_footer();
         exit();
@@ -1179,7 +1178,7 @@ function addLink()
     unset($catObj, $mylinksCatHandler);
 
     $tags['CATEGORY_URL'] = XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/viewcat.php?cid={$cid}";
-    $notification_handler =& xoops_gethandler('notification');
+    $notification_handler =& xoops_getHandler('notification');
     $notification_handler->triggerEvent('global', 0, 'new_link', $tags);
     $notification_handler->triggerEvent('category', $cid, 'new_link', $tags);
     redirect_header("main.php?op=linksConfigMenu", 2, _MD_MYLINKS_NEWLINKADDED);
@@ -1228,7 +1227,7 @@ function approve()
     if ($catObj) {
         $tags['CATEGORY_NAME'] = $catObj->getVar('title');
         $tags['CATEGORY_URL'] = XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/viewcat.php?cid={$cid}";
-        $notification_handler =& xoops_gethandler('notification');
+        $notification_handler =& xoops_getHandler('notification');
         $notification_handler->triggerEvent('global', 0, 'new_link', $tags);
         $notification_handler->triggerEvent('category', $cid, 'new_link', $tags);
         $notification_handler->triggerEvent('link', $lid, 'approve', $tags);

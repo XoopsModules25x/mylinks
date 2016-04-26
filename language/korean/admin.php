@@ -16,7 +16,6 @@
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
  * @author::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
- * @version::    $Id: $
  * ****************************************************************************
  */
 //3.1

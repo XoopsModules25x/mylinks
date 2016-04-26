@@ -10,7 +10,6 @@
  * @subpackage:: class
  * @since::		 unknown
  * @author::     Thatware - http://thatware.org/
- * @version::    $Id: index.php 8574 2011-12-27 02:45:39Z beckmi $
  */
 // ------------------------------------------------------------------------- //
 //                XOOPS - PHP Content Management System                      //

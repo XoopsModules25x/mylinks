@@ -70,7 +70,7 @@ if (!empty($_POST['submit'])) {
     }
     $tags = array();
     $tags['MODIFYREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listModReq';
-    $notification_handler =& xoops_gethandler('notification');
+    $notification_handler =& xoops_getHandler('notification');
     $notification_handler->triggerEvent('global', 0, 'link_modify', $tags);
     redirect_header("index.php", 2, _MD_MYLINKS_THANKSFORINFO);
     exit();
@@ -91,10 +91,11 @@ if (!empty($_POST['submit'])) {
 
     //wanikoo
     $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
+    $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
     $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
 /*
     $mylinks_module_header = ""
-                          ."<link rel='stylesheet' type='text/css' href='" . mylinksGetStyleURL('mylinks.css') . "' />"
+                          ."<link rel='stylesheet' type='text/css' href='" . mylinksGetStyleURL('mylinks.css') . "'>"
                           ."<script src='" . mylinksGetStyleURL('mylinks.js') . "' type='text/javascript'></script>";
     $xoopsTpl->assign('xoops_module_header', $mylinks_module_header);
 */
@@ -103,7 +104,7 @@ if (!empty($_POST['submit'])) {
     $result = $xoopsDB->query("SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM " . $xoopsDB->prefix("mylinks_links") . " l, " . $xoopsDB->prefix("mylinks_text") . " t WHERE l.lid={$lid} AND l.lid=t.lid AND status>0");
     list($lid, $cid, $title, $url, $logourl, $status, $time, $hits, $rating, $votes, $comments, $description) = $xoopsDB->fetchRow($result);
     if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
-        $adminlink = "<a href='" . XOOPSMYLINKURL . "/admin/index.php?op=modLink&amp;lid={$lid}'><img src='" . mylinksGetIconURL('edit.png') . "' style='border-width: 0px;' alt='" . _MD_MYLINKS_EDITTHISLINK . "' /></a>";
+        $adminlink = "<a href='" . XOOPSMYLINKURL . "/admin/index.php?op=modLink&amp;lid={$lid}'><img src='" . mylinksGetIconURL('edit.png') . "' style='border-width: 0px;' alt='" . _MD_MYLINKS_EDITTHISLINK . "'></a>";
     } else {
         $adminlink = '';
     }

@@ -34,7 +34,6 @@
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
  * @author::     wanikoo <wani@wanisys.net>
- * @version::    $Id: modinfo.php 11819 2013-07-09 18:21:40Z zyspec $
  */
 
 // The name of this module

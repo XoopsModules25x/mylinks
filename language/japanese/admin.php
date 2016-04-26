@@ -13,7 +13,6 @@
 /**
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
- * @version::    $Id: $
  * ****************************************************************************
  */
 //3.1

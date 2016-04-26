@@ -34,7 +34,6 @@
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
  * @author::     wanikoo <wani@wanisys.net>
- * @version::    $Id: main.php 11819 2013-07-09 18:21:40Z zyspec $
  */
 
 define("_MD_MYLINKS_THANKSFORINFO","ÃƒÂ«Ã‚Â§Ã¯Â¿Â½ÃƒÂ­Ã¯Â¿Â½Ã‚Â¬ÃƒÂ¬Ã‚Â Ã¢â‚¬Â¢ÃƒÂ«Ã‚Â³Ã‚Â´ÃƒÂ«Ã‚Â¥Ã‚Â¼ ÃƒÂ­Ã‹â€ Ã‚Â¬ÃƒÂªÃ‚Â³Ã‚Â ÃƒÂ­Ã¢â‚¬Â¢Ã‚Â´ ÃƒÂ¬Ã‚Â£Ã‚Â¼ÃƒÂ¬Ã¢â‚¬Â¦Ã¢â‚¬ï¿½ÃƒÂ¬Ã¢â‚¬Å¾Ã…â€œ ÃƒÂªÃ‚Â°Ã¯Â¿Â½ÃƒÂ¬Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ­Ã¢â‚¬Â¢Ã‚Â©ÃƒÂ«Ã¢â‚¬Â¹Ã‹â€ ÃƒÂ«Ã¢â‚¬Â¹Ã‚Â¤. ÃƒÂ«Ã¢â‚¬Å¡Ã‚Â´ÃƒÂ¬Ã…Â¡Ã‚Â©ÃƒÂ¬Ã¯Â¿Â½Ã¢â‚¬Å¾ ÃƒÂ­Ã¢â€žÂ¢Ã¢â‚¬Â¢ÃƒÂ¬Ã¯Â¿Â½Ã‚Â¸ÃƒÂ­Ã¢â‚¬Â¢Ã…â€œ ÃƒÂ­Ã¢â‚¬ÂºÃ¢â‚¬Å¾ ÃƒÂ¬Ã‚Â Ã¢â‚¬Â¢ÃƒÂ¬Ã¢â‚¬Â¹Ã¯Â¿Â½ÃƒÂ¬Ã…â€œÃ‚Â¼ÃƒÂ«Ã‚Â¡Ã…â€œ ÃƒÂ«Ã¢â‚¬Å“Ã‚Â±ÃƒÂ«Ã‚Â¡Ã¯Â¿Â½ÃƒÂ¬Ã‚Â²Ã‹Å“ÃƒÂ«Ã‚Â¦Ã‚Â¬ÃƒÂ­Ã¢â‚¬Â¢Ã‚Â´ ÃƒÂ«Ã¢â‚¬Å“Ã…â€œÃƒÂ«Ã‚Â¦Ã‚Â¬ÃƒÂªÃ‚Â²Ã‚Â ÃƒÂ¬Ã…Â Ã‚ÂµÃƒÂ«Ã¢â‚¬Â¹Ã‹â€ ÃƒÂ«Ã¢â‚¬Â¹Ã‚Â¤.");
@@ -237,7 +236,7 @@ define("_MD_MYLINKS_QRCODE","QrCode");
 define("_MD_MYLINKS_THEMECHANGER","Theme Changer: ");
 define("_MD_MYLINKS_INTERNALSEARCH","Internal Search");
 define("_MD_MYLINKS_EXTERNALSEARCH","* More Search with External Search Engines *");
-define("_MD_MYLINKS_EXTERNALSEARCH_KEYWORD","<br />Keyword => %s (<font color='red'><b>%s</b></font>)");
+define("_MD_MYLINKS_EXTERNALSEARCH_KEYWORD","<br>Keyword => %s (<font color='red'><b>%s</b></font>)");
 define("_MD_MYLINKS_BOOKMARK_SERVICE","Social Bookmark Service");
 define("_MD_MYLINKS_FEEDSUBSCRIPT_SERVICE","Feed Subscription Service");
 define("_MD_MYLINKS_BOOKMARK_ADDTO","Add this website To...");

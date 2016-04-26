@@ -15,7 +15,7 @@
  * $mylinks_shotprovider = $shot->getProviderUrl();
  *
  * Then in the template use something like:
- *  <img src='<{$mylinks_shotprovider}>' target='_blank' alt='' style='margin: 3px 7px;' />
+ *  <img src='<{$mylinks_shotprovider}>' target='_blank' alt='' style='margin: 3px 7px;'>
  *  and at the bottom of the page show the attribution
  *  echo $shot->getAttribution();
  */
@@ -29,9 +29,8 @@
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
  * @subpackage:: class
- * @since::		 3.11
+ * @since::         3.11
  * @author::     zyspec <owner@zyspec.com>
- * @version::    $Id: $
  */
 require_once XOOPS_ROOT_PATH . "/modules/mylinks/class/thumbplugin.interface.php";
 class MylinksPagepeeker implements MylinksThumbPlugin
@@ -65,7 +64,7 @@ class MylinksPagepeeker implements MylinksThumbPlugin
         $query = empty($query) ? '' : '?' . $query;
 
         // now fix provider URL
-        $_mHandler = xoops_gethandler('module');
+        $_mHandler = xoops_getHandler('module');
         $_mlModule = $_mHandler->getByDirname($this->_dirname);
         $myKey = $_mlModule->getInfo('shotpubkey');
         /* change the provider URL if the key is set */

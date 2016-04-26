@@ -77,7 +77,7 @@ class MylinksPageNav
             }
             $ret .= '</select>';
             if ($showbutton) {
-                $ret .= '&nbsp;<input type="submit" value="' . _GO . '" />';
+                $ret .= '&nbsp;<input type="submit" value="' . _GO . '">';
             }
             $ret .= '</form>';
         }
@@ -96,7 +96,7 @@ class MylinksPageNav
             $ret = '<table><tr>';
             $prev = $this->current - $this->perpage;
             if ( $prev >= 0 ) {
-                $ret .= '<td class="pagneutral"><a href="'.$this->url.$prev.'">&lt;</a></td><td><img src="'.XOOPS_URL.'/images/blank.gif" width="6" alt="" /></td>';
+                $ret .= '<td class="pagneutral"><a href="'.$this->url.$prev.'">&lt;</a></td><td><img src="'.XOOPS_URL.'/images/blank.gif" width="6" alt=""></td>';
             }
             $counter = 1;
             $current_page = intval(floor(($this->current + $this->perpage) / $this->perpage));
@@ -116,7 +116,7 @@ class MylinksPageNav
             }
             $next = $this->current + $this->perpage;
             if ( $this->total > $next ) {
-                $ret .= '<td><img src="'.XOOPS_URL.'/images/blank.gif" width="6" alt="" /></td><td class="pagneutral"><a href="'.$this->url.$next.'">&gt;</a></td>';
+                $ret .= '<td><img src="'.XOOPS_URL.'/images/blank.gif" width="6" alt=""></td><td class="pagneutral"><a href="'.$this->url.$next.'">&gt;</a></td>';
             }
             $ret .= '</tr></table>';
         }

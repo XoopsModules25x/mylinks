@@ -11,8 +11,7 @@
  * @copyright:: The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::   mylinks
- * @author::    zyspec (owners@zyspec.com)
- * @version::   $Id: onupdate.inc.php 8574 2011-12-27 02:45:39Z beckmi $
+ * @author::    zyspec <owners@zyspec.com>
  * @since::     File available since Release 3.11
  */
 defined('XOOPS_ROOT_PATH') or die('Restricted access');

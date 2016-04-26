@@ -61,22 +61,18 @@ function b_mylinks_top_show($options)
     if (!empty($block)) {  // only show block if there's data to display
         $block['mylinks_weburl'] = XOOPS_URL . "/modules/{$modulename}";
     }
-
     return $block;
 }
 
 function b_mylinks_top_edit($options)
 {
     $form = "" . _MB_MYLINKS_DISP . "&nbsp;";
-    $form .= "<input type='hidden' name='options[]' value='";
-    if ($options[0] == "date") {
-        $form .= "date'";
+    if ('date' === $options[0]) {
+        $form .= "<input type='hidden' name='options[]' value='date'>";
     } else {
-        $form .= "hits'";
+        $form .= "<input type='hidden' name='options[]' value='hits'>";
     }
-    $form .= " />";
-    $form .= "<input type='text' name='options[]' value='" . $options[1] . "' />&nbsp;" . _MB_MYLINKS_LINKS . "";
-    $form .= "&nbsp;<br />" . _MB_MYLINKS_CHARS . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "' />&nbsp;" . _MB_MYLINKS_LENGTH . "";
-
+    $form .= "<input type='text' name='options[]' value='" . $options[1] . "'>&nbsp;" . _MB_MYLINKS_LINKS . "";
+    $form .= "&nbsp;<br>" . _MB_MYLINKS_CHARS . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "'>&nbsp;" . _MB_MYLINKS_LENGTH . "";
     return $form;
 }

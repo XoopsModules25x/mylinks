@@ -55,7 +55,7 @@ if (!empty($_POST['submit'])) {
     $xoopsDB->query($sql) or exit();
     $tags = array();
     $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listBrokenLinks';
-    $notification_handler =& xoops_gethandler('notification');
+    $notification_handler =& xoops_getHandler('notification');
     $notification_handler->triggerEvent('global', 0, 'link_broken', $tags);
     redirect_header('index.php', 2, _MD_MYLINKS_THANKSFORINFO);
     exit();
@@ -64,6 +64,7 @@ if (!empty($_POST['submit'])) {
     include XOOPS_ROOT_PATH . '/header.php';
     //wanikoo
     $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
+    $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
     $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
     //
     $xoopsTpl->assign('lang_reportbroken', _MD_MYLINKS_REPORTBROKEN);

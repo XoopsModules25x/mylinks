@@ -4,10 +4,10 @@
 //                    Copyright (c) 2000 XOOPS.org                           //
 //                       <http://www.xoops.org/>                             //
 //  ------------------------------------------------------------------------ //
-// Based on:								                                 //
-// myPHPNUKE Web Portal System - http://myphpnuke.com/	  		             //
-// PHP-NUKE Web Portal System - http://phpnuke.org/	  		                 //
-// Thatware - http://thatware.org/					                         //
+// Based on:                                                                 //
+// myPHPNUKE Web Portal System - http://myphpnuke.com/                           //
+// PHP-NUKE Web Portal System - http://phpnuke.org/                               //
+// Thatware - http://thatware.org/                                             //
 // ------------------------------------------------------------------------- //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -142,9 +142,9 @@ if ( file_exists(XOOPS_ROOT_PATH."/modules/qrcode/qrcode_image.php") ) {
 
 //logo
 if ( $mylinks_show_logo && !is_dir(XOOPSMYLINKIMGPATH."/{$mylinks_theme}/icons/logo.gif") && file_exists(XOOPSMYLINKIMGPATH."/{$mylinks_theme}/icons/logo.gif") ) {
-    $logoimage = "<a href='" . XOOPSMYLINKURL . "/index.php'><img src='" . XOOPSMYLINKIMGURL . "/{$mylinks_theme}/icons/logo.gif' style='border-width: 0px;' alt='' /></a>";
+    $logoimage = "<a href='" . XOOPSMYLINKURL . "/index.php'><img src='" . XOOPSMYLINKIMGURL . "/{$mylinks_theme}/icons/logo.gif' style='border-width: 0px;' alt=''></a>";
 } elseif ( $mylinks_show_logo && !is_dir(XOOPSMYLINKIMGPATH."/icons/logo.gif") && file_exists(XOOPSMYLINKIMGPATH."/icons/logo.gif") ) {
-    $logoimage = "<a href='" . XOOPSMYLINKURL . "/index.php'><img src='" . XOOPSMYLINKIMGURL . "/icons/logo.gif' style='border-width: 0px' alt='' /></a>";
+    $logoimage = "<a href='" . XOOPSMYLINKURL . "/index.php'><img src='" . XOOPSMYLINKIMGURL . "/icons/logo.gif' style='border-width: 0px' alt=''></a>";
 } else {
     $logoimage = "";
 }

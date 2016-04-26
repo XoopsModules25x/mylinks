@@ -17,7 +17,6 @@
  * @subpackage:: blocks
  * @author::     hsalazar
  * @author::     zyspec (owners@zyspec)
- * @version::    $Id: mylinks_rand.php 11239 2013-03-16 04:08:34Z zyspec $
  * @since::      File available since Release 3.11
  */
 

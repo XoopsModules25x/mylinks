@@ -16,7 +16,6 @@
  * @copyright::  {@link http://sourceforge.net/projects/xoops/ The XOOPS Project}
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
- * @version::    $Id: $
  */
 include_once 'header.php';
 include_once $GLOBALS['xoops']->path("header.php");

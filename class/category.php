@@ -17,7 +17,6 @@
  * @subpackage:: class
  * @since::		 File available since version 3.11
  * @author::     zyspec (owner@zyspec.com)
- * @version::    $Id: category.php 11304 2013-03-25 14:40:45Z zyspec $
  */
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');

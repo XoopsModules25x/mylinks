@@ -13,7 +13,6 @@
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
  * @author::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
- * @version::    $Id: main.php 11819 2013-07-09 18:21:40Z zyspec $
  */
 define("_MD_MYLINKS_THANKSFORINFO","Thanks for the information. We'll look into your request shortly.");
 define("_MD_MYLINKS_THANKSFORHELP","Thank you for helping to maintain this directory's integrity.");
@@ -110,10 +109,10 @@ define("_MD_MYLINKS_NOMATCH","No matches found to your query");
 //define("_MD_MYLINKS_CANCEL","Cancel");
 
 define("_MD_MYLINKS_ALREADYREPORTED","You have already submitted a broken report for this resource.");
-define("_MD_MYLINKS_MUSTREGFIRST","Sorry, you don't have the permission to perform this action.<br />Please register or login first!");
+define("_MD_MYLINKS_MUSTREGFIRST","Sorry, you don't have the permission to perform this action.<br>Please register or login first!");
 define("_MD_MYLINKS_NORATING","No rating selected.");
-define("_MD_MYLINKS_CANTVOTEOWN","You cannot vote on the resource you submitted.<br />All votes are logged and reviewed.");
-define("_MD_MYLINKS_VOTEONCE2","Vote for the selected resource only once.<br />All votes are logged and reviewed.");
+define("_MD_MYLINKS_CANTVOTEOWN","You cannot vote on the resource you submitted.<br>All votes are logged and reviewed.");
+define("_MD_MYLINKS_VOTEONCE2","Vote for the selected resource only once.<br>All votes are logged and reviewed.");
 
 //%%%%%%	Module Name 'MyLinks' (Admin)	 %%%%%
 
@@ -214,7 +213,7 @@ define("_MD_MYLINKS_QRCODE","QrCode");
 define("_MD_MYLINKS_THEMECHANGER","Theme Changer: ");
 define("_MD_MYLINKS_INTERNALSEARCH","Internal Search");
 define("_MD_MYLINKS_EXTERNALSEARCH","* More Search with External Search Engines *");
-define("_MD_MYLINKS_EXTERNALSEARCH_KEYWORD","<br />Keyword => %s (<span style='color: red;'><strong>%s</strong></span>)");
+define("_MD_MYLINKS_EXTERNALSEARCH_KEYWORD","<br>Keyword => %s (<span style='color: red;'><strong>%s</strong></span>)");
 define("_MD_MYLINKS_BOOKMARK_SERVICE","Social Bookmark Service");
 define("_MD_MYLINKS_FEEDSUBSCRIPT_SERVICE","Feed Subscription Service");
 define("_MD_MYLINKS_BOOKMARK_ADDTO","Add this website to...");

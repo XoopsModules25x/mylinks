@@ -16,7 +16,6 @@
  * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package::    mylinks
  * @author::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
- * @version::    $Id: modinfo.php 11819 2013-07-09 18:21:40Z zyspec $
  * ****************************************************************************
  */
 // Module Info
@@ -98,7 +97,7 @@ define('_MI_MYLINKS_USEFRAMEDSC','');
 define('_MI_MYLINKS_USESHOTSDSC','');
 define('_MI_MYLINKS_SHOTWIDTHDSC','');
 define('_MI_MYLINKS_SHOTPROVIDERDSC','Provider van voorbeeld afbeeldingen als de afbeeldingen uit de afbeeldingmap niet worden gebruikt.');
-define('_MI_MYLINKS_DISPATTRDSC', 'Some providers require you display an image attribution<br />Do not disable this unless you are sure.');
+define('_MI_MYLINKS_DISPATTRDSC', 'Some providers require you display an image attribution<br>Do not disable this unless you are sure.');
 define('_MI_MYLINKS_SHOTPUBKEYDSC', 'Enter the primary (or public) key if required by shot provider service.');
 define('_MI_MYLINKS_SHOTPRIVKEYDSC', 'Enter the secondary (or private) key if required by shot provider service.');
 define('_MI_MYLINKS_AUTOAPPROVEDSC','');

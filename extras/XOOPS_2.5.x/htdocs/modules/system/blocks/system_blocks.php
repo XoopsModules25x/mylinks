@@ -32,7 +32,7 @@
 function b_system_online_show()
 {
     global $xoopsUser, $xoopsModule;
-    $online_handler =& xoops_gethandler('online');
+    $online_handler =& xoops_getHandler('online');
     mt_srand((double)microtime()*1000000);
     // set gc probabillity to 10% for now..
     if (mt_rand(1, 100) < 11) {
@@ -74,7 +74,6 @@ function b_system_online_show()
         $block['online_members'] = $total - $guests;
         $block['online_guests'] = $guests;
         $block['lang_more'] = _MORE;
-
         return $block;
     } else {
         return false;
@@ -98,10 +97,8 @@ function b_system_login_show()
         } elseif ($xoopsConfig['usercookie']) {
             $block['lang_rememberme'] = _MB_SYSTEM_REMEMBERME;
         }
-
         return $block;
     }
-
     return false;
 }
 
@@ -111,12 +108,12 @@ function b_system_main_show()
     $block = array();
     $block['lang_home'] = _MB_SYSTEM_HOME;
     $block['lang_close'] = _CLOSE;
-    $module_handler =& xoops_gethandler('module');
+    $module_handler =& xoops_getHandler('module');
     $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
     $criteria->add(new Criteria('isactive', 1));
     $criteria->add(new Criteria('weight', 0, '>'));
     $modules = $module_handler->getObjects($criteria, true);
-    $moduleperm_handler =& xoops_gethandler('groupperm');
+    $moduleperm_handler =& xoops_getHandler('groupperm');
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $read_allowed = $moduleperm_handler->getItemIds('module_read', $groups);
     foreach (array_keys($modules) as $i) {
@@ -140,7 +137,6 @@ function b_system_main_show()
             }
         }
     }
-
     return $block;
 }
 
@@ -149,7 +145,6 @@ function b_system_search_show()
     $block = array();
     $block['lang_search'] = _MB_SYSTEM_SEARCH;
     $block['lang_advsearch'] = _MB_SYSTEM_ADVS;
-
     return $block;
 }
 
@@ -168,7 +163,7 @@ function b_system_user_show()
     $criteria = new CriteriaCompo(new Criteria('read_msg', 0));
     $criteria->add(new Criteria('to_userid', $xoopsUser->getVar('uid')));
 
-    $pm_handler =& xoops_gethandler('privmessage');
+    $pm_handler =& xoops_getHandler('privmessage');
 
     $xoopsPreload =& XoopsPreload::getInstance();
     $xoopsPreload->triggerEvent('system.blocks.system_blocks.usershow', array(&$pm_handler));
@@ -176,7 +171,6 @@ function b_system_user_show()
     $block['new_messages'] = $pm_handler->getCount($criteria);
     $block['lang_inbox'] = _MB_SYSTEM_INBOX;
     $block['lang_adminmenu'] = _MB_SYSTEM_ADMENU;
-
     return $block;
 }
 
@@ -185,7 +179,7 @@ function b_system_waiting_show()
 {
     global $xoopsUser;
     $xoopsDB =& XoopsDatabaseFactory::getDatabaseConnection();
-    $module_handler =& xoops_gethandler('module');
+    $module_handler =& xoops_getHandler('module');
     $block = array();
 
     // waiting content for news
@@ -304,10 +298,10 @@ function b_system_info_show($options)
                     $block['groups'][$i]['name'] = $myts->htmlSpecialChars($userinfo['groupname']);
                 }
                 if (isset($xoopsUser) && is_object($xoopsUser)) {
-                    $block['groups'][$i]['users'][] = array('id' => $userinfo['uid'], 'name' => $myts->htmlspecialchars($userinfo['uname']), 'msglink' => "<a href=\"javascript:openWithSelfMain('".XOOPS_URL."/pmlite.php?send2=1&amp;to_userid=".$userinfo['uid']."','pmlite',450,370);\"><img src=\"".XOOPS_URL."/images/icons/pm_small.gif\" border=\"0\" width=\"27\" height=\"17\" alt=\"\" /></a>", 'avatar' => XOOPS_UPLOAD_URL.'/'.$userinfo['user_avatar']);
+                    $block['groups'][$i]['users'][] = array('id' => $userinfo['uid'], 'name' => $myts->htmlspecialchars($userinfo['uname']), 'msglink' => "<a href=\"javascript:openWithSelfMain('".XOOPS_URL."/pmlite.php?send2=1&amp;to_userid=".$userinfo['uid']."','pmlite',450,370);\"><img src=\"".XOOPS_URL."/images/icons/pm_small.gif\" border=\"0\" width=\"27\" height=\"17\" alt=\"\"></a>", 'avatar' => XOOPS_UPLOAD_URL.'/'.$userinfo['user_avatar']);
                 } else {
                     if ($userinfo['user_viewemail']) {
-                        $block['groups'][$i]['users'][] = array('id' => $userinfo['uid'], 'name' => $myts->htmlspecialchars($userinfo['uname']), 'msglink' => '<a href="mailto:'.$userinfo['email'].'"><img src="'.XOOPS_URL.'/images/icons/em_small.gif" border="0" width="16" height="14" alt="" /></a>', 'avatar' => XOOPS_UPLOAD_URL.'/'.$userinfo['user_avatar']);
+                        $block['groups'][$i]['users'][] = array('id' => $userinfo['uid'], 'name' => $myts->htmlspecialchars($userinfo['uname']), 'msglink' => '<a href="mailto:'.$userinfo['email'].'"><img src="'.XOOPS_URL.'/images/icons/em_small.gif" border="0" width="16" height="14" alt=""></a>', 'avatar' => XOOPS_UPLOAD_URL.'/'.$userinfo['user_avatar']);
                     } else {
                         $block['groups'][$i]['users'][] = array('id' => $userinfo['uid'], 'name' => $myts->htmlspecialchars($userinfo['uname']), 'msglink' => '&nbsp;', 'avatar' => XOOPS_UPLOAD_URL.'/'.$userinfo['user_avatar']);
                     }
@@ -320,7 +314,6 @@ function b_system_info_show($options)
     }
     $block['logourl'] = XOOPS_URL.'/images/'.$options[2];
     $block['recommendlink'] = "<a href=\"javascript:openWithSelfMain('".XOOPS_URL."/misc.php?action=showpopups&amp;type=friend&amp;op=sendform&amp;t=".time()."','friend',".$options[0].",".$options[1].")\">"._MB_SYSTEM_RECO."</a>";
-
     return $block;
 }
 
@@ -332,7 +325,7 @@ function b_system_newmembers_show($options)
     $criteria->setOrder('DESC');
     $criteria->setSort('user_regdate');
     $criteria->setLimit($limit);
-    $member_handler =& xoops_gethandler('member');
+    $member_handler =& xoops_getHandler('member');
     $newmembers = $member_handler->getUsers($criteria);
     $count = count($newmembers);
     for ($i = 0; $i < $count; $i++) {
@@ -345,7 +338,6 @@ function b_system_newmembers_show($options)
         $block['users'][$i]['name'] = $newmembers[$i]->getVar('uname');
         $block['users'][$i]['joindate'] = formatTimestamp($newmembers[$i]->getVar('user_regdate'), 's');
     }
-
     return $block;
 }
 
@@ -361,7 +353,7 @@ function b_system_topposters_show($options)
     $criteria->setOrder('DESC');
     $criteria->setSort('posts');
     $criteria->setLimit($limit);
-    $member_handler =& xoops_gethandler('member');
+    $member_handler =& xoops_getHandler('member');
     $topposters = $member_handler->getUsers($criteria);
     $count = count($topposters);
     for ($i = 0; $i < $count; $i++) {
@@ -375,15 +367,15 @@ function b_system_topposters_show($options)
         $block['users'][$i]['name'] = $topposters[$i]->getVar('uname');
         $block['users'][$i]['posts'] = $topposters[$i]->getVar('posts');
     }
-
     return $block;
 }
+
 
 function b_system_comments_show($options)
 {
     $block = array();
     include_once XOOPS_ROOT_PATH.'/include/comment_constants.php';
-    $comment_handler =& xoops_gethandler('comment');
+    $comment_handler =& xoops_getHandler('comment');
     $criteria = new CriteriaCompo(new Criteria('com_status', XOOPS_COMMENT_ACTIVE));
     $criteria->setLimit(intval($options[0]));
     $criteria->setSort('com_created');
@@ -391,7 +383,7 @@ function b_system_comments_show($options)
 
     // Check modules permissions
     global $xoopsUser;
-    $moduleperm_handler =& xoops_gethandler('groupperm');
+    $moduleperm_handler =& xoops_getHandler('groupperm');
     $gperm_groupid = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
     $criteria1 = new CriteriaCompo(new Criteria('gperm_name','module_read','='));
     $criteria1->add(new Criteria('gperm_groupid', '('.implode(',', $gperm_groupid).')', 'IN'));
@@ -407,8 +399,8 @@ function b_system_comments_show($options)
     // Check modules permissions
 
     $comments = $comment_handler->getObjects($criteria, true);
-    $member_handler =& xoops_gethandler('member');
-    $module_handler =& xoops_gethandler('module');
+    $member_handler =& xoops_getHandler('member');
+    $module_handler =& xoops_getHandler('module');
     $modules = $module_handler->getObjects(new Criteria('hascomments', 1), true);
     $comment_config = array();
     foreach (array_keys($comments) as $i) {
@@ -435,7 +427,6 @@ function b_system_comments_show($options)
         $block['comments'][] =& $com;
         unset($com);
     }
-
     return $block;
 }
 
@@ -449,7 +440,7 @@ function b_system_notification_show()
     if (empty($xoopsUser) || !notificationEnabled('block')) {
         return false; // do not display block
     }
-    $notification_handler =& xoops_gethandler('notification');
+    $notification_handler =& xoops_getHandler('notification');
     // Now build the a nested associative array of info to pass
     // to the block template.
     $block = array();
@@ -481,33 +472,31 @@ function b_system_notification_show()
     $block['redirect_script'] = $script_name;
     $block['submit_button'] = _NOT_UPDATENOW;
     $block['notification_token'] = $GLOBALS['xoopsSecurity']->createToken();
-
     return $block;
 }
 
 function b_system_comments_edit($options)
 {
-    $inputtag = "<input type='text' name='options[]' value='".intval($options[0])."' />";
+    $inputtag = "<input type='text' name='options[]' value='".intval($options[0])."'>";
     $form = sprintf(_MB_SYSTEM_DISPLAYC, $inputtag);
-
     return $form;
 }
 
 function b_system_topposters_edit($options)
 {
     include_once XOOPS_ROOT_PATH.'/class/xoopslists.php';
-    $inputtag = "<input type='text' name='options[]' value='".intval($options[0])."' />";
+    $inputtag = "<input type='text' name='options[]' value='".intval($options[0])."'>";
     $form = sprintf(_MB_SYSTEM_DISPLAY,$inputtag);
-    $form .= "<br />"._MB_SYSTEM_DISPLAYA."&nbsp;<input type='radio' id='options[]' name='options[]' value='1'";
+    $form .= "<br>"._MB_SYSTEM_DISPLAYA."&nbsp;<input type='radio' id='options[]' name='options[]' value='1'";
     if ( $options[1] == 1 ) {
         $form .= " checked='checked'";
     }
-    $form .= " />&nbsp;"._YES."<input type='radio' id='options[]' name='options[]' value='0'";
+    $form .= ">&nbsp;"._YES."<input type='radio' id='options[]' name='options[]' value='0'";
     if ( $options[1] == 0 ) {
         $form .= " checked='checked'";
     }
-    $form .= " />&nbsp;"._NO."";
-    $form .= "<br />"._MB_SYSTEM_NODISPGR."<br /><select id='options[]' name='options[]' multiple='multiple'>";
+    $form .= ">&nbsp;"._NO."";
+    $form .= "<br>"._MB_SYSTEM_NODISPGR."<br><select id='options[]' name='options[]' multiple='multiple'>";
     $ranks = XoopsLists::getUserRankList();
     $size = count($options);
     foreach ($ranks as $k => $v) {
@@ -520,47 +509,44 @@ function b_system_topposters_edit($options)
         $form .= "<option value='$k'$sel>$v</option>";
     }
     $form .= "</select>";
-
     return $form;
 }
 
 function b_system_newmembers_edit($options)
 {
-    $inputtag = "<input type='text' name='options[]' value='".$options[0]."' />";
+    $inputtag = "<input type='text' name='options[]' value='".$options[0]."'>";
     $form = sprintf(_MB_SYSTEM_DISPLAY,$inputtag);
-    $form .= "<br />"._MB_SYSTEM_DISPLAYA."&nbsp;<input type='radio' id='options[]' name='options[]' value='1'";
+    $form .= "<br>"._MB_SYSTEM_DISPLAYA."&nbsp;<input type='radio' id='options[]' name='options[]' value='1'";
     if ( $options[1] == 1 ) {
         $form .= " checked='checked'";
     }
-    $form .= " />&nbsp;"._YES."<input type='radio' id='options[]' name='options[]' value='0'";
+    $form .= ">&nbsp;"._YES."<input type='radio' id='options[]' name='options[]' value='0'";
     if ( $options[1] == 0 ) {
         $form .= " checked='checked'";
     }
-    $form .= " />&nbsp;"._NO."";
-
+    $form .= ">&nbsp;"._NO."";
     return $form;
 }
 
 function b_system_info_edit($options)
 {
     $form = _MB_SYSTEM_PWWIDTH."&nbsp;";
-    $form .= "<input type='text' name='options[]' value='".$options[0]."' />";
-    $form .= "<br />"._MB_SYSTEM_PWHEIGHT."&nbsp;";
-    $form .= "<input type='text' name='options[]' value='".$options[1]."' />";
-    $form .= "<br />".sprintf(_MB_SYSTEM_LOGO,XOOPS_URL."/images/")."&nbsp;";
-    $form .= "<input type='text' name='options[]' value='".$options[2]."' />";
+    $form .= "<input type='text' name='options[]' value='".$options[0]."'>";
+    $form .= "<br>"._MB_SYSTEM_PWHEIGHT."&nbsp;";
+    $form .= "<input type='text' name='options[]' value='".$options[1]."'>";
+    $form .= "<br>".sprintf(_MB_SYSTEM_LOGO,XOOPS_URL."/images/")."&nbsp;";
+    $form .= "<input type='text' name='options[]' value='".$options[2]."'>";
     $chk = "";
-    $form .= "<br />"._MB_SYSTEM_SADMIN."&nbsp;";
+    $form .= "<br>"._MB_SYSTEM_SADMIN."&nbsp;";
     if ( $options[3] == 1 ) {
         $chk = " checked='checked'";
     }
-    $form .= "<input type='radio' name='options[3]' value='1'".$chk." />&nbsp;"._YES."";
+    $form .= "<input type='radio' name='options[3]' value='1'".$chk.">&nbsp;"._YES."";
     $chk = "";
     if ( $options[3] == 0 ) {
         $chk = " checked=\"checked\"";
     }
-    $form .= "&nbsp;<input type='radio' name='options[3]' value='0'".$chk." />"._NO."";
-
+    $form .= "&nbsp;<input type='radio' name='options[3]' value='0'".$chk.">"._NO."";
     return $form;
 }
 
@@ -577,13 +563,12 @@ function b_system_themes_show($options)
     }
     $block = array();
     if ($options[0] == 1) {
-        $block['theme_select'] = "<img vspace=\"2\" id=\"xoops_theme_img\" src=\"".XOOPS_THEME_URL."/".$xoopsConfig['theme_set']."/shot.gif\" alt=\"screenshot\" width=\"".intval($options[1])."\" /><br /><select id=\"xoops_theme_select\" name=\"xoops_theme_select\" onchange=\"showImgSelected('xoops_theme_img', 'xoops_theme_select', 'themes', '/shot.gif', '".XOOPS_URL."');\">".$theme_options."</select><input type=\"submit\" value=\""._GO."\" />";
+        $block['theme_select'] = "<img vspace=\"2\" id=\"xoops_theme_img\" src=\"".XOOPS_THEME_URL."/".$xoopsConfig['theme_set']."/shot.gif\" alt=\"screenshot\" width=\"".intval($options[1])."\"><br><select id=\"xoops_theme_select\" name=\"xoops_theme_select\" onchange=\"showImgSelected('xoops_theme_img', 'xoops_theme_select', 'themes', '/shot.gif', '".XOOPS_URL."');\">".$theme_options."</select><input type=\"submit\" value=\""._GO."\">";
     } else {
         $block['theme_select'] = '<select name="xoops_theme_select" onchange="submit();" size="3">'.$theme_options.'</select>';
     }
 
-    $block['theme_select'] .= '<br />('.sprintf(_MB_SYSTEM_NUMTHEME, '<strong>'.count($xoopsConfig['theme_set_allowed']).'</strong>').')<br />';
-
+    $block['theme_select'] .= '<br>('.sprintf(_MB_SYSTEM_NUMTHEME, '<strong>'.count($xoopsConfig['theme_set_allowed']).'</strong>').')<br>';
     return $block;
 }
 
@@ -592,17 +577,16 @@ function b_system_themes_edit($options)
 
     $chk = "";
     $form = _MB_SYSTEM_THSHOW."&nbsp;";
-    if ( $options[0] == 1 ) {
+    if (1 == $options[0]) {
         $chk = " checked='checked'";
     }
-    $form .= "<input type='radio' name='options[0]' value='1'".$chk." />&nbsp;"._YES;
+    $form .= "<input type='radio' name='options[0]' value='1'{$chk}>&nbsp;" . _YES;
     $chk = "";
-    if ( $options[0] == 0 ) {
+    if (0 == $options[0]) {
         $chk = ' checked="checked"';
     }
-    $form .= '&nbsp;<input type="radio" name="options[0]" value="0"'.$chk.' />'._NO;
-    $form .= '<br />'._MB_SYSTEM_THWIDTH.'&nbsp;';
-    $form .= "<input type='text' name='options[1]' value='".$options[1]."' />";
-
+    $form .= "&nbsp;<input type='radio' name='options[0]' value='0'{$chk}'>" . _NO;
+    $form .= '<br>'._MB_SYSTEM_THWIDTH.'&nbsp;';
+    $form .= "<input type='text' name='options[1]' value='{$options[1]}'>";
     return $form;
 }

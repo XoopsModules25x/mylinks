@@ -1,5 +1,13 @@
-v3.11 RC4 [2013/07/03]
-=================================
+
+<u>v3.11 RC5 [2016/04/25]</u>
++ fixed ./templates/mylinks_link.html to open link in new window when clicking on image
++ fixed several places where jquery was not being loaded into the template
++ fixed templates to set display via CSS style for minimize block javascript rendering
++ changed to require XOOPS 2.5.7 min
++ loaded toolbar language file inside function to make sure it's always available
++ removed '/' from void HTML elements (<br>, <img>, etc)
+
+<u>v3.11 RC4 [2013/07/03]</u>
 + fixed category image display bug
 + changed editor selection to use XOOPS Preferences editor
 + changed error handler since XOOPS ErrorHandler class is deprecated in 2.5.4+
@@ -12,8 +20,7 @@ v3.11 RC4 [2013/07/03]
 ++ updated Thumbshots thumbnail provider to new API
 + removed duplicate _AM_MYLINKS_IGNORE in nederlands translation
 
-v3.11 RC3 [2013/03/25]
-=================================
+<u>v3.11 RC3 [2013/03/25]</u>
 + added language defines to include all defines for 3.11 (most are non-translated)
 + fixed rss and atom feeds so they validate
 + fixed bug for invalid include of utility class (no longer needed)
@@ -24,8 +31,7 @@ v3.11 RC3 [2013/03/25]
 + changed _MD_AM_DBUPDATED with _MD_MYLINKS_DBUPDATED
 + changed revision to RC3
 
-v3.11 RC2 [2013/02/18]
-=================================
+<u>v3.11 RC2 [2013/02/18]</u>
 + added templates to xoopsversion for rss, atom and pda templates
 + added missing files for template administration
 + fixed addSlashes issue for a link's description and title
@@ -46,8 +52,7 @@ v3.11 RC2 [2013/02/18]
 + changed ereg_replace to str_replace in bookmark_qrcode_encoding() function
 + changed revision to RC2
 
-v3.11 RC [2011/05/01 - 2011/11/14] (ZySpec)
-=================================
+<u>v3.11 RC [2011/05/01 - 2011/11/14] (ZySpec)</u>
 + added pre-install check to verify min versions for PHP/MySQL/Xoops
 + added category class to manage categories
 + added ability to bulk import categories on new installation
@@ -88,34 +93,29 @@ v3.11 RC [2011/05/01 - 2011/11/14] (ZySpec)
 + moved changelog to /docs
 
 
-v3.10 [2011/02/23] (Mamba)
-=================================
+<u>v3.10 [2011/02/23] (Mamba)</u>
 + Changed to standardized XOOPS Module GUI
 
-Ver3.0-[2008-11-25] (Wanikoo)
-=================================
+<u>v3.0 [2008-11-25] (Wanikoo)</u>
 + bookmark button
 + bug/typo fix!(Sorry for my stupid mistake!!)
 + Code refined
 + etc.
 
--Ver2.5-[2008-05-27]
-=================================
+<u>v2.5 [2008-05-27]</u>
 + minimize/restore button
 + Internal search block
 + enhanced page-navigation
 + etc.
 
--Ver2.0-[2008-04-20]
-=================================
+<u>v2.0 [2008-04-20]</u>
 + Category Jump box
 + print button
 + pdf button
 + qrcode button ( qrcode module needed! )
 + etc.
 
--Ver1.5-
-=================================
+</u>v1.5</u>
 + Module Theme changer
 + Search function!
 + Index Browsing
