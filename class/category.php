@@ -21,7 +21,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-$mylinksDir = basename( dirname( dirname( __FILE__ ) ) );
+$mylinksDir = basename( dirname( __DIR__ ) );
 
 class mylinksCategory_base extends XoopsObject
 {
@@ -76,7 +76,7 @@ class mylinksCategoryHandler_base extends XoopsPersistableObjectHandler
 
     function __construct(&$db)
     {
-        $mylinksDir = basename( dirname( dirname( __FILE__ ) ) );
+        $mylinksDir = basename( dirname( __DIR__ ) );
         parent::__construct($db, 'mylinks_cat', strtolower($mylinksDir) . 'Category', 'cid');
     }
 
@@ -92,7 +92,7 @@ class mylinksCategoryHandler_base extends XoopsPersistableObjectHandler
     {
         $catTitles = array();
         $criteria = new CriteriaCompo();
-        if (isset($cats) && (is_array($cats))) {
+        if (isset($cats) && is_array($cats)) {
             $catIdString = (!empty($cats)) ? '(' . implode(',', $cats) . ')' : '';
             if ($catIdString) {
                 $criteria->add(new Criteria('cid', $catIdString, 'IN'));

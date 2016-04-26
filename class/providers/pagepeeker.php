@@ -32,7 +32,7 @@
  * @since::         3.11
  * @author::     zyspec <owner@zyspec.com>
  */
-require_once XOOPS_ROOT_PATH . "/modules/mylinks/class/thumbplugin.interface.php";
+require_once XOOPS_ROOT_PATH . '/modules/mylinks/class/thumbplugin.interface.php';
 class MylinksPagepeeker implements MylinksThumbPlugin
 {
     private $image_width   = 0;
@@ -41,14 +41,14 @@ class MylinksPagepeeker implements MylinksThumbPlugin
     private $site_url      = null;
     private $key           = null;
     private $attribution   = "<a href=\"http://www.pagepeeker.com\" target=\"_blank\" title=\"Thumbnail Screenshots by PagePeeker\">Thumbnail Screenshots by PagePeeker</a>";
-    private $provider_url  = "http://free.pagepeeker.com/v2/thumbs.php";
-    private $provider_name = "Pagepeeker";
+    private $provider_url  = 'http://free.pagepeeker.com/v2/thumbs.php';
+    private $provider_name = 'Pagepeeker';
     protected $_dirname    = null;
 
     function __construct()
     {
         global $xoopsModule;
-        $this->_dirname = basename( dirname ( dirname( dirname( __FILE__ ) ) ) );
+        $this->_dirname = basename( dirname ( dirname( __DIR__ ) ) );
     }
     public function getProviderUrl()
     {
@@ -69,7 +69,7 @@ class MylinksPagepeeker implements MylinksThumbPlugin
         $myKey = $_mlModule->getInfo('shotpubkey');
         /* change the provider URL if the key is set */
         if (!empty($myKey)) {
-            $providerUrl = str_ireplace("http://free", "http://api", $this->provider_url);
+            $providerUrl = str_ireplace('http://free', 'http://api', $this->provider_url);
         } else {
             $providerUrl = $this->provider_url;
         }

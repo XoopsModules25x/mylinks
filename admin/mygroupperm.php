@@ -11,9 +11,9 @@ function myDeleteByModule($DB, $gperm_modid, $gperm_name = null, $gperm_itemid =
             $criteria->add(new Criteria('gperm_itemid', intval($gperm_itemid)));
         }
     }
-    $sql = "DELETE FROM " . $DB->prefix('group_permission') . ' ' . $criteria->renderWhere();
+    $sql = 'DELETE FROM ' . $DB->prefix('group_permission') . ' ' . $criteria->renderWhere();
     $result = $DB->query($sql);
-    $result = ($result) ? true : false;
+    $result = $result ? true : false;
 
     return $result;
 }

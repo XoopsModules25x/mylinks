@@ -6,9 +6,9 @@ function b_waiting_mylinks()
 
     // mylinks links
     $block = array();
-    $result = $xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("mylinks_links")." WHERE status=0");
+    $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status=0');
     if ( $result ) {
-        $block['adminlink'] = XOOPS_URL."/modules/mylinks/admin/main.php?op=listNewLinks";
+        $block['adminlink'] = XOOPS_URL . '/modules/mylinks/admin/main.php?op=listNewLinks';
         list($block['pendingnum']) = $xoopsDB->fetchRow($result);
         $block['lang_linkname'] = _PI_WAITING_WAITINGS ;
         }
@@ -20,7 +20,7 @@ function b_waiting_mylinks()
     $result = $bkn_handler->getCount();
 //	  $result = $xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("mylinks_broken"));
     if ( $result ) {
-        $block['adminlink'] = $xoops->url("modules/mylinks/admin/main.php?op=listBrokenLinks");
+        $block['adminlink'] = $xoops->url('modules/mylinks/admin/main.php?op=listBrokenLinks');
 //		  list($block['pendingnum']) = $xoopsDB->fetchRow($result);
         $block['pendingnum'] = $result;
         $block['lang_linkname'] = _PI_WAITING_BROKENS ;
@@ -33,7 +33,7 @@ function b_waiting_mylinks()
     $result = $modreq_handler->getCount();
 //	  $result = $xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("mylinks_mod"));
     if ( $result ) {
-        $block['adminlink'] = XOOPS_URL."/modules/mylinks/admin/main.php?op=listModReq";
+        $block['adminlink'] = XOOPS_URL . '/modules/mylinks/admin/main.php?op=listModReq';
 //		  list($block['pendingnum']) = $xoopsDB->fetchRow($result);
         $block['pendingnum'] = $result;
         $block['lang_linkname'] = _PI_WAITING_MODREQS ;

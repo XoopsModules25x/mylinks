@@ -21,10 +21,10 @@
 // Module Info
 
 // The name of this module
-define('_MI_MYLINKS_NAME',"My Links");
+define('_MI_MYLINKS_NAME', 'My Links');
 
 // A brief description of this module
-define('_MI_MYLINKS_DESC',"Creates a web links section where users can search/submit/rate various web sites.");
+define('_MI_MYLINKS_DESC', 'Creates a web links section where users can search/submit/rate various web sites.');
 
 // Names of blocks for this module (Not all module has blocks)
 define('_MI_MYLINKS_BNAME1', 'Recent Links');

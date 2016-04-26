@@ -32,15 +32,15 @@
  * @since::         3.11
  * @author::     zyspec <owner@zyspec.com>
  */
-require_once XOOPS_ROOT_PATH . "/modules/mylinks/class/thumbplugin.interface.php";
+require_once XOOPS_ROOT_PATH . '/modules/mylinks/class/thumbplugin.interface.php';
 class MylinksThumbalizr implements MylinksThumbPlugin
 {
     private $image_width     = 0;
     private $site_url        = null;
     private $key             = null;
     private $attribution     = "<a href=\"http://www.thumbalizr.com\" target=\"_blank\" title=\"Thumbnail Screenshots by Thumbalizr\">Thumbnail Screenshots by Thumbalizr</a>";
-    private $provider_url    = "http://api.thumbalizr.com";
-    private $provider_name   = "Thumbalizr";
+    private $provider_url    = 'http://api.thumbalizr.com';
+    private $provider_name   = 'Thumbalizr';
 
     function __construct()
     {

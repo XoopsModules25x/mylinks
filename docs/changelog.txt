@@ -1,13 +1,19 @@
 
-<u>v3.11 RC5 [2016/04/25]</u>
+<u>v3.11 RC5 [2016/04/25] (ZySpec)</u>
 + fixed ./templates/mylinks_link.html to open link in new window when clicking on image
 + fixed several places where jquery was not being loaded into the template
 + fixed templates to set display via CSS style for minimize block javascript rendering
 + changed to require XOOPS 2.5.7 min
 + loaded toolbar language file inside function to make sure it's always available
 + removed '/' from void HTML elements (<br>, <img>, etc)
++ replaced "" with '', removed parentheses when not needed (mamba)
++ updated PHP 4 constructors (mamba)
++ removed non-english languages (see Transifax for translations) (mamba)
++ updated ereg functions (mamba)
++ removed Result of new is assigned by reference (mamba)
++ replaced dirname( __FILE__ ) with __DIR__ (mamba)
 
-<u>v3.11 RC4 [2013/07/03]</u>
+<u>v3.11 RC4 [2013/07/03] (ZySpec)</u>
 + fixed category image display bug
 + changed editor selection to use XOOPS Preferences editor
 + changed error handler since XOOPS ErrorHandler class is deprecated in 2.5.4+
@@ -20,7 +26,7 @@
 ++ updated Thumbshots thumbnail provider to new API
 + removed duplicate _AM_MYLINKS_IGNORE in nederlands translation
 
-<u>v3.11 RC3 [2013/03/25]</u>
+<u>v3.11 RC3 [2013/03/25]  (ZySpec)</u>
 + added language defines to include all defines for 3.11 (most are non-translated)
 + fixed rss and atom feeds so they validate
 + fixed bug for invalid include of utility class (no longer needed)
@@ -31,7 +37,7 @@
 + changed _MD_AM_DBUPDATED with _MD_MYLINKS_DBUPDATED
 + changed revision to RC3
 
-<u>v3.11 RC2 [2013/02/18]</u>
+<u>v3.11 RC2 [2013/02/18]  (ZySpec)</u>
 + added templates to xoopsversion for rss, atom and pda templates
 + added missing files for template administration
 + fixed addSlashes issue for a link's description and title
@@ -60,7 +66,7 @@
 + added full support (menu, page display) for 'Recent' links
 + added 'Most Recent' display block
 + added Random Listing display block
-+ added nederlands translation (ÜberRookie)
++ added nederlands translation (ï¿½berRookie)
 + added Preferences setting to select which auto screenshot provider to use
 + added input variable sanitization to eliminate SQL injection
 + added check to only display hits/ratings tables if there are hits>0 and ratings>0 respectively

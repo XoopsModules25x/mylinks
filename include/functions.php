@@ -62,33 +62,33 @@ function popgraphic($hits)
  */
 function convertorderbyin($orderby)
 {
-    $orderby = ((isset($orderby)) && ('' != trim($orderby))) ? trim($orderby) : '';
+    $orderby = (isset($orderby) && ('' != trim($orderby))) ? trim($orderby) : '';
     switch ( $orderby )
     {
-        case "titleA":
-            $orderby = "title ASC";
+        case 'titleA':
+            $orderby = 'title ASC';
             break;
-        case "hitsA":
-            $orderby = "hits ASC";
+        case 'hitsA':
+            $orderby = 'hits ASC';
             break;
-        case "ratingA":
-            $orderby = "rating ASC";
+        case 'ratingA':
+            $orderby = 'rating ASC';
             break;
-        case "dateA":
-            $orderby = "date ASC";
+        case 'dateA':
+            $orderby = 'date ASC';
             break;
-        case "titleD":
-            $orderby = "title DESC";
+        case 'titleD':
+            $orderby = 'title DESC';
             break;
-        case "hitsD":
-            $orderby = "hits DESC";
+        case 'hitsD':
+            $orderby = 'hits DESC';
             break;
-        case "ratingD":
-            $orderby = "rating DESC";
+        case 'ratingD':
+            $orderby = 'rating DESC';
             break;
-        case "dateD":
+        case 'dateD':
         default:
-            $orderby = "date DESC";
+            $orderby = 'date DESC';
             break;
     }
     return $orderby;
@@ -99,30 +99,30 @@ function convertorderbytrans($orderby)
     $orderby = (isset($orderby) && ('' != trim($orderby))) ? trim($orderby) : '';
     switch ($orderby)
     {
-        case "title ASC":
-            $orderbyTrans = "" . _MD_MYLINKS_TITLEATOZ . "";
+        case 'title ASC':
+            $orderbyTrans = '' . _MD_MYLINKS_TITLEATOZ . '';
             break;
-        case "hits ASC":
-            $orderbyTrans = "" . _MD_MYLINKS_POPULARITYLTOM . "";
+        case 'hits ASC':
+            $orderbyTrans = '' . _MD_MYLINKS_POPULARITYLTOM . '';
             break;
-        case "rating ASC":
-            $orderbyTrans = "" . _MD_MYLINKS_RATINGLTOH . "";
+        case 'rating ASC':
+            $orderbyTrans = '' . _MD_MYLINKS_RATINGLTOH . '';
             break;
-        case "date ASC":
-            $orderbyTrans = "" . _MD_MYLINKS_DATEOLD . "";
+        case 'date ASC':
+            $orderbyTrans = '' . _MD_MYLINKS_DATEOLD . '';
             break;
-        case "title DESC":
-            $orderbyTrans = "" . _MD_MYLINKS_TITLEZTOA . "";
+        case 'title DESC':
+            $orderbyTrans = '' . _MD_MYLINKS_TITLEZTOA . '';
             break;
-        case "hits DESC":
-            $orderbyTrans = "" . _MD_MYLINKS_POPULARITYMTOL . "";
+        case 'hits DESC':
+            $orderbyTrans = '' . _MD_MYLINKS_POPULARITYMTOL . '';
             break;
-        case "rating DESC":
-            $orderbyTrans = "" . _MD_MYLINKS_RATINGHTOL . "";
+        case 'rating DESC':
+            $orderbyTrans = '' . _MD_MYLINKS_RATINGHTOL . '';
             break;
-        case "date DESC":
+        case 'date DESC':
         default:
-            $orderbyTrans = "" . _MD_MYLINKS_DATENEW . "";
+            $orderbyTrans = '' . _MD_MYLINKS_DATENEW . '';
             break;
     }
     return $orderbyTrans;
@@ -133,30 +133,30 @@ function convertorderbyout($orderby)
     $orderby = (isset($orderby) && ('' != trim($orderby))) ? trim($orderby) : '';
     switch ($orderby)
     {
-        case "title ASC":
-            $orderby = "titleA";
+        case 'title ASC':
+            $orderby = 'titleA';
             break;
-        case "hits ASC":
-            $orderby = "hitsA";
+        case 'hits ASC':
+            $orderby = 'hitsA';
             break;
-        case "rating ASC":
-            $orderby = "ratingA";
+        case 'rating ASC':
+            $orderby = 'ratingA';
             break;
-        case "date ASC":
-            $orderby = "dateA";
+        case 'date ASC':
+            $orderby = 'dateA';
             break;
-        case "title DESC":
-            $orderby = "titleD";
+        case 'title DESC':
+            $orderby = 'titleD';
             break;
-        case "hits DESC":
-            $orderby = "hitsD";
+        case 'hits DESC':
+            $orderby = 'hitsD';
             break;
-        case "rating DESC":
-            $orderby = "ratingD";
+        case 'rating DESC':
+            $orderby = 'ratingD';
             break;
-        case "date DESC":
+        case 'date DESC':
         default:
-            $orderby = "dateD";
+            $orderby = 'dateD';
             break;
     }
     return $orderby;
@@ -171,7 +171,7 @@ function updaterating($sel_id)
 {
     global $xoopsDB;
     $sel_id = intval($sel_id);
-    $sql = "SELECT COUNT(*), FORMAT(AVG(rating),4) FROM " . $xoopsDB->prefix("mylinks_votedata") . " WHERE lid={$sel_id}";
+    $sql = 'SELECT COUNT(*), FORMAT(AVG(rating),4) FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE lid={$sel_id}";
     $voteResult = $xoopsDB->query($sql);
     if ($voteResult) {
         list($votesDB, $finalrating) = $xoopsDB->fetchRow($voteResult);
@@ -186,7 +186,7 @@ function updaterating($sel_id)
     $finalrating = $totalrating/$votesDB;
     $finalrating = number_format($finalrating, 4);
 */
-        $query =  "UPDATE " . $xoopsDB->prefix("mylinks_links") . " SET rating={$finalrating}, votes={$votesDB} WHERE lid = {$sel_id}";
+        $query = 'UPDATE ' . $xoopsDB->prefix('mylinks_links') . " SET rating={$finalrating}, votes={$votesDB} WHERE lid = {$sel_id}";
         $xoopsDB->query($query) or exit();
     }
 }
@@ -215,7 +215,7 @@ function getTotalItems($sel_id=NULL, $status='', $oper='>')
         }
         $whereClause .= ')';
     }
-    $query = "SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix("mylinks_links") . " WHERE {$whereClause}";
+    $query = 'SELECT COUNT(*) FROM ' . $GLOBALS['xoopsDB']->prefix('mylinks_links') . " WHERE {$whereClause}";
     if ('' !== $status) {
         $status = intval($status);
         if (preg_match('/^[!]*[<=>]{1}[=>]*$/', $oper, $match) ) {
@@ -298,12 +298,12 @@ function mylinksGetStylePath($aFile, $subPath='', $relPath=true)
     //sanitize subPath to make sure it's only contains valid path chars
     $subPath = (!preg_match('/^(\D+)(\d*)$/', $subPath, $regs)) ? '' : $subPath;
 
-    $path = ($subPath) ? 'modules/' . $xoopsModule->getVar('dirname') : XOOPSMYLINKPATH . '/modules/' . $xoopsModule->getVar('dirname') . '/';
+    $path = $subPath ? 'modules/' . $xoopsModule->getVar('dirname') : XOOPSMYLINKPATH . '/modules/' . $xoopsModule->getVar('dirname') . '/';
 
     $subPath = (!empty($subPath)) ? "/{$subPath}" : '';
     $stylePath = "{$path}{$subPath}/{$mylinks_theme}/{$aFile}";
 
-    return (file_exists($stylePath)) ? $stylePath : "{$path}{$subPath}/{$aFile}";
+    return file_exists($stylePath) ? $stylePath : "{$path}{$subPath}/{$aFile}";
 }
 
 function ml_wfd_letters()
@@ -313,15 +313,15 @@ function ml_wfd_letters()
     xoops_loadLanguage('main', $xoopsModule->getVar('dirname'));
     $alphabet = explode(',', _MD_MYLINKS_LTRCHARS);
 
-    $result = $xoopsDB->query("SELECT COUNT(*), LEFT(title, 1) AS sletter FROM " . $xoopsDB->prefix("mylinks_links") . " WHERE status>0 GROUP BY sletter");
+    $result = $xoopsDB->query('SELECT COUNT(*), LEFT(title, 1) AS sletter FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status>0 GROUP BY sletter');
     $letterArray = array();
     while (list($count, $sletter) = $xoopsDB->fetchRow($result)) {
         $sletter = mb_strtoupper($sletter);
         $letterArray[$sletter] = $count;
     }
 
-    $letterchoice = "<div class='browsebyletter'>" . _MD_MYLINKS_BROWSETOTOPIC . "</div>";
-    $letterchoice .= "[  ";
+    $letterchoice = "<div class='browsebyletter'>" . _MD_MYLINKS_BROWSETOTOPIC . '</div>';
+    $letterchoice .= '[  ';
     $num = count($alphabet) - 1;
     $halfNum = round($num / 2);
     $counter = 0;
@@ -332,13 +332,13 @@ function ml_wfd_letters()
             $letterchoice .= $ltr;
         }
         if ($counter == $halfNum) {
-            $letterchoice .= " ]<br>[ ";
+            $letterchoice .= ' ]<br>[ ';
         } elseif ($counter != $num) {
-            $letterchoice .= "&nbsp;|&nbsp;";
+            $letterchoice .= '&nbsp;|&nbsp;';
         }
         $counter++;
     }
-    $letterchoice .= " ]";
+    $letterchoice .= ' ]';
     return $letterchoice;
 }
 
@@ -346,10 +346,10 @@ function ml_wfd_toolbar()
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsUser;
     xoops_loadlanguage('modinfo', $xoopsModule->getVar('dirname'));
-    $toolbar = "[ <a href='index.php' class='toolbar'>" ._MD_MYLINKS_MAIN. "</a> | ";
-    if ( (is_object($xoopsUser)) || (!is_object($xoopsUser) && $xoopsModuleConfig['anonpost']) ) {
-        $toolbar .= "<a href='submit.php' class='toolbar'>" . _MI_MYLINKS_SMNAME1 . "</a> | ";
+    $toolbar = "[ <a href='index.php' class='toolbar'>" ._MD_MYLINKS_MAIN . '</a> | ';
+    if (is_object($xoopsUser) || (!is_object($xoopsUser) && $xoopsModuleConfig['anonpost']) ) {
+        $toolbar .= "<a href='submit.php' class='toolbar'>" . _MI_MYLINKS_SMNAME1 . '</a> | ';
     }
-    $toolbar .= "<a href='topten.php?sort=2' class='toolbar'>" . _MI_MYLINKS_SMNAME2 . "</a> | <a href='topten.php?sort=1' class='toolbar'>" . _MI_MYLINKS_SMNAME3 . "</a> | <a href='topten.php?sort=3' class='toolbar'>" . _MI_MYLINKS_SMNAME4 . "</a> ]";
+    $toolbar .= "<a href='topten.php?sort=2' class='toolbar'>" . _MI_MYLINKS_SMNAME2 . "</a> | <a href='topten.php?sort=1' class='toolbar'>" . _MI_MYLINKS_SMNAME3 . "</a> | <a href='topten.php?sort=3' class='toolbar'>" . _MI_MYLINKS_SMNAME4 . '</a> ]';
     return $toolbar;
 }

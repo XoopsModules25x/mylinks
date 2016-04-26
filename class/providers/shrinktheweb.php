@@ -32,15 +32,15 @@
  * @since::         3.11
  * @author::     zyspec <owner@zyspec.com>
  */
-require_once XOOPS_ROOT_PATH . "/modules/mylinks/class/thumbplugin.interface.php";
+require_once XOOPS_ROOT_PATH . '/modules/mylinks/class/thumbplugin.interface.php';
 class MylinksShrinktheweb implements MylinksThumbPlugin
 {
     private $image_width     = 0;
     private $site_url        = null;
     private $key             = null;
     private $attribution     = "<a href=\"http://www.shrinktheweb.com\" target=\"_blank\" title=\"Thumbnail Screenshots by ShrinkTheWeb\">Thumbnail Screenshots by ShrinkTheWeb</a>";
-    private $provider_url    = "http://images.shrinktheweb.com/xino.php";
-    private $provider_name   = "ShrinkTheWeb";
+    private $provider_url    = 'http://images.shrinktheweb.com/xino.php';
+    private $provider_name   = 'ShrinkTheWeb';
 
     function __construct()
     {

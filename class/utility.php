@@ -37,18 +37,18 @@ class mylinksUtility
         switch ( $type )
         {
             case 'string':
-                $ret = ( isset( $global[$key] ) ) ? filter_var( $global[$key], FILTER_SANITIZE_MAGIC_QUOTES ) : $default;
+                $ret = isset( $global[$key] ) ? filter_var($global[$key], FILTER_SANITIZE_MAGIC_QUOTES ) : $default;
                 break;
             case 'email':
-                $ret = ( isset( $global[$key] ) ) ? filter_var( $global[$key], FILTER_SANITIZE_EMAIL ) : $default;
+                $ret = isset( $global[$key] ) ? filter_var($global[$key], FILTER_SANITIZE_EMAIL ) : $default;
                 break;
             case 'url':
-                $ret = ( isset( $global[$key] ) ) ? filter_var( $global[$key], FILTER_SANITIZE_URL ) : $default;
+                $ret = isset( $global[$key] ) ? filter_var($global[$key], FILTER_SANITIZE_URL ) : $default;
                 break;
             case 'int':
             default:
                 $default = intval($default);
-                $ret = ( isset( $global[$key] ) ) ? filter_var( $global[$key], FILTER_SANITIZE_NUMBER_INT ) : false;
+                $ret = isset( $global[$key] ) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT ) : false;
                 if ( isset($limit) && is_array($limit) && ( false !== $ret) ) {
                     if (array_key_exists('min', $limit)) {
                         $ret = ( $ret >= $limit['min'] ) ? $ret : false;
@@ -78,7 +78,7 @@ class mylinksUtility
                 $div_class = "class='errorMsg'";
                 break;
             case 'info':
-                $div_class = "";
+                $div_class = '';
                 break;
         }
         include_once XOOPS_ROOT_PATH . '/header.php';
@@ -89,7 +89,7 @@ class mylinksUtility
            if (0 != $pages) {
                $pages = '-' . abs($pages);
                echo "<br><br>\n"
-                  . "[ <a href=\'javascript:history.go(-{$pages})\'>" . _BACK . "</a> ]</div>";
+                  . "[ <a href=\'javascript:history.go(-{$pages})\'>" . _BACK . '</a> ]</div>';
            }
         include_once XOOPS_ROOT_PATH . '/footer.php';
 

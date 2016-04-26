@@ -41,22 +41,22 @@ xoops_cp_header();
 $indexAdmin = new ModuleAdmin();
 
 // Temporarily 'homeless' links (to be revised in admin.php breakup)
-$result = $xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("mylinks_broken") . "");
+$result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_broken') . '');
 list($totalBrokenLinks) = $xoopsDB->fetchRow($result);
 if ( $totalBrokenLinks > 0 ) {
     $totalBrokenLinks = "<span style='color: #ff0000; font-weight: bold'>{$totalBrokenLinks}</span>";
 }
-$result = $xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("mylinks_mod") . "");
+$result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_mod') . '');
 list($totalModRequests) = $xoopsDB->fetchRow($result);
 if ( $totalModRequests > 0 ) {
     $totalModRequests = "<span style='color: #ff0000; font-weight: bold'>{$totalModRequests}</span>";
 }
-$result = $xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("mylinks_links") . " WHERE status='0'");
+$result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE status='0'");
 list($totalNewLinks) = $xoopsDB->fetchRow($result);
 if ( $totalNewLinks > 0 ) {
     $totalNewLinks = "<span style='color: #ff0000; font-weight: bold'>{$totalNewLinks}</span>";
 }
-$result=$xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("mylinks_links") . " WHERE status>0");
+$result=$xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status>0');
 list($activeLinks) = $xoopsDB->fetchRow($result);
 
 $indexAdmin->addInfoBox(_MD_MYLINKS_WEBLINKSCONF);

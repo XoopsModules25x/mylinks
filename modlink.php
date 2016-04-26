@@ -42,7 +42,7 @@ if (!empty($_POST['submit'])) {
 //    include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
 //    $eh = new ErrorHandler; //ErrorHandler object
 
-    $msg = "";
+    $msg = '';
     switch (true) {
         case ( '' == $_POST['title'] ):
             $msg .= _MD_MYLINKS_ERRORTITLE;
@@ -62,7 +62,7 @@ if (!empty($_POST['submit'])) {
     $title       = $myts->addSlashes($_POST['title']);
     $description = $myts->addSlashes($_POST['description']);
     $newid       = $xoopsDB->genId($xoopsDB->prefix('mylinks_mod') . '_requestid_seq');
-    $sql         = sprintf("INSERT INTO %s (requestid, lid, cid, title, url, logourl, description, modifysubmitter) VALUES (%u, %u, %u, '%s', '%s', '%s', '%s', %u)", $xoopsDB->prefix("mylinks_mod"), $newid, $lid, $cid, $title, $url, $logourl, $description, $user);
+    $sql         = sprintf("INSERT INTO %s (requestid, lid, cid, title, url, logourl, description, modifysubmitter) VALUES (%u, %u, %u, '%s', '%s', '%s', '%s', %u)", $xoopsDB->prefix('mylinks_mod'), $newid, $lid, $cid, $title, $url, $logourl, $description, $user);
     $result = $xoopsDB->query($sql);
     if (!result) {
         mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
@@ -72,7 +72,7 @@ if (!empty($_POST['submit'])) {
     $tags['MODIFYREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listModReq';
     $notification_handler =& xoops_getHandler('notification');
     $notification_handler->triggerEvent('global', 0, 'link_modify', $tags);
-    redirect_header("index.php", 2, _MD_MYLINKS_THANKSFORINFO);
+    redirect_header('index.php', 2, _MD_MYLINKS_THANKSFORINFO);
     exit();
 } else {
     if (empty($xoopsUser)) {
@@ -101,7 +101,7 @@ if (!empty($_POST['submit'])) {
 */
     //
 
-    $result = $xoopsDB->query("SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM " . $xoopsDB->prefix("mylinks_links") . " l, " . $xoopsDB->prefix("mylinks_text") . " t WHERE l.lid={$lid} AND l.lid=t.lid AND status>0");
+    $result = $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM ' . $xoopsDB->prefix('mylinks_links') . ' l, ' . $xoopsDB->prefix('mylinks_text') . " t WHERE l.lid={$lid} AND l.lid=t.lid AND status>0");
     list($lid, $cid, $title, $url, $logourl, $status, $time, $hits, $rating, $votes, $comments, $description) = $xoopsDB->fetchRow($result);
     if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
         $adminlink = "<a href='" . XOOPSMYLINKURL . "/admin/index.php?op=modLink&amp;lid={$lid}'><img src='" . mylinksGetIconURL('edit.png') . "' style='border-width: 0px;' alt='" . _MD_MYLINKS_EDITTHISLINK . "'></a>";
@@ -146,10 +146,10 @@ if (!empty($_POST['submit'])) {
     $xoopsTpl->assign('mylinksthemeoption', $mylinkstheme_select);
 
     //wanikoo search
-    if (file_exists(XOOPS_ROOT_PATH."/language/".$xoopsConfig['language']."/search.php")) {
-       include_once XOOPS_ROOT_PATH."/language/".$xoopsConfig['language']."/search.php";
+    if (file_exists(XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php')) {
+       include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
     } else {
-       include_once XOOPS_ROOT_PATH."/language/english/search.php";
+       include_once XOOPS_ROOT_PATH . '/language/english/search.php';
     }
     $xoopsTpl->assign('lang_all', _SR_ALL);
     $xoopsTpl->assign('lang_any', _SR_ANY);

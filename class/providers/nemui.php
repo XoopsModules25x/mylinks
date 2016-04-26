@@ -32,7 +32,7 @@
  * @since::         3.11
  * @author::     zyspec <owner@zyspec.com>
  */
-require_once XOOPS_ROOT_PATH . "/modules/mylinks/class/thumbplugin.interface.php";
+require_once XOOPS_ROOT_PATH . '/modules/mylinks/class/thumbplugin.interface.php';
 class MylinksNemui implements MylinksThumbPlugin
 {
     private $image_width     = 0;
@@ -41,8 +41,8 @@ class MylinksNemui implements MylinksThumbPlugin
     private $site_url        = null;
     private $key             = null;
     private $attribution     = "<a href=\"http://mozshot.nemui.org\" target=\"_blank\" title=\"Thumbnails Screenshots by Nemui.org\">Thumbnail Screenshots by Nemui.org</a>";
-    private $provider_url    = "http://mozshot.nemui.org";
-    private $provider_name   = "Nemui";
+    private $provider_url    = 'http://mozshot.nemui.org';
+    private $provider_name   = 'Nemui';
 
     function __construct()
     {
@@ -50,7 +50,7 @@ class MylinksNemui implements MylinksThumbPlugin
     public function getProviderUrl()
     {
         $sz = self::getShotSize();
-        $image_size = $sz['width'] . "x" . $sz['height'];
+        $image_size = $sz['width'] . 'x' . $sz['height'];
         $providerUrl = $this->provider_url . "/shot/{$image_size}?" . $this->site_url;
 
         return $providerUrl;

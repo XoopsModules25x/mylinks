@@ -57,7 +57,7 @@ $can_bookmark = _MD_MYLINKS_DISALLOW;
 switch ($mylinks_can_print)
 {
     case _MD_MYLINKS_MEMBERONLY:
-        $can_print = ( $xoopsUser ) ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
+        $can_print = $xoopsUser ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
         break;
     case _MD_MYLINKS_ALLOW:
         $can_print = _MD_MYLINKS_ALLOW;
@@ -77,7 +77,7 @@ if ( _MD_MYLINKS_DISALLOW == $can_print ) {
 //pdf function
 switch ($mylinks_can_pdf) {
     case _MD_MYLINKS_MEMBERONLY:
-        $can_pdf = ($xoopsUser) ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
+        $can_pdf = $xoopsUser ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
         break;
     case _MD_MYLINKS_ALLOW:
         $can_pdf = _MD_MYLINKS_ALLOW;
@@ -96,7 +96,7 @@ if ( _MD_MYLINKS_DISALLOW == $can_pdf ) {
 //qrcode func
 switch ($mylinks_can_qrcode) {
     case _MD_MYLINKS_MEMBERONLY:
-        $can_qrcode = ($xoopsUser) ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
+        $can_qrcode = $xoopsUser ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
         break;
     case _MD_MYLINKS_ALLOW:
         $can_qrcode = _MD_MYLINKS_ALLOW;
@@ -116,7 +116,7 @@ if ( _MD_MYLINKS_DISALLOW == $can_qrcode ) {
 //bookmark func
 switch ($mylinks_can_bookmark) {
     case _MD_MYLINKS_MEMBERONLY:
-        $can_bookmark = ($xoopsUser) ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
+        $can_bookmark = $xoopsUser ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
         break;
     case _MD_MYLINKS_ALLOW:
         $can_bookmark = _MD_MYLINKS_ALLOW;

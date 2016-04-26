@@ -18,7 +18,7 @@
  * @package::    mylinks
  */
 include_once 'header.php';
-include_once $GLOBALS['xoops']->path("header.php");
+include_once $GLOBALS['xoops']->path('header.php');
 include_once './class/utility.php';
 include_once $GLOBALS['xoops']->path('class' . DIRECTORY_SEPARATOR . 'xoopsformloader.php');
 
@@ -70,9 +70,9 @@ if (!isset($_POST['submit'])) {
 //    $tfform->addElement(new XoopsFormCaptcha(null, null, false, array('maxattempts'=>4)));
     $tfform->addElement(new XoopsFormButtonTray('submit', _SUBMIT));
     $tfform->display();
-    include_once $GLOBALS['xoops']->path("footer.php");
+    include_once $GLOBALS['xoops']->path('footer.php');
 } else {
-    if ( ($GLOBALS['xoopsSecurity'] instanceof XoopsSecurity) ) {
+    if ($GLOBALS['xoopsSecurity'] instanceof XoopsSecurity) {
         if ( !$GLOBALS['xoopsSecurity']->check() ) {
             // failed xoops security check
             redirect_header('index.php', 3, $GLOBALS['xoopsSecurity']->getErrors(true));
@@ -93,7 +93,7 @@ if (!isset($_POST['submit'])) {
     xoops_load('XoopsCaptcha');
     $xoopsCaptcha =& XoopsCaptcha::getInstance();
     if ( !$xoopsCaptcha->verify() ) {
-        if ( $_SESSION["xoopscaptcha_attempt"] < $_SESSION["_maxattempts"] ) {
+        if ($_SESSION['xoopscaptcha_attempt'] < $_SESSION['_maxattempts'] ) {
             $form_contents = array('lid' => $lid,
                                 'frname' => $frname,
                                'fremail' => $fremail,
@@ -125,7 +125,7 @@ if (!isset($_POST['submit'])) {
     }
     // set the url to the link
     if ( $lid > 0 ) {
-        $linkurl = $GLOBALS['xoops']->url("modules/" . $GLOBALS['xoopsModule']->getVar('dirname') . "/singlelink.php?lid={$lid}");
+        $linkurl = $GLOBALS['xoops']->url('modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . "/singlelink.php?lid={$lid}");
         // now check to make sure that the link the user is sharing is valid
         $result = $GLOBALS['xoopsDB']->query("SELECT title FROM {$GLOBALS['xoopsDB']->prefix( 'mylinks_links' )} WHERE `lid` = '{$lid}' AND status>0 LIMIT 0,1");
         if ($result) {
@@ -146,25 +146,25 @@ if (!isset($_POST['submit'])) {
     //now send mail to friend
     $xMailer =& xoops_getMailer();
     $xMailer->useMail(); // Set it to use email (as opposed to PM)
-    $xMailer->setTemplateDir( $GLOBALS['xoops']->path("modules" . DIRECTORY_SEPARATOR
-                                . DIRECTORY_SEPARATOR . $GLOBALS['xoopsModule']->getVar('dirname')
-                                . DIRECTORY_SEPARATOR . 'language'
-                                . DIRECTORY_SEPARATOR . $GLOBALS['xoopsConfig']['language']
-                                . DIRECTORY_SEPARATOR . 'mail_template' . DIRECTORY_SEPARATOR
+    $xMailer->setTemplateDir( $GLOBALS['xoops']->path('modules' . DIRECTORY_SEPARATOR
+                                                      . DIRECTORY_SEPARATOR . $GLOBALS['xoopsModule']->getVar('dirname')
+                                                      . DIRECTORY_SEPARATOR . 'language'
+                                                      . DIRECTORY_SEPARATOR . $GLOBALS['xoopsConfig']['language']
+                                                      . DIRECTORY_SEPARATOR . 'mail_template' . DIRECTORY_SEPARATOR
                                 )
     );
     $xMailer->setTemplate('tellafriend_mail.tpl');
 
     // set common mail template variables
     $xMailer->assign(array('SNAME' => $sname,
-                          'SEMAIL' => $semail,
-                     'X_ADMINMAIL' => $xadminmail,
-                      'X_SITENAME' => $xsitename,
-                       'X_SITEURL' => $GLOBALS['xoops']->url("/"),
-                    'X_LINK_TITLE' => strip_tags(html_entity_decode($linktitle)),
-                          'X_LINK' => $linkurl,
-                          'FRNAME' => $frname,
-                        'COMMENTS' => strip_tags(html_entity_decode($comments)))
+                           'SEMAIL' => $semail,
+                           'X_ADMINMAIL' => $xadminmail,
+                           'X_SITENAME' => $xsitename,
+                           'X_SITEURL' => $GLOBALS['xoops']->url('/'),
+                           'X_LINK_TITLE' => strip_tags(html_entity_decode($linktitle)),
+                           'X_LINK' => $linkurl,
+                           'FRNAME' => $frname,
+                           'COMMENTS' => strip_tags(html_entity_decode($comments)))
     );
 
     $xMailer->setToEmails($fremail);

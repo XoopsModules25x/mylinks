@@ -15,7 +15,7 @@
  * @since::     File available since Release 3.11
  */
 
-$mylinksDir = basename(dirname(dirname(__FILE__)));
+$mylinksDir = basename(dirname(__DIR__));
 
 function xoops_module_pre_install_mylinks_base(&$xoopsModule) {
     global $xoopsDB;
@@ -39,7 +39,7 @@ function xoops_module_pre_install_mylinks_base(&$xoopsModule) {
     } else {
         // Check if MySQL version is supported
         $minSQLSupported = explode('.', $minSQLVersion);
-        $sql = $xoopsDB->query("SELECT version() AS sqlver");
+        $sql = $xoopsDB->query('SELECT version() AS sqlver');
         $result = $xoopsDB->fetchObject($sql);
         $currSQLVer = $result->sqlver;
         $sqlVerArray = explode('.', $currSQLVer);
@@ -48,7 +48,7 @@ function xoops_module_pre_install_mylinks_base(&$xoopsModule) {
         if ($sqlVerArray[0] < $minSQLSupported[0]) {
             $retVal = false;
             $xoopsModule->setErrors($mysqlErrMsg);
-        } elseif ( ($sqlVerArray[0] ==  $minSQLSupported[0]) ) {
+        } elseif ($sqlVerArray[0] == $minSQLSupported[0]) {
             if ($sqlVerArray[1] <  $minSQLSupported[1]) {
                 $retVal = false;
                 $xoopsModule->setErrors($mysqlErrMsg);

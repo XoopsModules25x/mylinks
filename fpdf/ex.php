@@ -1,6 +1,6 @@
 <?php
 if (!defined('XOOPS_ROOT_PATH')) {
-    die("XOOPS root path not defined");
+    die('XOOPS root path not defined');
 }
 
 require('japanese.php');
@@ -10,5 +10,5 @@ $pdf->AddSJISFont();
 $pdf->Open();
 $pdf->AddPage();
 $pdf->SetFont('SJIS','',18);
-$pdf->Write(8,'9ƒ–ŒŽ‚ÌŒöŠJƒeƒXƒg‚ðŒo‚ÄPHP 3.0‚Í1998”N6ŒŽ‚ÉŒöŽ®‚ÉƒŠƒŠ[ƒX‚³‚ê‚Ü‚µ‚½B');
+$pdf->Write(8,'9ï¿½ï¿½ï¿½ï¿½ï¿½ÌŒï¿½ï¿½Jï¿½eï¿½Xï¿½gï¿½ï¿½ï¿½oï¿½ï¿½PHP 3.0ï¿½ï¿½1998ï¿½N6ï¿½ï¿½ï¿½ÉŒï¿½ï¿½ï¿½ï¿½Éƒï¿½ï¿½ï¿½ï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½B');
 $pdf->Output();

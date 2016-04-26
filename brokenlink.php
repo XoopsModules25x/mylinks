@@ -31,11 +31,11 @@ include_once './class/utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
 $lid = mylinksUtility::mylinks_cleanVars($_REQUEST, 'lid', 0, 'int', array('min'=>0));
 if (!empty($_POST['submit'])) {
-    $sender = (empty($xoopsUser)) ?  0 : $xoopsUser->getVar('uid');
-    $ip = getenv("REMOTE_ADDR");
+    $sender = empty($xoopsUser) ?  0 : $xoopsUser->getVar('uid');
+    $ip = getenv('REMOTE_ADDR');
     if ( $sender != 0 ) {
         // Check if REG user is trying to report twice.
-        $result = $xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("mylinks_broken") . " WHERE lid='{$lid}' AND sender='{$sender}'");
+        $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_broken') . " WHERE lid='{$lid}' AND sender='{$sender}'");
         list($count) = $xoopsDB->fetchRow($result);
         if ( $count > 0 ) {
             redirect_header('index.php', 2, _MD_MYLINKS_ALREADYREPORTED);
@@ -43,15 +43,15 @@ if (!empty($_POST['submit'])) {
         }
     } else {
         // Check if the sender is trying to report it more than once.
-        $result = $xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("mylinks_broken") . " WHERE lid='{$lid}' AND ip='{$ip}'");
+        $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_broken') . " WHERE lid='{$lid}' AND ip='{$ip}'");
         list($count) = $xoopsDB->fetchRow($result);
         if ($count > 0) {
             redirect_header('index.php', 2, _MD_MYLINKS_ALREADYREPORTED);
             exit();
         }
     }
-    $newid = $xoopsDB->genId($xoopsDB->prefix("mylinks_broken") . "_reportid_seq");
-    $sql = sprintf("INSERT INTO %s (reportid, lid, sender, ip) VALUES (%u, %u, %u, '%s')", $xoopsDB->prefix("mylinks_broken"), $newid, $lid, $sender, $ip);
+    $newid = $xoopsDB->genId($xoopsDB->prefix('mylinks_broken') . '_reportid_seq');
+    $sql = sprintf("INSERT INTO %s (reportid, lid, sender, ip) VALUES (%u, %u, %u, '%s')", $xoopsDB->prefix('mylinks_broken'), $newid, $lid, $sender, $ip);
     $xoopsDB->query($sql) or exit();
     $tags = array();
     $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listBrokenLinks';
@@ -78,7 +78,7 @@ if (!empty($_POST['submit'])) {
 
     $mymylinkstheme_options = '';
     foreach ($GLOBALS['mylinks_allowed_theme'] as $mymylinkstheme) {
-        $thisSelected = ($mymylinkstheme == $GLOBALS['mylinks_theme']) ? " selected='selected'" : "";
+        $thisSelected = ($mymylinkstheme == $GLOBALS['mylinks_theme']) ? " selected='selected'" : '';
         $mymylinkstheme_options .= "<option value='{$mymylinkstheme}'{$thisSelected}>{$mymylinkstheme}</option>";
     }
 
@@ -86,10 +86,10 @@ if (!empty($_POST['submit'])) {
     $xoopsTpl->assign('mylinksthemeoption', $mylinkstheme_select);
 
     //wanikoo search
-    if (file_exists(XOOPS_ROOT_PATH."/language/".$xoopsConfig['language']."/search.php")) {
-       include_once XOOPS_ROOT_PATH."/language/".$xoopsConfig['language']."/search.php";
+    if (file_exists(XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php')) {
+       include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
     } else {
-       include_once XOOPS_ROOT_PATH."/language/english/search.php";
+       include_once XOOPS_ROOT_PATH . '/language/english/search.php';
     }
 
     $xoopsTpl->assign('lang_all', _SR_ALL);

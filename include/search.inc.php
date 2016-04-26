@@ -28,7 +28,7 @@
 function mylinks_search($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB;
-    $sql = "SELECT l.lid,l.cid,l.title,l.submitter,l.date,t.description FROM " . $xoopsDB->prefix("mylinks_links") . " l LEFT JOIN " . $xoopsDB->prefix("mylinks_text") . " t ON t.lid=l.lid WHERE status>0";
+    $sql = 'SELECT l.lid,l.cid,l.title,l.submitter,l.date,t.description FROM ' . $xoopsDB->prefix('mylinks_links') . ' l LEFT JOIN ' . $xoopsDB->prefix('mylinks_text') . ' t ON t.lid=l.lid WHERE status>0';
     if ( $userid != 0 ) {
         $sql .= " AND l.submitter={$userid}";
     }
@@ -40,14 +40,14 @@ function mylinks_search($queryarray, $andor, $limit, $offset, $userid)
             $sql .= " $andor ";
             $sql .= "(l.title LIKE '%{$queryarray[$i]}%' OR t.description LIKE '%{$queryarray[$i]}%')";
         }
-        $sql .= ") ";
+        $sql .= ') ';
     }
-    $sql .= " ORDER BY l.date DESC";
+    $sql .= ' ORDER BY l.date DESC';
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret = array();
     $i = 0;
     while ($myrow = $xoopsDB->fetchArray($result)) {
-        $ret[$i]['image'] = "images/icons/home.gif";
+        $ret[$i]['image'] = 'images/icons/home.gif';
         $ret[$i]['link']  = "singlelink.php?cid={$myrow['cid']}&amp;lid={$myrow['lid']}";
         $ret[$i]['title'] = $myrow['title'];
         $ret[$i]['time']  = $myrow['date'];

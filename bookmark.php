@@ -17,7 +17,7 @@ if ( empty($lid) ) {
   die("No cid!");
 }
 */
-$result = $xoopsDB->query("SELECT l.lid, l.cid, l.title, l.url FROM " . $xoopsDB->prefix("mylinks_links") . " l, ".$xoopsDB->prefix("mylinks_text") . " t where l.lid={$lid} AND l.lid=t.lid AND status>0");
+$result = $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.url FROM ' . $xoopsDB->prefix('mylinks_links') . ' l, ' . $xoopsDB->prefix('mylinks_text') . " t where l.lid={$lid} AND l.lid=t.lid AND status>0");
 if (!$result) {
     redirect_header('index.php', 3, _MD_MYLINKS_NORECORDFOUND);
     exit();
@@ -27,7 +27,7 @@ list($lid, $cid, $ltitle, $url) = $xoopsDB->fetchRow($result);
 //bookmark func
 switch ($mylinks_can_bookmark) {
     case _MD_MYLINKS_MEMBERONLY:
-        $can_bookmark = ($xoopsUser) ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
+        $can_bookmark = $xoopsUser ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
         break;
     case _MD_MYLINKS_ALLOW:
         $can_bookmark = _MD_MYLINKS_ALLOW;
@@ -97,8 +97,8 @@ $myts =& MyTextSanitizer::getInstance();
 $sitetitle = $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle));
 $siteurl = $myts->htmlSpecialChars($url);
 
-$siteurl_en   = urlencode(mb_convert_encoding($siteurl, "UTF-8", _CHARSET));
-$sitetitle_en = urlencode(mb_convert_encoding($sitetitle, "UTF-8", _CHARSET));
+$siteurl_en   = urlencode(mb_convert_encoding($siteurl, 'UTF-8', _CHARSET));
+$sitetitle_en = urlencode(mb_convert_encoding($sitetitle, 'UTF-8', _CHARSET));
 
 function bookmark_convert_encoding($str, $to = 'SJIS', $from = _CHARSET)
 {
@@ -117,11 +117,11 @@ function bookmark_convert_encoding($str, $to = 'SJIS', $from = _CHARSET)
     }
 }
 
-function bookmark_qrcode_encoding($data="")
+function bookmark_qrcode_encoding($data= '')
 {
     $data = bookmark_convert_encoding($data);
     $data = rawurlencode($data);
-    $data = str_replace("%20", "+", $data);
+    $data = str_replace('%20', '+', $data);
 
     return $data;
 }
@@ -160,15 +160,15 @@ function zeroFill($a, $b)
 
 function mix($a, $b, $c)
 {
-  $a -= $b; $a -= $c; $a ^= (zeroFill($c, 13));
+  $a -= $b; $a -= $c; $a ^= zeroFill($c, 13);
   $b -= $c; $b -= $a; $b ^= ($a<<8);
-  $c -= $a; $c -= $b; $c ^= (zeroFill($b, 13));
-  $a -= $b; $a -= $c; $a ^= (zeroFill($c, 12));
+  $c -= $a; $c -= $b; $c ^= zeroFill($b, 13);
+  $a -= $b; $a -= $c; $a ^= zeroFill($c, 12);
   $b -= $c; $b -= $a; $b ^= ($a<<16);
-  $c -= $a; $c -= $b; $c ^= (zeroFill($b, 5));
-  $a -= $b; $a -= $c; $a ^= (zeroFill($c, 3));
+  $c -= $a; $c -= $b; $c ^= zeroFill($b, 5);
+  $a -= $b; $a -= $c; $a ^= zeroFill($c, 3);
   $b -= $c; $b -= $a; $b ^= ($a<<10);
-  $c -= $a; $c -= $b; $c ^= (zeroFill($b, 15));
+  $c -= $a; $c -= $b; $c ^= zeroFill($b, 15);
 
   return array($a, $b, $c);
 }
@@ -201,11 +201,11 @@ function GoogleCH($url, $length=null, $init=GOOGLE_MAGIC)
         case 8 : $b+=($url[$k+7]<<24);
         case 7 : $b+=($url[$k+6]<<16);
         case 6 : $b+=($url[$k+5]<<8);
-        case 5 : $b+=($url[$k+4]);
+        case 5 : $b+= $url[$k + 4];
         case 4 : $a+=($url[$k+3]<<24);
         case 3 : $a+=($url[$k+2]<<16);
         case 2 : $a+=($url[$k+1]<<8);
-        case 1 : $a+=($url[$k+0]);
+        case 1 : $a+= $url[$k + 0];
     }
     $mix = mix($a, $b, $c);
 
@@ -223,15 +223,15 @@ function strord($string)
 
 function getrank($url)
 {
-    $pagerank = "0";
-    $ch = "6" . GoogleCH(strord("info:" . $url));
+    $pagerank = '0';
+    $ch = '6' . GoogleCH(strord('info:' . $url));
 
-    $fp = fsockopen("www.google.com", 80, $errno, $errstr, 30);
+    $fp = fsockopen('www.google.com', 80, $errno, $errstr, 30);
     if (!$fp) {
-        $pagerank = "-1";
+        $pagerank = '-1';
         //echo "$errstr ($errno)<br>\n";
     } else {
-        $out = "GET /search?client=navclient-auto&ch=". $ch .  "&features=Rank&q=info:" . $url . " HTTP/1.1\r\n";
+        $out = 'GET /search?client=navclient-auto&ch=' . $ch . '&features=Rank&q=info:' . $url . " HTTP/1.1\r\n";
         $out .= "Host: www.google.com\r\n";
         $out .= "Connection: Close\r\n\r\n";
 
@@ -239,7 +239,7 @@ function getrank($url)
 
         while (!feof($fp)) {
             $data = fgets($fp, 128);
-            $pos = strpos($data, "Rank_");
+            $pos = strpos($data, 'Rank_');
             if($pos === false){} else{
                 $pagerank = substr($data, $pos + 9);
             }

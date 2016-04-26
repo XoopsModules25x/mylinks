@@ -25,9 +25,9 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined('XOOPS_ROOT_PATH') or die('XOOPS root path not defined');
 
-$dirname = basename(dirname(dirname(__FILE__)));
+$dirname = basename(dirname(__DIR__));
 $module_handler = xoops_getHandler('module');
 $module = $module_handler->getByDirname($dirname);
 $pathIcon32 = $module->getInfo('icons32');

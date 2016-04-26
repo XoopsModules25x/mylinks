@@ -27,18 +27,18 @@
 // based on:
 // -------------------------------------------------
 // St@neCold
-// HTML2PDF by Clément Lavoillotte
+// HTML2PDF by Clï¿½ment Lavoillotte
 // ac.lavoillotte@noos.fr
 // webmaster@streetpc.tk
 // http://www.streetpc.tk
 if (!defined('XOOPS_ROOT_PATH')) {
-  die("XOOPS root path not defined");
+  die('XOOPS root path not defined');
 }
 
 //function hex2dec
 //returns an associative array (keys: R,G,B) from
 //a hex html code (e.g. #3FE5AA)
-function hex2dec($couleur = "#000000"){
+function hex2dec($couleur = '#000000'){
     $R = substr($couleur, 1, 2);
     $rouge = hexdec($R);
     $V = substr($couleur, 3, 2);
@@ -101,7 +101,7 @@ class PDF extends PDF_language
       $this->SRC='';
       $this->WIDTH='';
       $this->HEIGHT='';
-      $this->fontlist=array("arial","times","courier","helvetica","symbol");
+      $this->fontlist=array('arial', 'times', 'courier', 'helvetica', 'symbol');
 
       $this->issetfont=false;
       $this->issetcolor=false;
@@ -285,8 +285,8 @@ class PDF extends PDF_language
       $iminfo=@getimagesize($url);
       $iw=$scale * px2mm($iminfo[0]);
       $ih=$scale * px2mm($iminfo[1]);
-      $iw = ($iw)?$iw:1;
-      $ih = ($ih)?$ih:1;
+      $iw = $iw ?$iw:1;
+      $ih = $ih ?$ih:1;
       $nw=$iw;
       $nh=$ih;
       //resizing in x-direction

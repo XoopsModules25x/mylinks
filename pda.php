@@ -3,7 +3,7 @@
 include '../../mainfile.php';
 include_once XOOPS_ROOT_PATH . '/class/template.php';
 error_reporting(0);
-$modulename = basename(dirname(__FILE__));
+$modulename = basename(__DIR__);
 include_once XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feedfunc.new.php";
 
 // for debug

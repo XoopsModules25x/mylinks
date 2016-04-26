@@ -4,7 +4,7 @@ include '../../mainfile.php';
 include_once XOOPS_ROOT_PATH . '/class/template.php';
 error_reporting(0);
 
-$modulename = basename(dirname(__FILE__));
+$modulename = basename(__DIR__);
 include_once XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feedfunc.new.php";
 
 $param_array = array('show'  => 10,
@@ -35,12 +35,12 @@ if ($cache) {
 
 if (!$tpl->is_cached('file:'.$template) || !$cache) {
     if (count($new_array) > 0) {
-        $link_alt  = XOOPS_URL . "/";
+        $link_alt  = XOOPS_URL . '/';
         $link_self = XOOPS_URL . "/modules/{$modulename}/atom.php";
         // site tag
         $site_tag    = 'mylinks';
         $site_author = wani_utf8_encode(htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES));
-        $year        = date("Y");
+        $year        = date('Y');
         $copyright   = "Copyright $year, $site_author";
         $feed_id     = "tag:$site_tag,$year://1";
 

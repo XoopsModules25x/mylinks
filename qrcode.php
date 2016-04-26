@@ -43,7 +43,7 @@ if ( empty($lid) ) {
   die("No cid!");
 }
 */
-$result = $xoopsDB->query("SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM " . $xoopsDB->prefix("mylinks_links") . " l, " . $xoopsDB->prefix("mylinks_text") . " t where l.lid={$lid} AND l.lid=t.lid and status>0");
+$result = $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM ' . $xoopsDB->prefix('mylinks_links') . ' l, ' . $xoopsDB->prefix('mylinks_text') . " t where l.lid={$lid} AND l.lid=t.lid and status>0");
 if (!$result) {
     redirect_header('index.php', 3, _MD_MYLINKS_NORECORDFOUND);
     exit();
@@ -54,7 +54,7 @@ list($lid, $cid, $ltitle, $url, $logourl, $status, $time, $hits, $rating, $votes
 //qrcode func
 switch ($mylinks_can_qrcode) {
     case _MD_MYLINKS_MEMBERONLY:
-        $can_qrcode = ($xoopsUser) ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
+        $can_qrcode = $xoopsUser ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
         break;
     case _MD_MYLINKS_ALLOW:
         $can_qrcode = _MD_MYLINKS_ALLOW;
@@ -114,11 +114,11 @@ function mylinks_qrcode_convert_encoding($str, $to = 'SJIS', $from = _CHARSET)
     }
 }
 
-function mylinks_qrcode_encoding($data="")
+function mylinks_qrcode_encoding($data= '')
 {
     $data = mylinks_qrcode_convert_encoding($data);
     $data = rawurlencode($data);
-    $data = ereg_replace("%20", "+", $data);
+    $data = preg_replace('/%20/', '+', $data);
 
     return $data;
 }
@@ -134,10 +134,10 @@ $linkqrcode = "<img alt='qrcode of linkdata' title='qrcode of linkdata'src='" . 
 echo "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>\n"
   ."<html>\n"
   ."<head>\n"
-    ."<title>" . $xoopsConfig['sitename'] . "</title>\n"
+     . '<title>' . $xoopsConfig['sitename'] . "</title>\n"
     ."<meta http-equiv='Content-Type' content='text/html; charset=" . _CHARSET . "'>\n"
     ."<meta name='AUTHOR' content='" . $xoopsConfig['sitename'] . "'>\n"
-    ."<meta name='COPYRIGHT' content='Copyright (c) " . date('Y') . " by " . $xoopsConfig['sitename'] . "'>\n"
+    ."<meta name='COPYRIGHT' content='Copyright (c) " . date('Y') . ' by ' . $xoopsConfig['sitename'] . "'>\n"
     ."<meta name='DESCRIPTION' content='" . $xoopsConfig['slogan'] . "'>\n"
     ."<meta name='GENERATOR' content='" . XOOPS_VERSION . "'>\n"
     ."</head>\n"
@@ -149,13 +149,13 @@ echo "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>\n"
     ."    <div style='text-align: center; display: block; padding-bottom: 12px; margin: 0 0 6px 0; border-bottom: 2px solid #ccc;'></div>\n"
     ."    <div style='text-align: left'>" . _MD_MYLINKS_SITEURL . "&nbsp;:&nbsp;{$link_data['url']}</div>\n"
     ."    <div style='text-align: center; display: block; padding-bottom: 12px; margin: 0 0 6px 0; border-bottom: 2px solid #ccc;'></div>\n"
-    ."    <div style='text-align: left'>"._MD_MYLINKS_DESCRIPTIONC."<br>".$link_data['text']."</div>\n"
+    ."    <div style='text-align: left'>"._MD_MYLINKS_DESCRIPTIONC . '<br>' . $link_data['text'] . "</div>\n"
     ."    <div style='text-align: center; display: block; padding-bottom: 12px; margin: 0 0 6px 0; border-bottom: 2px solid #ccc;'></div>\n"
     ."    <div style='text-align: left'>LINK DATA QRCODE<br>{$linkqrcode}</div>\n"
     ."    <div style='padding-top: 12px; border-top: 2px solid #ccc;'></div>\n"
-    ."      <p>From: &nbsp;" . XOOPSMYLINKURL . "/singlelink.php?cid={$cid}&amp;lid={$lid}</p>\n"
+     . '      <p>From: &nbsp;' . XOOPSMYLINKURL . "/singlelink.php?cid={$cid}&amp;lid={$lid}</p>\n"
     ."    </div>\n"
     ."    <br>\n"
   ."    <br>\n"
   ."</body>\n"
-  ."</html>";
+     . '</html>';
