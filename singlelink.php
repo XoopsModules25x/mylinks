@@ -24,25 +24,24 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include 'header.php';
-$myts =& MyTextSanitizer::getInstance();// MyTextSanitizer object
+include __DIR__ . '/header.php';
+$myts = MyTextSanitizer::getInstance();// MyTextSanitizer object
 
 include_once XOOPS_ROOT_PATH . '/class/tree.php';
-$mylinksCatHandler =& xoops_getmodulehandler('category', $xoopsModule->getVar('dirname'));
+$mylinksCatHandler = xoops_getModuleHandler('category', $xoopsModule->getVar('dirname'));
 $catObjs           = $mylinksCatHandler->getAll();
 $myCatTree         = new XoopsObjectTree($catObjs, 'cid', 'pid');
 
-include_once './class/utility.php';
+include_once __DIR__ . '/class/utility.php';
 
-$lid = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min'=>0));
-$cid = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min'=>0));
+$lid = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+$cid = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
 
-$xoopsOption['template_main'] = 'mylinks_singlelink.html';
+$xoopsOption['template_main'] = 'mylinks_singlelink.tpl';
 include XOOPS_ROOT_PATH . '/header.php';
 
 //wanikoo
 $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
-$xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
 $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
 //
 
@@ -55,12 +54,12 @@ $niceItemPath   = "<a href='" . XOOPSMYLINKURL . "/viewcat.php?cid={$cid}'>" . $
 $itemPath       = $thisCatObj->getVar('title');
 $nicePathFromId = '';
 $pathFromId     = '';
-$myParent = $thisCatObj->getVar('pid');
-while ( $myParent != 0 ) {
-    $ancestorObj = $myCatTree->getByKey($myParent);
-    $nicePathFromId  = "<a href='" . XOOPSMYLINKURL . '/viewcat.php?cid=' . $ancestorObj->getVar('cid') . "'>" . $ancestorObj->getVar('title') . "</a>&nbsp;:&nbsp;{$nicePathFromId}";
-    $pathFromId  = $ancestorObj->getVar('title') . "/{$pathFromId}";
-    $myParent = $ancestorObj->getVar('pid');
+$myParent       = $thisCatObj->getVar('pid');
+while ($myParent != 0) {
+    $ancestorObj    = $myCatTree->getByKey($myParent);
+    $nicePathFromId = "<a href='" . XOOPSMYLINKURL . '/viewcat.php?cid=' . $ancestorObj->getVar('cid') . "'>" . $ancestorObj->getVar('title') . "</a>&nbsp;:&nbsp;{$nicePathFromId}";
+    $pathFromId     = $ancestorObj->getVar('title') . "/{$pathFromId}";
+    $myParent       = $ancestorObj->getVar('pid');
 }
 
 $nicePathFromId = "{$homePath}{$nicePathFromId}{$niceItemPath}";
@@ -77,25 +76,26 @@ if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
     $adminlink = '';
 }
 $votestring = (1 == $votes) ? _MD_MYLINKS_ONEVOTE : sprintf(_MD_MYLINKS_NUMVOTES, $votes);
-$new = newlinkgraphic($time, $status);
-$pop = popgraphic($hits);
+$new        = newlinkgraphic($time, $status);
+$pop        = popgraphic($hits);
 
 //$xoopsTpl->assign('link', array('id' => $lid, 'cid' => $cid, 'rating' => number_format($rating, 2), 'title' => $myts->htmlSpecialChars($ltitle).$new.$pop, 'category' => $path, 'logourl' => $myts->htmlSpecialChars($logourl), 'updated' => formatTimestamp($time,"m"), 'description' => $myts->displayTarea($description,0), 'adminlink' => $adminlink, 'hits' => $hits, 'votes' => $votestring, 'comments' => $comments, 'mail_subject' => rawurlencode(sprintf(_MD_MYLINKS_INTRESTLINK,$xoopsConfig['sitename'])), 'mail_body' => rawurlencode(sprintf(_MD_MYLINKS_INTLINKFOUND,$xoopsConfig['sitename']).':  '.XOOPSMYLINKURL.'/singlelink.php?lid='.$lid)));
 //by wanikoo
 /* setup shot provider information */
 $shotImgSrc = $shotImgHref = $shotAttribution = '';
-$useShots = $xoopsModuleConfig['useshots'];
+$useShots   = $xoopsModuleConfig['useshots'];
 if ($useShots) {
     $shotWidth = $xoopsModuleConfig['shotwidth'];
-    $xoopsTpl->assign(array('shotwidth'         => $shotWidth . 'px',
-                            //                            'tablewidth'        => ($shotWidth + 10) . "px",
-                            'show_screenshot'   => true,
-                            'lang_noscreenshot' => _MD_MYLINKS_NOSHOTS)
-    );
+    $xoopsTpl->assign(array(
+                          'shotwidth'         => $shotWidth . 'px',
+                          //                            'tablewidth'        => ($shotWidth + 10) . "px",
+                          'show_screenshot'   => true,
+                          'lang_noscreenshot' => _MD_MYLINKS_NOSHOTS
+                      ));
 
     $shotProvider = mb_strtolower($xoopsModuleConfig['shotprovider']);
-    $shotImgHref = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/visit.php?cid={$cid}&amp;lid={$lid}";
-    $logourl = trim($logourl);
+    $shotImgHref  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/visit.php?cid={$cid}&amp;lid={$lid}";
+    $logourl      = trim($logourl);
     if (!empty($logourl)) {
         if (file_exists(XOOPSMYLINKIMGPATH . "/{$mylinks_theme}")) {
             $shotImgSrc = XOOPSMYLINKIMGURL . "/{$mylinks_theme}/shots/" . $myts->htmlSpecialChars($logourl);
@@ -106,7 +106,7 @@ if ($useShots) {
         if (file_exists(XOOPS_ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $xoopsModule->getVar('dirname') . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'providers' . DIRECTORY_SEPARATOR . mb_strtolower($shotProvider) . '.php')) {
             include_once XOOPS_ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $xoopsModule->getVar('dirname') . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'providers' . DIRECTORY_SEPARATOR . mb_strtolower($shotProvider) . '.php';
             $shotClass = ucfirst($xoopsModule->getVar('dirname')) . ucfirst($shotProvider);
-            $shotObj = new $shotClass;
+            $shotObj   = new $shotClass;
             $shotObj->setProviderPublicKey($xoopsModuleConfig['shotpubkey']);
             $shotObj->setProviderPrivateKey($xoopsModuleConfig['shotprivkey']);
             $shotObj->setShotSize(array('width' => $xoopsModuleConfig['shotwidth']));
@@ -123,38 +123,40 @@ if ($useShots) {
     $xoopsTpl->assign('show_screenshot', false);
 }
 $xoopsTpl->assign('shot_attribution', $shotAttribution);
-$xoopsTpl->assign('link', array('url'          => $myts->htmlSpecialChars($url),
-                                'id'           => $lid,
-                                'cid'          => $cid,
-                                'rating'       => number_format($rating, 2),
-                                'ltitle'       => $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle)),
-                                'title'        => $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle)).$new.$pop,
-                                'category'     => $pathFromId,
-                                'logourl'      => $myts->htmlSpecialChars(trim($logourl)),
-                                'updated'      => formatTimestamp($time, 'm'),
-                                'description'  => $myts->displayTarea($myts->stripSlashesGPC($description), 0),
-                                'adminlink'    => $adminlink,
-                                'hits'         => $hits,
-                                'votes'        => $votestring,
-                                'comments'     => $comments,
-                                'mail_subject' => rawurlencode(sprintf(_MD_MYLINKS_INTRESTLINK, $xoopsConfig['sitename'])),
-                                'mail_body'    => rawurlencode(sprintf(_MD_MYLINKS_INTLINKFOUND, $xoopsConfig['sitename']) . ':  ' . XOOPSMYLINKURL . "/singlelink.php?lid={$lid}"),
-                                'shot_img_src'  => $shotImgSrc,
-                                'shot_img_href' => $shotImgHref)
-);
+$xoopsTpl->assign('link', array(
+    'url'           => $myts->htmlSpecialChars($url),
+    'id'            => $lid,
+    'cid'           => $cid,
+    'rating'        => number_format($rating, 2),
+    'ltitle'        => $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle)),
+    'title'         => $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle)) . $new . $pop,
+    'category'      => $pathFromId,
+    'logourl'       => $myts->htmlSpecialChars(trim($logourl)),
+    'updated'       => formatTimestamp($time, 'm'),
+    'description'   => $myts->displayTarea($myts->stripSlashesGPC($description), 0),
+    'adminlink'     => $adminlink,
+    'hits'          => $hits,
+    'votes'         => $votestring,
+    'comments'      => $comments,
+    'mail_subject'  => rawurlencode(sprintf(_MD_MYLINKS_INTRESTLINK, $xoopsConfig['sitename'])),
+    'mail_body'     => rawurlencode(sprintf(_MD_MYLINKS_INTLINKFOUND, $xoopsConfig['sitename']) . ':  ' . XOOPSMYLINKURL . "/singlelink.php?lid={$lid}"),
+    'shot_img_src'  => $shotImgSrc,
+    'shot_img_href' => $shotImgHref
+));
 
-$xoopsTpl->assign(array('lang_description'  => _MD_MYLINKS_DESCRIPTIONC,
-                        'lang_lastupdate'   => _MD_MYLINKS_LASTUPDATEC,
-                        'lang_hits'         => _MD_MYLINKS_HITSC,
-                        'lang_rating'       => _MD_MYLINKS_RATINGC,
-                        'lang_ratethissite' => _MD_MYLINKS_RATETHISSITE,
-                        'lang_reportbroken' => _MD_MYLINKS_REPORTBROKEN,
-                        'lang_tellafriend'  => _MD_MYLINKS_TELLAFRIEND,
-                        'lang_modify'       => _MD_MYLINKS_MODIFY,
-                        'lang_category'     => _MD_MYLINKS_CATEGORYC,
-                        'lang_visit'        => _MD_MYLINKS_VISIT,
-                        'lang_comments'     => _COMMENTS)
-);
+$xoopsTpl->assign(array(
+                      'lang_description'  => _MD_MYLINKS_DESCRIPTIONC,
+                      'lang_lastupdate'   => _MD_MYLINKS_LASTUPDATEC,
+                      'lang_hits'         => _MD_MYLINKS_HITSC,
+                      'lang_rating'       => _MD_MYLINKS_RATINGC,
+                      'lang_ratethissite' => _MD_MYLINKS_RATETHISSITE,
+                      'lang_reportbroken' => _MD_MYLINKS_REPORTBROKEN,
+                      'lang_tellafriend'  => _MD_MYLINKS_TELLAFRIEND,
+                      'lang_modify'       => _MD_MYLINKS_MODIFY,
+                      'lang_category'     => _MD_MYLINKS_CATEGORYC,
+                      'lang_visit'        => _MD_MYLINKS_VISIT,
+                      'lang_comments'     => _COMMENTS
+                  ));
 //wanikoo
 /*
 if (file_exists(XOOPS_ROOT_PATH."/include/moremetasearch.php")&&$mylinks_show_externalsearch) {
@@ -191,9 +193,9 @@ $xoopsTpl->assign('mylinksthemeoption', $mylinkstheme_select);
 
 //wanikoo search
 if (file_exists(XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php')) {
-   include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
+    include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
 } else {
-   include_once XOOPS_ROOT_PATH . '/language/english/search.php';
+    include_once XOOPS_ROOT_PATH . '/language/english/search.php';
 }
 $xoopsTpl->assign('lang_all', _SR_ALL);
 $xoopsTpl->assign('lang_any', _SR_ANY);
@@ -213,11 +215,7 @@ $xoopsTpl->assign('catarray', $catarray);
 //pagetitle (module name - singlelink)
 $xoopsTpl->assign('xoops_pagetitle', $xoopsModule->getVar('name') . ' - ' . $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle)));
 //category jump box
-$catjumpbox = "<form name='catjumpbox' method='get' action='viewcat.php'>\n"
-              . '  <strong>' . _MD_MYLINKS_CATEGORYC . "</strong>&nbsp;\n"
-              . '  ' . $myCatTree->makeSelBox('title', 'title', $cid) . "&nbsp;\n"
-             ."  <input type='submit' value='" . _SUBMIT . "'>\n"
-             ."</form>\n";
+$catjumpbox = "<form name='catjumpbox' method='get' action='viewcat.php'>\n" . '  <strong>' . _MD_MYLINKS_CATEGORYC . "</strong>&nbsp;\n" . '  ' . $myCatTree->makeSelBox('title', 'title', $cid) . "&nbsp;\n" . "  <input type='submit' value='" . _SUBMIT . "'>\n" . "</form>\n";
 $xoopsTpl->assign('mylinksjumpbox', $catjumpbox);
 
 include XOOPS_ROOT_PATH . '/include/comment_view.php';

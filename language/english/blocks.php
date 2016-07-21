@@ -1,7 +1,8 @@
 <?php
 /**
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package::    mylinks
+ * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package   ::    mylinks
  */
 // Blocks
 define('_MB_MYLINKS_DISP', 'Display');

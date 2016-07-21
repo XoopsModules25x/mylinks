@@ -24,14 +24,14 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include 'header.php';
-$myts =& MyTextSanitizer::getInstance(); // MyTextSanitizer object
+include __DIR__ . '/header.php';
+$myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 
-$mylinksCatHandler =& xoops_getmodulehandler('category', $xoopsModule->getVar('dirname'));
+$mylinksCatHandler = xoops_getModuleHandler('category', $xoopsModule->getVar('dirname'));
 $catObjs           = $mylinksCatHandler->getAll();
 $myCatTree         = new XoopsObjectTree($catObjs, 'cid', 'pid');
 
-$xoopsOption['template_main'] = 'mylinks_topten.html';
+$xoopsOption['template_main'] = 'mylinks_topten.tpl';
 include XOOPS_ROOT_PATH . '/header.php';
 //wanikoo
 $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
@@ -40,22 +40,21 @@ $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include')
 //
 
 //generates top 10 charts by rating and hits for each main category
-include_once './class/utility.php';
+include_once __DIR__ . '/class/utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
-$sort = MylinksUtility::mylinks_cleanVars( $_GET, 'sort', 2, 'int', $limit=array(1,3));
-switch ($sort)
-{
+$sort = MylinksUtility::mylinks_cleanVars($_GET, 'sort', 2, 'int', $limit = array(1, 3));
+switch ($sort) {
     case '1':  // Popular
-        $sort = _MD_MYLINKS_RATING;
+        $sort   = _MD_MYLINKS_RATING;
         $sortDB = 'rating';
         break;
     case '3':  // Most Recent
-        $sort = _MD_MYLINKS_RECENT;
+        $sort   = _MD_MYLINKS_RECENT;
         $sortDB = 'date';
         break;
     case '2':  // Rating
     default:
-        $sort = _MD_MYLINKS_HITS;
+        $sort   = _MD_MYLINKS_HITS;
         $sortDB = 'hits';
         break;
 }
@@ -87,44 +86,43 @@ $mainCatIds        = $catCount ? '(' . implode(',', $mainCatIdArray) . ')' : '';
 $rankings          = array();
 
 foreach ($mainCatIdArray as $catKey) {
-    $treeIds = array();
+    $treeIds     = array();
     $thisCatTree = $myCatTree->getAllChild($catKey);
     if (!empty($thisCatTree)) {
         $treeIds = array_keys($thisCatTree);
     }
     array_push($treeIds, $catKey);
     $subcatIds = '(' . implode(',', $treeIds) . ')';
-    $sql = 'SELECT lid, cid, title, hits, rating, votes FROM '
-           . '' . $xoopsDB->prefix('mylinks_links') . ''
-           . " WHERE status>0 AND {$sortDB}>0 AND cid IN {$subcatIds} ORDER BY {$sortDB} DESC LIMIT 0,10";
-    $result = $xoopsDB->query($sql);
+    $sql       = 'SELECT lid, cid, title, hits, rating, votes FROM ' . '' . $xoopsDB->prefix('mylinks_links') . '' . " WHERE status>0 AND {$sortDB}>0 AND cid IN {$subcatIds} ORDER BY {$sortDB} DESC LIMIT 0,10";
+    $result    = $xoopsDB->query($sql);
     if ($result) {
-        $catTitle = $myts->htmlSpecialChars($mainCatTitleArray[$catKey]['title']);
+        $catTitle                   = $myts->htmlSpecialChars($mainCatTitleArray[$catKey]['title']);
         $rankings[$catKey]['title'] = sprintf(_MD_MYLINKS_TOP10, $catTitle);
-        $rank = 1;
-        while (list($lid,$lcid,$ltitle,$hits,$rating,$votes)=$xoopsDB->fetchRow($result)) {
+        $rank                       = 1;
+        while (list($lid, $lcid, $ltitle, $hits, $rating, $votes) = $xoopsDB->fetchRow($result)) {
             $thisCatObj = $mylinksCatHandler->get($lcid);
-//            $homePath   = "<a href='" . XOOPSMYLINKURL . "/index.php'>" . _MD_MYLINKS_MAIN . "</a>&nbsp;:&nbsp;";
+//            $homePath   = "<a href='" . XOOPSMYLINKURL . "/index.php'>" . _MD_MYLINKS_MAIN . '</a>&nbsp;:&nbsp;';
             $itemPath   = "<a href='" . XOOPSMYLINKURL . "/viewcat.php?cid={$lcid}'>" . $thisCatObj->getVar('title') . '</a>';
             $path       = '';
-            $myParent = $thisCatObj->getVar('pid');
-            while ( $myParent != 0 ) {
+            $myParent   = $thisCatObj->getVar('pid');
+            while ($myParent != 0) {
                 $ancestorObj = $myCatTree->getByKey($myParent);
-                $path  = "<a href='" . XOOPSMYLINKURL . '/viewcat.php?cid=' . $ancestorObj->getVar('cid') . "'>" . $ancestorObj->getVar('title') . "</a>&nbsp;:&nbsp;{$path}";
-                $myParent = $ancestorObj->getVar('pid');
+                $path        = "<a href='" . XOOPSMYLINKURL . '/viewcat.php?cid=' . $ancestorObj->getVar('cid') . "'>" . $ancestorObj->getVar('title') . "</a>&nbsp;:&nbsp;{$path}";
+                $myParent    = $ancestorObj->getVar('pid');
             }
             $path = "{$path}{$itemPath}";
             $path = str_replace('&nbsp;:&nbsp;', " <img src='" . mylinksGetIconURL('arrow.gif') . "' style='border-width: 0px;' alt=''> ", $path);
 
-            $thisRanking = array( 'id'       => $lid,
-                                  'cid'      => $catKey,
-                                  'rank'     => $rank,
-                                  'title'    => $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle)),
-                                  'category' => $path,
-                                  'hits'     => $hits,
-                                  'rating'   => number_format($rating, 2),
-                                  'votes'    => $votes
-                                );
+            $thisRanking                       = array(
+                'id'       => $lid,
+                'cid'      => $catKey,
+                'rank'     => $rank,
+                'title'    => $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle)),
+                'category' => $path,
+                'hits'     => $hits,
+                'rating'   => number_format($rating, 2),
+                'votes'    => $votes
+            );
             $rankings[$catKey]['links'][$rank] = $thisRanking;
             $rank++;
         }
@@ -148,7 +146,7 @@ foreach ($GLOBALS['mylinks_allowed_theme'] as $mymylinkstheme) {
     $mymylinkstheme_options .= ">{$mymylinkstheme}</option>";
 }
 
-$mylinkstheme_select = '<select name="mylinks_theme_select" onchange="submit();" size="1">'.$mymylinkstheme_options.'</select>';
+$mylinkstheme_select = '<select name="mylinks_theme_select" onchange="submit();" size="1">' . $mymylinkstheme_options . '</select>';
 
 $xoopsTpl->assign('mylinksthemeoption', $mylinkstheme_select);
 
@@ -174,7 +172,7 @@ if ( $mylinks_show_letters ) {
   $catarray['letters'] = ml_wfd_letters();
 }
 */
-if ( $mylinks_show_toolbar ) {
+if ($mylinks_show_toolbar) {
     $catarray['toolbar'] = ml_wfd_toolbar();
 }
 $xoopsTpl->assign('catarray', $catarray);

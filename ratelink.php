@@ -24,36 +24,35 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include 'header.php';
+include __DIR__ . '/header.php';
 //include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
-$myts =& MyTextSanitizer::getInstance(); // MyTextSanitizer object
-include_once './class/utility.php';
+$myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
+include_once __DIR__ . '/class/utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
-
 
 if (!empty($_POST['submit'])) {
     global $xoopsDB;
 
     $ip     = getenv('REMOTE_ADDR');
-    $lid    = mylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min'=>0));
-    $cid    = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min'=>0));
-    $rating = mylinksUtility::mylinks_cleanVars($_POST, 'rating', 0, 'int', array('min'=>0));
+    $lid    = mylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
+    $cid    = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
+    $rating = mylinksUtility::mylinks_cleanVars($_POST, 'rating', 0, 'int', array('min' => 0));
 
     // make sure listing is active
-    $result=$xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid} AND status>0");
+    $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid} AND status>0");
     if (!$xoopsDB->fetchRow($result)) {
         redirect_header($_SERVER['PHP_SELF'], 3, _MD_MYLINKS_NORECORDFOUND);
         exit();
     }
 
-//    $eh = new ErrorHandler; //ErrorHandler object
+    //    $eh = new ErrorHandler; //ErrorHandler object
     $ratinguser = empty($xoopsUser) ? 0 : $xoopsUser->getVar('uid');
 
     //Make sure only 1 anonymous from an IP in a single day.
     $anonwaitdays = 1;
 
     // Check if Rating is Null
-//    if ( '--' == $rating ) {  //bugfix since rating is an int from input filtering
+    //    if ( '--' == $rating ) {  //bugfix since rating is an int from input filtering
     if ($rating <= 0) {
         redirect_header("ratelink.php?cid={$cid}&amp;lid={$lid}", 4, _MD_MYLINKS_NORATING);
         exit();
@@ -63,8 +62,8 @@ if (!empty($_POST['submit'])) {
 
     // Check if Link POSTER is voting (UNLESS Anonymous users allowed to post)
     if ($ratinguser != 0) {
-        $result=$xoopsDB->query('SELECT submitter FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid}");
-        while(list($ratinguserDB) = $xoopsDB->fetchRow($result)) {
+        $result = $xoopsDB->query('SELECT submitter FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid}");
+        while (list($ratinguserDB) = $xoopsDB->fetchRow($result)) {
             if ($ratinguserDB == $ratinguser) {
                 redirect_header('index.php', 4, _MD_MYLINKS_CANTVOTEOWN);
                 exit();
@@ -72,35 +71,34 @@ if (!empty($_POST['submit'])) {
         }
 
         // Check if REG user is trying to vote twice.
-        $result=$xoopsDB->query('SELECT ratinguser FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE lid={$lid}");
-        while(list($ratinguserDB) = $xoopsDB->fetchRow($result)) {
+        $result = $xoopsDB->query('SELECT ratinguser FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE lid={$lid}");
+        while (list($ratinguserDB) = $xoopsDB->fetchRow($result)) {
             if ($ratinguserDB == $ratinguser) {
                 redirect_header('index.php', 4, _MD_MYLINKS_VOTEONCE2);
                 exit();
             }
         }
-
     } else {
 
         // Check if ANONYMOUS user is trying to vote more than once per day.
-        $yesterday = (time()-(86400 * $anonwaitdays));
-        $result=$xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE lid={$lid} AND ratinguser=0 AND ratinghostname = '{$ip}' AND ratingtimestamp > {$yesterday}");
+        $yesterday = (time() - (86400 * $anonwaitdays));
+        $result    = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE lid={$lid} AND ratinguser=0 AND ratinghostname = '{$ip}' AND ratingtimestamp > {$yesterday}");
         list($anonvotecount) = $xoopsDB->fetchRow($result);
         if ($anonvotecount > 0) {
             redirect_header('index.php', 4, _MD_MYLINKS_VOTEONCE2);
             exit();
         }
     }
-/*
-    if($rating > 10){
-        $rating = 10;
-    }
-*/
+    /*
+        if($rating > 10){
+            $rating = 10;
+        }
+    */
     //All is well.  Add to Line Item Rate to DB.
-    $newid = $xoopsDB->genId($xoopsDB->prefix('mylinks_votedata') . '_ratingid_seq');
+    $newid    = $xoopsDB->genId($xoopsDB->prefix('mylinks_votedata') . '_ratingid_seq');
     $datetime = time();
-    $sql = sprintf("INSERT INTO %s (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp) VALUES (%u, %u, %u, %u, '%s', %u)", $xoopsDB->prefix('mylinks_votedata'), $newid, $lid, $ratinguser, $rating, $ip, $datetime);
-    $result = $xoopsDB->query($sql);
+    $sql      = sprintf("INSERT INTO %s (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp) VALUES (%u, %u, %u, %u, '%s', %u)", $xoopsDB->prefix('mylinks_votedata'), $newid, $lid, $ratinguser, $rating, $ip, $datetime);
+    $result   = $xoopsDB->query($sql);
     if (!$result) {
         mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
         exit();
@@ -111,10 +109,8 @@ if (!empty($_POST['submit'])) {
     $ratemessage = _MD_MYLINKS_VOTEAPPRE . '<br>' . sprintf(_MD_MYLINKS_THANKURATE, htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES));
     redirect_header('index.php', 2, $ratemessage);
     exit();
-
 } else {
-
-    $xoopsOption['template_main'] = 'mylinks_ratelink.html';
+    $xoopsOption['template_main'] = 'mylinks_ratelink.tpl';
     include XOOPS_ROOT_PATH . '/header.php';
 
     //wanikoo
@@ -122,12 +118,16 @@ if (!empty($_POST['submit'])) {
     $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
     $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
 
-    $lid    = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min'=>0));
-    $cid    = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min'=>0));
-    $result=$xoopsDB->query('SELECT title FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid}");
+    $lid    = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+    $cid    = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
+    $result = $xoopsDB->query('SELECT title FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid}");
     //TODO:  need error checking here in case invalid lid
     list($title) = $xoopsDB->fetchRow($result);
-    $xoopsTpl->assign('link', array('id' => $lid, 'cid' => $cid, 'title' => $myts->htmlSpecialChars($myts->stripSlashesGPC($title))));
+    $xoopsTpl->assign('link', array(
+        'id'    => $lid,
+        'cid'   => $cid,
+        'title' => $myts->htmlSpecialChars($myts->stripSlashesGPC($title))
+    ));
     $xoopsTpl->assign('lang_voteonce', _MD_MYLINKS_VOTEONCE);
     $xoopsTpl->assign('lang_ratingscale', _MD_MYLINKS_RATINGSCALE);
     $xoopsTpl->assign('lang_beobjective', _MD_MYLINKS_BEOBJECTIVE);
@@ -152,10 +152,10 @@ if (!empty($_POST['submit'])) {
     $xoopsTpl->assign('mylinksthemeoption', $mylinkstheme_select);
 
     //wanikoo search
-    if (file_exists(XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/search.php')) {
-       include_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/search.php';
+    if (file_exists(XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php')) {
+        include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
     } else {
-       include_once XOOPS_ROOT_PATH.'/language/english/search.php';
+        include_once XOOPS_ROOT_PATH . '/language/english/search.php';
     }
     $xoopsTpl->assign('lang_all', _SR_ALL);
     $xoopsTpl->assign('lang_any', _SR_ANY);

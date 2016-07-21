@@ -11,10 +11,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 /**
- * @copyright::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package::    mylinks
- * @author::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
+ * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
+ * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package   ::    mylinks
+ * @author    ::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
  */
 define('_MD_MYLINKS_THANKSFORINFO', "Thanks for the information. We'll look into your request shortly.");
 define('_MD_MYLINKS_THANKSFORHELP', "Thank you for helping to maintain this directory's integrity.");
@@ -116,7 +117,7 @@ define('_MD_MYLINKS_NORATING', 'No rating selected.');
 define('_MD_MYLINKS_CANTVOTEOWN', 'You cannot vote on the resource you submitted.<br>All votes are logged and reviewed.');
 define('_MD_MYLINKS_VOTEONCE2', 'Vote for the selected resource only once.<br>All votes are logged and reviewed.');
 
-//%%%%%%    Module Name 'MyLinks' (Admin)      %%%%%
+//%%%%%%    Module Name 'MyLinks' (Admin)     %%%%%
 
 define('_MD_MYLINKS_WEBLINKSCONF', 'Web Links Dashboard');
 define('_MD_MYLINKS_GENERALSET', 'MyLinks Module Preferences');

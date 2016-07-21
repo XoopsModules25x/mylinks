@@ -8,10 +8,9 @@
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
  *
- * @copyright:: The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package::   mylinks
- * @author::    zyspec <owners@zyspec.com>
- * @since::     File available since Release 3.11
+ * @copyright:: {@link http://xoops.org/ XOOPS Project}
+ * @license  :: {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package  ::  mylinks
+ * @author   ::  zyspec (owners@zyspec.com)
  */
- return true;
+return true;

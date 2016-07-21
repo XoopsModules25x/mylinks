@@ -11,24 +11,27 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright::  &copy; ZySpec Incorporated
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package::    mylinks
+ * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  &copy; ZySpec Incorporated
+ * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package   ::    mylinks
  * @subpackage:: class
- * @since::		 File available since version 3.11
- * @author::     zyspec (owner@zyspec.com)
+ * @author    ::     zyspec (owner@zyspec.com)
  */
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-$mylinksDir = basename( dirname( __DIR__ ) );
+$mylinksDir = basename(dirname(__DIR__));
 
-class mylinksCategory_base extends XoopsObject
+/**
+ * Class MylinksCategory_base
+ */
+class MylinksCategory_base extends XoopsObject
 {
     /**
      * constructor
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         //definitions of the table field names from the database
@@ -42,7 +45,7 @@ class mylinksCategory_base extends XoopsObject
      * Returns category title using PHP5
      * @return string
      */
-    function __toString()
+    public function __toString()
     {
         return $this->title;
     }
@@ -53,10 +56,10 @@ class mylinksCategory_base extends XoopsObject
      * @param  string $path
      * @return string
      */
-    function getPathFromId($id = NULL, $path = '')
+    public function getPathFromId($id = null, $path = '')
     {
-        $id = isset($id) ? intval($id) : $this->cid;
-        $myts =& MyTextSanitizer::getInstance();
+        $id   = isset($id) ? (int)$id : $this->cid;
+        $myts = MyTextSanitizer::getInstance();
         $name = $myts->htmlSpecialChars($this->title);
         $path = "/{$name}{$path}";
         if ($this->pid != 0) {
@@ -67,16 +70,26 @@ class mylinksCategory_base extends XoopsObject
     }
 }
 
-class mylinksCategoryHandler_base extends XoopsPersistableObjectHandler
+/**
+ * Class MylinksCategoryHandler_base
+ */
+class MylinksCategoryHandler_base extends XoopsPersistableObjectHandler
 {
-    function mylinksCategoryHandler(&$db)
+    /**
+     * @param $db
+     */
+    public function mylinksCategoryHandler($db)
     {
         $this->__construct($db);
     }
 
-    function __construct(&$db)
+    /**
+     * mylinksCategoryHandler_base constructor.
+     * @param null|XoopsDatabase $db
+     */
+    public function __construct($db)
     {
-        $mylinksDir = basename( dirname( __DIR__ ) );
+        $mylinksDir = basename(dirname(__DIR__));
         parent::__construct($db, 'mylinks_cat', strtolower($mylinksDir) . 'Category', 'cid');
     }
 
@@ -88,20 +101,20 @@ class mylinksCategoryHandler_base extends XoopsPersistableObjectHandler
      *                       NULL return all category names
      * @return array   return category titles with category ID as key
      */
-    function getCatTitles ( $cats = NULL )
+    public function getCatTitles($cats = null)
     {
         $catTitles = array();
-        $criteria = new CriteriaCompo();
+        $criteria  = new CriteriaCompo();
         if (isset($cats) && is_array($cats)) {
             $catIdString = (!empty($cats)) ? '(' . implode(',', $cats) . ')' : '';
             if ($catIdString) {
                 $criteria->add(new Criteria('cid', $catIdString, 'IN'));
             }
-        } elseif (isset($cats) && (intval($cats) > 0)) {
-            $criteria->add(new Criteria('cid', intval($cats), '='));
+        } elseif (isset($cats) && ((int)$cats > 0)) {
+            $criteria->add(new Criteria('cid', (int)$cats, '='));
         }
         $catFields = array('title');
-        $catArray = $this->getAll($criteria, $catFields, FALSE);
+        $catArray  =& $this->getAll($criteria, $catFields, false);
         $catTitles = array();
         if (is_array($catArray) && count($catArray)) {
             foreach ($catArray as $catItem) {
@@ -112,11 +125,12 @@ class mylinksCategoryHandler_base extends XoopsPersistableObjectHandler
         return $catTitles;
     }
 }
-eval( 'class ' . $mylinksDir . 'Category extends mylinksCategory_base
+
+eval('class ' . $mylinksDir . 'Category extends mylinksCategory_base
         {
         }
 
         class ' . $mylinksDir . 'CategoryHandler extends mylinksCategoryHandler_base
         {
         }
-    ' );
+    ');

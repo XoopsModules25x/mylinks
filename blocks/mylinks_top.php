@@ -31,28 +31,31 @@
  *           $block['content'] = The optional above content
  *           $options[1]   = How many reviews are displayed
  * Output  : Returns the desired most recent or most popular links
- ******************************************************************************/
+ *****************************************************************************
+ * @param $options
+ * @return array
+ */
 function b_mylinks_top_show($options)
 {
     global $xoopsDB;
     $block = array();
     //ver2.5
     $modulename = basename(dirname(__DIR__));
-    $myts =& MyTextSanitizer::getInstance();
-    $result = $xoopsDB->query('SELECT lid, cid, title, date, hits FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status>0 ORDER BY ' . $options[0] . ' DESC', $options[1], 0);
+    $myts       = MyTextSanitizer::getInstance();
+    $result     = $xoopsDB->query('SELECT lid, cid, title, date, hits FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status>0 ORDER BY ' . $options[0] . ' DESC', $options[1], 0);
     while ($myrow = $xoopsDB->fetchArray($result)) {
-        $link = array();
+        $link  = array();
         $title = $myts->htmlSpecialChars($myts->stripSlashesGPC($myrow['title']));
-//        if ( !XOOPS_USE_MULTIBYTES ) {
-            if (mb_strlen($title) >= $options[2]) {
-                $title = mb_substr($title, 0, $options[2] - 1) . '...';
-            }
-//        }
+        //        if ( !XOOPS_USE_MULTIBYTES ) {
+        if (mb_strlen($title) >= $options[2]) {
+            $title = mb_substr($title, 0, $options[2] - 1) . '...';
+        }
+        //        }
         $link['id']    = $myrow['lid'];
         $link['cid']   = $myrow['cid'];
         $link['title'] = $title;
         if ($options[0] == 'date') {
-            $link['date'] = formatTimestamp($myrow['date'],'s');
+            $link['date'] = formatTimestamp($myrow['date'], 's');
         } elseif ($options[0] == 'hits') {
             $link['hits'] = $myrow['hits'];
         }
@@ -61,18 +64,26 @@ function b_mylinks_top_show($options)
     if (!empty($block)) {  // only show block if there's data to display
         $block['mylinks_weburl'] = XOOPS_URL . "/modules/{$modulename}";
     }
+
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function b_mylinks_top_edit($options)
 {
     $form = '' . _MB_MYLINKS_DISP . '&nbsp;';
-    if ('date' === $options[0]) {
-        $form .= "<input type='hidden' name='options[]' value='date'>";
+    $form .= "<input type='hidden' name='options[]' value='";
+    if ($options[0] == 'date') {
+        $form .= "date'";
     } else {
-        $form .= "<input type='hidden' name='options[]' value='hits'>";
+        $form .= "hits'";
     }
+    $form .= '>';
     $form .= "<input type='text' name='options[]' value='" . $options[1] . "'>&nbsp;" . _MB_MYLINKS_LINKS . '';
     $form .= '&nbsp;<br>' . _MB_MYLINKS_CHARS . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "'>&nbsp;" . _MB_MYLINKS_LENGTH . '';
+
     return $form;
 }

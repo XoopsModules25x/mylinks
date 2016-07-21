@@ -25,39 +25,43 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
+/**
+ * @param $category
+ * @param $item_id
+ * @return mixed
+ */
 function mylinks_notify_iteminfo($category, $item_id)
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $xoopsDB;
     $dirname = basename(dirname(__DIR__));
 
-    $item_id = (isset($item_id) && (intval($item_id) > 0)) ? intval($item_id) : 0;
+    $item_id = (isset($item_id) && ((int)$item_id > 0)) ? (int)$item_id : 0;
 
     if (empty($xoopsModule) || $xoopsModule->getVar('dirname') != $dirname) {
-        $module_handler =& xoops_getHandler('module');
-        $module         =& $module_handler->getByDirname($dirname);
-        $config_handler =& xoops_getHandler('config');
-        $config         =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+        $module_handler = xoops_getHandler('module');
+        $module         = $module_handler->getByDirname($dirname);
+        $config_handler = xoops_getHandler('config');
+        $config         = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
     } else {
-        $module =& $xoopsModule;
-        $config =& $xoopsModuleConfig;
+        $module = $xoopsModule;
+        $config = $xoopsModuleConfig;
     }
 
-    switch ($category)
-    {
+    switch ($category) {
         case 'category':
             // Assume we have a valid category id
-            $mylinksCatHandler = xoops_getmodulehandler('category', $dirname);
-            $catObj = $mylinksCatHandler->get($item_id);
+            $mylinksCatHandler = xoops_getModuleHandler('category', $dirname);
+            $catObj            = $mylinksCatHandler->get($item_id);
             if ($catObj) {
-            $item['name'] = $catObj->getVar('title');
-            $item['url']  = XOOPS_URL . "/modules/{$dirname}/viewcat.php?cid={$item_id}";
-/*
-            $sql          = "SELECT title FROM " . $xoopsDB->prefix('mylinks_cat') . " WHERE cid={$item_id}";
-            $result       = $xoopsDB->query($sql); // TODO: error check
-            $result_array = $xoopsDB->fetchArray($result);
-            $item['name'] = $result_array['title'];
-            $item['url']  = XOOPS_URL . "/modules/" . $module->getVar('dirname') . "/viewcat.php?cid={$item_id}";
-*/
+                $item['name'] = $catObj->getVar('title');
+                $item['url']  = XOOPS_URL . "/modules/{$dirname}/viewcat.php?cid={$item_id}";
+                /*
+                            $sql          = "SELECT title FROM " . $xoopsDB->prefix('mylinks_cat') . " WHERE cid={$item_id}";
+                            $result       = $xoopsDB->query($sql); // TODO: error check
+                            $result_array = $xoopsDB->fetchArray($result);
+                            $item['name'] = $result_array['title'];
+                            $item['url']  = XOOPS_URL . "/modules/" . $module->getVar('dirname') . "/viewcat.php?cid={$item_id}";
+                */
             } else {
                 $item['name'] = '';
                 $item['url']  = '';

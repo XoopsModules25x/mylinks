@@ -25,96 +25,154 @@
  *
  * Xoops mylinks - a multicategory links module
  *
- * @copyright::  {@link http://www.zyspec.com ZySpec Incorporated}
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package::    mylinks
+ * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  {@link http://www.zyspec.com ZySpec Incorporated}
+ * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package   ::    mylinks
  * @subpackage:: class
- * @since::         3.11
- * @author::     zyspec <owner@zyspec.com>
+ * @author    ::     zyspec <owner@zyspec.com>
  */
 require_once XOOPS_ROOT_PATH . '/modules/mylinks/class/thumbplugin.interface.php';
+
+/**
+ * Class MylinksHeartrails
+ */
 class MylinksHeartrails implements MylinksThumbPlugin
 {
-    private $image_width     = 0;
-    private $image_height    = 0;
+    private   $image_width   = 0;
+    private   $image_height  = 0;
     protected $image_ratio   = 1.33;  // (4:3)
-    private $site_url        = null;
-    private $key             = null;
-    private $attribution     = '';
-    private $provider_url    = 'http://capture.heartrails.com';
-    private $provider_name   = 'Heartrails';
+    private   $site_url      = null;
+    private   $key           = null;
+    private   $attribution   = '';
+    private   $provider_url  = 'http://capture.heartrails.com';
+    private   $provider_name = 'Heartrails';
 
-    function __construct()
+    /**
+     * MylinksHeartrails constructor.
+     */
+    public function __construct()
     {
     }
+
+    /**
+     * @return string
+     */
     public function getProviderUrl()
     {
-        $query = '/' . $this->image_width . 'x' . $this->image_height . '/cool?' . $this->getSiteUrl();
+        $query       = '/' . $this->image_width . 'x' . $this->image_height . '/cool?' . $this->getSiteUrl();
         $providerUrl = $this->provider_url . $query;
 
         return $providerUrl;
     }
+
+    /**
+     * @return string
+     */
     public function getProviderName()
     {
         return $this->provider_name;
     }
+
+    /**
+     * @param $sz
+     */
     public function setShotSize($sz)
     {
         if (isset($sz)) {
             if (is_array($sz)) {
                 if (array_key_exists('width', $sz)) {
-                    $this->image_width = intval($sz['width']);
+                    $this->image_width = (int)$sz['width'];
                     if (array_key_exists('height', $sz)) {
-                        $this->image_height = intval($sz['height']);
+                        $this->image_height = (int)$sz['height'];
                     } else {
-                        $this->image_height = intval($this->image_width / $this->image_ratio);
+                        $this->image_height = (int)($this->image_width / $this->image_ratio);
                     }
                 } else {
-                    $this->image_width  = intval($sz);
-                    $this->image_height = intval($sz / $this->image_ratio);
+                    $this->image_width  = (int)$sz;
+                    $this->image_height = (int)($sz / $this->image_ratio);
                 }
             }
         }
     }
+
+    /**
+     * @return array
+     */
     public function getShotSize()
     {
-        return array('width'=>$this->image_width, 'height'=>$this->image_height);
+        return array('width' => $this->image_width, 'height' => $this->image_height);
     }
+
+    /**
+     * @param $url
+     */
     public function setSiteUrl($url)
     {
         //@todo: sanitize url;
         $this->site_url = formatURL($url);
     }
+
+    /**
+     * @return string
+     */
     public function getSiteUrl()
     {
         return urlencode($this->site_url);
     }
-    public function setAttribution($attr=null)
+
+    /**
+     * @param null $attr
+     */
+    public function setAttribution($attr = null)
     {
         $this->attribution = $attr;
     }
+
+    /**
+     * @param int $allowhtml
+     * @return string
+     */
     public function getAttribution($allowhtml = 0)
     {
         if ($allowhtml) {
             return $this->attribution;
         } else {
-            $myts =& MyTextSanitizer::getInstance();
+            $myts = MyTextSanitizer::getInstance();
 
             return $myts->htmlSpecialChars($this->attribution);
         }
     }
+
+    /**
+     * @param $key
+     * @return bool
+     */
     public function setProviderPublicKey($key)
     {
         return false;
     }
+
+    /**
+     * @return bool
+     */
     public function getProviderPublicKey()
     {
         return false;
     }
+
+    /**
+     * @param $key
+     * @return bool
+     */
     public function setProviderPrivateKey($key)
     {
         return false;
     }
+
+    /**
+     * @return bool
+     */
     public function getProviderPrivateKey()
     {
         return false;
