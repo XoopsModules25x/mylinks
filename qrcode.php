@@ -29,8 +29,8 @@ include __DIR__ . '/header.php';
 include_once __DIR__ . '/class/utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
 
-$lid = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
-$cid = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
+$lid = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+$cid = MylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
 if (empty($lid) || empty($cid)) {
     redirect_header('index.php', 3, _MD_MYLINKS_IDERROR);
 }

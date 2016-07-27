@@ -81,6 +81,7 @@ class MylinksThumbshots implements MylinksThumbPlugin
 
     /**
      * @param $sz
+     * @return mixed|void
      */
     public function setShotSize($sz)
     {
@@ -103,6 +104,7 @@ class MylinksThumbshots implements MylinksThumbPlugin
 
     /**
      * @param $url
+     * @return mixed|void
      */
     public function setSiteUrl($url)
     {
@@ -143,6 +145,7 @@ class MylinksThumbshots implements MylinksThumbPlugin
 
     /**
      * @param $key
+     * @return mixed|void
      */
     public function setProviderPublicKey($key)
     {

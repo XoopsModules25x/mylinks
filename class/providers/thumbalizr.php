@@ -85,6 +85,7 @@ class MylinksThumbalizr implements MylinksThumbPlugin
 
     /**
      * @param $sz
+     * @return mixed|void
      */
     public function setShotSize($sz)
     {
@@ -107,6 +108,7 @@ class MylinksThumbalizr implements MylinksThumbPlugin
 
     /**
      * @param $url
+     * @return mixed|void
      */
     public function setSiteUrl($url)
     {
@@ -147,6 +149,7 @@ class MylinksThumbalizr implements MylinksThumbPlugin
 
     /**
      * @param $key
+     * @return mixed|void
      */
     public function setProviderPublicKey($key)
     {

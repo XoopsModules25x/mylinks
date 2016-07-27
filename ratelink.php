@@ -34,9 +34,9 @@ if (!empty($_POST['submit'])) {
     global $xoopsDB;
 
     $ip     = getenv('REMOTE_ADDR');
-    $lid    = mylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
-    $cid    = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
-    $rating = mylinksUtility::mylinks_cleanVars($_POST, 'rating', 0, 'int', array('min' => 0));
+    $lid    = MylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
+    $cid    = MylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
+    $rating = MylinksUtility::mylinks_cleanVars($_POST, 'rating', 0, 'int', array('min' => 0));
 
     // make sure listing is active
     $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid} AND status>0");
@@ -100,7 +100,7 @@ if (!empty($_POST['submit'])) {
     $sql      = sprintf("INSERT INTO %s (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp) VALUES (%u, %u, %u, %u, '%s', %u)", $xoopsDB->prefix('mylinks_votedata'), $newid, $lid, $ratinguser, $rating, $ip, $datetime);
     $result   = $xoopsDB->query($sql);
     if (!$result) {
-        mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+        MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
         exit();
     }
 
@@ -118,8 +118,8 @@ if (!empty($_POST['submit'])) {
     $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
     $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
 
-    $lid    = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
-    $cid    = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
+    $lid    = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+    $cid    = MylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
     $result = $xoopsDB->query('SELECT title FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid}");
     //TODO:  need error checking here in case invalid lid
     list($title) = $xoopsDB->fetchRow($result);

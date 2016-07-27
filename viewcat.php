@@ -35,7 +35,7 @@ $myCatTree         = new XoopsObjectTree($catObjs, 'cid', 'pid');
 include_once __DIR__ . '/class/utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
 
-$cid   = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
+$cid   = MylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
 $catid = $cid;
 
 $xoopsOption['template_main'] = 'mylinks_viewcat.tpl';
@@ -48,11 +48,11 @@ $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include')
 //
 $xoopsTpl->assign('show_nav', false);  //set to not show nav bar
 
-$show = mylinksUtility::mylinks_cleanVars($_GET, 'show', $xoopsModuleConfig['perpage'], 'int');
-$min  = mylinksUtility::mylinks_cleanVars($_GET, 'min', 0, 'int');
+$show = MylinksUtility::mylinks_cleanVars($_GET, 'show', $xoopsModuleConfig['perpage'], 'int');
+$min  = MylinksUtility::mylinks_cleanVars($_GET, 'min', 0, 'int');
 $max  = (!isset($max)) ? $min + $show : $max;
-//$orderby = mylinksUtility::mylinks_cleanVars($_GET, 'orderby', 'title ASC', 'string');
-$orderby       = mylinksUtility::mylinks_cleanVars($_GET, 'orderby', 'titleA', 'string');
+//$orderby = MylinksUtility::mylinks_cleanVars($_GET, 'orderby', 'title ASC', 'string');
+$orderby       = MylinksUtility::mylinks_cleanVars($_GET, 'orderby', 'titleA', 'string');
 $validSortVals = array('titleA', 'hitsA', 'ratingA', 'dateA', 'titleD', 'hitsD', 'ratingD', 'dateD');
 $orderby       = in_array($orderby, $validSortVals) ? $orderby : 'titleA';
 

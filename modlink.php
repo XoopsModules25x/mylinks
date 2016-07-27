@@ -37,7 +37,7 @@ if (!empty($_POST['submit'])) {
         exit();
     }
     $user = $xoopsUser->getVar('uid');
-    $lid  = mylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
+    $lid  = MylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
 
     //    include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
     //    $eh = new ErrorHandler; //ErrorHandler object
@@ -52,26 +52,26 @@ if (!empty($_POST['submit'])) {
             $msg .= _MD_MYLINKS_ERRORDESC;
     }
     if ('' !== $msg) {
-        mylinksUtility::show_message($msg);
+        MylinksUtility::show_message($msg);
         exit();
     }
 
     $url         = $myts->addSlashes($_POST['url']);
     $logourl     = $myts->addSlashes($_POST['logourl']);
-    $cid         = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
+    $cid         = MylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
     $title       = $myts->addSlashes($_POST['title']);
     $description = $myts->addSlashes($_POST['description']);
     $newid       = $xoopsDB->genId($xoopsDB->prefix('mylinks_mod') . '_requestid_seq');
     $sql         = sprintf("INSERT INTO %s (requestid, lid, cid, title, url, logourl, description, modifysubmitter) VALUES (%u, %u, %u, '%s', '%s', '%s', '%s', %u)", $xoopsDB->prefix('mylinks_mod'), $newid, $lid, $cid, $title, $url, $logourl, $description, $user);
     $result      = $xoopsDB->query($sql);
     if (!result) {
-        mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+        MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
         exit();
     }
     $tags                      = array();
     $tags['MODIFYREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listModReq';
-    $notification_handler      = xoops_getHandler('notification');
-    $notification_handler->triggerEvent('global', 0, 'link_modify', $tags);
+    $notificationHandler      = xoops_getHandler('notification');
+    $notificationHandler->triggerEvent('global', 0, 'link_modify', $tags);
     redirect_header('index.php', 2, _MD_MYLINKS_THANKSFORINFO);
     exit();
 } else {
@@ -79,7 +79,7 @@ if (!empty($_POST['submit'])) {
         redirect_header(XOOPS_URL . '/user.php', 2, _MD_MYLINKS_MUSTREGFIRST);
         exit();
     }
-    $lid = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+    $lid = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
 
     include_once XOOPS_ROOT_PATH . '/class/tree.php';
     $mylinksCatHandler = xoops_getModuleHandler('category', $xoopsModule->getVar('dirname'));

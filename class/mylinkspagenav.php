@@ -18,7 +18,7 @@ class MylinksPageNav
      * @param string $start_name
      * @param string $extra_arg
      */
-    public function MylinksPageNav($total_items, $items_perpage, $current_start, $start_name = 'start', $extra_arg = '')
+    public function __construct($total_items, $items_perpage, $current_start, $start_name = 'start', $extra_arg = '')
     {
         $this->total   = (int)$total_items;
         $this->perpage = (int)$items_perpage;

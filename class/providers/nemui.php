@@ -77,6 +77,7 @@ class MylinksNemui implements MylinksThumbPlugin
 
     /**
      * @param $sz
+     * @return mixed|void
      */
     public function setShotSize($sz)
     {
@@ -108,6 +109,7 @@ class MylinksNemui implements MylinksThumbPlugin
 
     /**
      * @param $url
+     * @return mixed|void
      */
     public function setSiteUrl($url)
     {
@@ -148,6 +150,7 @@ class MylinksNemui implements MylinksThumbPlugin
 
     /**
      * @param $key
+     * @return mixed|void
      */
     public function setProviderPublicKey($key)
     {

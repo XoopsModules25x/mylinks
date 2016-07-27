@@ -1,20 +1,30 @@
-Final        2016-06-10
+3.11 Final  [2016-07-20] (mamba)
 =================================
-- removed @version (mamba)
-- addNavigation(basename(__FILE__))  (mamba)
-- dirname(__FILE__) to __DIR__ (mamba)
-- XOOPS 2.5.8, PHP 7 (mamba)
-- replaced < b /> with < b > (mamba)
-- Unnecessary double quotes (mamba)
-- reference mismatch (mamba)
-- Hardening to type safe (mamba)
-- update Help (mamba)
-- remove Redundant measure unit (mamba)
-- fixed Referencing objects (mamba)
-- changed intval to (int) (mamba)
+- removed @version
+- addNavigation(basename(__FILE__))
+- dirname(__FILE__) to __DIR__
+- XOOPS 2.5.8, PHP 7
+- replaced < b /> with < b >
+- Unnecessary double quotes
+- reference mismatch
+- Hardening to type safe
+- update Help
+- remove Redundant measure unit
+- fixed Referencing objects
+- changed intval to (int)
+- changed templates from .html to .tpl
+- renamed classes to CamelCase
+- rename Xxx_handler to XxxHandler
+- changed strstr($def, '_AM_MYLINKS_ACCESSRIGHTS') to false !== strpos($def, '_AM_MYLINKS_ACCESSRIGHTS')
+- added missing @return in PhpDocs
+- deleted PHP4 constructors
+- changed is_null($length) to null === $length
+- added cleanup of old .html files to "onupdate"
+- renamed $mylinksDir to $moduleDirName (for generic consistency)
 
 
-v3.11 RC4 [2013/07/03]
+
+3.11 RC4 [2013-07-03]   (zyspec)
 =================================
 + fixed category image display bug
 + changed editor selection to use XOOPS Preferences editor
@@ -28,7 +38,7 @@ v3.11 RC4 [2013/07/03]
 ++ updated Thumbshots thumbnail provider to new API
 + removed duplicate _AM_MYLINKS_IGNORE in nederlands translation
 
-v3.11 RC3 [2013/03/25]
+3.11 RC3 [2013/03/25]
 =================================
 + added language defines to include all defines for 3.11 (most are non-translated)
 + fixed rss and atom feeds so they validate
@@ -40,7 +50,7 @@ v3.11 RC3 [2013/03/25]
 + changed _MD_AM_DBUPDATED with _MD_MYLINKS_DBUPDATED
 + changed revision to RC3
 
-v3.11 RC2 [2013/02/18]
+3.11 RC2 [2013/02/18]
 =================================
 + added templates to xoopsversion for rss, atom and pda templates
 + added missing files for template administration
@@ -62,7 +72,7 @@ v3.11 RC2 [2013/02/18]
 + changed ereg_replace to str_replace in bookmark_qrcode_encoding() function
 + changed revision to RC2
 
-v3.11 RC [2011/05/01 - 2011/11/14] (ZySpec)
+3.11 RC [2011/05/01 - 2011/11/14] (ZySpec)
 =================================
 + added pre-install check to verify min versions for PHP/MySQL/Xoops
 + added category class to manage categories
@@ -71,7 +81,7 @@ v3.11 RC [2011/05/01 - 2011/11/14] (ZySpec)
 + added full support (menu, page display) for 'Recent' links
 + added 'Most Recent' display block
 + added Random Listing display block
-+ added nederlands translation (�berRookie)
++ added nederlands translation (UberRookie)
 + added Preferences setting to select which auto screenshot provider to use
 + added input variable sanitization to eliminate SQL injection
 + added check to only display hits/ratings tables if there are hits>0 and ratings>0 respectively
@@ -104,25 +114,25 @@ v3.11 RC [2011/05/01 - 2011/11/14] (ZySpec)
 + moved changelog to /docs
 
 
-v3.10 [2011/02/23] (Mamba)
+3.10 [2011/02/23] (Mamba)
 =================================
 + Changed to standardized XOOPS Module GUI
 
-Ver3.0-[2008-11-25] (Wanikoo)
+3.0-[2008-11-25] (Wanikoo)
 =================================
 + bookmark button
 + bug/typo fix!(Sorry for my stupid mistake!!)
 + Code refined
 + etc.
 
--Ver2.5-[2008-05-27]
+2.5-[2008-05-27]
 =================================
 + minimize/restore button
 + Internal search block
 + enhanced page-navigation
 + etc.
 
--Ver2.0-[2008-04-20]
+2.0-[2008-04-20]
 =================================
 + Category Jump box
 + print button
@@ -130,7 +140,7 @@ Ver3.0-[2008-11-25] (Wanikoo)
 + qrcode button ( qrcode module needed! )
 + etc.
 
--Ver1.5-
+1.5
 =================================
 + Module Theme changer
 + Search function!

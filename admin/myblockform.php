@@ -49,10 +49,10 @@ $form->addElement($side_select);
 $form->addElement(new XoopsFormText(_AM_MYLINKS_WEIGHT, 'bweight', 2, 5, $block['weight']));
 $form->addElement(new XoopsFormRadioYN(_AM_VISIBLE, 'bvisible', $block['visible']));
 $mod_select     = new XoopsFormSelect(_AM_MYLINKS_VISIBLEIN, 'bmodule', $block['modules'], 5, true);
-$module_handler = xoops_getHandler('module');
+$moduleHandler = xoops_getHandler('module');
 $criteria       = new CriteriaCompo(new Criteria('hasmain', 1));
 $criteria->add(new Criteria('isactive', 1));
-$module_list     = $module_handler->getList($criteria);
+$module_list     = $moduleHandler->getList($criteria);
 $module_list[-1] = _AM_TOPPAGE;
 $module_list[0]  = _AM_ALLPAGES;
 ksort($module_list);
@@ -95,12 +95,12 @@ if ($block['is_custom']) {
     $form->addElement($ctype_select);
 } else {
     if ($block['template'] != '' && !defined('XOOPS_ORETEKI')) {
-        $tplfile_handler = xoops_getHandler('tplfile');
-        $btemplate       = $tplfile_handler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $block['bid']);
+        $tplfileHandler = xoops_getHandler('tplfile');
+        $btemplate       = $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $block['bid']);
         if (count($btemplate) > 0) {
             $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate[0]->getVar('tpl_id') . '">' . _AM_EDITTPL . '</a>'));
         } else {
-            $btemplate2 = $tplfile_handler->find('default', 'block', $block['bid']);
+            $btemplate2 = $tplfileHandler->find('default', 'block', $block['bid']);
             if (count($btemplate2) > 0) {
                 $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate2[0]->getVar('tpl_id') . '" target="_blank">' . _AM_EDITTPL . '</a>'));
             }

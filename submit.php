@@ -52,14 +52,14 @@ if (!empty($_POST['submit'])) {
             $msg .= _MD_MYLINKS_ERRORDESC;
     }
     if ('' !== $msg) {
-        mylinksUtility::show_message($msg);
+        MylinksUtility::show_message($msg);
         exit();
     }
 
     $title        = $myts->addSlashes($_POST['title']);
     $url          = $myts->addSlashes($url);
     $notify       = !empty($_POST['notify']) ? 1 : 0;
-    $cid          = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
+    $cid          = MylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
     $description  = $myts->addSlashes($_POST['message']);
     $date         = time();
     $newid        = $xoopsDB->genId($xoopsDB->prefix('mylinks_links') . '_lid_seq');
@@ -69,7 +69,7 @@ if (!empty($_POST['submit'])) {
     $sql    = sprintf("INSERT INTO %s (lid, cid, title, url, logourl, submitter, status, date, hits, rating, votes, comments) VALUES (%u, %u, '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u)", $xoopsDB->prefix('mylinks_links'), $newid, $cid, $title, $url, ' ', $submitter, $status, $date, 0, 0, 0, 0);
     $result = $xoopsDB->query($sql);
     if (!$result) {
-        mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+        MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
         exit();
     }
     if (0 == $newid) {
@@ -78,11 +78,11 @@ if (!empty($_POST['submit'])) {
     $sql    = sprintf("INSERT INTO %s (lid, description) VALUES (%u, '%s')", $xoopsDB->prefix('mylinks_text'), $newid, $description);
     $result = $xoopsDB->query($sql);
     if (!$result) {
-        mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+        MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
         exit();
     }
     // Notify of new link (anywhere) and new link in category.
-    $notification_handler  = xoops_getHandler('notification');
+    $notificationHandler  = xoops_getHandler('notification');
     $tags                  = array();
     $tags['LINK_NAME']     = $title;
     $tags['LINK_URL']      = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/singlelink.php?cid={$cid}&amp;lid={$newid}";
@@ -92,16 +92,16 @@ if (!empty($_POST['submit'])) {
     $tags['CATEGORY_NAME'] = $row['title'];
     $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/viewcat.php?cid={$cid}";
     if (1 == $xoopsModuleConfig['autoapprove']) {
-        $notification_handler->triggerEvent('global', 0, 'new_link', $tags);
-        $notification_handler->triggerEvent('category', $cid, 'new_link', $tags);
+        $notificationHandler->triggerEvent('global', 0, 'new_link', $tags);
+        $notificationHandler->triggerEvent('category', $cid, 'new_link', $tags);
         redirect_header('index.php', 2, _MD_MYLINKS_RECEIVED . '<br>' . _MD_MYLINKS_ISAPPROVED . '');
     } else {
         $tags['WAITINGLINKS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listNewLinks';
-        $notification_handler->triggerEvent('global', 0, 'link_submit', $tags);
-        $notification_handler->triggerEvent('category', $cid, 'link_submit', $tags);
+        $notificationHandler->triggerEvent('global', 0, 'link_submit', $tags);
+        $notificationHandler->triggerEvent('category', $cid, 'link_submit', $tags);
         if ($notify) {
             include_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
-            $notification_handler->subscribe('link', $newid, 'approve', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
+            $notificationHandler->subscribe('link', $newid, 'approve', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
         }
         redirect_header('index.php', 2, _MD_MYLINKS_RECEIVED);
     }

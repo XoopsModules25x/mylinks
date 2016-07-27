@@ -101,6 +101,7 @@ class MylinksPagepeeker implements MylinksThumbPlugin
 
     /**
      * @param $sz
+     * @return mixed|void
      */
     public function setShotSize($sz)
     {
@@ -154,6 +155,7 @@ class MylinksPagepeeker implements MylinksThumbPlugin
 
     /**
      * @param $url
+     * @return mixed|void
      */
     public function setSiteUrl($url)
     {
@@ -194,6 +196,7 @@ class MylinksPagepeeker implements MylinksThumbPlugin
 
     /**
      * @param $key
+     * @return mixed|void
      */
     public function setProviderPublicKey($key)
     {

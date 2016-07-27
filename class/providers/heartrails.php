@@ -76,6 +76,7 @@ class MylinksHeartrails implements MylinksThumbPlugin
 
     /**
      * @param $sz
+     * @return mixed|void
      */
     public function setShotSize($sz)
     {
@@ -106,6 +107,7 @@ class MylinksHeartrails implements MylinksThumbPlugin
 
     /**
      * @param $url
+     * @return mixed|void
      */
     public function setSiteUrl($url)
     {

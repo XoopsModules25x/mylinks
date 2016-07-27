@@ -27,14 +27,14 @@
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 include_once __DIR__ . '/class/utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
-$lid = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+$lid = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
 
 if (empty($lid)) {
     header('Location: ' . XOOPS_URL . '/');
     exit();
 }
 
-$cid = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
+$cid = MylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
 
 if (!$xoopsUser || (!$xoopsUser->isAdmin($xoopsModule->mid()))
     || ($xoopsUser->isAdmin($xoopsModule->mid())
@@ -57,8 +57,8 @@ if ('' != $xoopsModuleConfig['frame']) {
     header('Cache-Control: no-store, no-cache, must-revalidate');
     header('Cache-Control: post-check=0, pre-check=0', false);
     header('Pragma: no-cache');
-    echo "<html><head>\n" . '<title>' . htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES) . "</title>\n" . "</head>\n" . "<frameset rows='70px,100%' cols='*' border='0' frameborder='0' framespacing='0' >\n"
-         . "<frame src='myheader.php?url={$url}&amp;cid={$cid}&amp;lid={$lid}' frame name='xoopshead' scrolling='no' target='main' Noresize>\n" . "<frame src='{$url}' frame name='main' scrolling='auto' target='Main'>\n" . "</frameset></html>\n";
+    echo "<html><head>\n" . '<title>' . htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES) . "</title>\n" . "</head>\n" . "<iframe rows='70px,100%' cols='*' border='0' frameborder='0' framespacing='0' >\n"
+         . "<iframe src='myheader.php?url={$url}&amp;cid={$cid}&amp;lid={$lid}' frame name='xoopshead' scrolling='no' target='main' Noresize>\n" . "<iframe src='{$url}' frame name='main' scrolling='auto' target='Main'>\n" . "</iframe></html>\n";
 } else {
     echo "<html><head><meta http-equiv=\"Refresh\" content=\"0; URL={$url}\"></meta></head><body></body></html>";
 }

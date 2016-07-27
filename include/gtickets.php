@@ -255,10 +255,10 @@ if (!class_exists('XoopsGTicket')) {
         {
             // Notify which file is broken
             if (headers_sent()) {
-                restore_error_handler();
-                set_error_handler('GTicket_ErrorHandler4FindOutput');
+                restore_errorHandler();
+                set_errorHandler('GTicket_ErrorHandler4FindOutput');
                 header('Dummy: for warning');
-                restore_error_handler();
+                restore_errorHandler();
                 exit;
             }
 

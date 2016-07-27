@@ -19,8 +19,8 @@ function b_waiting_mylinks()
 
     // mylinks broken
     $block       = array();
-    $bkn_handler = xoops_getModuleHandler('broken', 'mylinks');
-    $result      = $bkn_handler->getCount();
+    $bknHandler = xoops_getModuleHandler('broken', 'mylinks');
+    $result      = $bknHandler->getCount();
     //    $result = $xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("mylinks_broken"));
     if ($result) {
         $block['adminlink'] = $xoops->url('modules/mylinks/admin/main.php?op=listBrokenLinks');
@@ -32,8 +32,8 @@ function b_waiting_mylinks()
 
     // mylinks modreq
     $block          = array();
-    $modreq_handler = xoops_getModuleHandler('modification', 'mylinks');
-    $result         = $modreq_handler->getCount();
+    $modreqHandler = xoops_getModuleHandler('modification', 'mylinks');
+    $result         = $modreqHandler->getCount();
     //    $result = $xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("mylinks_mod"));
     if ($result) {
         $block['adminlink'] = XOOPS_URL . '/modules/mylinks/admin/main.php?op=listModReq';

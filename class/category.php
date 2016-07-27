@@ -21,7 +21,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-$mylinksDir = basename(dirname(__DIR__));
+$moduleDirName = basename(dirname(__DIR__));
 
 /**
  * Class MylinksCategory_base
@@ -75,13 +75,6 @@ class MylinksCategory_base extends XoopsObject
  */
 class MylinksCategoryHandler_base extends XoopsPersistableObjectHandler
 {
-    /**
-     * @param $db
-     */
-    public function mylinksCategoryHandler($db)
-    {
-        $this->__construct($db);
-    }
 
     /**
      * mylinksCategoryHandler_base constructor.
@@ -89,8 +82,8 @@ class MylinksCategoryHandler_base extends XoopsPersistableObjectHandler
      */
     public function __construct($db)
     {
-        $mylinksDir = basename(dirname(__DIR__));
-        parent::__construct($db, 'mylinks_cat', strtolower($mylinksDir) . 'Category', 'cid');
+        $moduleDirName = basename(dirname(__DIR__));
+        parent::__construct($db, 'mylinks_cat', strtolower($moduleDirName) . 'Category', 'cid');
     }
 
     /**
@@ -126,11 +119,11 @@ class MylinksCategoryHandler_base extends XoopsPersistableObjectHandler
     }
 }
 
-eval('class ' . $mylinksDir . 'Category extends mylinksCategory_base
+eval('class ' . $moduleDirName . 'Category extends MylinksCategory_base
         {
         }
 
-        class ' . $mylinksDir . 'CategoryHandler extends mylinksCategoryHandler_base
+        class ' . $moduleDirName . 'CategoryHandler extends MylinksCategoryHandler_base
         {
         }
     ');

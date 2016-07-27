@@ -39,8 +39,8 @@ if (!is_object($xoopsModule)) {
 }
 
 // check access right (needs system_admin of tplset)
-$sysperm_handler = xoops_getHandler('groupperm');
-if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_TPLSET, $xoopsUser->getGroups())) {
+$syspermHandler = xoops_getHandler('groupperm');
+if (!$syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_TPLSET, $xoopsUser->getGroups())) {
     redirect_header(XOOPS_URL . '/user.php', 1, _NOPERM);
 }
 
@@ -85,7 +85,7 @@ xoops_cp_header();
 $mymenu_fake_uri = "/admin/mytplsadmin.php?dirname={$tpl['tpl_module']}";
 
 if (file_exists('./mymenu.php')) {
-    include('./mymenu.php');
+    include './mymenu.php';
 }
 
 echo "<h3 style='text-align:left;'>" . _AM_MYLINKS_TPLSETS . ' : ' . htmlspecialchars($tpl['tpl_type'], ENT_QUOTES) . ' : ' . htmlspecialchars($tpl['tpl_file'], ENT_QUOTES) . ' (' . htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES) . ")</h3>\n";

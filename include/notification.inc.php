@@ -38,10 +38,10 @@ function mylinks_notify_iteminfo($category, $item_id)
     $item_id = (isset($item_id) && ((int)$item_id > 0)) ? (int)$item_id : 0;
 
     if (empty($xoopsModule) || $xoopsModule->getVar('dirname') != $dirname) {
-        $module_handler = xoops_getHandler('module');
-        $module         = $module_handler->getByDirname($dirname);
-        $config_handler = xoops_getHandler('config');
-        $config         = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+        $moduleHandler = xoops_getHandler('module');
+        $module         = $moduleHandler->getByDirname($dirname);
+        $configHandler = xoops_getHandler('config');
+        $config         = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     } else {
         $module = $xoopsModule;
         $config = $xoopsModuleConfig;

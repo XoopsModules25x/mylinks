@@ -22,7 +22,7 @@
 function b_mylinks_random_show()
 {
     global $xoopsDB, $xoopsConfig, $xoopsModule, $xoopsModuleConfig, $xoopsUser;
-    $mylinksDir = basename(dirname(__DIR__));
+    $moduleDirName = basename(dirname(__DIR__));
     $myts       = MyTextSanitizer::getInstance();
 
     $block = array();
@@ -34,7 +34,7 @@ function b_mylinks_random_show()
         $link        = $myts->displayTarea(ucfirst($myts->stripSlashesGPC($ltitle)));
         $description = $myts->displayTarea(mb_substr($myts->stripSlashesGPC($description), 0, 100)) . '...';
 
-        $mylinksCatHandler = xoops_getModuleHandler('category', $mylinksDir);
+        $mylinksCatHandler = xoops_getModuleHandler('category', $moduleDirName);
         $catObj            = $mylinksCatHandler->get($cid);
         if (is_object($catObj) && !empty($catObj)) {
             $categoryName = $catObj->getVar('title');
@@ -44,10 +44,10 @@ function b_mylinks_random_show()
             $categoryName = '';
         }
         $block['title']   = _MB_MYLINKS_RANDOMTITLE;
-        $block['content'] = "<div style=\"font-size: 12px; font-weight: bold; background-color: #ccc; padding: 4px; margin: 0;\"><a href=\"" . XOOPS_URL . "/modules/{$mylinksDir}/viewcat.php?cid={$cid}\">{$categoryName}</a></div>";
-        $block['content'] .= "<div style=\"padding: 4px 0 0 0; color: #456;\"><h5 style=\"margin: 0;\"><a href=\"" . XOOPS_URL . "/modules/{$mylinksDir}/singlelink.php?lid={$lid}\">{$link}</a></h5></div><div>{$description}</div>";
+        $block['content'] = "<div style=\"font-size: 12px; font-weight: bold; background-color: #ccc; padding: 4px; margin: 0;\"><a href=\"" . XOOPS_URL . "/modules/{$moduleDirName}/viewcat.php?cid={$cid}\">{$categoryName}</a></div>";
+        $block['content'] .= "<div style=\"padding: 4px 0 0 0; color: #456;\"><h5 style=\"margin: 0;\"><a href=\"" . XOOPS_URL . "/modules/{$moduleDirName}/singlelink.php?lid={$lid}\">{$link}</a></h5></div><div>{$description}</div>";
         unset($catObj, $mylinksCatHandler);
-        $block['content'] .= "<div style=\"text-align: right; font-size: x-small;\"><a href=\"" . XOOPS_URL . "/modules/{$mylinksDir}/index.php\">" . _MB_MYLINKS_SEEMORE . '</a></div>';
+        $block['content'] .= "<div style=\"text-align: right; font-size: x-small;\"><a href=\"" . XOOPS_URL . "/modules/{$moduleDirName}/index.php\">" . _MB_MYLINKS_SEEMORE . '</a></div>';
     }
 
     return $block;

@@ -27,52 +27,52 @@
 
 defined('XOOPS_ROOT_PATH') or die('XOOPS root path not defined');
 
-$dirname = basename(dirname(__DIR__));
-$module_handler = xoops_getHandler('module');
-$module = $module_handler->getByDirname($dirname);
-$pathIcon32 = $module->getInfo('icons32');
+$dirname        = basename(dirname(__DIR__));
+$moduleHandler = xoops_getHandler('module');
+$module         = $moduleHandler->getByDirname($dirname);
+$pathIcon32     = $module->getInfo('icons32');
 
 //xoops_loadLanguage('admin', $dirname);
 
 $adminmenu = array();
 
-$i = 1;
+$i                      = 1;
 $adminmenu[$i]['title'] = _MYLINKS_ADMIN_HOME;
 $adminmenu[$i]['link']  = 'admin/index.php';
 $adminmenu[$i]['desc']  = _MYLINKS_ADMIN_HOME_DESC;
-$adminmenu[$i]['icon']  = $pathIcon32.'//home.png';
+$adminmenu[$i]['icon']  = $pathIcon32 . '//home.png';
 $i++;
 $adminmenu[$i]['title'] = _MI_MYLINKS_ADMENU2;
 $adminmenu[$i]['link']  = 'admin/main.php?op=linksConfigMenu';
 $adminmenu[$i]['desc']  = _MI_MYLINKS_ADMENU2_DESC;
-$adminmenu[$i]['icon']  = $pathIcon32.'/addlink.png';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/addlink.png';
 $i++;
 $adminmenu[$i]['title'] = _MI_MYLINKS_ADMENU3;
 $adminmenu[$i]['link']  = 'admin/main.php?op=listNewLinks';
 $adminmenu[$i]['desc']  = _MI_MYLINKS_ADMENU3_DESC;
-$adminmenu[$i]['icon']  = $pathIcon32.'/submittedlink.png';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/submittedlink.png';
 $i++;
 $adminmenu[$i]['title'] = _MI_MYLINKS_ADMENU4;
 $adminmenu[$i]['link']  = 'admin/main.php?op=listBrokenLinks';
 $adminmenu[$i]['desc']  = _MI_MYLINKS_ADMENU4_DESC;
-$adminmenu[$i]['icon']  = $pathIcon32.'/brokenlink.png';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/brokenlink.png';
 $i++;
 $adminmenu[$i]['title'] = _MI_MYLINKS_ADMENU5;
 $adminmenu[$i]['link']  = 'admin/main.php?op=listModReq';
 $adminmenu[$i]['desc']  = _MI_MYLINKS_ADMENU5_DESC;
-$adminmenu[$i]['icon']  = $pathIcon32.'/modifiedlink.png';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/modifiedlink.png';
 $i++;
 $adminmenu[$i]['title'] = _MI_MYLINKS_ADMENU6;  //'Block/Group Admin';
 $adminmenu[$i]['link']  = 'admin/myblocksadmin.php';
 $adminmenu[$i]['desc']  = _MI_MYLINKS_ADMENU6_DESC;
-$adminmenu[$i]['icon']  = $pathIcon32.'/permissions.png';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/permissions.png';
 $i++;
 $adminmenu[$i]['title'] = _MI_MYLINKS_ADMENU7; //'Template Admin';
 $adminmenu[$i]['link']  = 'admin/mytplsadmin.php';
 $adminmenu[$i]['desc']  = _MI_MYLINKS_ADMENU7_DESC;
-$adminmenu[$i]['icon']  = $pathIcon32.'/administration.png';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/administration.png';
 $i++;
 $adminmenu[$i]['title'] = _MYLINKS_ADMIN_ABOUT;
 $adminmenu[$i]['link']  = 'admin/about.php';
 $adminmenu[$i]['desc']  = _MYLINKS_ADMIN_ABOUT_DESC;
-$adminmenu[$i]['icon']  = $pathIcon32.'/about.png';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/about.png';

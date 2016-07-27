@@ -15,14 +15,14 @@
  */
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-$mylinksDir = basename(dirname(__DIR__));
+$moduleDirName = basename(dirname(__DIR__));
 
 /**
- * @param $xoopsModule
+ * @param XoopsModule $xoopsModule
  * @param $prev_version
  * @return bool
  */
-function xoops_module_update_mylinks_base(&$xoopsModule, $prev_version)
+function xoops_module_update_mylinks_base(XoopsModule $xoopsModule, $prev_version)
 {
     $minUpgradeFrom = '0.0.0';  //minimum version of module supported for upgrade
     $success        = false;
@@ -44,13 +44,43 @@ function xoops_module_update_mylinks_base(&$xoopsModule, $prev_version)
         }
     }
 
+    global $xoopsDB;
+    if ($prev_version < 312) {
+        // delete old html template files
+        $templateDirectory = $GLOBALS['xoops']->path('modules/' . $xoopsModule->getVar('dirname', 'n') . '/templates/');
+        $templateList      = array_diff(scandir($templateDirectory), array('..', '.'));
+        foreach ($templateList as $k => $v) {
+            $fileInfo = new SplFileInfo($templateDirectory . $v);
+            if ($fileInfo->getExtension() === 'html' && $fileInfo->getFilename() !== 'index.html') {
+                if (file_exists($templateDirectory . $v)) {
+                    unlink($templateDirectory . $v);
+                }
+            }
+        }
+        // delete old block html template files
+        $templateDirectory = $GLOBALS['xoops']->path('modules/' . $xoopsModule->getVar('dirname', 'n') . '/templates/blocks/');
+        $templateList      = array_diff(scandir($templateDirectory), array('..', '.'));
+        foreach ($templateList as $k => $v) {
+            $fileInfo = new SplFileInfo($templateDirectory . $v);
+            if ($fileInfo->getExtension() === 'html' && $fileInfo->getFilename() !== 'index.html') {
+                if (file_exists($templateDirectory . $v)) {
+                    unlink($templateDirectory . $v);
+                }
+            }
+        }
+
+        //delete .html entries from the tpl table
+        $sql = 'DELETE FROM ' . $xoopsDB->prefix('tplfile') . " WHERE `tpl_module` = '" . $xoopsModule->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.html%'";
+        $xoopsDB->queryF($sql);
+    }
+
     return $success;
 }
 
 /**
  * eval functions to support module relocation (directory renaming)
  */
-eval('function xoops_module_update_' . $mylinksDir . '($module=NULL, $prev_version)
+eval('function xoops_module_update_' . $moduleDirName . '($module=NULL, $prev_version)
         {
         return xoops_module_update_mylinks_base($module, $prev_version);
         }

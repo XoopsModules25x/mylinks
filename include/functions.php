@@ -398,7 +398,7 @@ function ml_wfd_letters()
 function ml_wfd_toolbar()
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsUser;
-    xoops_loadlanguage('modinfo', $xoopsModule->getVar('dirname'));
+    xoops_loadLanguage('modinfo', $xoopsModule->getVar('dirname'));
     $toolbar = "[ <a href='index.php' class='toolbar'>" . _MD_MYLINKS_MAIN . '</a> | ';
     if (is_object($xoopsUser) || (!is_object($xoopsUser) && $xoopsModuleConfig['anonpost'])) {
         $toolbar .= "<a href='submit.php' class='toolbar'>" . _MI_MYLINKS_SMNAME1 . '</a> | ';

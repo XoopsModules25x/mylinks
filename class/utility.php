@@ -65,7 +65,7 @@ class MylinksUtility
 
     /**
      *
-     * Temporary patch for error_handler processing
+     * Temporary patch for errorHandler processing
      * @deprecated
      * @param  string $msg   message to display
      * @param  int    $pages number of pages to jump back for link

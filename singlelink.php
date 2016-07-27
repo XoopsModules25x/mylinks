@@ -34,8 +34,8 @@ $myCatTree         = new XoopsObjectTree($catObjs, 'cid', 'pid');
 
 include_once __DIR__ . '/class/utility.php';
 
-$lid = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
-$cid = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
+$lid = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+$cid = MylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
 
 $xoopsOption['template_main'] = 'mylinks_singlelink.tpl';
 include XOOPS_ROOT_PATH . '/header.php';

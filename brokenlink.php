@@ -29,7 +29,7 @@ $myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 
 include_once __DIR__ . '/class/utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
-$lid = mylinksUtility::mylinks_cleanVars($_REQUEST, 'lid', 0, 'int', array('min' => 0));
+$lid = MylinksUtility::mylinks_cleanVars($_REQUEST, 'lid', 0, 'int', array('min' => 0));
 if (!empty($_POST['submit'])) {
     $sender = empty($xoopsUser) ? 0 : $xoopsUser->getVar('uid');
     $ip     = getenv('REMOTE_ADDR');
@@ -55,8 +55,8 @@ if (!empty($_POST['submit'])) {
     $xoopsDB->query($sql) or exit();
     $tags                      = array();
     $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listBrokenLinks';
-    $notification_handler      = xoops_getHandler('notification');
-    $notification_handler->triggerEvent('global', 0, 'link_broken', $tags);
+    $notificationHandler      = xoops_getHandler('notification');
+    $notificationHandler->triggerEvent('global', 0, 'link_broken', $tags);
     redirect_header('index.php', 2, _MD_MYLINKS_THANKSFORINFO);
     exit();
 } else {

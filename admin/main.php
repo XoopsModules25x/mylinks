@@ -173,14 +173,14 @@ function modLink()
     global $xoopsDB, $myts, $myCatTree, $xoopsModule;
 
     $linkimg_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/images/shots/');
-    $lid           = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
-    $bknrptid      = mylinksUtility::mylinks_cleanVars($_GET, 'bknrptid', 0, 'int', array('min' => 0));
+    $lid           = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+    $bknrptid      = MylinksUtility::mylinks_cleanVars($_GET, 'bknrptid', 0, 'int', array('min' => 0));
 
     xoops_cp_header();
 
     $result = $xoopsDB->query('SELECT cid, title, url, logourl FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid}");
     if (!$result) {
-        mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+        MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
         exit();
     }
     list($cid, $title, $url, $logourl) = $xoopsDB->fetchRow($result);
@@ -277,13 +277,13 @@ function modLink()
 function delVote()
 {
     global $xoopsDB;
-    $lid = mylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
-    $rid = mylinksUtility::mylinks_cleanVars($_POST, 'rid', 0, 'int', array('min' => 0));
+    $lid = MylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
+    $rid = MylinksUtility::mylinks_cleanVars($_POST, 'rid', 0, 'int', array('min' => 0));
 
     $sql    = sprintf('DELETE FROM %s WHERE ratingid = %u', $xoopsDB->prefix('mylinks_votedata'), $rid);
     $result = $xoopsDB->query($sql);
     if (!result) {
-        mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+        MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
         exit();
     }
     updaterating($lid);
@@ -363,21 +363,21 @@ function delBrokenLinks()
 {
     global $xoopsDB;
 
-    $lid = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+    $lid = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
 
     $sql    = sprintf('DELETE FROM %s WHERE lid = %u', $xoopsDB->prefix('mylinks_broken'), $lid);
     $result = $xoopsDB->queryF($sql);
     if (!result) {
-        mylinksUtility::show_message(_MD_MYLINKS_NOBROKEN);
+        MylinksUtility::show_message(_MD_MYLINKS_NOBROKEN);
         exit();
     }
 
     $sql    = sprintf('DELETE FROM %s WHERE lid = %u', $xoopsDB->prefix('mylinks_links'), $lid);
     $result = $xoopsDB->queryF($sql);
     if (!result) {
-        mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+        MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
     } else {
-        mylinksUtility::show_message(_MD_MYLINKS_LINKDELETED);
+        MylinksUtility::show_message(_MD_MYLINKS_LINKDELETED);
     }
     exit();
 }
@@ -386,13 +386,13 @@ function ignoreBrokenLinks()
 {
     global $xoopsDB;
 
-    $bknrptid = mylinksUtility::mylinks_cleanVars($_POST, 'bknrptid', 0, 'int', array('min' => 0));
+    $bknrptid = MylinksUtility::mylinks_cleanVars($_POST, 'bknrptid', 0, 'int', array('min' => 0));
     $sql      = sprintf('DELETE FROM %s WHERE reportid = %u', $xoopsDB->prefix('mylinks_broken'), $bknrptid);
     $result   = $xoopsDB->queryF($sql);
     if (!result) {
-        mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+        MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
     } else {
-        mylinksUtility::show_message(_MD_MYLINKS_BROKENDELETED);
+        MylinksUtility::show_message(_MD_MYLINKS_BROKENDELETED);
     }
     exit();
 }
@@ -499,7 +499,7 @@ function changeModReq()
 {
     global $xoopsDB, $myts;
 
-    $requestid = mylinksUtility::mylinks_cleanVars($_POST, 'requestid', 0, 'int', array('min' => 0));
+    $requestid = MylinksUtility::mylinks_cleanVars($_POST, 'requestid', 0, 'int', array('min' => 0));
     $query     = 'SELECT lid, cid, title, url, logourl, description FROM ' . $xoopsDB->prefix('mylinks_mod') . " WHERE requestid='{$requestid}'";
     $result    = $xoopsDB->query($query);
     while (list($lid, $cid, $title, $url, $logourl, $description) = $xoopsDB->fetchRow($result)) {
@@ -511,19 +511,19 @@ function changeModReq()
         $sql    = sprintf("UPDATE %s SET cid = %u, title = '%s', url = '%s', logourl = '%s', status = 1, date = %u WHERE lid = %u", $xoopsDB->prefix('mylinks_links'), $cid, $title, $url, $logourl, time(), $lid);
         $result = $xoopsDB->query($sql);
         if (!result) {
-            mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+            MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
             exit();
         } else {
             $sql    = sprintf("UPDATE %s SET description = '%s' WHERE lid = %u", $xoopsDB->prefix('mylinks_text'), $description, $lid);
             $result = $xoopsDB->query($sql);
             if (!$result) {
-                mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+                MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
                 exit();
             } else {
                 $sql = sprintf('DELETE FROM %s WHERE requestid = %u', $xoopsDB->prefix('mylinks_mod'), $requestid);
                 $xoopsDB->query($sql);
                 if (!result) {
-                    mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+                    MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
                     exit();
                 }
             }
@@ -537,13 +537,13 @@ function ignoreModReq()
 {
     global $xoopsDB;
 
-    $requestid = mylinksUtility::mylinks_cleanVars($_POST, 'requestid', 0, 'int', array('min' => 0));
+    $requestid = MylinksUtility::mylinks_cleanVars($_POST, 'requestid', 0, 'int', array('min' => 0));
     $sql       = sprintf('DELETE FROM %s WHERE requestid = %u', $xoopsDB->prefix('mylinks_mod'), $requestid);
     $result    = $xoopsDB->query($sql);
     if (!result) {
-        mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+        MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
     } else {
-        mylinksUtility::show_message(_MD_MYLINKS_MODREQDELETED);
+        MylinksUtility::show_message(_MD_MYLINKS_MODREQDELETED);
     }
     exit();
 }
@@ -552,13 +552,13 @@ function modLinkS()
 {
     global $xoopsDB, $myts;
 
-    $cid         = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
-    $lid         = mylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
-    $bknrptid    = mylinksUtility::mylinks_cleanVars($_POST, 'bknrptid', 0, 'int', array('min' => 0));
-    $url         = mylinksUtility::mylinks_cleanVars($_POST, 'url', '', 'string');
-    $logourl     = mylinksUtility::mylinks_cleanVars($_POST, 'logourl', '', 'string');
-    $title       = mylinksUtility::mylinks_cleanVars($_POST, 'title', '', 'string');
-    $description = mylinksUtility::mylinks_cleanVars($_POST, 'description', '', 'string');
+    $cid         = MylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
+    $lid         = MylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
+    $bknrptid    = MylinksUtility::mylinks_cleanVars($_POST, 'bknrptid', 0, 'int', array('min' => 0));
+    $url         = MylinksUtility::mylinks_cleanVars($_POST, 'url', '', 'string');
+    $logourl     = MylinksUtility::mylinks_cleanVars($_POST, 'logourl', '', 'string');
+    $title       = MylinksUtility::mylinks_cleanVars($_POST, 'title', '', 'string');
+    $description = MylinksUtility::mylinks_cleanVars($_POST, 'description', '', 'string');
     /*
         $url     = $myts->addSlashes($url);
         $logourl = $myts->addSlashes($_POST['logourl']);
@@ -576,7 +576,7 @@ function modLinkS()
         $sql    = sprintf('DELETE FROM %s WHERE reportid = %u', $xoopsDB->prefix('mylinks_broken'), $bknrptid);
         $result = $xoopsDB->query($sql);
         if (!$result) {
-            mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+            MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
             exit();
         }
     }
@@ -587,14 +587,14 @@ function modLinkS()
 function delLink()
 {
     global $xoopsDB, $xoopsModule;
-    $lid = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+    $lid = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
 
     $dbTables = array('links', 'text', 'votedata', 'broken', 'mod');
     foreach ($dbTables as $thisTable) {
         $sql    = sprintf('DELETE FROM %s WHERE lid = %u', $xoopsDB->prefix("mylinks_{$thisTable}"), $lid);
         $result = $xoopsDB->query($sql);
         if (!$result) {
-            mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+            MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
             exit();
         }
     }
@@ -610,7 +610,7 @@ function modCat()
 {
     global $xoopsDB, $myts, $xoopsModule;
 
-    $cid = mylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
+    $cid = MylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
     xoops_cp_header();
 
     echo '<h4>' . _MD_MYLINKS_WEBLINKSCONF . "</h4>\n" . "<table class='outer' style='width: 100%; border-width: 0px; margin: 1px;'>\n" . '  <tr><th>' . _MD_MYLINKS_MODCAT . "<br></th></tr>\n" . "  <tr class='odd'>\n" . "    <td>\n";
@@ -643,9 +643,9 @@ function modCat()
 function modCatS()
 {
     global $xoopsDB, $myts, $xoopsModule;
-    $cid    = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
-    $imgurl = mylinksUtility::mylinks_cleanVars($_POST, 'imgurl', '', 'string');
-    $title  = mylinksUtility::mylinks_cleanVars($_POST, 'title', '', 'string');
+    $cid    = MylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
+    $imgurl = MylinksUtility::mylinks_cleanVars($_POST, 'imgurl', '', 'string');
+    $title  = MylinksUtility::mylinks_cleanVars($_POST, 'title', '', 'string');
     //    $title  = $myts->addSlashes($title);
 
     if (empty($title)) {
@@ -671,7 +671,7 @@ function modCatS()
     }
 
     if (!$result) {
-        mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+        MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
         exit();
     } else {
         redirect_header('index.php', 2, _MD_MYLINKS_DBUPDATED);
@@ -682,8 +682,8 @@ function delCat()
 {
     global $xoopsDB, $myCatTree, $xoopsModule, $xoopsUser;
 
-    $cid = mylinksUtility::mylinks_cleanVars($_REQUEST, 'cid', 0, 'int', array('min' => 0));
-    $ok  = mylinksUtility::mylinks_cleanVars($_POST, 'ok', 0, 'int', array('min' => 0, 'max' => 1));
+    $cid = MylinksUtility::mylinks_cleanVars($_REQUEST, 'cid', 0, 'int', array('min' => 0));
+    $ok  = MylinksUtility::mylinks_cleanVars($_POST, 'ok', 0, 'int', array('min' => 0, 'max' => 1));
 
     if (1 == $ok) {
         /**
@@ -715,7 +715,7 @@ function delCat()
         $sql    = sprintf('SELECT lid FROM %s WHERE cid IN %s', $xoopsDB->prefix('mylinks_links'), "({$catIDs})");
         $result = $xoopsDB->query($sql);
         if (!$result) {
-            mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+            MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
             exit();
         }
         $lidArray = $xoopsDB->fetchArray($result);
@@ -728,7 +728,7 @@ function delCat()
                 $sql    = sprintf('DELETE FROM %s WHERE lid IN %s', $xoopsDB->prefix("mylinks_{$thisTable}"), $linkIDs);
                 $result = $xoopsDB->query($sql);
                 if (!result) {
-                    mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+                    MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
                     exit();
                 }
             }
@@ -761,7 +761,7 @@ function delCat()
 function delNewLink()
 {
     global $xoopsDB, $xoopsModule;
-    $lid = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
+    $lid = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
 
     $sql    = sprintf('DELETE FROM %s WHERE lid = %u', $xoopsDB->prefix('mylinks_links'), $lid);
     $result = $xoopsDB->query($sql);
@@ -772,7 +772,7 @@ function delNewLink()
     $sql    = sprintf('DELETE FROM %s WHERE lid = %u', $xoopsDB->prefix('mylinks_text'), $lid);
     $result = $xoopsDB->query($sql);
     if (!$result) {
-        mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+        MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
         exit();
     }
     // delete comments
@@ -785,9 +785,9 @@ function delNewLink()
 function addCat()
 {
     global $xoopsDB, $myts, $xoopsModule;
-    $pid    = mylinksUtility::mylinks_cleanVars($_POST, 'pid', 0, 'int', array('min' => 0));
-    $title  = mylinksUtility::mylinks_cleanVars($_POST, 'title', '', 'string');
-    $imgurl = mylinksUtility::mylinks_cleanVars($_POST, 'imgurl', '', 'string');
+    $pid    = MylinksUtility::mylinks_cleanVars($_POST, 'pid', 0, 'int', array('min' => 0));
+    $title  = MylinksUtility::mylinks_cleanVars($_POST, 'title', '', 'string');
+    $imgurl = MylinksUtility::mylinks_cleanVars($_POST, 'imgurl', '', 'string');
     /*
         $title  = $myts->addSlashes($title);
         $imgurl = $myts->addSlashes($imgurl);
@@ -812,8 +812,8 @@ function addCat()
         $tags                  = array();
         $tags['CATEGORY_NAME'] = $title;
         $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/viewcat.php?cid=' . $newCatId;
-        $notification_handler  = xoops_getHandler('notification');
-        $notification_handler->triggerEvent('global', 0, 'new_category', $tags);
+        $notificationHandler  = xoops_getHandler('notification');
+        $notificationHandler->triggerEvent('global', 0, 'new_category', $tags);
         redirect_header('index.php', 2, _MD_MYLINKS_NEWCATADDED);
     } else {
         redirect_header('index.php', 2, _MD_MYLINKS_DBNOTUPDATED);
@@ -824,7 +824,7 @@ function importCats()
 {
     global $xoopsDB, $xoopsModule, $xoopsConfig, $myts;
 
-    $ok = mylinksUtility::mylinks_cleanVars($_POST, 'ok', 0, 'int', array('min' => 0, 'max' => 1));
+    $ok = MylinksUtility::mylinks_cleanVars($_POST, 'ok', 0, 'int', array('min' => 0, 'max' => 1));
     if (1 == $ok) {
         if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/sql/mylinks_cat.dat')) {
             $importFile = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/sql/mylinks_cat.dat';
@@ -844,7 +844,7 @@ function importCats()
                     $sql    = sprintf("INSERT INTO %s (cid, pid, title, imgurl) VALUES (%u, %u, '%s', '%s')", $xoopsDB->prefix('mylinks_cat'), (int)$data[0], (int)$data[1], $myts->addSlashes($data[2]), $myts->addSlashes($data[3]));
                     $result = $xoopsDB->query($sql);
                     if (!$result) {
-                        mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+                        MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
                         exit();
                     }
                 }
@@ -874,11 +874,11 @@ function addLink()
 {
     global $xoopsDB, $myts, $xoopsUser, $xoopsModule;
 
-    $cid         = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
-    $url         = mylinksUtility::mylinks_cleanVars($_POST, 'url', '', 'string');
-    $logourl     = mylinksUtility::mylinks_cleanVars($_POST, 'logourl', '', 'string');
-    $title       = mylinksUtility::mylinks_cleanVars($_POST, 'title', '', 'string');
-    $description = mylinksUtility::mylinks_cleanVars($_POST, 'descarea', '', 'string');
+    $cid         = MylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
+    $url         = MylinksUtility::mylinks_cleanVars($_POST, 'url', '', 'string');
+    $logourl     = MylinksUtility::mylinks_cleanVars($_POST, 'logourl', '', 'string');
+    $title       = MylinksUtility::mylinks_cleanVars($_POST, 'title', '', 'string');
+    $description = MylinksUtility::mylinks_cleanVars($_POST, 'descarea', '', 'string');
     /*
         $url           = $myts->addSlashes($url);
         $logourl       = $myts->addSlashes($logourl);
@@ -918,7 +918,7 @@ function addLink()
     $sql    = sprintf("INSERT INTO %s (lid, cid, title, url, logourl, submitter, status, date, hits, rating, votes, comments) VALUES (%u, %u, '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u)", $xoopsDB->prefix('mylinks_links'), $newid, $cid, $title, $url, $logourl, $submitter, 1, time(), 0, 0, 0, 0);
     $result = $xoopsDB->query($sql);
     if (!$result) {
-        mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+        MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
         exit();
     }
     if (0 == $newid) {
@@ -927,7 +927,7 @@ function addLink()
     $sql    = sprintf("INSERT INTO %s (lid, description) VALUES (%u, '%s')", $xoopsDB->prefix('mylinks_text'), $newid, $description);
     $result = $xoopsDB->query($sql);
     if (!$result) {
-        mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+        MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
         exit();
     }
     $tags              = array();
@@ -940,9 +940,9 @@ function addLink()
     unset($catObj, $mylinksCatHandler);
 
     $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/viewcat.php?cid={$cid}";
-    $notification_handler = xoops_getHandler('notification');
-    $notification_handler->triggerEvent('global', 0, 'new_link', $tags);
-    $notification_handler->triggerEvent('category', $cid, 'new_link', $tags);
+    $notificationHandler = xoops_getHandler('notification');
+    $notificationHandler->triggerEvent('global', 0, 'new_link', $tags);
+    $notificationHandler->triggerEvent('category', $cid, 'new_link', $tags);
     redirect_header('main.php?op=linksConfigMenu', 2, _MD_MYLINKS_NEWLINKADDED);
 }
 
@@ -950,12 +950,12 @@ function approve()
 {
     global $xoopsDB, $myts, $xoopsModule;
 
-    $lid         = mylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
-    $cid         = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
-    $title       = mylinksUtility::mylinks_cleanVars($_POST, 'title', '', 'string');
-    $url         = mylinksUtility::mylinks_cleanVars($_POST, 'url', '', 'string');
-    $logourl     = mylinksUtility::mylinks_cleanVars($_POST, 'logourl', '', 'string');
-    $description = mylinksUtility::mylinks_cleanVars($_POST, 'description', '', 'string');
+    $lid         = MylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
+    $cid         = MylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
+    $title       = MylinksUtility::mylinks_cleanVars($_POST, 'title', '', 'string');
+    $url         = MylinksUtility::mylinks_cleanVars($_POST, 'url', '', 'string');
+    $logourl     = MylinksUtility::mylinks_cleanVars($_POST, 'logourl', '', 'string');
+    $description = MylinksUtility::mylinks_cleanVars($_POST, 'description', '', 'string');
     /*
         $url         = $myts->addSlashes($url);
         $logourl     = $myts->addSlashes($logourl);
@@ -968,11 +968,11 @@ function approve()
         $query  = 'UPDATE ' . $xoopsDB->prefix('mylinks_text') . " SET description='{$description}' WHERE lid='{$lid}'";
         $result = $xoopsDB->query($query);
         if (!$result) {
-            mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+            MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
             exit();
         }
     } else {
-        mylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
+        MylinksUtility::show_message(_MD_MYLINKS_NORECORDFOUND);
         exit();
     }
     $tags              = array();
@@ -989,17 +989,17 @@ function approve()
     if ($catObj) {
         $tags['CATEGORY_NAME'] = $catObj->getVar('title');
         $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/viewcat.php?cid={$cid}";
-        $notification_handler  = xoops_getHandler('notification');
-        $notification_handler->triggerEvent('global', 0, 'new_link', $tags);
-        $notification_handler->triggerEvent('category', $cid, 'new_link', $tags);
-        $notification_handler->triggerEvent('link', $lid, 'approve', $tags);
+        $notificationHandler  = xoops_getHandler('notification');
+        $notificationHandler->triggerEvent('global', 0, 'new_link', $tags);
+        $notificationHandler->triggerEvent('category', $cid, 'new_link', $tags);
+        $notificationHandler->triggerEvent('link', $lid, 'approve', $tags);
         redirect_header('index.php', 2, _MD_MYLINKS_NEWLINKADDED);
     } else {
         redirect_header('index.php', 2, _MD_MYLINKS_DBNOTUPDATED);
     }
 }
 
-$op = mylinksUtility::mylinks_cleanVars($_REQUEST, 'op', 'main', 'string');
+$op = MylinksUtility::mylinks_cleanVars($_REQUEST, 'op', 'main', 'string');
 
 switch ($op) {
     case 'delNewLink':

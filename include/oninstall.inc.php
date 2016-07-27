@@ -14,7 +14,7 @@
  * @author   ::    zyspec (owners@zyspec.com)
  */
 
-$mylinksDir = basename(dirname(__DIR__));
+$moduleDirName = basename(dirname(__DIR__));
 
 /**
  * @param $xoopsModule
@@ -101,12 +101,12 @@ function xoops_module_install_mylinks_base(&$xoopsModule)
 /**
  * eval functions to support module relocation (directory renaming)
  */
-eval('function xoops_module_install_' . $mylinksDir . '(&$module=NULL)
+eval('function xoops_module_install_' . $moduleDirName . '(&$module=NULL)
         {
         return xoops_module_install_mylinks_base($module);
         }
     ');
-eval('function xoops_module_pre_install_' . $mylinksDir . '(&$module=NULL)
+eval('function xoops_module_pre_install_' . $moduleDirName . '(&$module=NULL)
         {
         return xoops_module_pre_install_mylinks_base($module);
         }

@@ -317,8 +317,8 @@ if ('delete_ok' == $op) {
     }
     $myblock->delete();
     if ('' != $myblock->getVar('template') && !defined('XOOPS_ORETEKI')) {
-        $tplfile_handler = xoops_getHandler('tplfile');
-        $btemplate       = $tplfile_handler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $bid);
+        $tplfileHandler = xoops_getHandler('tplfile');
+        $btemplate       = $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $bid);
         if (count($btemplate) > 0) {
             $tplman->delete($btemplate[0]);
         }
@@ -487,8 +487,8 @@ if ('clone_ok' == $op) {
     }
     /*
       if ($cblock->getVar('template') != '') {
-            $tplfile_handler = xoops_getHandler('tplfile');
-            $btemplate =& $tplfile_handler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $bid);
+            $tplfileHandler = xoops_getHandler('tplfile');
+            $btemplate =& $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $bid);
             if (count($btemplate) > 0) {
                 $tplclone =& $btemplate[0]->clone();
                 $tplclone->setVar('tpl_id', 0);
@@ -658,11 +658,11 @@ function myblocksadmin_update_blockinstance(
 ) {
     global $xoopsDB;
 
-    $instance_handler = xoops_getHandler('blockinstance');
-    $block_handler    = xoops_getHandler('block');
+    $instanceHandler = xoops_getHandler('blockinstance');
+    $blockHandler    = xoops_getHandler('block');
     if ($id > 0) {
         // update
-        $instance = $instance_handler->get($id);
+        $instance = $instanceHandler->get($id);
         if ($bside >= 0) {
             $instance->setVar('side', $bside);
         }
@@ -671,10 +671,10 @@ function myblocksadmin_update_blockinstance(
         }
     } else {
         // insert
-        $instance = $instance_handler->create();
+        $instance = $instanceHandler->create();
         $instance->setVar('bid', $bid);
         $instance->setVar('side', $bside);
-        $block = $block_handler->get($bid);
+        $block = $blockHandler->get($bid);
         $instance->setVar('options', $block->getVar('options'));
         if (empty($btitle)) {
             $btitle = $block->getVar('name');
@@ -687,7 +687,7 @@ function myblocksadmin_update_blockinstance(
     //if (isset($bctype)) $instance->setVar('c_type', $bctype);
     $instance->setVar('bcachetime', $bcachetime);
 
-    if ($instance_handler->insert($instance)) {
+    if ($instanceHandler->insert($instance)) {
         $GLOBALS['xoopsDB']->query('DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('block_module_link') . ' WHERE block_id=' . $instance->getVar('instanceid'));
         foreach ($bmodule as $mid) {
             $page   = explode('-', $mid);

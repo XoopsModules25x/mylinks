@@ -7,7 +7,7 @@
 function mylinks_get_new($param)
 {
     $modulename = basename(dirname(__DIR__));
-    include_once(XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feeddata.inc.php");
+    include_once XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feeddata.inc.php";
 
     // parameter
     $limit_show  = isset($param['show']) ? (int)$param['show'] : 10;
