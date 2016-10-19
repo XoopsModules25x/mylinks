@@ -57,7 +57,7 @@ if (!empty($_POST['submit'])) {
     }
 
     $title        = $myts->addSlashes($_POST['title']);
-    $url          = $myts->addSlashes($url);
+    $url          = $myts->addSlashes($_POST['url']);
     $notify       = !empty($_POST['notify']) ? 1 : 0;
     $cid          = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min'=>0));
     $description  = $myts->addSlashes($_POST['message']);
