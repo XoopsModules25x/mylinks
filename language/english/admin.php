@@ -12,16 +12,17 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 /**
- * @copyright::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package::    mylinks
- * @author::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
+ * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
+ * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package   ::    mylinks
+ * @author    ::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
  * ****************************************************************************
  */
 //3.1
 $admin_mydirname = basename(dirname(dirname(__DIR__)));
 
-define('_AM_MYLINKS_ERROR_MODADMIN',"Error: Frameworks \"moduleadmin\" is not installed. Please install this Framework");
+define('_AM_MYLINKS_ERROR_MODADMIN', "Error: Frameworks \"moduleadmin\" is not installed. Please install this Framework");
 
 // About.php
 define('_AM_MYLINKS_ABOUT_AUTHOR', 'Author: ');

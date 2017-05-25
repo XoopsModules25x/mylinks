@@ -9,13 +9,11 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright::  The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package::    mylinks
+ * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package   ::    mylinks
  * @subpackage:: admin
- * @since::		 2.5.0
- * @author::     Magic.Shao <magic.shao@gmail.com> - Susheng Yang <ezskyyoung@gmail.com>
-**/
+ */
 
 $path = dirname(dirname(dirname(__DIR__)));
 include_once $path . '/mainfile.php';
@@ -24,7 +22,7 @@ require_once $path . '/include/cp_header.php';
 
 global $xoopsModule;
 
-$thisModuleDir = $GLOBALS['xoopsModule']->getVar('dirname');
+$thisModuleDir  = $GLOBALS['xoopsModule']->getVar('dirname');
 $thisModulePath = dirname(__DIR__);
 
 // Load language files
@@ -32,12 +30,12 @@ xoops_loadLanguage('admin', $thisModuleDir);
 xoops_loadLanguage('modinfo', $thisModuleDir);
 xoops_loadLanguage('main', $thisModuleDir);
 
-$pathIcon16 = '../'.$xoopsModule->getInfo('icons16');
-$pathIcon32 = '../'.$xoopsModule->getInfo('icons32');
+$pathIcon16      = '../' . $xoopsModule->getInfo('icons16');
+$pathIcon32      = '../' . $xoopsModule->getInfo('icons32');
 $pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
 
-if ( file_exists($GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php'))){
-        include_once $GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php');
-    }else{
-        redirect_header('../../../admin.php', 5, _AM_MODULEADMIN_MISSING, false);
-    }
+if (file_exists($GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php'))) {
+    include_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
+} else {
+    redirect_header('../../../admin.php', 5, _AM_MODULEADMIN_MISSING, false);
+}

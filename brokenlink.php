@@ -24,20 +24,20 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include 'header.php';
-$myts =& MyTextSanitizer::getInstance(); // MyTextSanitizer object
+include __DIR__ . '/header.php';
+$myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 
-include_once './class/utility.php';
+include_once __DIR__ . '/class/utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
-$lid = mylinksUtility::mylinks_cleanVars($_REQUEST, 'lid', 0, 'int', array('min'=>0));
+$lid = MylinksUtility::mylinks_cleanVars($_REQUEST, 'lid', 0, 'int', array('min' => 0));
 if (!empty($_POST['submit'])) {
-    $sender = empty($xoopsUser) ?  0 : $xoopsUser->getVar('uid');
-    $ip = getenv('REMOTE_ADDR');
-    if ( $sender != 0 ) {
+    $sender = empty($xoopsUser) ? 0 : $xoopsUser->getVar('uid');
+    $ip     = getenv('REMOTE_ADDR');
+    if ($sender != 0) {
         // Check if REG user is trying to report twice.
         $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_broken') . " WHERE lid='{$lid}' AND sender='{$sender}'");
         list($count) = $xoopsDB->fetchRow($result);
-        if ( $count > 0 ) {
+        if ($count > 0) {
             redirect_header('index.php', 2, _MD_MYLINKS_ALREADYREPORTED);
             exit();
         }
@@ -51,16 +51,16 @@ if (!empty($_POST['submit'])) {
         }
     }
     $newid = $xoopsDB->genId($xoopsDB->prefix('mylinks_broken') . '_reportid_seq');
-    $sql = sprintf("INSERT INTO %s (reportid, lid, sender, ip) VALUES (%u, %u, %u, '%s')", $xoopsDB->prefix('mylinks_broken'), $newid, $lid, $sender, $ip);
+    $sql   = sprintf("INSERT INTO %s (reportid, lid, sender, ip) VALUES (%u, %u, %u, '%s')", $xoopsDB->prefix('mylinks_broken'), $newid, $lid, $sender, $ip);
     $xoopsDB->query($sql) or exit();
-    $tags = array();
+    $tags                      = array();
     $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listBrokenLinks';
-    $notification_handler =& xoops_getHandler('notification');
-    $notification_handler->triggerEvent('global', 0, 'link_broken', $tags);
+    $notificationHandler      = xoops_getHandler('notification');
+    $notificationHandler->triggerEvent('global', 0, 'link_broken', $tags);
     redirect_header('index.php', 2, _MD_MYLINKS_THANKSFORINFO);
     exit();
 } else {
-    $xoopsOption['template_main'] = 'mylinks_brokenlink.html';
+    $xoopsOption['template_main'] = 'mylinks_brokenlink.tpl';
     include XOOPS_ROOT_PATH . '/header.php';
     //wanikoo
     $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
@@ -87,9 +87,9 @@ if (!empty($_POST['submit'])) {
 
     //wanikoo search
     if (file_exists(XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php')) {
-       include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
+        include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
     } else {
-       include_once XOOPS_ROOT_PATH . '/language/english/search.php';
+        include_once XOOPS_ROOT_PATH . '/language/english/search.php';
     }
 
     $xoopsTpl->assign('lang_all', _SR_ALL);

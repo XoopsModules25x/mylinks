@@ -25,96 +25,157 @@
  *
  * Xoops mylinks - a multicategory links module
  *
- * @copyright::  {@link http://www.zyspec.com ZySpec Incorporated}
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package::    mylinks
+ * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  {@link http://www.zyspec.com ZySpec Incorporated}
+ * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package   ::    mylinks
  * @subpackage:: class
- * @since::         3.11
- * @author::     zyspec <owner@zyspec.com>
+ * @author    ::     zyspec <owner@zyspec.com>
  */
 require_once XOOPS_ROOT_PATH . '/modules/mylinks/class/thumbplugin.interface.php';
+
+/**
+ * Class MylinksThumbalizr
+ */
 class MylinksThumbalizr implements MylinksThumbPlugin
 {
-    private $image_width     = 0;
-    private $site_url        = null;
-    private $key             = null;
-    private $attribution     = "<a href=\"http://www.thumbalizr.com\" target=\"_blank\" title=\"Thumbnail Screenshots by Thumbalizr\">Thumbnail Screenshots by Thumbalizr</a>";
-    private $provider_url    = 'http://api.thumbalizr.com';
-    private $provider_name   = 'Thumbalizr';
+    private $image_width   = 0;
+    private $site_url      = null;
+    private $key           = null;
+    private $attribution   = "<a href=\"http://www.thumbalizr.com\" target=\"_blank\" title=\"Thumbnail Screenshots by Thumbalizr\">Thumbnail Screenshots by Thumbalizr</a>";
+    private $provider_url  = 'http://api.thumbalizr.com';
+    private $provider_name = 'Thumbalizr';
 
-    function __construct()
+    /**
+     * MylinksThumbalizr constructor.
+     */
+    public function __construct()
     {
     }
+
+    /**
+     * @return string
+     */
     public function getProviderUrl()
     {
-        $query_string = array('url'      => $this->site_url,
-                              'width'    => $this->image_width,
-                              'encoding' => 'jpg',
-                              'mode'     => 'screen'
+        $query_string = array(
+            'url'      => $this->site_url,
+            'width'    => $this->image_width,
+            'encoding' => 'jpg',
+            'mode'     => 'screen'
         );
-        $api_key = self::getProviderPublicKey();
+        $api_key      = $this->getProviderPublicKey();
         if (!empty($api_key)) {
             $query_string['api_key'] = $api_key;
         }
-        $query = http_build_query($query_string);
-        $query = empty($query) ? '' : '/?' . $query;
+        $query       = http_build_query($query_string);
+        $query       = empty($query) ? '' : '/?' . $query;
         $providerUrl = $this->provider_url . $query;
 
         return $providerUrl;
     }
+
+    /**
+     * @return string
+     */
     public function getProviderName()
     {
         return $this->provider_name;
     }
+
+    /**
+     * @param $sz
+     * @return mixed|void
+     */
     public function setShotSize($sz)
     {
         if (isset($sz)) {
             if (is_array($sz) && array_key_exists('width', $sz)) {
-                $this->image_width = intval($sz['width']);
+                $this->image_width = (int)$sz['width'];
             } else {
-                $this->image_width = intval($sz);
+                $this->image_width = (int)$sz;
             }
         }
     }
+
+    /**
+     * @return array
+     */
     public function getShotSize()
     {
-        return array('width'=>$this->image_width, 'height'=>0);
+        return array('width' => $this->image_width, 'height' => 0);
     }
+
+    /**
+     * @param $url
+     * @return mixed|void
+     */
     public function setSiteUrl($url)
     {
         //@todo: sanitize url;
         $this->site_url = formatURL($url);
     }
+
+    /**
+     * @return string
+     */
     public function getSiteUrl()
     {
         return urlencode($this->site_url);
     }
-    public function setAttribution($attr=null)
+
+    /**
+     * @param null $attr
+     */
+    public function setAttribution($attr = null)
     {
         $this->attribution = $attr;
     }
+
+    /**
+     * @param int $allowhtml
+     * @return string
+     */
     public function getAttribution($allowhtml = 0)
     {
         if ($allowhtml) {
             return $this->attribution;
         } else {
-            $myts =& MyTextSanitizer::getInstance();
+            $myts = MyTextSanitizer::getInstance();
 
             return $myts->htmlSpecialChars($this->attribution);
         }
     }
+
+    /**
+     * @param $key
+     * @return mixed|void
+     */
     public function setProviderPublicKey($key)
     {
         $this->key = $key;
     }
+
+    /**
+     * @return null
+     */
     public function getProviderPublicKey()
     {
         return $this->key;
     }
+
+    /**
+     * @param $key
+     * @return bool
+     */
     public function setProviderPrivateKey($key)
     {
         return false;
     }
+
+    /**
+     * @return bool
+     */
     public function getProviderPrivateKey()
     {
         return false;

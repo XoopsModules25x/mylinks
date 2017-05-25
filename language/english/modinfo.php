@@ -13,9 +13,9 @@
  */
 /**
  * @copyright::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package::    mylinks
- * @author::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
+ * @license  ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package  ::    mylinks
+ * @author   ::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
  * ****************************************************************************
  */
 // Module Info
@@ -191,3 +191,9 @@ define('_MI_MYLINKS_ADMENU6_DESC', 'Blocks/Group Admin');
 define('_MI_MYLINKS_ADMENU7_DESC', 'Template Admin');
 define('_MYLINKS_ADMIN_ABOUT_DESC', 'Info About the Module');
 define('_MYLINKS_ADMIN_HELP_DESC', 'Help');
+
+//Help
+define('_MI_MYLINKS_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_MYLINKS_HELP_HEADER', __DIR__.'/help/helpheader.html');
+define('_MI_MYLINKS_BACK_2_ADMIN','Back to Administration of ');
+define('_MI_MYLINKS_HELP_OVERVIEW','Overview');

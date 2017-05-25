@@ -25,13 +25,13 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-include '../../mainfile.php';
-$com_itemid = isset($_GET['com_itemid']) ? intval($_GET['com_itemid']) : 0;
+include dirname(dirname(__DIR__)) . '/mainfile.php';
+$com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
 if ($com_itemid > 0) {
     // Get link title
-    $sql = 'SELECT title FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$com_itemid}";
-    $result = $xoopsDB->query($sql);
-    $row = $xoopsDB->fetchArray($result);
+    $sql            = 'SELECT title FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$com_itemid}";
+    $result         = $xoopsDB->query($sql);
+    $row            = $xoopsDB->fetchArray($result);
     $com_replytitle = $row['title'];
     include XOOPS_ROOT_PATH . '/include/comment_new.php';
 }

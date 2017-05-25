@@ -8,16 +8,20 @@
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
  *
- * @copyright:: The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package::   mylinks
- * @author::    zyspec <owners@zyspec.com>
- * @since::     File available since Release 3.11
+ * @copyright:: {@link http://xoops.org/ XOOPS Project}
+ * @license  ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package  ::   mylinks
+ * @author   ::    zyspec (owners@zyspec.com)
  */
 
-$mylinksDir = basename(dirname(__DIR__));
+$moduleDirName = basename(dirname(__DIR__));
 
-function xoops_module_pre_install_mylinks_base(&$xoopsModule) {
+/**
+ * @param $xoopsModule
+ * @return bool
+ */
+function xoops_module_pre_install_mylinks_base(&$xoopsModule)
+{
     global $xoopsDB;
     $retVal = true;
 
@@ -39,20 +43,20 @@ function xoops_module_pre_install_mylinks_base(&$xoopsModule) {
     } else {
         // Check if MySQL version is supported
         $minSQLSupported = explode('.', $minSQLVersion);
-        $sql = $xoopsDB->query('SELECT version() AS sqlver');
-        $result = $xoopsDB->fetchObject($sql);
-        $currSQLVer = $result->sqlver;
-        $sqlVerArray = explode('.', $currSQLVer);
-        $sqlVerArray = array_map('intval', $sqlVerArray); //strip off non-integer revision chars
+        $sql             = $xoopsDB->query('SELECT version() AS sqlver');
+        $result          = $xoopsDB->fetchObject($sql);
+        $currSQLVer      = $result->sqlver;
+        $sqlVerArray     = explode('.', $currSQLVer);
+        $sqlVerArray     = array_map('intval', $sqlVerArray); //strip off non-integer revision chars
 
         if ($sqlVerArray[0] < $minSQLSupported[0]) {
             $retVal = false;
             $xoopsModule->setErrors($mysqlErrMsg);
         } elseif ($sqlVerArray[0] == $minSQLSupported[0]) {
-            if ($sqlVerArray[1] <  $minSQLSupported[1]) {
+            if ($sqlVerArray[1] < $minSQLSupported[1]) {
                 $retVal = false;
                 $xoopsModule->setErrors($mysqlErrMsg);
-            } elseif (($sqlVerArray[1] ==  $minSQLSupported[1]) && ($sqlVerArray[2] <  $minSQLSupported[2])) {
+            } elseif (($sqlVerArray[1] == $minSQLSupported[1]) && ($sqlVerArray[2] < $minSQLSupported[2])) {
                 $retVal = false;
                 $xoopsModule->setErrors($mysqlErrMsg);
             }
@@ -61,10 +65,10 @@ function xoops_module_pre_install_mylinks_base(&$xoopsModule) {
         if ($retVal) {
             // Check if this XOOPS version is supported
             $minSupportedVersion = explode('.', $minXoopsVersion);
-            $curXoopsVersion = substr(XOOPS_VERSION, 6);
-            $currentVersion = explode('.', $curXoopsVersion );
+            $curXoopsVersion     = substr(XOOPS_VERSION, 6);
+            $currentVersion      = explode('.', $curXoopsVersion);
 
-//            $xoopsErrMsg = "<span style='color: red; font-weight: bold;'>YOUR XOOPS VERSION ({$curXoopsVersion}) MUST BE UPGRADED TO AT LEAST VERSION {$minXoopsVersion} TO USE THIS MODULE</span>";
+            //            $xoopsErrMsg = "<span style='color: red; font-weight: bold;'>YOUR XOOPS VERSION ({$curXoopsVersion}) MUST BE UPGRADED TO AT LEAST VERSION {$minXoopsVersion} TO USE THIS MODULE</span>";
             if ($currentVersion[0] < $minSupportedVersion[0]) {
                 $retVal = false;
                 $xoopsModule->setErrors($xoopsErrMsg);
@@ -72,30 +76,38 @@ function xoops_module_pre_install_mylinks_base(&$xoopsModule) {
                 if ($currentVersion[1] < $minSupportedVersion[1]) {
                     $retVal = false;
                     $xoopsModule->setErrors($xoopsErrMsg);
-                } elseif (($currentVersion[1] == $minSupportedVersion[1]) && ($currentVersion[2] < $minSupportedVersion[2])) {
+                } elseif (($currentVersion[1] == $minSupportedVersion[1])
+                          && ($currentVersion[2] < $minSupportedVersion[2])
+                ) {
                     $retVal = false;
                     $xoopsModule->setErrors($xoopsErrMsg);
                 }
             }
         }
     }
+
     return $retVal;
 }
 
+/**
+ * @param $xoopsModule
+ * @return bool
+ */
 function xoops_module_install_mylinks_base(&$xoopsModule)
 {
     return true;
 }
+
 /**
  * eval functions to support module relocation (directory renaming)
  */
-eval( 'function xoops_module_install_' . $mylinksDir . '(&$module=NULL)
+eval('function xoops_module_install_' . $moduleDirName . '(&$module=NULL)
         {
         return xoops_module_install_mylinks_base($module);
         }
-    ' );
-eval( 'function xoops_module_pre_install_' . $mylinksDir . '(&$module=NULL)
+    ');
+eval('function xoops_module_pre_install_' . $moduleDirName . '(&$module=NULL)
         {
         return xoops_module_pre_install_mylinks_base($module);
         }
-    ' );
+    ');

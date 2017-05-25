@@ -25,10 +25,10 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-include 'header.php';
-$myts =& MyTextSanitizer::getInstance(); // MyTextSanitizer object
+include __DIR__ . '/header.php';
+$myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 
-include_once './class/utility.php';
+include_once __DIR__ . '/class/utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
 
 if (!empty($_POST['submit'])) {
@@ -37,41 +37,41 @@ if (!empty($_POST['submit'])) {
         exit();
     }
     $user = $xoopsUser->getVar('uid');
-    $lid = mylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min'=>0));
+    $lid  = MylinksUtility::mylinks_cleanVars($_POST, 'lid', 0, 'int', array('min' => 0));
 
-//    include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
-//    $eh = new ErrorHandler; //ErrorHandler object
+    //    include_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
+    //    $eh = new ErrorHandler; //ErrorHandler object
 
     $msg = '';
     switch (true) {
-        case ( '' == $_POST['title'] ):
+        case ('' == $_POST['title']):
             $msg .= _MD_MYLINKS_ERRORTITLE;
-        case ( '' == $_POST['url'] ):
+        case ('' == $_POST['url']):
             $msg .= _MD_MYLINKS_ERRORURL;
-        case ( '' == $_POST['description'] ):
+        case ('' == $_POST['description']):
             $msg .= _MD_MYLINKS_ERRORDESC;
     }
     if ('' !== $msg) {
-        mylinksUtility::show_message($msg);
+        MylinksUtility::show_message($msg);
         exit();
     }
 
     $url         = $myts->addSlashes($_POST['url']);
     $logourl     = $myts->addSlashes($_POST['logourl']);
-    $cid         = mylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min'=>0));
+    $cid         = MylinksUtility::mylinks_cleanVars($_POST, 'cid', 0, 'int', array('min' => 0));
     $title       = $myts->addSlashes($_POST['title']);
     $description = $myts->addSlashes($_POST['description']);
     $newid       = $xoopsDB->genId($xoopsDB->prefix('mylinks_mod') . '_requestid_seq');
     $sql         = sprintf("INSERT INTO %s (requestid, lid, cid, title, url, logourl, description, modifysubmitter) VALUES (%u, %u, %u, '%s', '%s', '%s', '%s', %u)", $xoopsDB->prefix('mylinks_mod'), $newid, $lid, $cid, $title, $url, $logourl, $description, $user);
-    $result = $xoopsDB->query($sql);
+    $result      = $xoopsDB->query($sql);
     if (!result) {
-        mylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
+        MylinksUtility::show_message(_MD_MYLINKS_DBNOTUPDATED);
         exit();
     }
-    $tags = array();
+    $tags                      = array();
     $tags['MODIFYREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listModReq';
-    $notification_handler =& xoops_getHandler('notification');
-    $notification_handler->triggerEvent('global', 0, 'link_modify', $tags);
+    $notificationHandler      = xoops_getHandler('notification');
+    $notificationHandler->triggerEvent('global', 0, 'link_modify', $tags);
     redirect_header('index.php', 2, _MD_MYLINKS_THANKSFORINFO);
     exit();
 } else {
@@ -79,26 +79,26 @@ if (!empty($_POST['submit'])) {
         redirect_header(XOOPS_URL . '/user.php', 2, _MD_MYLINKS_MUSTREGFIRST);
         exit();
     }
-    $lid = mylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min'=>0));
+    $lid = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
 
     include_once XOOPS_ROOT_PATH . '/class/tree.php';
-    $mylinksCatHandler =& xoops_getmodulehandler('category', $xoopsModule->getVar('dirname'));
+    $mylinksCatHandler = xoops_getModuleHandler('category', $xoopsModule->getVar('dirname'));
     $catObjs           = $mylinksCatHandler->getAll();
     $myCatTree         = new XoopsObjectTree($catObjs, 'cid', 'pid');
 
-    $xoopsOption['template_main'] = 'mylinks_modlink.html';
+    $xoopsOption['template_main'] = 'mylinks_modlink.tpl';
     include XOOPS_ROOT_PATH . '/header.php';
 
     //wanikoo
     $xoTheme->addStylesheet('browse.php?' . mylinksGetStylePath('mylinks.css', 'include'));
     $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
     $xoTheme->addScript('browse.php?' . mylinksGetStylePath('mylinks.js', 'include'));
-/*
-    $mylinks_module_header = ""
-                          ."<link rel='stylesheet' type='text/css' href='" . mylinksGetStyleURL('mylinks.css') . "'>"
-                          ."<script src='" . mylinksGetStyleURL('mylinks.js') . "' type='text/javascript'></script>";
-    $xoopsTpl->assign('xoops_module_header', $mylinks_module_header);
-*/
+    /*
+        $mylinks_module_header = ""
+                              ."<link rel='stylesheet' type='text/css' href='" . mylinksGetStyleURL('mylinks.css') . "'>"
+                              ."<script src='" . mylinksGetStyleURL('mylinks.js') . "' type='text/javascript'></script>";
+        $xoopsTpl->assign('xoops_module_header', $mylinks_module_header);
+    */
     //
 
     $result = $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM ' . $xoopsDB->prefix('mylinks_links') . ' l, ' . $xoopsDB->prefix('mylinks_text') . " t WHERE l.lid={$lid} AND l.lid=t.lid AND status>0");
@@ -110,16 +110,18 @@ if (!empty($_POST['submit'])) {
     }
     $votestring = (1 == $votes) ? _MD_MYLINKS_ONEVOTE : sprintf(_MD_MYLINKS_NUMVOTES, $votes);
 
-    $xoopsTpl->assign('link', array('id'          => $lid,
-                                    'rating'      => number_format($rating, 2),
-                                    'title'       => $myts->htmlSpecialChars($myts->stripSlashesGPC($title)),
-                                    'url'         => $myts->htmlSpecialChars($url),
-                                    'logourl'     => $myts->htmlSpecialChars($logourl),
-                                    'updated'     => formatTimestamp($time, 'm'),
-                                    'description' => $myts->htmlSpecialChars($myts->stripSlashesGPC($description)),
-                                    'adminlink'   => $adminlink,
-                                    'hits'        => $hits,
-                                    'votes'       => $votestring));
+    $xoopsTpl->assign('link', array(
+        'id'          => $lid,
+        'rating'      => number_format($rating, 2),
+        'title'       => $myts->htmlSpecialChars($myts->stripSlashesGPC($title)),
+        'url'         => $myts->htmlSpecialChars($url),
+        'logourl'     => $myts->htmlSpecialChars($logourl),
+        'updated'     => formatTimestamp($time, 'm'),
+        'description' => $myts->htmlSpecialChars($myts->stripSlashesGPC($description)),
+        'adminlink'   => $adminlink,
+        'hits'        => $hits,
+        'votes'       => $votestring
+    ));
     $xoopsTpl->assign('lang_requestmod', _MD_MYLINKS_REQUESTMOD);
     $xoopsTpl->assign('lang_linkid', _MD_MYLINKS_LINKID);
     $xoopsTpl->assign('lang_sitetitle', _MD_MYLINKS_SITETITLE);
@@ -147,9 +149,9 @@ if (!empty($_POST['submit'])) {
 
     //wanikoo search
     if (file_exists(XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php')) {
-       include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
+        include_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/search.php';
     } else {
-       include_once XOOPS_ROOT_PATH . '/language/english/search.php';
+        include_once XOOPS_ROOT_PATH . '/language/english/search.php';
     }
     $xoopsTpl->assign('lang_all', _SR_ALL);
     $xoopsTpl->assign('lang_any', _SR_ANY);

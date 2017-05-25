@@ -54,8 +54,7 @@ $can_qrcode   = _MD_MYLINKS_DISALLOW;
 $can_bookmark = _MD_MYLINKS_DISALLOW;
 
 //print func
-switch ($mylinks_can_print)
-{
+switch ($mylinks_can_print) {
     case _MD_MYLINKS_MEMBERONLY:
         $can_print = $xoopsUser ? _MD_MYLINKS_ALLOW : _MD_MYLINKS_DISALLOW;
         break;
@@ -68,7 +67,7 @@ switch ($mylinks_can_print)
         break;
 }
 
-if ( _MD_MYLINKS_DISALLOW == $can_print ) {
+if (_MD_MYLINKS_DISALLOW == $can_print) {
     $xoopsTpl->assign('mylinksextrafuncprint', false);
 } else {
     $xoopsTpl->assign('mylinksextrafuncprint', true);
@@ -87,7 +86,7 @@ switch ($mylinks_can_pdf) {
         $can_pdf = _MD_MYLINKS_DISALLOW;
         break;
 }
-if ( _MD_MYLINKS_DISALLOW == $can_pdf ) {
+if (_MD_MYLINKS_DISALLOW == $can_pdf) {
     $xoopsTpl->assign('mylinksextrafuncpdf', false);
 } else {
     $xoopsTpl->assign('mylinksextrafuncpdf', true);
@@ -106,7 +105,7 @@ switch ($mylinks_can_qrcode) {
         $can_qrcode = _MD_MYLINKS_DISALLOW;
         break;
 }
-if ( _MD_MYLINKS_DISALLOW == $can_qrcode ) {
+if (_MD_MYLINKS_DISALLOW == $can_qrcode) {
     $xoopsTpl->assign('mylinksextrafuncqrcode', false);
 } else {
     $xoopsTpl->assign('mylinksextrafuncqrcode', true);
@@ -126,7 +125,7 @@ switch ($mylinks_can_bookmark) {
         $can_bookmark = _MD_MYLINKS_DISALLOW;
         break;
 }
-if ( _MD_MYLINKS_DISALLOW == $can_bookmark ) {
+if (_MD_MYLINKS_DISALLOW == $can_bookmark) {
     $xoopsTpl->assign('mylinksextrafuncbookmark', false);
 } else {
     $xoopsTpl->assign('mylinksextrafuncbookmark', true);
@@ -156,7 +155,7 @@ $xoopsTpl->assign('lang_pdafeed_cat', _MD_MYLINKS_PDAFEED_CAT);
 //ver2.5
 $xoopsTpl->assign('mylinks_weburl', XOOPSMYLINKURL);
 if (file_exists(XOOPSMYLINKIMGPATH . "/{$mylinks_theme}")) {
-    $xoopsTpl->assign('mylinks_imgurl', XOOPSMYLINKIMGURL."/{$mylinks_theme}");
+    $xoopsTpl->assign('mylinks_imgurl', XOOPSMYLINKIMGURL . "/{$mylinks_theme}");
 } else {
     $xoopsTpl->assign('mylinks_imgurl', XOOPSMYLINKIMGURL);
 }

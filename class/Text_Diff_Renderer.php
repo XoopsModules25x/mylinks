@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A class to render Diffs in different formats.
  *
@@ -9,7 +10,8 @@
  *
  * @package Text_Diff
  */
-class Text_Diff_Renderer {
+class Text_Diff_Renderer
+{
 
     /**
      * Number of leading context "lines" to preserve.
@@ -17,7 +19,7 @@ class Text_Diff_Renderer {
      * This should be left at zero for this class, but subclasses may want to
      * set this to other values.
      */
-    var $_leading_context_lines = 0;
+    public $_leading_context_lines = 0;
 
     /**
      * Number of trailing context "lines" to preserve.
@@ -25,12 +27,13 @@ class Text_Diff_Renderer {
      * This should be left at zero for this class, but subclasses may want to
      * set this to other values.
      */
-    var $_trailing_context_lines = 0;
+    public $_trailing_context_lines = 0;
 
     /**
      * Constructor.
+     * @param array $params
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         foreach ($params as $param => $value) {
             $v = '_' . $param;
@@ -45,7 +48,7 @@ class Text_Diff_Renderer {
      *
      * @return array All parameters of this renderer object.
      */
-    function getParams()
+    public function getParams()
     {
         $params = array();
         foreach (get_object_vars($this) as $k => $v) {
@@ -64,13 +67,13 @@ class Text_Diff_Renderer {
      *
      * @return string The formatted output.
      */
-    function render($diff)
+    public function render($diff)
     {
-        $xi = $yi = 1;
-        $block = false;
+        $xi      = $yi = 1;
+        $block   = false;
         $context = array();
 
-        $nlead = $this->_leading_context_lines;
+        $nlead  = $this->_leading_context_lines;
         $ntrail = $this->_trailing_context_lines;
 
         $output = $this->_startDiff();
@@ -85,9 +88,7 @@ class Text_Diff_Renderer {
                             $context = array_slice($edit->orig, 0, $ntrail);
                             $block[] = new Text_Diff_Op_copy($context);
                         }
-                        $output .= $this->_block($x0, $ntrail + $xi - $x0,
-                                                 $y0, $ntrail + $yi - $y0,
-                                                 $block);
+                        $output .= $this->_block($x0, $ntrail + $xi - $x0, $y0, $ntrail + $yi - $y0, $block);
                         $block = false;
                     }
                 }
@@ -95,9 +96,9 @@ class Text_Diff_Renderer {
             } else {
                 if (!is_array($block)) {
                     $context = array_slice($context, count($context) - $nlead);
-                    $x0 = $xi - count($context);
-                    $y0 = $yi - count($context);
-                    $block = array();
+                    $x0      = $xi - count($context);
+                    $y0      = $yi - count($context);
+                    $block   = array();
                     if ($context) {
                         $block[] = new Text_Diff_Op_copy($context);
                     }
@@ -114,52 +115,71 @@ class Text_Diff_Renderer {
         }
 
         if (is_array($block)) {
-            $output .= $this->_block($x0, $xi - $x0,
-                                     $y0, $yi - $y0,
-                                     $block);
+            $output .= $this->_block($x0, $xi - $x0, $y0, $yi - $y0, $block);
         }
 
         return $output . $this->_endDiff();
     }
 
-    function _block($xbeg, $xlen, $ybeg, $ylen, &$edits)
+    /**
+     * @param $xbeg
+     * @param $xlen
+     * @param $ybeg
+     * @param $ylen
+     * @param $edits
+     * @return string
+     */
+    public function _block($xbeg, $xlen, $ybeg, $ylen, &$edits)
     {
         $output = $this->_startBlock($this->_blockHeader($xbeg, $xlen, $ybeg, $ylen));
 
         foreach ($edits as $edit) {
             switch (strtolower(get_class($edit))) {
-            case 'text_diff_op_copy':
-                $output .= $this->_context($edit->orig);
-                break;
+                case 'text_diff_op_copy':
+                    $output .= $this->_context($edit->orig);
+                    break;
 
-            case 'text_diff_op_add':
-                $output .= $this->_added($edit->final);
-                break;
+                case 'text_diff_op_add':
+                    $output .= $this->_added($edit->final);
+                    break;
 
-            case 'text_diff_op_delete':
-                $output .= $this->_deleted($edit->orig);
-                break;
+                case 'text_diff_op_delete':
+                    $output .= $this->_deleted($edit->orig);
+                    break;
 
-            case 'text_diff_op_change':
-                $output .= $this->_changed($edit->orig, $edit->final);
-                break;
+                case 'text_diff_op_change':
+                    $output .= $this->_changed($edit->orig, $edit->final);
+                    break;
             }
         }
 
         return $output . $this->_endBlock();
     }
 
-    function _startDiff()
+    /**
+     * @return string
+     */
+    public function _startDiff()
     {
         return '';
     }
 
-    function _endDiff()
+    /**
+     * @return string
+     */
+    public function _endDiff()
     {
         return '';
     }
 
-    function _blockHeader($xbeg, $xlen, $ybeg, $ylen)
+    /**
+     * @param $xbeg
+     * @param $xlen
+     * @param $ybeg
+     * @param $ylen
+     * @return string
+     */
+    public function _blockHeader($xbeg, $xlen, $ybeg, $ylen)
     {
         if ($xlen > 1) {
             $xbeg .= ',' . ($xbeg + $xlen - 1);
@@ -171,39 +191,67 @@ class Text_Diff_Renderer {
         return $xbeg . ($xlen ? ($ylen ? 'c' : 'd') : 'a') . $ybeg;
     }
 
-    function _startBlock($header)
+    /**
+     * @param $header
+     * @return string
+     */
+    public function _startBlock($header)
     {
         return $header . "\n";
     }
 
-    function _endBlock()
+    /**
+     * @return string
+     */
+    public function _endBlock()
     {
         return '';
     }
 
-    function _lines($lines, $prefix = ' ')
+    /**
+     * @param        $lines
+     * @param string $prefix
+     * @return string
+     */
+    public function _lines($lines, $prefix = ' ')
     {
         return $prefix . implode("\n$prefix", $lines) . "\n";
     }
 
-    function _context($lines)
+    /**
+     * @param $lines
+     * @return string
+     */
+    public function _context($lines)
     {
         return $this->_lines($lines);
     }
 
-    function _added($lines)
+    /**
+     * @param $lines
+     * @return string
+     */
+    public function _added($lines)
     {
         return $this->_lines($lines, '>');
     }
 
-    function _deleted($lines)
+    /**
+     * @param $lines
+     * @return string
+     */
+    public function _deleted($lines)
     {
         return $this->_lines($lines, '<');
     }
 
-    function _changed($orig, $final)
+    /**
+     * @param $orig
+     * @param $final
+     * @return string
+     */
+    public function _changed($orig, $final)
     {
         return $this->_deleted($orig) . "---\n" . $this->_added($final);
     }
-
 }

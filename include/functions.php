@@ -27,22 +27,32 @@
 
 include_once XOOPS_ROOT_PATH . '/class/tree.php';
 
+/**
+ * @param $time
+ * @param $status
+ * @return string
+ */
 function newlinkgraphic($time, $status)
 {
     $count     = 7;
     $new       = '';
-    $startdate = (time()-(86400 * $count));
+    $startdate = (time() - (86400 * $count));
 
     if ($startdate < $time) {
-        if (1 == $status){
+        if (1 == $status) {
             $new = "&nbsp;<img src='" . mylinksGetIconURL('newred.gif') . "' alt='" . _MD_MYLINKS_NEWTHISWEEK . "'>";
         } elseif (2 == $status) {
             $new = "&nbsp;<img src='" . mylinksGetIconURL('update.gif') . "' alt='" . _MD_MYLINKS_UPTHISWEEK . "'>";
         }
     }
+
     return $new;
 }
 
+/**
+ * @param $hits
+ * @return string
+ */
 function popgraphic($hits)
 {
     global $xoopsModuleConfig;
@@ -51,6 +61,7 @@ function popgraphic($hits)
     if (isset($hits) && ($hits >= $xoopsModuleConfig['popular'])) {
         $retVal = "&nbsp;<img src='" . mylinksGetIconURL('pop.gif') . "' alt='" . _MD_MYLINKS_POPULAR . "'>";
     }
+
     return $retVal;
 }
 
@@ -60,11 +71,14 @@ function popgraphic($hits)
  * @param string orderby is a shortened string for sorting
  * @return string returns a dB 'ready' ORDER BY string for dB query
  */
+/**
+ * @param $orderby
+ * @return string
+ */
 function convertorderbyin($orderby)
 {
     $orderby = (isset($orderby) && ('' != trim($orderby))) ? trim($orderby) : '';
-    switch ( $orderby )
-    {
+    switch ($orderby) {
         case 'titleA':
             $orderby = 'title ASC';
             break;
@@ -91,14 +105,18 @@ function convertorderbyin($orderby)
             $orderby = 'date DESC';
             break;
     }
+
     return $orderby;
 }
 
+/**
+ * @param $orderby
+ * @return string
+ */
 function convertorderbytrans($orderby)
 {
     $orderby = (isset($orderby) && ('' != trim($orderby))) ? trim($orderby) : '';
-    switch ($orderby)
-    {
+    switch ($orderby) {
         case 'title ASC':
             $orderbyTrans = '' . _MD_MYLINKS_TITLEATOZ . '';
             break;
@@ -125,14 +143,18 @@ function convertorderbytrans($orderby)
             $orderbyTrans = '' . _MD_MYLINKS_DATENEW . '';
             break;
     }
+
     return $orderbyTrans;
 }
 
+/**
+ * @param $orderby
+ * @return string
+ */
 function convertorderbyout($orderby)
 {
     $orderby = (isset($orderby) && ('' != trim($orderby))) ? trim($orderby) : '';
-    switch ($orderby)
-    {
+    switch ($orderby) {
         case 'title ASC':
             $orderby = 'titleA';
             break;
@@ -159,6 +181,7 @@ function convertorderbyout($orderby)
             $orderby = 'dateD';
             break;
     }
+
     return $orderby;
 }
 
@@ -170,43 +193,49 @@ function convertorderbyout($orderby)
 function updaterating($sel_id)
 {
     global $xoopsDB;
-    $sel_id = intval($sel_id);
-    $sql = 'SELECT COUNT(*), FORMAT(AVG(rating),4) FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE lid={$sel_id}";
+    $sel_id     = (int)$sel_id;
+    $sql        = 'SELECT COUNT(*), FORMAT(AVG(rating),4) FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE lid={$sel_id}";
     $voteResult = $xoopsDB->query($sql);
     if ($voteResult) {
         list($votesDB, $finalrating) = $xoopsDB->fetchRow($voteResult);
-/*
-    $query = "SELECT rating FROM " . $xoopsDB->prefix("mylinks_votedata") . " WHERE lid={$sel_id}";
-    $voteresult = $xoopsDB->query($query);
-    $votesDB = $xoopsDB->getRowsNum($voteresult);
-    $totalrating = 0;
-    while(list($rating)=$xoopsDB->fetchRow($voteresult)){
-        $totalrating += $rating;
-    }
-    $finalrating = $totalrating/$votesDB;
-    $finalrating = number_format($finalrating, 4);
-*/
+        /*
+            $query = "SELECT rating FROM " . $xoopsDB->prefix("mylinks_votedata") . " WHERE lid={$sel_id}";
+            $voteresult = $xoopsDB->query($query);
+            $votesDB = $xoopsDB->getRowsNum($voteresult);
+            $totalrating = 0;
+            while(list($rating)=$xoopsDB->fetchRow($voteresult)){
+                $totalrating += $rating;
+            }
+            $finalrating = $totalrating/$votesDB;
+            $finalrating = number_format($finalrating, 4);
+        */
         $query = 'UPDATE ' . $xoopsDB->prefix('mylinks_links') . " SET rating={$finalrating}, votes={$votesDB} WHERE lid = {$sel_id}";
         $xoopsDB->query($query) or exit();
     }
 }
 
 //returns the total number of items in items table that are accociated with a given table $table id
-function getTotalItems($sel_id=NULL, $status='', $oper='>')
+/**
+ * @param null   $sel_id
+ * @param string $status
+ * @param string $oper
+ * @return mixed
+ */
+function getTotalItems($sel_id = null, $status = '', $oper = '>')
 {
-    $sel_id = filter_var($sel_id, FILTER_VALIDATE_INT, array( 'options' => array( 'default' => 0, 'min_range' => 0)));
-    $count = 0;
-    $arr = array();
+    $sel_id = filter_var($sel_id, FILTER_VALIDATE_INT, array('options' => array('default' => 0, 'min_range' => 0)));
+    $count  = 0;
+    $arr    = array();
 
     // get XoopsObjectTree for categories
-    $mylinksCatHandler =& xoops_getmodulehandler('category', 'mylinks');
-    $catFields = array('cid', 'pid');
-    $catObjs = $mylinksCatHandler->getAll(null, $catFields);
-    $myCatTree = new XoopsObjectTree($catObjs, 'cid', 'pid');
+    $mylinksCatHandler = xoops_getModuleHandler('category', 'mylinks');
+    $catFields         = array('cid', 'pid');
+    $catObjs           = $mylinksCatHandler->getAll(null, $catFields);
+    $myCatTree         = new XoopsObjectTree($catObjs, 'cid', 'pid');
 
-  /* new count routine */
+    /* new count routine */
     $childObjArray = $myCatTree->getAllChild($sel_id);
-//    $whereClause = "`cid`=0";
+    //    $whereClause = "`cid`=0";
     $whereClause = "`cid`={$sel_id}";
     if (!empty($childObjArray)) {
         $whereClause = "`cid` IN ({$sel_id}";
@@ -217,19 +246,21 @@ function getTotalItems($sel_id=NULL, $status='', $oper='>')
     }
     $query = 'SELECT COUNT(*) FROM ' . $GLOBALS['xoopsDB']->prefix('mylinks_links') . " WHERE {$whereClause}";
     if ('' !== $status) {
-        $status = intval($status);
-        if (preg_match('/^[!]*[<=>]{1}[=>]*$/', $oper, $match) ) {
+        $status = (int)$status;
+        if (preg_match('/^[!]*[<=>]{1}[=>]*$/', $oper, $match)) {
             $oper = $match[0];
         } else {
             $oper = '>';
         }
-//        $oper   = (0 == intval($status)) ? '=' : '>';
+        //        $oper   = (0 == intval($status)) ? '=' : '>';
         $query .= " AND status{$oper}{$status}";
     }
     $result = $GLOBALS['xoopsDB']->query($query);
     list($linkCount) = $GLOBALS['xoopsDB']->fetchRow($result);
+
     return $linkCount;
 }
+
 /*
 function getTotalItems($sel_id=NULL, $status='', $oper='>')
 {
@@ -240,7 +271,7 @@ function getTotalItems($sel_id=NULL, $status='', $oper='>')
     $arr = array();
 
     // get XoopsObjectTree for categories
-    $mylinksCatHandler =& xoops_getmodulehandler('category', $xoopsModule->getVar('dirname'));
+    $mylinksCatHandler = xoops_getModuleHandler('category', $xoopsModule->getVar('dirname'));
     $catObjs = $mylinksCatHandler->getAll();
     $myCatTree = new XoopsObjectTree($catObjs, 'cid', 'pid');
 
@@ -268,18 +299,27 @@ function getTotalItems($sel_id=NULL, $status='', $oper='>')
 }
 */
 //wanikoo
+/**
+ * @param $aFile
+ * @return string
+ */
 function mylinksGetStyleURL($aFile)
 {
     global $mylinks_theme;
     $StyleURL = XOOPSMYLINKINCURL . "/{$mylinks_theme}/icons/{$aFile}";
 
-    if ( file_exists(XOOPSMYLINKINCPATH . "/{$mylinks_theme}/icons/{$aFile}")) {
+    if (file_exists(XOOPSMYLINKINCPATH . "/{$mylinks_theme}/icons/{$aFile}")) {
         return $StyleURL;
     } else {
         return XOOPSMYLINKINCURL . "/icons/{$aFile}";
     }
 }
+
 //
+/**
+ * @param $aFile
+ * @return string
+ */
 function mylinksGetIconURL($aFile)
 {
     global $mylinks_theme;
@@ -292,7 +332,13 @@ function mylinksGetIconURL($aFile)
 }
 
 //
-function mylinksGetStylePath($aFile, $subPath='', $relPath=true)
+/**
+ * @param        $aFile
+ * @param string $subPath
+ * @param bool   $relPath
+ * @return string
+ */
+function mylinksGetStylePath($aFile, $subPath = '', $relPath = true)
 {
     global $mylinks_theme, $xoopsModule;
     //sanitize subPath to make sure it's only contains valid path chars
@@ -300,12 +346,15 @@ function mylinksGetStylePath($aFile, $subPath='', $relPath=true)
 
     $path = $subPath ? 'modules/' . $xoopsModule->getVar('dirname') : XOOPSMYLINKPATH . '/modules/' . $xoopsModule->getVar('dirname') . '/';
 
-    $subPath = (!empty($subPath)) ? "/{$subPath}" : '';
+    $subPath   = (!empty($subPath)) ? "/{$subPath}" : '';
     $stylePath = "{$path}{$subPath}/{$mylinks_theme}/{$aFile}";
 
     return file_exists($stylePath) ? $stylePath : "{$path}{$subPath}/{$aFile}";
 }
 
+/**
+ * @return string
+ */
 function ml_wfd_letters()
 {
     global $xoopsDB, $xoopsModule;
@@ -313,19 +362,19 @@ function ml_wfd_letters()
     xoops_loadLanguage('main', $xoopsModule->getVar('dirname'));
     $alphabet = explode(',', _MD_MYLINKS_LTRCHARS);
 
-    $result = $xoopsDB->query('SELECT COUNT(*), LEFT(title, 1) AS sletter FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status>0 GROUP BY sletter');
+    $result      = $xoopsDB->query('SELECT COUNT(*), LEFT(title, 1) AS sletter FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status>0 GROUP BY sletter');
     $letterArray = array();
     while (list($count, $sletter) = $xoopsDB->fetchRow($result)) {
-        $sletter = mb_strtoupper($sletter);
+        $sletter               = mb_strtoupper($sletter);
         $letterArray[$sletter] = $count;
     }
 
     $letterchoice = "<div class='browsebyletter'>" . _MD_MYLINKS_BROWSETOTOPIC . '</div>';
     $letterchoice .= '[  ';
-    $num = count($alphabet) - 1;
+    $num     = count($alphabet) - 1;
     $halfNum = round($num / 2);
     $counter = 0;
-    foreach ($alphabet as $key=>$ltr) {
+    foreach ($alphabet as $key => $ltr) {
         if (array_key_exists($ltr, $letterArray)) {
             $letterchoice .= "<a class='browsebyletter' href='" . XOOPSMYLINKURL . "/viewcat.php?list={$ltr}'>{$ltr}</a>";
         } else {
@@ -339,17 +388,22 @@ function ml_wfd_letters()
         $counter++;
     }
     $letterchoice .= ' ]';
+
     return $letterchoice;
 }
 
+/**
+ * @return string
+ */
 function ml_wfd_toolbar()
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsUser;
-    xoops_loadlanguage('modinfo', $xoopsModule->getVar('dirname'));
-    $toolbar = "[ <a href='index.php' class='toolbar'>" ._MD_MYLINKS_MAIN . '</a> | ';
-    if (is_object($xoopsUser) || (!is_object($xoopsUser) && $xoopsModuleConfig['anonpost']) ) {
+    xoops_loadLanguage('modinfo', $xoopsModule->getVar('dirname'));
+    $toolbar = "[ <a href='index.php' class='toolbar'>" . _MD_MYLINKS_MAIN . '</a> | ';
+    if (is_object($xoopsUser) || (!is_object($xoopsUser) && $xoopsModuleConfig['anonpost'])) {
         $toolbar .= "<a href='submit.php' class='toolbar'>" . _MI_MYLINKS_SMNAME1 . '</a> | ';
     }
     $toolbar .= "<a href='topten.php?sort=2' class='toolbar'>" . _MI_MYLINKS_SMNAME2 . "</a> | <a href='topten.php?sort=1' class='toolbar'>" . _MI_MYLINKS_SMNAME3 . "</a> | <a href='topten.php?sort=3' class='toolbar'>" . _MI_MYLINKS_SMNAME4 . '</a> ]';
+
     return $toolbar;
 }
