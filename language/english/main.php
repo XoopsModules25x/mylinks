@@ -11,7 +11,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 /**
- * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  {@link https://xoops.org/ XOOPS Project}
  * @copyright ::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
  * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks

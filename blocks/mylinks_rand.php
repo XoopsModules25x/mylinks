@@ -11,7 +11,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright ::  &copy; {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  &copy; {@link https://xoops.org/ XOOPS Project}
  * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks
  * @subpackage:: blocks

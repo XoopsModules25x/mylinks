@@ -2,7 +2,7 @@
 /**
  *  mylinks Thumb Provider Plugin Interface Class Elements
  *
- * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  {@link https://xoops.org/ XOOPS Project}
  * @copyright ::  ZySpec Incorporated
  * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks
@@ -17,7 +17,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  *
  * @package   ::   mylinks
  * @author    ::    zyspec (owners@zyspec.com), Herve Thouzard
- * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  {@link https://xoops.org/ XOOPS Project}
  * @copyright :: Copyright (c) 2012 ZySpec Incorporated, Herve Thouzard
  * @access::    public
  */

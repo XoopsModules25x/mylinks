@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 /**
- * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  {@link https://xoops.org/ XOOPS Project}
  * @copyright ::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
  * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks
@@ -52,7 +52,7 @@ define('_AM_MYLINKS_ADMIN_UPDATE', 'Update');
 define('_AM_MYLINKS_ADMIN_PREFERENCES', 'Settings');
 
 // text in admin footer
-define('_AM_MYLINKS_ADMIN_FOOTER', "<div class='center smallsmall italic pad5'><strong>{$admin_mydirname}</strong> is maintained by the <a class='tooltip' rel='external' href='http://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
+define('_AM_MYLINKS_ADMIN_FOOTER', "<div class='center smallsmall italic pad5'><strong>{$admin_mydirname}</strong> is maintained by the <a class='tooltip' rel='external' href='https://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
 
 define('_MYLINKS_ADMIN_', ' '); //
 

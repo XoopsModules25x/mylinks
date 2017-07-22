@@ -13,7 +13,7 @@
  *
  * Tell a friend form generator / send email
  *
- * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  {@link https://xoops.org/ XOOPS Project}
  * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks
  */

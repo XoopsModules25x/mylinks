@@ -178,7 +178,7 @@ History
 ------------------------------
 
 Support Forum:
-http://xoops.org/modules/newbb/viewtopic.php?post_id=352230
+https://xoops.org/modules/newbb/viewtopic.php?post_id=352230
 
 From wanikoo [wani@wanisys.net]
 the most educational site, wanisys.net [ http://www.wanisys.net  ]

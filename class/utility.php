@@ -17,7 +17,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  *
  * @package   ::   mylinks
  * @author    ::    zyspec (owners@zyspec.com), Herve Thouzard
- * @copyright ::  {@link http://xoops.org/ XOOPS Project}
+ * @copyright ::  {@link https://xoops.org/ XOOPS Project}
  * @copyright :: Copyright (c) 2010 ZySpec Incorporated, Herve Thouzard
  * @access::    public
  */
