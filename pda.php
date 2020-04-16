@@ -1,18 +1,18 @@
 <?php
 
-include dirname(dirname(__DIR__)) . '/mainfile.php';
-include_once XOOPS_ROOT_PATH . '/class/template.php';
+require_once dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 error_reporting(0);
 $modulename = basename(__DIR__);
-include_once XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feedfunc.new.php";
+require_once XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feedfunc.new.php";
 
 // for debug
 $cache = false;
 
-$param_array = array(
+$param_array = [
     'show'  => 10,
-    'image' => 1
-);
+    'image' => 1,
+];
 
 $new_array = mylinks_get_new($param_array);
 
@@ -28,10 +28,10 @@ if (function_exists('mb_http_output')) {
 }
 
 header('Content-Type:text/html');
-$tpl = new XoopsTpl();
+$tpl = new \XoopsTpl();
 
 if ($cache) {
-    $tpl->xoops_setCaching(2);
+    $tpl->caching = 2;
     $tpl->xoops_setCacheTime(3600);
 }
 
@@ -44,7 +44,7 @@ if (!$tpl->is_cached("file:{$template}") || !$cache) {
         $tpl->assign('image_url', XOOPS_URL . "/$logo");
 
         $i     = 0;
-        $block = array();
+        $block = [];
 
         foreach ($new_array as $new) {
             $line['link']  = $new['link'];
@@ -58,7 +58,7 @@ if (!$tpl->is_cached("file:{$template}") || !$cache) {
             $line['date_s'] = formatTimestamp($new['time'], 's');
 
             $block[] = $line;
-            $i++;
+            ++$i;
         }
 
         $tpl->assign('whatsnew', $block);

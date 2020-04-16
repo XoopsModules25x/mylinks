@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Mylinks\Providers;
+
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -25,19 +28,20 @@
  *
  * Xoops mylinks - a multicategory links module
  *
- * @copyright ::  {@link https://xoops.org/ XOOPS Project}
  * @copyright ::  {@link http://www.zyspec.com ZySpec Incorporated}
- * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @license   ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks
  * @subpackage:: class
+ * @since     ::      3.11
  * @author    ::     zyspec <owner@zyspec.com>
  */
-require_once XOOPS_ROOT_PATH . '/modules/mylinks/class/thumbplugin.interface.php';
+
+use XoopsModules\Mylinks;
 
 /**
  * Class MylinksHeartrails
  */
-class MylinksHeartrails implements MylinksThumbPlugin
+class Heartrails implements Mylinks\ThumbPlugin
 {
     private   $image_width   = 0;
     private   $image_height  = 0;
@@ -102,7 +106,7 @@ class MylinksHeartrails implements MylinksThumbPlugin
      */
     public function getShotSize()
     {
-        return array('width' => $this->image_width, 'height' => $this->image_height);
+        return ['width' => $this->image_width, 'height' => $this->image_height];
     }
 
     /**
@@ -139,11 +143,10 @@ class MylinksHeartrails implements MylinksThumbPlugin
     {
         if ($allowhtml) {
             return $this->attribution;
-        } else {
-            $myts = MyTextSanitizer::getInstance();
-
-            return $myts->htmlSpecialChars($this->attribution);
         }
+        $myts = \MyTextSanitizer::getInstance();
+
+        return $myts->htmlSpecialChars($this->attribution);
     }
 
     /**

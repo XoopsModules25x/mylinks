@@ -1,5 +1,7 @@
 <?php
 
+namespace XoopsModules\Mylinks;
+
 /**
  * General API for generating and formatting diffs - the differences between
  * two sequences of strings.
@@ -16,7 +18,7 @@
  * @package Text_Diff
  * @author  Geoffrey T. Dairiki <dairiki@dairiki.org>
  */
-class Horde_Text_Diff
+class HordeTextDiff
 {
     /**
      * Array of changes.
@@ -36,16 +38,16 @@ class Horde_Text_Diff
      */
     public function __construct($engine, $params)
     {
-        if ($engine == 'auto') {
+        if ('auto' == $engine) {
             $engine = extension_loaded('xdiff') ? 'Xdiff' : 'Native';
         } else {
             $engine = Horde_String::ucfirst(basename($engine));
         }
 
-        $class       = 'Horde_Text_Diff_Engine_' . $engine;
+        $class       = 'HordeTextDiffEngine_' . $engine;
         $diff_engine = new $class();
 
-        $this->_edits = call_user_func_array(array($diff_engine, 'diff'), $params);
+        $this->_edits = call_user_func_array([$diff_engine, 'diff'], $params);
     }
 
     /**
@@ -59,14 +61,14 @@ class Horde_Text_Diff
     /**
      * returns the number of new (added) lines in a given diff.
      *
-     * @return integer The number of new lines
+     * @return int The number of new lines
      */
     public function countAddedLines()
     {
         $count = 0;
         foreach ($this->_edits as $edit) {
-            if ($edit instanceof Horde_Text_Diff_Op_Add
-                || $edit instanceof Horde_Text_Diff_Op_Change) {
+            if ($edit instanceof HordeTextDiffOp_Add
+                || $edit instanceof HordeTextDiffOp_Change) {
                 $count += $edit->nfinal();
             }
         }
@@ -77,14 +79,14 @@ class Horde_Text_Diff
     /**
      * Returns the number of deleted (removed) lines in a given diff.
      *
-     * @return integer The number of deleted lines
+     * @return int The number of deleted lines
      */
     public function countDeletedLines()
     {
         $count = 0;
         foreach ($this->_edits as $edit) {
-            if ($edit instanceof Horde_Text_Diff_Op_Delete
-                || $edit instanceof Horde_Text_Diff_Op_Change) {
+            if ($edit instanceof HordeTextDiffOp_Delete
+                || $edit instanceof HordeTextDiffOp_Change) {
                 $count += $edit->norig();
             }
         }
@@ -101,7 +103,7 @@ class Horde_Text_Diff
      * $rev = $diff->reverse();
      * </code>
      *
-     * @return Horde_Text_Diff  A Diff object representing the inverse of the
+     * @return \XoopsModules\Mylinks\HordeTextDiff A Diff object representing the inverse of the
      *                    original diff.  Note that we purposely don't return a
      *                    reference here, since this essentially is a clone()
      *                    method.
@@ -109,11 +111,11 @@ class Horde_Text_Diff
     public function reverse()
     {
         if (version_compare(zend_version(), '2', '>')) {
-            $rev = clone($this);
+            $rev = clone $this;
         } else {
             $rev = $this;
         }
-        $rev->_edits = array();
+        $rev->_edits = [];
         foreach ($this->_edits as $edit) {
             $rev->_edits[] = $edit->reverse();
         }
@@ -124,12 +126,12 @@ class Horde_Text_Diff
     /**
      * Checks for an empty diff.
      *
-     * @return boolean  True if two sequences were identical.
+     * @return bool  True if two sequences were identical.
      */
     public function isEmpty()
     {
         foreach ($this->_edits as $edit) {
-            if (!($edit instanceof Horde_Text_Diff_Op_Copy)) {
+            if (!($edit instanceof HordeTextDiffOp_Copy)) {
                 return false;
             }
         }
@@ -142,13 +144,13 @@ class Horde_Text_Diff
      *
      * This is mostly for diagnostic purposes.
      *
-     * @return integer  The length of the LCS.
+     * @return int  The length of the LCS.
      */
     public function lcs()
     {
         $lcs = 0;
         foreach ($this->_edits as $edit) {
-            if ($edit instanceof Horde_Text_Diff_Op_Copy) {
+            if ($edit instanceof HordeTextDiffOp_Copy) {
                 $lcs += count($edit->orig);
             }
         }
@@ -165,7 +167,7 @@ class Horde_Text_Diff
      */
     public function getOriginal()
     {
-        $lines = array();
+        $lines = [];
         foreach ($this->_edits as $edit) {
             if ($edit->orig) {
                 array_splice($lines, count($lines), 0, $edit->orig);
@@ -184,7 +186,7 @@ class Horde_Text_Diff
      */
     public function getFinal()
     {
-        $lines = array();
+        $lines = [];
         foreach ($this->_edits as $edit) {
             if ($edit->final) {
                 array_splice($lines, count($lines), 0, $edit->final);
@@ -198,18 +200,21 @@ class Horde_Text_Diff
      * Removes trailing newlines from a line of text. This is meant to be used
      * with array_walk().
      *
-     * @param string  $line The line to trim.
-     * @param integer $key  The index of the line in the array. Not used.
+     * @param string $line The line to trim.
+     * @param int    $key  The index of the line in the array. Not used.
      */
     public static function trimNewlines(&$line, $key)
     {
-        $line = str_replace(array("\n", "\r"), '', $line);
+        $line = str_replace(["\n", "\r"], '', $line);
     }
 
     /**
      * Checks a diff for validity.
      *
      * This is here only for debugging purposes.
+     * @param $from_lines
+     * @param $to_lines
+     * @return bool
      */
     protected function _check($from_lines, $to_lines)
     {
@@ -231,7 +236,7 @@ class Horde_Text_Diff
         $prevtype = null;
         foreach ($this->_edits as $edit) {
             if ($prevtype == get_class($edit)) {
-                trigger_error("Edit sequence is non-optimal", E_USER_ERROR);
+                trigger_error('Edit sequence is non-optimal', E_USER_ERROR);
             }
             $prevtype = get_class($edit);
         }

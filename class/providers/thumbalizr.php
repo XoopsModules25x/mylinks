@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Mylinks\Providers;
+
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -25,24 +28,25 @@
  *
  * Xoops mylinks - a multicategory links module
  *
- * @copyright ::  {@link https://xoops.org/ XOOPS Project}
  * @copyright ::  {@link http://www.zyspec.com ZySpec Incorporated}
- * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @license   ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks
  * @subpackage:: class
+ * @since     ::      3.11
  * @author    ::     zyspec <owner@zyspec.com>
  */
-require_once XOOPS_ROOT_PATH . '/modules/mylinks/class/thumbplugin.interface.php';
+
+use XoopsModules\Mylinks;
 
 /**
  * Class MylinksThumbalizr
  */
-class MylinksThumbalizr implements MylinksThumbPlugin
+class Thumbalizr implements Mylinks\ThumbPlugin
 {
     private $image_width   = 0;
     private $site_url      = null;
     private $key           = null;
-    private $attribution   = "<a href=\"http://www.thumbalizr.com\" target=\"_blank\" title=\"Thumbnail Screenshots by Thumbalizr\">Thumbnail Screenshots by Thumbalizr</a>";
+    private $attribution   = '<a href="http://www.thumbalizr.com" target="_blank" title="Thumbnail Screenshots by Thumbalizr">Thumbnail Screenshots by Thumbalizr</a>';
     private $provider_url  = 'http://api.thumbalizr.com';
     private $provider_name = 'Thumbalizr';
 
@@ -58,12 +62,12 @@ class MylinksThumbalizr implements MylinksThumbPlugin
      */
     public function getProviderUrl()
     {
-        $query_string = array(
+        $query_string = [
             'url'      => $this->site_url,
             'width'    => $this->image_width,
             'encoding' => 'jpg',
-            'mode'     => 'screen'
-        );
+            'mode'     => 'screen',
+        ];
         $api_key      = $this->getProviderPublicKey();
         if (!empty($api_key)) {
             $query_string['api_key'] = $api_key;
@@ -103,7 +107,7 @@ class MylinksThumbalizr implements MylinksThumbPlugin
      */
     public function getShotSize()
     {
-        return array('width' => $this->image_width, 'height' => 0);
+        return ['width' => $this->image_width, 'height' => 0];
     }
 
     /**
@@ -140,11 +144,10 @@ class MylinksThumbalizr implements MylinksThumbPlugin
     {
         if ($allowhtml) {
             return $this->attribution;
-        } else {
-            $myts = MyTextSanitizer::getInstance();
-
-            return $myts->htmlSpecialChars($this->attribution);
         }
+        $myts = \MyTextSanitizer::getInstance();
+
+        return $myts->htmlSpecialChars($this->attribution);
     }
 
     /**
@@ -156,9 +159,6 @@ class MylinksThumbalizr implements MylinksThumbPlugin
         $this->key = $key;
     }
 
-    /**
-     * @return null
-     */
     public function getProviderPublicKey()
     {
         return $this->key;

@@ -1,15 +1,15 @@
 <?php
 
-include dirname(dirname(__DIR__)) . '/mainfile.php';
-include_once XOOPS_ROOT_PATH . '/class/template.php';
+require_once dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 error_reporting(0);
 $modulename = basename(__DIR__);
-include_once XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feedfunc.new.php";
+require_once XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feedfunc.new.php";
 
-$param_array = array(
+$param_array = [
     'show'  => 10,
-    'image' => 1
-);
+    'image' => 1,
+];
 
 // for debug
 $cache = 0;
@@ -17,7 +17,7 @@ $cache = 0;
 $new_array = mylinks_get_new($param_array);
 
 // logo image
-$logo         = 'images/logo.gif';
+$logo         = 'assets/images/logo.gif';
 $template     = XOOPS_ROOT_PATH . "/modules/{$modulename}/templates/mylinks_rss.tpl";
 $RSS_DESC_MAX = 1000;
 
@@ -27,10 +27,10 @@ if (function_exists('mb_http_output')) {
 }
 
 header('Content-Type:text/xml; charset=utf-8');
-$tpl = new XoopsTpl();
+$tpl = new \XoopsTpl();
 
 if ($cache) {
-    $tpl->xoops_setCaching(2);
+    $tpl->caching = 2;
     $tpl->xoops_setCacheTime(3600);
 }
 
@@ -74,13 +74,16 @@ if (!$tpl->is_cached('file:' . $template) || !$cache) {
                 $description = wani_utf8_encode($description);
             }
 
-            $tpl->append('items', array(
-                'title'       => $title,
-                'link'        => $link,
-                'guid'        => $link,
-                'pubdate'     => $pubdate,
-                'description' => $description
-            ));
+            $tpl->append(
+                'items',
+                [
+                    'title'       => $title,
+                    'link'        => $link,
+                    'guid'        => $link,
+                    'pubdate'     => $pubdate,
+                    'description' => $description,
+                ]
+            );
         }
     }
 }

@@ -1,27 +1,29 @@
 <?php
+
+namespace XoopsModules\Mylinks;
+
 /**
  *  mylinks Thumb Provider Plugin Interface Class Elements
  *
- * @copyright ::  {@link https://xoops.org/ XOOPS Project}
  * @copyright ::  ZySpec Incorporated
- * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @license   ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks
  * @subpackage:: class
  * @author    ::     zyspec (owners@zyspec.com)
+ * @since     ::     File available since Release 3.11
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+
 
 /**
  * MylinksThumbPluginInterface
  *
- * @package   ::   mylinks
- * @author    ::    zyspec (owners@zyspec.com), Herve Thouzard
- * @copyright ::  {@link https://xoops.org/ XOOPS Project}
- * @copyright :: Copyright (c) 2012 ZySpec Incorporated, Herve Thouzard
+ * @package  ::   mylinks
+ * @author   ::    zyspec (owners@zyspec.com), Herve Thouzard
+ * @copyright:: Copyright (c) 2012 ZySpec Incorporated, Herve Thouzard
  * @access::    public
  */
-interface MylinksThumbPlugin
+interface ThumbPlugin
 {
     public function getProviderUrl();
 

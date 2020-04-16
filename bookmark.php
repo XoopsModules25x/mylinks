@@ -1,16 +1,17 @@
 <?php
 
-include __DIR__ . '/header.php';
-include_once __DIR__ . '/class/utility.php';
+use XoopsModules\Mylinks;
+
+require_once __DIR__ . '/header.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
-$lid = MylinksUtility::mylinks_cleanVars($_GET, 'lid', 0, 'int', array('min' => 0));
-$cid = MylinksUtility::mylinks_cleanVars($_GET, 'cid', 0, 'int', array('min' => 0));
+$lid = Mylinks\Utility::cleanVars($_GET, 'lid', 0, 'int', ['min' => 0]);
+$cid = Mylinks\Utility::cleanVars($_GET, 'cid', 0, 'int', ['min' => 0]);
 if (empty($lid) || empty($cid)) {
     redirect_header('index.php', 3, _MD_MYLINKS_IDERROR);
 }
 /*
-$lid = isset($_GET['lid']) ? intval($_GET['lid']) : 0;
-$cid = isset($_GET['cid']) ? intval($_GET['cid']) : 0;
+$lid = isset($_GET['lid']) ? (int)($_GET['lid']): 0;
+$cid = isset($_GET['cid']) ? (int)($_GET['cid']): 0;
 if ( empty($lid) ) {
   die("No lid!");
 } elseif ( empty($cid) ) {
@@ -20,7 +21,6 @@ if ( empty($lid) ) {
 $result = $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.url FROM ' . $xoopsDB->prefix('mylinks_links') . ' l, ' . $xoopsDB->prefix('mylinks_text') . " t where l.lid={$lid} AND l.lid=t.lid AND status>0");
 if (!$result) {
     redirect_header('index.php', 3, _MD_MYLINKS_NORECORDFOUND);
-    exit();
 }
 list($lid, $cid, $ltitle, $url) = $xoopsDB->fetchRow($result);
 
@@ -39,26 +39,21 @@ switch ($mylinks_can_bookmark) {
 }
 if (_MD_MYLINKS_DISALLOW == $can_bookmark) {
     redirect_header('index.php', 3, _MD_MYLINKS_BOOKMARKDISALLOWED);
-    exit();
 }
 
 /*
 $can_bookmark = 0;
-if ( $mylinks_can_bookmark == 0 ) {
+if ($mylinks_can_bookmark == 0) {
   $can_bookmark = 0;
-}
-else if ( $mylinks_can_bookmark == 1) {
+} elseif ($mylinks_can_bookmark == 1) {
   $can_bookmark = 1;
-}
-else if ( $mylinks_can_bookmark == 2) {
-  if ( $xoopsUser ) {
+} elseif ($mylinks_can_bookmark == 2) {
+  if ($xoopsUser) {
   $can_bookmark =1;
-  }
-  else {
+  } else {
   $can_bookmark =0;
   }
-}
-else {
+} else {
   $can_bookmark = 0;
 }
 
@@ -67,21 +62,17 @@ if ( empty($can_bookmark) ) {
 }
 
 $can_qrcode = 0;
-if ( $mylinks_can_qrcode == 0 ) {
+if ($mylinks_can_qrcode == 0) {
   $can_qrcode = 0;
-}
-else if ( $mylinks_can_qrcode == 1) {
+} elseif ($mylinks_can_qrcode == 1) {
   $can_qrcode = 1;
-}
-else if ( $mylinks_can_qrcode == 2) {
-  if ( $xoopsUser ) {
+} elseif ($mylinks_can_qrcode == 2) {
+  if ($xoopsUser) {
   $can_qrcode =1;
-  }
-  else {
+  } else {
   $can_qrcode =0;
   }
-}
-else {
+} else {
   $can_qrcode = 0;
 }
 
@@ -92,7 +83,7 @@ if ( empty($can_qrcode) ) {
 
 xoops_header(false);
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 $sitetitle = $myts->htmlSpecialChars($myts->stripSlashesGPC($ltitle));
 $siteurl   = $myts->htmlSpecialChars($url);
@@ -101,10 +92,10 @@ $siteurl_en   = urlencode(mb_convert_encoding($siteurl, 'UTF-8', _CHARSET));
 $sitetitle_en = urlencode(mb_convert_encoding($sitetitle, 'UTF-8', _CHARSET));
 
 /**
- * @param        $str
- * @param string $to
- * @param string $from
- * @return array|string
+ * @param                     $str
+ * @param string              $to
+ * @param string              $from
+ * @return array|mixed|string
  */
 function bookmark_convert_encoding($str, $to = 'SJIS', $from = _CHARSET)
 {
@@ -115,12 +106,12 @@ function bookmark_convert_encoding($str, $to = 'SJIS', $from = _CHARSET)
             }
 
             return $str;
-        } else {
-            return mb_convert_encoding($str, $to, $from);
         }
-    } else {
-        return $str;
+
+        return mb_convert_encoding($str, $to, $from);
     }
+
+    return $str;
 }
 
 /**
@@ -209,13 +200,13 @@ function mix($a, $b, $c)
     $c -= $b;
     $c ^= zeroFill($b, 15);
 
-    return array($a, $b, $c);
+    return [$a, $b, $c];
 }
 
 /**
- * @param      $url
- * @param null $length
- * @param int  $init
+ * @param        $url
+ * @param null   $length
+ * @param int    $init
  * @return mixed
  */
 function GoogleCH($url, $length = null, $init = GOOGLE_MAGIC)
@@ -228,14 +219,14 @@ function GoogleCH($url, $length = null, $init = GOOGLE_MAGIC)
     $k   = 0;
     $len = $length;
     while ($len >= 12) {
-        $a += ($url[$k + 0] + ($url[$k + 1] << 8) + ($url[$k + 2] << 16) + ($url[$k + 3] << 24));
-        $b += ($url[$k + 4] + ($url[$k + 5] << 8) + ($url[$k + 6] << 16) + ($url[$k + 7] << 24));
-        $c += ($url[$k + 8] + ($url[$k + 9] << 8) + ($url[$k + 10] << 16) + ($url[$k + 11] << 24));
+        $a   += ($url[$k + 0] + ($url[$k + 1] << 8) + ($url[$k + 2] << 16) + ($url[$k + 3] << 24));
+        $b   += ($url[$k + 4] + ($url[$k + 5] << 8) + ($url[$k + 6] << 16) + ($url[$k + 7] << 24));
+        $c   += ($url[$k + 8] + ($url[$k + 9] << 8) + ($url[$k + 10] << 16) + ($url[$k + 11] << 24));
         $mix = mix($a, $b, $c);
         $a   = $mix[0];
         $b   = $mix[1];
         $c   = $mix[2];
-        $k += 12;
+        $k   += 12;
         $len -= 12;
     }
 
@@ -243,25 +234,35 @@ function GoogleCH($url, $length = null, $init = GOOGLE_MAGIC)
     switch ($len) {
         case 11:
             $c += ($url[$k + 10] << 24);
+        // no break
         case 10:
             $c += ($url[$k + 9] << 16);
-        case 9 :
+        // no break
+        case 9:
             $c += ($url[$k + 8] << 8);
-        case 8 :
+        // no break
+        case 8:
             $b += ($url[$k + 7] << 24);
-        case 7 :
+        // no break
+        case 7:
             $b += ($url[$k + 6] << 16);
-        case 6 :
+        // no break
+        case 6:
             $b += ($url[$k + 5] << 8);
-        case 5 :
+        // no break
+        case 5:
             $b += $url[$k + 4];
-        case 4 :
+        // no break
+        case 4:
             $a += ($url[$k + 3] << 24);
-        case 3 :
+        // no break
+        case 3:
             $a += ($url[$k + 2] << 16);
-        case 2 :
+        // no break
+        case 2:
             $a += ($url[$k + 1] << 8);
-        case 1 :
+        // no break
+        case 1:
             $a += $url[$k + 0];
     }
     $mix = mix($a, $b, $c);
@@ -275,8 +276,8 @@ function GoogleCH($url, $length = null, $init = GOOGLE_MAGIC)
  */
 function strord($string)
 {
-    for ($i = 0; $i < strlen($string); $i++) {
-        $result[$i] = ord($string{$i});
+    for ($i = 0, $iMax = mb_strlen($string); $i < $iMax; ++$i) {
+        $result[$i] = ord($string[$i]);
     }
 
     return $result;
@@ -304,10 +305,10 @@ function getrank($url)
 
         while (!feof($fp)) {
             $data = fgets($fp, 128);
-            $pos  = strpos($data, 'Rank_');
-            if ($pos === false) {
+            $pos  = mb_strpos($data, 'Rank_');
+            if (false === $pos) {
             } else {
-                $pagerank = substr($data, $pos + 9);
+                $pagerank = mb_substr($data, $pos + 9);
             }
         }
         fclose($fp);
@@ -315,8 +316,6 @@ function getrank($url)
 
     return $pagerank;
 }
-
-//
 
 echo '
 <script type="text/javascript">
@@ -327,17 +326,17 @@ echo '
 * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
 ***********************************************/
 /* Modified to support Opera */
-function bookmarksite(title,url){
+function bookmarksite(title,url)
+{
 if (window.sidebar) // firefox
   window.sidebar.addPanel(title, url, "");
-else if(window.opera && window.print){ // opera
+else if (window.opera && window.print) { // opera
   var elem = document.createElement("a");
   elem.setAttribute("href",url);
   elem.setAttribute("title",title);
   elem.setAttribute("rel","sidebar");
   elem.click();
-}
-else if(document.all)// ie
+} else if(document.all)// ie
   window.external.AddFavorite(url, title);
 }
 //-->
@@ -349,13 +348,30 @@ else if(document.all)// ie
 var addtoMethod=0;
 //-->
 </script>
-<script src="' . XOOPSMYLINKINCURL . '/addto-multi.js" type="text/javascript"></script>
+<script src="'
+     . XOOPSMYLINKINCURL
+     . '/addto-multi.js" type="text/javascript"></script>
 
   <table style="width: 95%; margin: auto;" class="outer">
-    <tr><td colspan="2" style="text-align: center;"><h3>' . _MD_MYLINKS_BOOKMARK_SERVICE . '</h3></td></tr>
-    <tr><td class="head" style="text-align: center; font-weight: bold;">' . _MD_MYLINKS_SITETITLE . '</td><td class="even" style="text-align: center;">' . $sitetitle . '</td></tr>
-    <tr><td class="head" style="text-align: center; font-weight: bold;">' . _MD_MYLINKS_SITEURL . '</td><td class="even" style="text-align: center;"><a href="' . $siteurl . '" target="_blank">' . $siteurl . '</a><br>(&nbsp;<strong>Google PageRank :</strong>&nbsp;<img src="' . XOOPSMYLINKIMGURL
-     . '/addto/pr' . getrank($siteurl) . '.gif" alt="pagerank">&nbsp;)</td></tr>';
+    <tr><td colspan="2" style="text-align: center;"><h3>'
+     . _MD_MYLINKS_BOOKMARK_SERVICE
+     . '</h3></td></tr>
+    <tr><td class="head" style="text-align: center; font-weight: bold;">'
+     . _MD_MYLINKS_SITETITLE
+     . '</td><td class="even" style="text-align: center;">'
+     . $sitetitle
+     . '</td></tr>
+    <tr><td class="head" style="text-align: center; font-weight: bold;">'
+     . _MD_MYLINKS_SITEURL
+     . '</td><td class="even" style="text-align: center;"><a href="'
+     . $siteurl
+     . '" target="_blank">'
+     . $siteurl
+     . '</a><br>(&nbsp;<strong>Google PageRank:</strong>&nbsp;<img src="'
+     . XOOPSMYLINKIMGURL
+     . '/addto/pr'
+     . getrank($siteurl)
+     . '.gif" alt="pagerank">&nbsp;)</td></tr>';
 if ($mylinks_can_qrcode) {
     echo '<tr><td  class="head" style="text-align: center; font-weight: bold;">' . _MD_MYLINKS_QRCODE . '<br>(' . _MD_MYLINKS_SITEURL . ')</td><td class="even" style="text-align: center;">' . $siteqrcode . '</td></tr>';
 }
@@ -401,8 +417,6 @@ echo '
 <span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Tailrank"><a style="cursor:pointer;" onclick="addto(21,\'' . $siteurl_en . '\', \'' . $sitetitle_en . '\')">
 <img src="' . XOOPSMYLINKIMGURL . '/addto/AddTo_Tailrank.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Tailrank"> Tailrank</a></span>
 <br>
-<span title="' . _MD_MYLINKS_BOOKMARK_ADDTO . ' Technorati"><a style="cursor:pointer;" onclick="addto(23,\'' . $siteurl_en . '\', \'' . $sitetitle_en . '\')">
-<img src="' . XOOPSMYLINKIMGURL . '/addto/AddTo_Technorati.png" style="width: 16px; height: 16px; border-width: 0px;" alt="Technorati"> Technorati</a></span>
 
   </td>
   <td class="odd">

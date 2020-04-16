@@ -11,9 +11,10 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * @copyright::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
- * @license  ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @license  ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package  ::    mylinks
  * @author   ::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
  * ****************************************************************************
@@ -97,7 +98,7 @@ define('_MI_MYLINKS_USEFRAMEDSC', '');
 define('_MI_MYLINKS_USESHOTSDSC', '');
 define('_MI_MYLINKS_SHOTWIDTHDSC', '');
 define('_MI_MYLINKS_SHOTPROVIDERDSC', 'Provider for screen shots if images from image directory are not used.');
-define('_MI_MYLINKS_DISPATTRDSC', 'Some providers require you display an image attribution<br>Do not disable this unless you are sure.');
+define('_MI_MYLINKS_DISPATTRDSC', 'Some providers require_once you display an image attribution<br>Do not disable this unless you are sure.');
 define('_MI_MYLINKS_SHOTPUBKEYDSC', 'Enter the primary (or public) key if required by shot provider service.');
 define('_MI_MYLINKS_SHOTPRIVKEYDSC', 'Enter the secondary (or private) key if required by shot provider service.');
 define('_MI_MYLINKS_AUTOAPPROVEDSC', '');
@@ -137,42 +138,42 @@ define('_MI_MYLINKS_LINK_NOTIFYDSC', 'Notification options that aply to the curr
 define('_MI_MYLINKS_GLOBAL_NEWCATEGORY_NOTIFY', 'New Category');
 define('_MI_MYLINKS_GLOBAL_NEWCATEGORY_NOTIFYCAP', 'Notify me when a new link category is created.');
 define('_MI_MYLINKS_GLOBAL_NEWCATEGORY_NOTIFYDSC', 'Receive notification when a new link category is created.');
-define('_MI_MYLINKS_GLOBAL_NEWCATEGORY_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : New link category');
+define('_MI_MYLINKS_GLOBAL_NEWCATEGORY_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify: New link category');
 
 define('_MI_MYLINKS_GLOBAL_LINKMODIFY_NOTIFY', 'Modify Link Requested');
 define('_MI_MYLINKS_GLOBAL_LINKMODIFY_NOTIFYCAP', 'Notify me of any link modification request.');
 define('_MI_MYLINKS_GLOBAL_LINKMODIFY_NOTIFYDSC', 'Receive notification when any link modification request is submitted.');
-define('_MI_MYLINKS_GLOBAL_LINKMODIFY_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : Link Modification Requested');
+define('_MI_MYLINKS_GLOBAL_LINKMODIFY_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify: Link Modification Requested');
 
 define('_MI_MYLINKS_GLOBAL_LINKBROKEN_NOTIFY', 'Broken Link Submitted');
 define('_MI_MYLINKS_GLOBAL_LINKBROKEN_NOTIFYCAP', 'Notify me of any broken link report.');
 define('_MI_MYLINKS_GLOBAL_LINKBROKEN_NOTIFYDSC', 'Receive notification when any broken link report is submitted.');
-define('_MI_MYLINKS_GLOBAL_LINKBROKEN_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : Broken Link Reported');
+define('_MI_MYLINKS_GLOBAL_LINKBROKEN_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify: Broken Link Reported');
 
 define('_MI_MYLINKS_GLOBAL_LINKSUBMIT_NOTIFY', 'New Link Submitted');
 define('_MI_MYLINKS_GLOBAL_LINKSUBMIT_NOTIFYCAP', 'Notify me when any new link is submitted (awaiting approval).');
 define('_MI_MYLINKS_GLOBAL_LINKSUBMIT_NOTIFYDSC', 'Receive notification when any new link is submitted (awaiting approval).');
-define('_MI_MYLINKS_GLOBAL_LINKSUBMIT_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : New link submitted');
+define('_MI_MYLINKS_GLOBAL_LINKSUBMIT_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify: New link submitted');
 
 define('_MI_MYLINKS_GLOBAL_NEWLINK_NOTIFY', 'New Link');
 define('_MI_MYLINKS_GLOBAL_NEWLINK_NOTIFYCAP', 'Notify me when any new link is posted.');
 define('_MI_MYLINKS_GLOBAL_NEWLINK_NOTIFYDSC', 'Receive notification when any new link is posted.');
-define('_MI_MYLINKS_GLOBAL_NEWLINK_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : New link');
+define('_MI_MYLINKS_GLOBAL_NEWLINK_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify: New link');
 
 define('_MI_MYLINKS_CATEGORY_LINKSUBMIT_NOTIFY', 'New Link Submitted');
 define('_MI_MYLINKS_CATEGORY_LINKSUBMIT_NOTIFYCAP', 'Notify me when a new link is submitted (awaiting approval) to the current category.');
 define('_MI_MYLINKS_CATEGORY_LINKSUBMIT_NOTIFYDSC', 'Receive notification when a new link is submitted (awaiting approval) to the current category.');
-define('_MI_MYLINKS_CATEGORY_LINKSUBMIT_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : New link submitted in category');
+define('_MI_MYLINKS_CATEGORY_LINKSUBMIT_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify: New link submitted in category');
 
 define('_MI_MYLINKS_CATEGORY_NEWLINK_NOTIFY', 'New Link');
 define('_MI_MYLINKS_CATEGORY_NEWLINK_NOTIFYCAP', 'Notify me when a new link is posted to the current category.');
 define('_MI_MYLINKS_CATEGORY_NEWLINK_NOTIFYDSC', 'Receive notification when a new link is posted to the current category.');
-define('_MI_MYLINKS_CATEGORY_NEWLINK_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : New link in category');
+define('_MI_MYLINKS_CATEGORY_NEWLINK_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify: New link in category');
 
 define('_MI_MYLINKS_LINK_APPROVE_NOTIFY', 'Link Approved');
 define('_MI_MYLINKS_LINK_APPROVE_NOTIFYCAP', 'Notify me when this link is approved.');
 define('_MI_MYLINKS_LINK_APPROVE_NOTIFYDSC', 'Receive notification when this link is approved.');
-define('_MI_MYLINKS_LINK_APPROVE_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : Link approved');
+define('_MI_MYLINKS_LINK_APPROVE_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify: Link approved');
 
 // index.php
 define('_MYLINKS_ADMIN_HOME', 'Home');
@@ -191,9 +192,3 @@ define('_MI_MYLINKS_ADMENU6_DESC', 'Blocks/Group Admin');
 define('_MI_MYLINKS_ADMENU7_DESC', 'Template Admin');
 define('_MYLINKS_ADMIN_ABOUT_DESC', 'Info About the Module');
 define('_MYLINKS_ADMIN_HELP_DESC', 'Help');
-
-//Help
-define('_MI_MYLINKS_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('_MI_MYLINKS_HELP_HEADER', __DIR__.'/help/helpheader.html');
-define('_MI_MYLINKS_BACK_2_ADMIN','Back to Administration of ');
-define('_MI_MYLINKS_HELP_OVERVIEW','Overview');

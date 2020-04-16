@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Mylinks\Providers;
+
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -20,29 +23,30 @@
  *  echo $shot->getAttribution();
  */
 
+use XoopsModules\Mylinks;
+
 /**
  * MyLinks category.php
  *
  * Xoops mylinks - a multicategory links module
  *
- * @copyright ::  {@link https://xoops.org/ XOOPS Project}
  * @copyright ::  {@link http://www.zyspec.com ZySpec Incorporated}
- * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @license   ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks
  * @subpackage:: class
+ * @since     ::      3.11
  * @author    ::     zyspec <owner@zyspec.com>
  */
-require_once XOOPS_ROOT_PATH . '/modules/mylinks/class/thumbplugin.interface.php';
 
 /**
  * Class MylinksShrinktheweb
  */
-class MylinksShrinktheweb implements MylinksThumbPlugin
+class Shrinktheweb implements Mylinks\ThumbPlugin
 {
     private $image_width   = 0;
     private $site_url      = null;
     private $key           = null;
-    private $attribution   = "<a href=\"http://www.shrinktheweb.com\" target=\"_blank\" title=\"Thumbnail Screenshots by ShrinkTheWeb\">Thumbnail Screenshots by ShrinkTheWeb</a>";
+    private $attribution   = '<a href="http://www.shrinktheweb.com" target="_blank" title="Thumbnail Screenshots by ShrinkTheWeb">Thumbnail Screenshots by ShrinkTheWeb</a>';
     private $provider_url  = 'http://images.shrinktheweb.com/xino.php';
     private $provider_name = 'ShrinkTheWeb';
 
@@ -58,12 +62,12 @@ class MylinksShrinktheweb implements MylinksThumbPlugin
      */
     public function getProviderUrl()
     {
-        $query_string = array(
+        $query_string = [
             'stwembed'       => 1,
             'stwaccesskeyid' => $this->getProviderPrivateKey(),
             'stwxmax'        => $this->image_width,
-            'stwurl'         => $this->site_url
-        );
+            'stwurl'         => $this->site_url,
+        ];
         $query        = http_build_query($query_string);
         $query        = empty($query) ? '' : '?' . $query;
         $providerUrl  = $this->provider_url . $query;
@@ -99,7 +103,7 @@ class MylinksShrinktheweb implements MylinksThumbPlugin
      */
     public function getShotSize()
     {
-        return array('width' => $this->image_width, 'height' => 0);
+        return ['width' => $this->image_width, 'height' => 0];
     }
 
     /**
@@ -136,11 +140,10 @@ class MylinksShrinktheweb implements MylinksThumbPlugin
     {
         if ($allowhtml) {
             return $this->attribution;
-        } else {
-            $myts = MyTextSanitizer::getInstance();
-
-            return $myts->htmlSpecialChars($this->attribution);
         }
+        $myts = \MyTextSanitizer::getInstance();
+
+        return $myts->htmlSpecialChars($this->attribution);
     }
 
     /**
@@ -152,9 +155,6 @@ class MylinksShrinktheweb implements MylinksThumbPlugin
         $this->key = $key;
     }
 
-    /**
-     * @return null
-     */
     public function getProviderPublicKey()
     {
         return $this->key;

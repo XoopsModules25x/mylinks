@@ -11,18 +11,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
- * @copyright ::  {@link https://xoops.org/ XOOPS Project}
- * @copyright ::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
- * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package   ::    mylinks
- * @author    ::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
+ * @copyright::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
+ * @license  ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package  ::    mylinks
+ * @author   ::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
  * ****************************************************************************
  */
 //3.1
 $admin_mydirname = basename(dirname(dirname(__DIR__)));
 
-define('_AM_MYLINKS_ERROR_MODADMIN', "Error: Frameworks \"moduleadmin\" is not installed. Please install this Framework");
+define('_AM_MYLINKS_ERROR_MODADMIN', 'Error: Frameworks "moduleadmin" is not installed. Please install this Framework');
 
 // About.php
 define('_AM_MYLINKS_ABOUT_AUTHOR', 'Author: ');
@@ -54,7 +54,7 @@ define('_AM_MYLINKS_ADMIN_PREFERENCES', 'Settings');
 // text in admin footer
 define('_AM_MYLINKS_ADMIN_FOOTER', "<div class='center smallsmall italic pad5'><strong>{$admin_mydirname}</strong> is maintained by the <a class='tooltip' rel='external' href='https://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
 
-define('_MYLINKS_ADMIN_', ' '); //
+define('_MYLINKS_ADMIN_', ' ');
 
 //myblocksadmin
 define('_AM_MYLINKS_AGDS', 'Admin Groups');

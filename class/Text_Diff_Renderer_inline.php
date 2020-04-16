@@ -1,5 +1,7 @@
 <?php
 
+namespace XoopsModules\Mylinks;
+
 /**
  * "Inline" diff renderer.
  *
@@ -12,7 +14,6 @@
  */
 class Text_Diff_Renderer_inline extends Text_Diff_Renderer
 {
-
     /**
      * Number of leading context "lines" to preserve.
      */
@@ -76,22 +77,22 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
     }
 
     /**
-     * @param        $lines
-     * @param string $prefix
-     * @param bool   $encode
+     * @param         $lines
+     * @param string  $prefix
+     * @param bool    $encode
      * @return string
      */
     public function _lines($lines, $prefix = ' ', $encode = true)
     {
         if ($encode) {
-            array_walk($lines, array(&$this, '_encode'));
+            array_walk($lines, [&$this, '_encode']);
         }
 
-        if ($this->_split_level == 'words') {
+        if ('words' === $this->_split_level) {
             return implode('', $lines);
-        } else {
-            return implode("\n", $lines) . "\n";
         }
+
+        return implode("\n", $lines) . "\n";
     }
 
     /**
@@ -100,22 +101,22 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
      */
     public function _added($lines)
     {
-        array_walk($lines, array(&$this, '_encode'));
-        $lines[0] = $this->_ins_prefix . $lines[0];
+        array_walk($lines, [&$this, '_encode']);
+        $lines[0]                 = $this->_ins_prefix . $lines[0];
         $lines[count($lines) - 1] .= $this->_ins_suffix;
 
         return $this->_lines($lines, ' ', false);
     }
 
     /**
-     * @param      $lines
-     * @param bool $words
+     * @param         $lines
+     * @param bool    $words
      * @return string
      */
     public function _deleted($lines, $words = false)
     {
-        array_walk($lines, array(&$this, '_encode'));
-        $lines[0] = $this->_del_prefix . $lines[0];
+        array_walk($lines, [&$this, '_encode']);
+        $lines[0]                 = $this->_del_prefix . $lines[0];
         $lines[count($lines) - 1] .= $this->_del_suffix;
 
         return $this->_lines($lines, ' ', false);
@@ -130,13 +131,13 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
     {
         /* If we've already split on words, don't try to do so again - just
          * display. */
-        if ($this->_split_level == 'words') {
+        if ('words' === $this->_split_level) {
             $prefix = '';
-            while ($orig[0] !== false && $final[0] !== false && substr($orig[0], 0, 1) == ' '
-                   && substr($final[0], 0, 1) == ' ') {
-                $prefix .= substr($orig[0], 0, 1);
-                $orig[0]  = substr($orig[0], 1);
-                $final[0] = substr($final[0], 1);
+            while (false !== $orig[0] && false !== $final[0] && ' ' === mb_substr($orig[0], 0, 1)
+                   && ' ' === mb_substr($final[0], 0, 1)) {
+                $prefix   .= mb_substr($orig[0], 0, 1);
+                $orig[0]  = mb_substr($orig[0], 1);
+                $final[0] = mb_substr($final[0], 1);
             }
 
             return $prefix . $this->_deleted($orig) . $this->_added($final);
@@ -154,29 +155,30 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
         $diff = new Text_Diff($this->_splitOnWords($text1, $nl), $this->_splitOnWords($text2, $nl));
 
         /* Get the diff in inline format. */
-        $renderer = new Text_Diff_Renderer_inline(array_merge($this->getParams(), array('split_level' => 'words')));
+        $renderer = new self(array_merge($this->getParams(), ['split_level' => 'words']));
 
         /* Run the diff and get the output. */
+
         return str_replace($nl, "\n", $renderer->render($diff)) . "\n";
     }
 
     /**
-     * @param        $string
-     * @param string $newlineEscape
+     * @param         $string
+     * @param string  $newlineEscape
      * @return array
      */
     public function _splitOnWords($string, $newlineEscape = "\n")
     {
-        $words  = array();
-        $length = strlen($string);
+        $words  = [];
+        $length = mb_strlen($string);
         $pos    = 0;
 
         while ($pos < $length) {
             // Eat a word with any preceding whitespace.
-            $spaces  = strspn(substr($string, $pos), " \n");
-            $nextpos = strcspn(substr($string, $pos + $spaces), " \n");
-            $words[] = str_replace("\n", $newlineEscape, substr($string, $pos, $spaces + $nextpos));
-            $pos += $spaces + $nextpos;
+            $spaces  = strspn(mb_substr($string, $pos), " \n");
+            $nextpos = strcspn(mb_substr($string, $pos + $spaces), " \n");
+            $words[] = str_replace("\n", $newlineEscape, mb_substr($string, $pos, $spaces + $nextpos));
+            $pos     += $spaces + $nextpos;
         }
 
         return $words;
@@ -187,6 +189,6 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
      */
     public function _encode(&$string)
     {
-        $string = htmlspecialchars($string);
+        $string = htmlspecialchars($string, ENT_QUOTES | ENT_HTML5);
     }
 }

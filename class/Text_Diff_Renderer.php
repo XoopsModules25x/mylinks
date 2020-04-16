@@ -1,5 +1,7 @@
 <?php
 
+namespace XoopsModules\Mylinks;
+
 /**
  * A class to render Diffs in different formats.
  *
@@ -12,7 +14,6 @@
  */
 class Text_Diff_Renderer
 {
-
     /**
      * Number of leading context "lines" to preserve.
      *
@@ -33,7 +34,7 @@ class Text_Diff_Renderer
      * Constructor.
      * @param array $params
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         foreach ($params as $param => $value) {
             $v = '_' . $param;
@@ -50,10 +51,10 @@ class Text_Diff_Renderer
      */
     public function getParams()
     {
-        $params = array();
+        $params = [];
         foreach (get_object_vars($this) as $k => $v) {
-            if ($k{0} == '_') {
-                $params[substr($k, 1)] = $v;
+            if ('_' === $k[0]) {
+                $params[mb_substr($k, 1)] = $v;
             }
         }
 
@@ -71,7 +72,7 @@ class Text_Diff_Renderer
     {
         $xi      = $yi = 1;
         $block   = false;
-        $context = array();
+        $context = [];
 
         $nlead  = $this->_leading_context_lines;
         $ntrail = $this->_trailing_context_lines;
@@ -89,7 +90,7 @@ class Text_Diff_Renderer
                             $block[] = new Text_Diff_Op_copy($context);
                         }
                         $output .= $this->_block($x0, $ntrail + $xi - $x0, $y0, $ntrail + $yi - $y0, $block);
-                        $block = false;
+                        $block  = false;
                     }
                 }
                 $context = $edit->orig;
@@ -98,7 +99,7 @@ class Text_Diff_Renderer
                     $context = array_slice($context, count($context) - $nlead);
                     $x0      = $xi - count($context);
                     $y0      = $yi - count($context);
-                    $block   = array();
+                    $block   = [];
                     if ($context) {
                         $block[] = new Text_Diff_Op_copy($context);
                     }
@@ -129,24 +130,21 @@ class Text_Diff_Renderer
      * @param $edits
      * @return string
      */
-    public function _block($xbeg, $xlen, $ybeg, $ylen, &$edits)
+    public function _block($xbeg, $xlen, $ybeg, $ylen, $edits)
     {
         $output = $this->_startBlock($this->_blockHeader($xbeg, $xlen, $ybeg, $ylen));
 
         foreach ($edits as $edit) {
-            switch (strtolower(get_class($edit))) {
+            switch (mb_strtolower(get_class($edit))) {
                 case 'text_diff_op_copy':
                     $output .= $this->_context($edit->orig);
                     break;
-
                 case 'text_diff_op_add':
                     $output .= $this->_added($edit->final);
                     break;
-
                 case 'text_diff_op_delete':
                     $output .= $this->_deleted($edit->orig);
                     break;
-
                 case 'text_diff_op_change':
                     $output .= $this->_changed($edit->orig, $edit->final);
                     break;
@@ -209,8 +207,8 @@ class Text_Diff_Renderer
     }
 
     /**
-     * @param        $lines
-     * @param string $prefix
+     * @param         $lines
+     * @param string  $prefix
      * @return string
      */
     public function _lines($lines, $prefix = ' ')

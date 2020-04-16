@@ -1,29 +1,23 @@
 <?php
-// $Id: notification.inc.php 8112 2011-11-06 13:41:14Z beckmi $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright     {@link https://xoops.org/ XOOPS Project}
+ * @license       {@link https://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package       mylinks
+ * @since
+ * @author        XOOPS Development Team
+ * @param mixed $category
+ * @param mixed $item_id
+ */
 
 /**
  * @param $category
@@ -38,20 +32,21 @@ function mylinks_notify_iteminfo($category, $item_id)
     $item_id = (isset($item_id) && ((int)$item_id > 0)) ? (int)$item_id : 0;
 
     if (empty($xoopsModule) || $xoopsModule->getVar('dirname') != $dirname) {
+        /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
-        $module         = $moduleHandler->getByDirname($dirname);
+        $module        = $moduleHandler->getByDirname($dirname);
         $configHandler = xoops_getHandler('config');
-        $config         = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
+        $config        = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     } else {
-        $module = $xoopsModule;
-        $config = $xoopsModuleConfig;
+        $module = &$xoopsModule;
+        $config = &$xoopsModuleConfig;
     }
 
     switch ($category) {
         case 'category':
             // Assume we have a valid category id
-            $mylinksCatHandler = xoops_getModuleHandler('category', $dirname);
-            $catObj            = $mylinksCatHandler->get($item_id);
+            $categoryHandler = $helper->getHandler('Category');
+            $catObj            = $categoryHandler->get($item_id);
             if ($catObj) {
                 $item['name'] = $catObj->getVar('title');
                 $item['url']  = XOOPS_URL . "/modules/{$dirname}/viewcat.php?cid={$item_id}";

@@ -1,29 +1,23 @@
 <?php
-// $Id: mylinks_top.php 11062 2013-02-18 23:44:30Z zyspec $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright     {@link https://xoops.org/ XOOPS Project}
+ * @license       {@link https://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package       mylinks
+ * @since
+ * @author        XOOPS Development Team
+ * @param mixed $options
+ */
+
 /******************************************************************************
  * Function: b_mylinks_top_show
  * Input   : $options[0] = date for the most recent links
@@ -38,15 +32,15 @@
 function b_mylinks_top_show($options)
 {
     global $xoopsDB;
-    $block = array();
+    $block = [];
     //ver2.5
     $modulename = basename(dirname(__DIR__));
-    $myts       = MyTextSanitizer::getInstance();
+    $myts       = \MyTextSanitizer::getInstance();
     $result     = $xoopsDB->query('SELECT lid, cid, title, date, hits FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status>0 ORDER BY ' . $options[0] . ' DESC', $options[1], 0);
-    while ($myrow = $xoopsDB->fetchArray($result)) {
-        $link  = array();
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
+        $link  = [];
         $title = $myts->htmlSpecialChars($myts->stripSlashesGPC($myrow['title']));
-        //        if ( !XOOPS_USE_MULTIBYTES ) {
+        //        if (!XOOPS_USE_MULTIBYTES) {
         if (mb_strlen($title) >= $options[2]) {
             $title = mb_substr($title, 0, $options[2] - 1) . '...';
         }
@@ -54,9 +48,9 @@ function b_mylinks_top_show($options)
         $link['id']    = $myrow['lid'];
         $link['cid']   = $myrow['cid'];
         $link['title'] = $title;
-        if ($options[0] == 'date') {
+        if ('date' === $options[0]) {
             $link['date'] = formatTimestamp($myrow['date'], 's');
-        } elseif ($options[0] == 'hits') {
+        } elseif ('hits' === $options[0]) {
             $link['hits'] = $myrow['hits'];
         }
         $block['links'][] = $link;
@@ -76,7 +70,7 @@ function b_mylinks_top_edit($options)
 {
     $form = '' . _MB_MYLINKS_DISP . '&nbsp;';
     $form .= "<input type='hidden' name='options[]' value='";
-    if ($options[0] == 'date') {
+    if ('date' === $options[0]) {
         $form .= "date'";
     } else {
         $form .= "hits'";

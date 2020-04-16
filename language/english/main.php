@@ -10,12 +10,12 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
- * @copyright ::  {@link https://xoops.org/ XOOPS Project}
- * @copyright ::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
- * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
- * @package   ::    mylinks
- * @author    ::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
+ * @copyright::  {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
+ * @license  ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @package  ::    mylinks
+ * @author   ::     {@link http://www.instant-zero.com Hervé Thouzard of Instant Zero}
  */
 define('_MD_MYLINKS_THANKSFORINFO', "Thanks for the information. We'll look into your request shortly.");
 define('_MD_MYLINKS_THANKSFORHELP', "Thank you for helping to maintain this directory's integrity.");
@@ -108,8 +108,8 @@ define('_MD_MYLINKS_PREVIOUS', 'Previous');
 define('_MD_MYLINKS_NEXT', 'Next');
 define('_MD_MYLINKS_NOMATCH', 'No matches found to your query');
 
-//define('_MD_MYLINKS_SUBMIT', "Submit");
-//define('_MD_MYLINKS_CANCEL', "Cancel");
+//define("_MD_MYLINKS_SUBMIT","Submit");
+//define("_MD_MYLINKS_CANCEL","Cancel");
 
 define('_MD_MYLINKS_ALREADYREPORTED', 'You have already submitted a broken report for this resource.');
 define('_MD_MYLINKS_MUSTREGFIRST', "Sorry, you don't have the permission to perform this action.<br>Please register or login first!");
@@ -129,12 +129,12 @@ define('_MD_MYLINKS_SUBMITTER', 'Submitter: ');
 define('_MD_MYLINKS_VISIT', 'Visit');
 define('_MD_MYLINKS_SHOTMUST', 'Screenshot image must be a valid image file under %s directory (ex. shot.gif). Leave it blank if no image file.');
 define('_MD_MYLINKS_APPROVE', 'Approve');
-//define('_MD_MYLINKS_DELETE', "Delete");
+//define("_MD_MYLINKS_DELETE","Delete");
 define('_MD_MYLINKS_NOSUBMITTED', 'There are no New Submitted Links.');
 define('_MD_MYLINKS_ADDMAIN', 'Add a MAIN Category');
 define('_MD_MYLINKS_TITLEC', 'Title: ');
 define('_MD_MYLINKS_IMGURL', 'Image URL <em>(OPTIONAL Image height will be resized to 50):</em>');
-//define('_MD_MYLINKS_ADD', "Add");
+//define("_MD_MYLINKS_ADD","Add");
 define('_MD_MYLINKS_ADDSUB', 'Add a SUB-Category');
 define('_MD_MYLINKS_IN', 'in');
 define('_MD_MYLINKS_ADDNEWLINK', 'Add a New Link');
@@ -172,8 +172,8 @@ define('_MD_MYLINKS_PARENT', 'Parent Category:');
 define('_MD_MYLINKS_SAVE', 'Save Changes');
 define('_MD_MYLINKS_CATDELETED', 'Category Deleted.');
 define('_MD_MYLINKS_WARNING', 'WARNING: Are you sure you want to delete this Category and ALL of its Subcategories, Links, Comments and Notifications?');
-//define('_MD_MYLINKS_YES', "Yes");
-//define('_MD_MYLINKS_NO', "No");
+//define("_MD_MYLINKS_YES","Yes");
+//define("_MD_MYLINKS_NO","No");
 define('_MD_MYLINKS_NEWCATADDED', 'New Category Added Successfully!');
 define('_MD_MYLINKS_ERROREXIST', 'ERROR: The Link you provided is already in the database!');
 define('_MD_MYLINKS_ERRORTITLE', 'ERROR: You need to enter TITLE!');

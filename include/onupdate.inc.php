@@ -8,27 +8,29 @@
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
  *
- * @copyright:: {@link https://xoops.org/ XOOPS Project}
- * @license  ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @copyright:: XOOPS Project (https://xoops.org)
+ * @license  ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package  ::   mylinks
  * @author   ::    zyspec (owners@zyspec.com)
+ * @since    ::     File available since Release 3.11
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-$moduleDirName = basename(dirname(__DIR__));
+
+
+$mylinksDir = basename(dirname(__DIR__));
 
 /**
- * @param XoopsModule $xoopsModule
+ * @param $xoopsModule
  * @param $prev_version
  * @return bool
  */
-function xoops_module_update_mylinks_base(XoopsModule $xoopsModule, $prev_version)
+function xoops_module_update_mylinks_base(\XoopsObject $xoopsModule, $prev_version)
 {
     $minUpgradeFrom = '0.0.0';  //minimum version of module supported for upgrade
     $success        = false;
 
     $ref = xoops_getenv('HTTP_REFERER');  //referer check
-    if ($ref == '' || strpos($ref, XOOPS_URL . '/modules/system/admin.php') === 0) {
+    if ('' == $ref || 0 === mb_strpos($ref, XOOPS_URL . '/modules/system/admin.php')) {
         /* module specific part */
         $minValueArray       = explode('.', $minUpgradeFrom);
         $installedVersion    = (int)$prev_version;
@@ -44,44 +46,16 @@ function xoops_module_update_mylinks_base(XoopsModule $xoopsModule, $prev_versio
         }
     }
 
-    global $xoopsDB;
-    if ($prev_version < 312) {
-        // delete old html template files
-        $templateDirectory = $GLOBALS['xoops']->path('modules/' . $xoopsModule->getVar('dirname', 'n') . '/templates/');
-        $templateList      = array_diff(scandir($templateDirectory), array('..', '.'));
-        foreach ($templateList as $k => $v) {
-            $fileInfo = new SplFileInfo($templateDirectory . $v);
-            if ($fileInfo->getExtension() === 'html' && $fileInfo->getFilename() !== 'index.html') {
-                if (file_exists($templateDirectory . $v)) {
-                    unlink($templateDirectory . $v);
-                }
-            }
-        }
-        // delete old block html template files
-        $templateDirectory = $GLOBALS['xoops']->path('modules/' . $xoopsModule->getVar('dirname', 'n') . '/templates/blocks/');
-        $templateList      = array_diff(scandir($templateDirectory), array('..', '.'));
-        foreach ($templateList as $k => $v) {
-            $fileInfo = new SplFileInfo($templateDirectory . $v);
-            if ($fileInfo->getExtension() === 'html' && $fileInfo->getFilename() !== 'index.html') {
-                if (file_exists($templateDirectory . $v)) {
-                    unlink($templateDirectory . $v);
-                }
-            }
-        }
-
-        //delete .html entries from the tpl table
-        $sql = 'DELETE FROM ' . $xoopsDB->prefix('tplfile') . " WHERE `tpl_module` = '" . $xoopsModule->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.html%'";
-        $xoopsDB->queryF($sql);
-    }
-
     return $success;
 }
 
 /**
  * eval functions to support module relocation (directory renaming)
  */
-eval('function xoops_module_update_' . $moduleDirName . '($module=NULL, $prev_version)
+eval(
+    'function xoops_module_update_' . $mylinksDir . '($module=NULL, $prev_version)
         {
         return xoops_module_update_mylinks_base($module, $prev_version);
         }
-    ');
+    '
+);

@@ -1,37 +1,29 @@
 <?php
-// $Id: footer.php 11819 2013-07-09 18:21:40Z zyspec $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link https://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ */
 
-if (is_object($xoopsTpl) && ($mylinks_right_wide_theme === true)) {
+
+
+if (is_object($xoopsTpl) && (true === $mylinks_right_wide_theme)) {
     $xoopsTpl->assign('xoops_showrblock', 0);
-} elseif (is_object($xoopsTpl) && ($mylinks_left_wide_theme === true)) {
+} elseif (is_object($xoopsTpl) && (true === $mylinks_left_wide_theme)) {
     $xoopsTpl->assign('xoops_showlblock', 0);
-} elseif (is_object($xoopsTpl) && ($mylinks_both_wide_theme === true)) {
+} elseif (is_object($xoopsTpl) && (true === $mylinks_both_wide_theme)) {
     $xoopsTpl->assign('xoops_showrblock', 0);
     $xoopsTpl->assign('xoops_showlblock', 0);
 }
@@ -160,4 +152,4 @@ if (file_exists(XOOPSMYLINKIMGPATH . "/{$mylinks_theme}")) {
     $xoopsTpl->assign('mylinks_imgurl', XOOPSMYLINKIMGURL);
 }
 
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

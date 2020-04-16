@@ -1,45 +1,41 @@
 <?php
-// $Id: xoops_version.php 11819 2013-07-09 18:21:40Z zyspec $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit;
-}
+/**
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link https://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ */
+
+use XoopsModules\Mylinks;
+use XoopsModules\Mylinks\Providers;
+
+require_once __DIR__ . '/preloads/autoloader.php';
+
 $module_dirname = basename(__DIR__);
 global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig;
 
+$modversion['version']             = 3.12;
+$modversion['module_status']       = 'Alpha 1';
+$modversion['release_date']        = '2020/04/15';
 $modversion['dirname']             = basename(__DIR__);
 $modversion['name']                = _MI_MYLINKS_NAME;
-$modversion['version']             = 3.11;
 $modversion['description']         = _MI_MYLINKS_DESC;
 $modversion['author']              = 'Kazumi Ono';
 $modversion['nickname']            = 'Onokazu';
 $modversion['credits']             = 'Wanikoo, ZySpec, Mamba';
-$modversion['official']            = 1;
-$modversion['image']               = 'images/mylinks_slogo.png';
+$modversion['official']            = 1; //1 indicates supported by Xoops CORE Dev Team, 0 means 3rd party supported
+$modversion['image']               = 'assets/images/logoModule.png';
 $modversion['help']                = 'page=help';
 $modversion['license']             = 'GNU GPL 2.0';
 $modversion['license_url']         = 'www.gnu.org/licenses/gpl-2.0.html';
@@ -47,15 +43,13 @@ $modversion['module_website_url']  = 'https://xoops.org';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['author_website_url']  = 'https://xoops.org';
 $modversion['author_website_name'] = 'XOOPS';
-$modversion['release_date']        = '2016/07/20';
-$modversion['module_status']       = 'Final';
-$modversion['min_php']             = '5.5';
-$modversion['min_xoops']           = '2.5.8';
-$modversion['min_db']              = array('mysql' => '5.0.7', 'mysqli' => '5.0.7');
-$modversion['min_admin']           = '1.2';
-$modversion['dirmoduleadmin']      = '/Frameworks/moduleclasses/moduleadmin';
-$modversion['icons16']             = '../../Frameworks/moduleclasses/icons/16';
-$modversion['icons32']             = '../../Frameworks/moduleclasses/icons/32';
+$modversion['min_php']             = '7.1';
+$modversion['min_xoops']           = '2.5.10';
+$modversion['min_db']              = ['mysql' => '5.5'];
+$modversion['min_admin']           = '1.1';
+$modversion['modicons16']          = 'assets/images/icons/16';
+$modversion['modicons32']          = 'assets/images/icons/32';
+//$modversion['release_date']= 1300453080;
 
 // Sql file (must contain sql generated by phpMyAdmin or phpPgAdmin)
 // All tables should not have any prefix!
@@ -63,14 +57,14 @@ $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 //$modversion['sqlfile']['postgresql'] = "sql/pgsql.sql";
 
 // Tables created by sql file (without prefix!)
-$modversion['tables'] = array(
+$modversion['tables'] = [
     'mylinks_broken',
     'mylinks_cat',
     'mylinks_links',
     'mylinks_mod',
     'mylinks_text',
-    'mylinks_votedata'
-);
+    'mylinks_votedata',
+];
 
 // Admin things
 $modversion['hasAdmin']   = 1;
@@ -78,52 +72,55 @@ $modversion['adminindex'] = 'admin/index.php';
 $modversion['adminmenu']  = 'admin/menu.php';
 
 //Install/Uninstall Functions
-$modversion['onInstall']   = 'include/oninstall.inc.php';
+//$modversion['onInstall']   = 'include/oninstall.inc.php';
+$modversion['onInstall']   = 'include/oninstall.php';
 $modversion['onUpdate']    = 'include/onupdate.inc.php';
 $modversion['onUninstall'] = 'include/onuninstall.inc.php';
 
 // Blocks
-$modversion['blocks'][1] = array(
+$modversion['blocks'][1] = [
     'file'        => 'mylinks_top.php',
     'name'        => _MI_MYLINKS_BNAME1,
     'description' => _MI_MYLINKS_BNAME1DESC,
     'show_func'   => 'b_mylinks_top_show',
     'edit_func'   => 'b_mylinks_top_edit',
     'options'     => 'date|10|25',
-    'template'    => 'mylinks_block_new.tpl'
-);
+    'template'    => 'mylinks_block_new.tpl',
+];
 
-$modversion['blocks'][2] = array(
+$modversion['blocks'][2] = [
     'file'        => 'mylinks_top.php',
     'name'        => _MI_MYLINKS_BNAME2,
     'description' => _MI_MYLINKS_BNAME2DESC,
     'show_func'   => 'b_mylinks_top_show',
     'edit_func'   => 'b_mylinks_top_edit',
     'options'     => 'hits|10|25',
-    'template'    => 'mylinks_block_top.tpl'
-);
+    'template'    => 'mylinks_block_top.tpl',
+];
 
-$modversion['blocks'][3] = array(
+$modversion['blocks'][3] = [
     'file'        => 'mylinks_rand.php',
     'name'        => _MI_MYLINKS_BNAME3,
     'description' => _MI_MYLINKS_BNAME3DESC,
     'show_func'   => 'b_mylinks_random_show',
-    'template'    => 'mylinks_block_rand.tpl'
-);
+    'template'    => 'mylinks_block_rand.tpl',
+];
 
 // Menu
 $modversion['hasMain'] = 1;
 $i                     = 1;
 $hModConfig            = xoops_getHandler('config');
-$hModule               = xoops_getHandler('module');
-if ($mylinksModule = $hModule->getByDirname($module_dirname)) {
-    if ($mylinksConfig = $hModConfig->getConfigsByCat(0, $mylinksModule->getVar('mid'))) {
-        if ($xoopsUser || ($mylinksConfig['anonpost'] == 1)) {
-            $modversion['sub'][$i] = array(
+$moduleHandler         = xoops_getHandler('module');
+$mylinksModule         = $moduleHandler->getByDirname($module_dirname);
+if ($mylinksModule) {
+    $mylinksConfig = $hModConfig->getConfigsByCat(0, $mylinksModule->getVar('mid'));
+    if ($mylinksConfig) {
+        if ($xoopsUser || (1 == $mylinksConfig['anonpost'])) {
+            $modversion['sub'][$i] = [
                 'name' => _MI_MYLINKS_SMNAME1,
-                'url'  => 'submit.php'
-            );
-            $i++;
+                'url'  => 'submit.php',
+            ];
+            ++$i;
         }
     }
 }
@@ -134,20 +131,20 @@ if ($mylinksModule = $hModule->getByDirname($module_dirname)) {
  *          2   Popular
  *          3   Most Recent
  */
-$modversion['sub'][$i] = array(
+$modversion['sub'][$i] = [
     'name' => _MI_MYLINKS_SMNAME3,
-    'url'  => 'topten.php?sort=1'
-);
-$i++;
-$modversion['sub'][$i] = array(
+    'url'  => 'topten.php?sort=1',
+];
+++$i;
+$modversion['sub'][$i] = [
     'name' => _MI_MYLINKS_SMNAME2,
-    'url'  => 'topten.php?sort=2'
-);
-$i++;
-$modversion['sub'][$i] = array(
+    'url'  => 'topten.php?sort=2',
+];
+++$i;
+$modversion['sub'][$i] = [
     'name' => _MI_MYLINKS_SMNAME4,
-    'url'  => 'topten.php?sort=3'
-);
+    'url'  => 'topten.php?sort=3',
+];
 
 // Set to 1 if you want to display menu generated by system module
 $modversion['system_menu'] = 1;
@@ -161,7 +158,7 @@ $modversion['search']['func'] = 'mylinks_search';
 $modversion['hasComments']             = 1;
 $modversion['comments']['itemName']    = 'lid';
 $modversion['comments']['pageName']    = 'singlelink.php';
-$modversion['comments']['extraParams'] = array('cid');
+$modversion['comments']['extraParams'] = ['cid'];
 // Comment callback functions
 $modversion['comments']['callbackFile']        = 'include/comment_functions.php';
 $modversion['comments']['callback']['approve'] = 'mylinks_com_approve';
@@ -171,57 +168,57 @@ $modversion['comments']['callback']['update']  = 'mylinks_com_update';
 $i                                          = 1;
 $modversion['templates'][$i]['file']        = 'mylinks_brokenlink.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_BROKEN;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_link.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_LINK;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_index.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_INDEX;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_modlink.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_MODLINK;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_ratelink.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_RATELINK;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_singlelink.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_SINGLELINK;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_submit.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_SUBMIT;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_topten.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_TOPTEN;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_viewcat.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_VIEWCAT;
 /*
-$i++;
+++$i;
 $modversion["templates"][$i]["file"]        = "admin/" . $module_dirname . "_admin_index.tpl";
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_ADMIN_INDEX;
-$i++;
+++$i;
 $modversion["templates"][$i]["file"]        = "admin/" . $module_dirname . "_admin_about.tpl";
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_ADMIN_ABOUT;
-$i++;
+++$i;
 $modversion["templates"][$i]["file"]        = "admin/" . $module_dirname . "_admin_help.tpl";
 $modversion["templates"][$i]["description"] = _MI_MYLINKS_TPLDESC_ADMIN_HELP;
 */
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_search_inc.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_SEARCHINC;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_atom.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_ATOM;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_pda.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_PDA;
-$i++;
+++$i;
 $modversion['templates'][$i]['file']        = 'mylinks_rss.tpl';
 $modversion['templates'][$i]['description'] = _MI_MYLINKS_TPLDESC_RSS;
 
 // Config Settings (only for modules that need config settings generated automatically)
 
-// name of config option for accessing its specified value. i.e. $xoopsModuleConfig['storyhome']
+// name of config option for accessing its specified value. i.e. $helper->getConfig('storyhome')
 $modversion['config'][1]['name'] = 'popular';
 
 // title of this config option displayed in config settings form
@@ -246,107 +243,107 @@ $modversion['config'][1]['default'] = 100;
 // options to be displayed in selection box
 // required and valid for 'select' or 'select_multi' formtype option only
 // language constants can be used for both array keys and values
-$modversion['config'][1]['options'] = array(
+$modversion['config'][1]['options'] = [
     '5'    => 5,
     '10'   => 10,
     '50'   => 50,
     '100'  => 100,
     '200'  => 200,
     '500'  => 500,
-    '1000' => 1000
-);
+    '1000' => 1000,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'newlinks',
     'title'       => '_MI_MYLINKS_NEWLINKS',
     'description' => '_MI_MYLINKS_NEWLINKSDSC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 10,
-    'options'     => array('5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30, '50' => 50)
-);
+    'options'     => ['5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30, '50' => 50],
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'perpage',
     'title'       => '_MI_MYLINKS_PERPAGE',
     'description' => '_MI_MYLINKS_PERPAGEDSC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 10,
-    'options'     => array('5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30, '50' => 50)
-);
+    'options'     => ['5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30, '50' => 50],
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'anonpost',
     'title'       => '_MI_MYLINKS_ANONPOST',
     'description' => '',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
-);
+    'default'     => 0,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'autoapprove',
     'title'       => '_MI_MYLINKS_AUTOAPPROVE',
     'description' => '_MI_MYLINKS_AUTOAPPROVEDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
-);
+    'default'     => 0,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'frame',
     'title'       => '_MI_MYLINKS_USEFRAMES',
     'description' => '_MI_MYLINKS_USEFRAMEDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
-);
+    'default'     => 0,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'useshots',
     'title'       => '_MI_MYLINKS_USESHOTS',
     'description' => '_MI_MYLINKS_USESHOTSDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
-);
+    'default'     => 0,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'shotwidth',
     'title'       => '_MI_MYLINKS_SHOTWIDTH',
     'description' => '_MI_MYLINKS_SHOTWIDTHDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 140
-);
+    'default'     => 140,
+];
 
-$options  = array('None' => _NONE);
-$fileList = XoopsLists::getFileListAsArray(XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . '/class/providers');
+$options  = ['None' => _NONE];
+$fileList = \XoopsLists::getFileListAsArray(XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . '/class/Providers');
 foreach ($fileList as $filename) {
-    if ('.php' == substr($filename, -4)
-        && file_exists(XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . "/class/providers/{$filename}")
-    ) {
-        include_once XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . "/class/providers/{$filename}";
-        $provider    = substr($filename, 0, -4);
+    if ('.php' === mb_substr($filename, -4)
+        && file_exists(XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . "/class/Providers/{$filename}")) {
+        //        require_once XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . "/class/providers/{$filename}";
+        $provider    = mb_substr($filename, 0, -4);
         $providerKey = ucfirst($provider);
-        $provClass   = ucfirst($modversion['dirname']) . $providerKey;
-        $provObj     = new $provClass;
-        if ($provObj instanceof MylinksThumbPlugin) {
+        //        $provClass   = ucfirst($modversion['dirname']) . $providerKey;
+        $provClass = '\\XoopsModules\\Mylinks\\Providers\\' . $providerKey;
+        $provObj   = new $provClass();
+        if ($provObj instanceof XoopsModules\Mylinks\ThumbPlugin) {
             $options[$providerKey] = $provObj->getProviderName();
         }
     }
 }
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'shotprovider',
     'title'       => '_MI_MYLINKS_SHOTPROVIDER',
     'description' => '_MI_MYLINKS_SHOTPROVIDERDSC',
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'default'     => _NONE,
-    'options'     => $options
-);
+    'options'     => $options,
+];
 /*
 $modversion['config'][] = array(
                             'name'        => 'shotprovider',
@@ -361,168 +358,168 @@ $modversion['config'][] = array(
                           );
 */
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'shotpubkey',
     'title'       => '_MI_MYLINKS_SHOTPUBKEY',
     'description' => '_MI_MYLINKS_SHOTPUBKEYDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => ''
-);
+    'default'     => '',
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'shotprivkey',
     'title'       => '_MI_MYLINKS_SHOTPRIVKEY',
     'description' => '_MI_MYLINKS_SHOTPRIVKEYDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => ''
-);
+    'default'     => '',
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'shotattribution',
     'title'       => '_MI_MYLINKS_DISPATTR',
     'description' => '_MI_MYLINKS_DISPATTRRDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
-);
-$modversion['config'][] = array(
+    'default'     => 1,
+];
+$modversion['config'][] = [
     'name'        => 'incadmin',
     'title'       => '_MI_MYLINKS_INCADMIN',
     'description' => '_MI_MYLINKS_INCADMINDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
-);
+    'default'     => 1,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'showextrafunc',
     'title'       => '_MI_MYLINKS_SHOWEXTRAFUNC',
     'description' => '_MI_MYLINKS_SHOWEXTRAFUNCDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
-);
+    'default'     => 1,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'canprint',
     'title'       => '_MI_MYLINKS_CANPRINT',
     'description' => '_MI_MYLINKS_CANPRINTDSC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => _MI_MYLINKS_ALLOW,
-    'options'     => array(
+    'options'     => [
         '_MI_MYLINKS_DISALLOWDSC'   => _MI_MYLINKS_DISALLOW,
         '_MI_MYLINKS_MEMBERONLYDSC' => _MI_MYLINKS_MEMBERONLY,
-        '_MI_MYLINKS_ALLOWDSC'      => _MI_MYLINKS_ALLOW
-    )
-);
+        '_MI_MYLINKS_ALLOWDSC'      => _MI_MYLINKS_ALLOW,
+    ],
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'canpdf',
     'title'       => '_MI_MYLINKS_CANPDF',
     'description' => '_MI_MYLINKS_CANPDFDSC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => _MI_MYLINKS_ALLOW,
-    'options'     => array(
+    'options'     => [
         '_MI_MYLINKS_DISALLOWDSC'   => _MI_MYLINKS_DISALLOW,
         '_MI_MYLINKS_MEMBERONLYDSC' => _MI_MYLINKS_MEMBERONLY,
-        '_MI_MYLINKS_ALLOWDSC'      => _MI_MYLINKS_ALLOW
-    )
-);
+        '_MI_MYLINKS_ALLOWDSC'      => _MI_MYLINKS_ALLOW,
+    ],
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'canbookmark',
     'title'       => '_MI_MYLINKS_CANBOOKMARK',
     'description' => '_MI_MYLINKS_CANBOOKMARKDSC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => _MI_MYLINKS_ALLOW,
-    'options'     => array(
+    'options'     => [
         '_MI_MYLINKS_DISALLOWDSC'   => _MI_MYLINKS_DISALLOW,
         '_MI_MYLINKS_MEMBERONLYDSC' => _MI_MYLINKS_MEMBERONLY,
-        '_MI_MYLINKS_ALLOWDSC'      => _MI_MYLINKS_ALLOW
-    )
-);
+        '_MI_MYLINKS_ALLOWDSC'      => _MI_MYLINKS_ALLOW,
+    ],
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'canqrcode',
     'title'       => '_MI_MYLINKS_CANQRCODE',
     'description' => '_MI_MYLINKS_CANQRCODEDSC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => _MI_MYLINKS_MEMBERONLY,
-    'options'     => array(
+    'options'     => [
         '_MI_MYLINKS_DISALLOWDSC'   => _MI_MYLINKS_DISALLOW,
         '_MI_MYLINKS_MEMBERONLYDSC' => _MI_MYLINKS_MEMBERONLY,
-        '_MI_MYLINKS_ALLOWDSC'      => _MI_MYLINKS_ALLOW
-    )
-);
+        '_MI_MYLINKS_ALLOWDSC'      => _MI_MYLINKS_ALLOW,
+    ],
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'showlogo',
     'title'       => '_MI_MYLINKS_SHOWLOGO',
     'description' => '_MI_MYLINKS_SHOWLOGODSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
-);
+    'default'     => 1,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'showxoopssearch',
     'title'       => '_MI_MYLINKS_SHOWXOOPSSEARCH',
     'description' => '_MI_MYLINKS_SHOWXOOPSSEARCHDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
-);
+    'default'     => 0,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'showtoolbar',
     'title'       => '_MI_MYLINKS_SHOWTOOLBAR',
     'description' => '_MI_MYLINKS_SHOWTOOLBARDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
-);
+    'default'     => 0,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'showletters',
     'title'       => '_MI_MYLINKS_SHOWLETTERS',
     'description' => '_MI_MYLINKS_SHOWLETTERSDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
-);
+    'default'     => 1,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'showfeed',
     'title'       => '_MI_MYLINKS_SHOWFEED',
     'description' => '_MI_MYLINKS_SHOWFEEDDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
-);
+    'default'     => 1,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'showsiteinfo',
     'title'       => '_MI_MYLINKS_SHOWSITEINFO',
     'description' => '_MI_MYLINKS_SHOWSITEINFODSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
-);
+    'default'     => 1,
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'anontellafriend',
     'title'       => '_MI_MYLINKS_ANONTELLAFRIEND',
     'description' => '_MI_MYLINKS_ANONTELLAFRIENDDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
-);
+    'default'     => 1,
+];
 
 // Notification
 
@@ -533,12 +530,12 @@ $modversion['notification']['lookup_func'] = 'mylinks_notify_iteminfo';
 $modversion['notification']['category'][1]['name']           = 'global';
 $modversion['notification']['category'][1]['title']          = _MI_MYLINKS_GLOBAL_NOTIFY;
 $modversion['notification']['category'][1]['description']    = _MI_MYLINKS_GLOBAL_NOTIFYDSC;
-$modversion['notification']['category'][1]['subscribe_from'] = array('index.php', 'viewcat.php', 'singlelink.php');
+$modversion['notification']['category'][1]['subscribe_from'] = ['index.php', 'viewcat.php', 'singlelink.php'];
 
 $modversion['notification']['category'][2]['name']           = 'category';
 $modversion['notification']['category'][2]['title']          = _MI_MYLINKS_CATEGORY_NOTIFY;
 $modversion['notification']['category'][2]['description']    = _MI_MYLINKS_CATEGORY_NOTIFYDSC;
-$modversion['notification']['category'][2]['subscribe_from'] = array('viewcat.php', 'singlelink.php');
+$modversion['notification']['category'][2]['subscribe_from'] = ['viewcat.php', 'singlelink.php'];
 $modversion['notification']['category'][2]['item_name']      = 'cid';
 $modversion['notification']['category'][2]['allow_bookmark'] = 1;
 
@@ -620,7 +617,7 @@ $modversion['notification']['event'][8]['mail_subject']  = _MI_MYLINKS_LINK_APPR
 
 // onUpdate
 /*
-if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
-  include __DIR__ . "/include/onupdate.inc.php";
+if ( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
+  require_once __DIR__   . "/include/onupdate.inc.php";
 }
-*/;
+*/

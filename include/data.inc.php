@@ -1,5 +1,4 @@
 <?php
-// $Id: data.inc.php 8112 2011-11-06 13:41:14Z beckmi $
 
 // 2005-10-01 K.OHWADA
 // category, counter
@@ -13,7 +12,7 @@
 //================================================================
 // What's New Module
 // get links from module
-// for mylinks 1.10 <http://www.xoops.org/>
+// for mylinks 1.10 <https://xoops.org>
 // 2003.12.20 K.OHWADA
 //================================================================
 
@@ -26,21 +25,26 @@ function mylinks_new($limit = 0, $offset = 0)
 {
     global $xoopsDB;
 
-    $myts      = MyTextSanitizer::getInstance();
+    $myts      = \MyTextSanitizer::getInstance();
     $dirname   = basename(dirname(__DIR__));
     $moduleURL = XOOPS_URL . "/modules/{$dirname}";
 
     $limit  = ((int)$limit > 0) ? (int)$limit : 0;
     $offset = ((int)$offset > 0) ? (int)$offset : 0;
 
-    $sql    = 'SELECT l.lid, l.title as ltitle, l.date, l.cid, l.submitter, l.hits, t.description, c.title as ctitle FROM ' . $xoopsDB->prefix('mylinks_links') . ' l, ' . $xoopsDB->prefix('mylinks_text') . ' t, ' . $xoopsDB->prefix('mylinks_cat')
+    $sql    = 'SELECT l.lid, l.title AS ltitle, l.date, l.cid, l.submitter, l.hits, t.description, c.title AS ctitle FROM '
+              . $xoopsDB->prefix('mylinks_links')
+              . ' l, '
+              . $xoopsDB->prefix('mylinks_text')
+              . ' t, '
+              . $xoopsDB->prefix('mylinks_cat')
               . ' c WHERE t.lid=l.lid AND l.cid=c.cid AND l.status>0 ORDER BY l.date DESC';
     $result = $xoopsDB->query($sql, $limit, $offset);
 
     $i   = 0;
-    $ret = array();
+    $ret = [];
 
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $ret[$i]['link']     = "{$moduleURL}/singlelink.php?lid={$row['lid']}";
         $ret[$i]['cat_link'] = "{$moduleURL}/viewcat.php?cid={$row['cid']}";
         $ret[$i]['title']    = $row['ltitle'];
@@ -53,7 +57,7 @@ function mylinks_new($limit = 0, $offset = 0)
         $ret[$i]['cat_name']    = $row['ctitle'];   // category
         $ret[$i]['hits']        = $row['hits'];         // counter
         //        $ret[$i]['uid'] = $row['submitter'];   // show user name
-        $i++;
+        ++$i;
     }
 
     return $ret;
@@ -93,15 +97,15 @@ function mylinks_data($limit = 0, $offset = 0)
     $result = $xoopsDB->query($sql, $limit, $offset);
 
     $i   = 0;
-    $ret = array();
+    $ret = [];
 
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $id               = $row['lid'];
         $ret[$i]['id']    = $id;
         $ret[$i]['link']  = XOOPS_URL . "/modules/{$dirname}/singlelink.php?lid={$id}";
         $ret[$i]['title'] = $row['title'];
         $ret[$i]['time']  = $row['date'];
-        $i++;
+        ++$i;
     }
 
     return $ret;

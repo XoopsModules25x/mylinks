@@ -1,9 +1,11 @@
 <?php
 
+namespace XoopsModules\Mylinks;
+
 /**
  * Class MylinksPageNav
  */
-class MylinksPageNav
+class PageNav
 {
     public $total;
     public $perpage;
@@ -11,22 +13,27 @@ class MylinksPageNav
     public $url;
 
     /**
-     * mylinkspagenav constructor.
+     * MylinksPageNav constructor.
      * @param        $total_items
      * @param        $items_perpage
      * @param        $current_start
      * @param string $start_name
      * @param string $extra_arg
      */
-    public function __construct($total_items, $items_perpage, $current_start, $start_name = 'start', $extra_arg = '')
-    {
+    public function __construct(
+        $total_items,
+        $items_perpage,
+        $current_start,
+        $start_name = 'start',
+        $extra_arg = ''
+    ) {
         $this->total   = (int)$total_items;
         $this->perpage = (int)$items_perpage;
         $this->current = (int)$current_start;
-        if ($extra_arg != '' && (substr($extra_arg, -5) != '&amp;' || substr($extra_arg, -1) != '&')) {
+        if ('' != $extra_arg && ('&amp;' !== mb_substr($extra_arg, -5) || '&' !== mb_substr($extra_arg, -1))) {
             $extra_arg .= '&amp;';
         }
-        $this->url = xoops_getenv('PHP_SELF') . '?' . $extra_arg . trim($start_name) . '=';
+        $this->url = xoops_getenv('SCRIPT_NAME') . '?' . $extra_arg . trim($start_name) . '=';
     }
 
     /**
@@ -50,18 +57,17 @@ class MylinksPageNav
             while ($counter <= $total_pages) {
                 if ($counter == $current_page) {
                     $ret .= '<strong>(' . $counter . ')</strong> ';
-                } elseif (($counter > $current_page - $offset && $counter < $current_page + $offset) || $counter == 1
-                          || $counter == $total_pages
-                ) {
+                } elseif (($counter > $current_page - $offset && $counter < $current_page + $offset) || 1 == $counter
+                          || $counter == $total_pages) {
                     if ($counter == $total_pages && $current_page < $total_pages - $offset) {
                         $ret .= '... ';
                     }
                     $ret .= '<a href="' . $this->url . (($counter - 1) * $this->perpage) . '">' . $counter . '</a> ';
-                    if ($counter == 1 && $current_page > 1 + $offset) {
+                    if (1 == $counter && $current_page > 1 + $offset) {
                         $ret .= '... ';
                     }
                 }
-                $counter++;
+                ++$counter;
             }
             $next = $this->current + $this->perpage;
             if ($this->total > $next) {
@@ -84,17 +90,17 @@ class MylinksPageNav
         $total_pages = ceil($this->total / $this->perpage);
         $ret         = '';
         if ($total_pages > 1) {
-            $ret = '<form name="pagenavform" action="' . xoops_getenv('PHP_SELF') . '">';
-            $ret .= '<select name="pagenavselect" onchange="location=this.options[this.options.selectedIndex].value;">';
+            $ret          = '<form name="pagenavform" action="' . xoops_getenv('SCRIPT_NAME') . '">';
+            $ret          .= '<select name="pagenavselect" onchange="location=this.options[this.options.selectedIndex].value;">';
             $counter      = 1;
             $current_page = (int)floor(($this->current + $this->perpage) / $this->perpage);
             while ($counter <= $total_pages) {
                 if ($counter == $current_page) {
-                    $ret .= '<option value="' . $this->url . (($counter - 1) * $this->perpage) . '" selected="selected">' . $counter . '</option>';
+                    $ret .= '<option value="' . $this->url . (($counter - 1) * $this->perpage) . '" selected>' . $counter . '</option>';
                 } else {
                     $ret .= '<option value="' . $this->url . (($counter - 1) * $this->perpage) . '">' . $counter . '</option>';
                 }
-                $counter++;
+                ++$counter;
             }
             $ret .= '</select>';
             if ($showbutton) {
@@ -128,22 +134,21 @@ class MylinksPageNav
             while ($counter <= $total_pages) {
                 if ($counter == $current_page) {
                     $ret .= '<td class="pagact"><b>' . $counter . '</b></td>';
-                } elseif (($counter > $current_page - $offset && $counter < $current_page + $offset) || $counter == 1
-                          || $counter == $total_pages
-                ) {
+                } elseif (($counter > $current_page - $offset && $counter < $current_page + $offset) || 1 == $counter
+                          || $counter == $total_pages) {
                     if ($counter == $total_pages && $current_page < $total_pages - $offset) {
                         $ret .= '<td class="paginact">...</td>';
                     }
                     $ret .= '<td class="paginact"><a href="' . $this->url . (($counter - 1) * $this->perpage) . '">' . $counter . '</a></td>';
-                    if ($counter == 1 && $current_page > 1 + $offset) {
+                    if (1 == $counter && $current_page > 1 + $offset) {
                         $ret .= '<td class="paginact">...</td>';
                     }
                 }
-                $counter++;
+                ++$counter;
             }
             $next = $this->current + $this->perpage;
             if ($this->total > $next) {
-                $ret .= '<td><img src="' . XOOPS_URL . '/images/blank.gif" width="6" alt=""></td><td class="pagneutral"><a href="' . $this->url . $next . '">&gt;</a></td>';
+                $ret .= '<td><img src="' . XOOPS_URL . '/images/blank.gif" width="6" alt=""></td><td class="pagneutral"><a href="' . $this->url . $next . '">></a></td>';
             }
             $ret .= '</tr></table>';
         }

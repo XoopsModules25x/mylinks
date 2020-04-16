@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MyLinks module
  *
@@ -9,14 +10,15 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright ::  {@link https://xoops.org/ XOOPS Project}
- * @license   ::    {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @copyright ::  XOOPS Project (https://xoops.org)
+ * @license   ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks
  * @subpackage:: admin
+ * @since     :       2.5.0
  * @author    ::     XOOPS Development Team
-  **/
-global $pathIcon32;
+ **/
+$pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
 
-echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "    <a href='http://www.xoops.org' target='_blank'><img src=" . $pathIcon32 . "/xoopsmicrobutton.gif alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . '  ' . _AM_MYLINKS_ADMIN_FOOTER . "\n" . '</div>';
+echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "    <a href='https://xoops.org' target='_blank'><img src=" . $pathIcon32 . "/xoopsmicrobutton.gif alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . '  ' . _AM_MYLINKS_ADMIN_FOOTER . "\n" . '</div>';
 
 xoops_cp_footer();

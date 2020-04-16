@@ -1,14 +1,14 @@
 // ----------------------------------------------------------- //
-//                         mylinks-w 3.11    	 	           //
+//                         mylinks-w 3.11                      //
 //                The XOOPS Module Development Team            //
-//                         http://www.xoops.org                //
+//                         https://xoops.org                //
 // ----------------------------------------------------------- //
-//                         mylinks-w 3.0    	 	           //
-//                    Just enjoy! Internet for everyone!!	   //
+//                         mylinks-w 3.0                       //
+//                    Just enjoy! Internet for everyone!!      //
 //                      wanikoo <http://www.wanisys.net/>      //
 // ----------------------------------------------------------- //
 //                Original Module: mylinks 1.10                //
-//             The XOOPS Project ( http://www.xoops.org/ )     //
+//             XOOPS Project ( https://xoops.org/ )     //
 // ----------------------------------------------------------- //
 
 

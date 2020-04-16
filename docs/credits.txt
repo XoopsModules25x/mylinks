@@ -1,8 +1,8 @@
 //  ----------------------------------------------------------- //
-//                         mylinks-w 3.11    	 	            //
-//                    Just enjoy! Internet for everyone!!	    //
+//                         mylinks-w 3.11                       //
+//                    Just enjoy! Internet for everyone!!       //
 //                      wanikoo <http://www.wanisys.net/>       //
 //  ----------------------------------------------------------- //
 //                Original Module: mylinks 1.10                 //
-//             The XOOPS Project ( http://www.xoops.org/ )      //
+//             XOOPS Project ( https://xoops.org/ )      //
 //  ----------------------------------------------------------- //

@@ -1,14 +1,15 @@
 <?php
+
 /**
  * @return array
  */
 function b_waiting_mylinks()
 {
-    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
-    $ret     = array();
+    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
+    $ret     = [];
 
     // mylinks links
-    $block  = array();
+    $block  = [];
     $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status=0');
     if ($result) {
         $block['adminlink'] = XOOPS_URL . '/modules/mylinks/admin/main.php?op=listNewLinks';
@@ -18,9 +19,9 @@ function b_waiting_mylinks()
     $ret[] = $block;
 
     // mylinks broken
-    $block       = array();
-    $bknHandler = xoops_getModuleHandler('broken', 'mylinks');
-    $result      = $bknHandler->getCount();
+    $block      = [];
+    $bknHandler = $helper->getHandler('Broken');
+    $result     = $bknHandler->getCount();
     //    $result = $xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("mylinks_broken"));
     if ($result) {
         $block['adminlink'] = $xoops->url('modules/mylinks/admin/main.php?op=listBrokenLinks');
@@ -31,9 +32,9 @@ function b_waiting_mylinks()
     $ret[] = $block;
 
     // mylinks modreq
-    $block          = array();
-    $modreqHandler = xoops_getModuleHandler('modification', 'mylinks');
-    $result         = $modreqHandler->getCount();
+    $block         = [];
+    $modreqHandler = $helper->getHandler('Modification');
+    $result        = $modreqHandler->getCount();
     //    $result = $xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("mylinks_mod"));
     if ($result) {
         $block['adminlink'] = XOOPS_URL . '/modules/mylinks/admin/main.php?op=listModReq';

@@ -7,7 +7,7 @@
 function mylinks_get_new($param)
 {
     $modulename = basename(dirname(__DIR__));
-    include_once XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feeddata.inc.php";
+    require_once XOOPS_ROOT_PATH . "/modules/{$modulename}/include/feeddata.inc.php";
 
     // parameter
     $limit_show  = isset($param['show']) ? (int)$param['show'] : 10;
@@ -15,25 +15,25 @@ function mylinks_get_new($param)
 
     // get new from each module
     $i            = 0;
-    $result_array = array();
-    $time_array   = array();
+    $result_array = [];
+    $time_array   = [];
 
     $limit = $limit_show;
 
     $res_array = mylinks_feednew($limit);
     $count     = count($res_array);
     if (is_array($res_array) && $count > 0) {
-        for ($j = 0; $j < $count; $j++) {
+        for ($j = 0; $j < $count; ++$j) {
             $result_array[$i] = $res_array[$j];
             $time_array[$i]   = $res_array[$j]['time'];
-            $i++;
+            ++$i;
         }
     }
 
     // sort by time
     arsort($time_array);
     $i         = 0;
-    $new_array = array();
+    $new_array = [];
 
     foreach ($time_array as $num => $time) {
         $new_array[$i++] = $result_array[$num];
@@ -51,7 +51,7 @@ function mylinks_get_new($param)
  */
 function wani_make_html_title($title)
 {
-    if (!isset($title) or empty($title)) {
+    if (!isset($title) || empty($title)) {
         return '';
     }
     $title = strip_tags($title);
@@ -145,7 +145,7 @@ function wani_strip_space($text)
 {
     global $xoopsConfig;
 
-    if (($xoopsConfig['language'] == 'japanese') && function_exists('mb_convert_kana')) {
+    if (('japanese' === $xoopsConfig['language']) && function_exists('mb_convert_kana')) {
         // zenkaku to hankaku
         $text = mb_convert_kana($text, 's');
     }
@@ -168,7 +168,7 @@ function wani_strip_space($text)
  */
 function wani_add_space($text)
 {
-    $text = preg_replace('/>/', '> ', $text);
+    $text = preg_replace('>/', '> ', $text);
 
     return $text;
 }
@@ -192,6 +192,7 @@ function wani_html_special_chars($text)
     $text = wani_conv_js($text);
     $text = htmlspecialchars($text, ENT_QUOTES);
     $text = preg_replace("/'/", '&apos;', $text);
+
     //$text = preg_replace("/&amp;/i", '&', $text);
     return $text;
 }
@@ -205,7 +206,7 @@ function wani_html_special_chars($text)
 //   &     -> &amp;
 //   &amp; -> &amp;
 //---------------------------------------------------------
-// BUG 3169: need to sanitaize $_SERVER['PHP_SELF']
+// BUG 3169: need to sanitaize $_SERVER['SCRIPT_NAME']
 /**
  * @param $text
  * @return mixed|string
@@ -221,7 +222,7 @@ function wani_html_special_chars_url($text)
     return $text;
 }
 
-// BUG 3169: need to sanitaize $_SERVER['PHP_SELF']
+// BUG 3169: need to sanitaize $_SERVER['SCRIPT_NAME']
 /**
  * @param $text
  * @return mixed
@@ -229,7 +230,7 @@ function wani_html_special_chars_url($text)
 function wani_conv_js($text)
 {
     $text = preg_replace('/javascript:/si', 'java script:', $text);
-    $text = preg_replace('/about:/si', 'about :', $text);
+    $text = preg_replace('/about:/si', 'about:', $text);
 
     return $text;
 }
@@ -265,7 +266,7 @@ function wani_strip_control_code($text)
 function wani_iso8601_date($time)
 {
     $tzd  = date('O', $time);
-    $tzd  = substr(chunk_split($tzd, 3, ':'), 0, 6);
+    $tzd  = mb_substr(chunk_split($tzd, 3, ':'), 0, 6);
     $date = date('Y-m-d\TH:i:s', $time) . $tzd;
 
     return $date;
@@ -273,7 +274,7 @@ function wani_iso8601_date($time)
 
 /**
  * @param $text
- * @return string
+ * @return mixed|string
  */
 function wani_utf8_encode($text)
 {
