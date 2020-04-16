@@ -5,12 +5,12 @@ LICENSE:
   Script: Add To Bookmarks
   Version: 1.1
   Homepage: http://www.AddToBookmarks.com
-  Author:	Gideon Marken
+  Author:   Gideon Marken
   Author Blog: http://www.gideonmarken.com/
   Author Work: http://www.markenmedia.com/
   Author Work: http://www.webandaudio.com/
   Date: July 18, 2007
-  License: Mozilla Public License 1.1	http://www.mozilla.org/MPL/MPL-1.1.html
+  License: Mozilla Public License 1.1   http://www.mozilla.org/MPL/MPL-1.1.html
 
 ABOUT:
   AddToBookmarks is a small JavaScript you can add to your blog or website which assists site visitors in
@@ -46,10 +46,10 @@ DIRECTIONS: use the demo files, or follow these steps.
 
       <!-- AddToBookmarks.com JS Settings - Place this in the body, at the top -->
       <script language="JavaScript" type="text/javascript">
-        var addtoLayout=0;						// 0=Horizontal 1 row, 1=Horizontal 2 rows, 2=Vertical, 3=Vertical text only
-        var addtoMethod=1;						// 0=direct link, 1=popup window
-        var AddURL = document.location.href;	// this is the page's URL
-        var AddTitle = escape(document.title);	// this is the page title
+        var addtoLayout=0;                      // 0=Horizontal 1 row, 1=Horizontal 2 rows, 2=Vertical, 3=Vertical text only
+        var addtoMethod=1;                      // 0=direct link, 1=popup window
+        var AddURL = document.location.href;    // this is the page's URL
+        var AddTitle = escape(document.title);  // this is the page title
       </script>
       <!-- End AddToBookmarks.com JS Settings -->
 
@@ -93,7 +93,7 @@ ABOUT:
   used the direct method, the user will be sent back to the originating page in the same browser.
 
 CHANGE LOG:
-  12-05-05	v1		- initial release
-  07-18-07	v1.1	- fixed CSS issue in horizontal layout
+  12-05-05  v1      - initial release
+  07-18-07  v1.1    - fixed CSS issue in horizontal layout
             - updated Google and Furl bookmark links
             - safari popup/timer issue fixed - added intervalMgr function
