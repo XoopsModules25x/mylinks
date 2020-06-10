@@ -20,7 +20,10 @@
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$adminObject = \Xmf\Module\Admin::getInstance();
+/**
+ * Defined via inclusion of ./admin/admin_header.php
+* @var \Xmf\Module\Admin $adminObject
+*/
 
 // Temporarily 'homeless' links (to be revised in admin.php breakup)
 $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_broken') . ' ');
