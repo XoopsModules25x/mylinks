@@ -522,7 +522,7 @@ function modLink()
          . "<br></th>\n"
          . "        </tr>\n";
     if (0 == $votes) {
-        echo "        <tr><td colspan='7' class='center;'>" . _MD_MYLINKS_NOUNREGVOTES . "<br></td></tr>\n";
+        echo "        <tr><td colspan='7' class='center'>" . _MD_MYLINKS_NOUNREGVOTES . "<br></td></tr>\n";
     }
     $x           = 0;
     $colorswitch = '#DDDDDD';
