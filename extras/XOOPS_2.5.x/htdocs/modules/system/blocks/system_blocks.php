@@ -178,7 +178,7 @@ function b_system_user_show()
 
     $pmHandler = xoops_getHandler('privmessage');
 
-    $xoopsPreload = XoopsPreload::getInstance();
+    $xoopsPreload = \XoopsPreload::getInstance();
     $xoopsPreload->triggerEvent('system.blocks.system_blocks.usershow', [&$pmHandler]);
 
     $block['new_messages']   = $pmHandler->getCount($criteria);
