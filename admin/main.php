@@ -1159,7 +1159,7 @@ function changeModReq()
         $title       = addslashes($title);
         $description = addslashes($description);
 
-        $sql    = sprintf("UPDATE `%s` SET cid = %u, title = '%s', url = '%s', logourl = '%s', STATUS = 1, DATE = %u WHERE lid = %u", $xoopsDB->prefix('mylinks_links'), $cid, $title, $url, $logourl, time(), $lid);
+        $sql    = sprintf("UPDATE `%s` SET cid = %u, title = '%s', url = '%s', logourl = '%s', status = 1, date = %u WHERE lid = %u", $xoopsDB->prefix('mylinks_links'), $cid, $title, $url, $logourl, time(), $lid);
         $result = $xoopsDB->query($sql);
         if (!$result) {
             Mylinks\Utility::show_message(_MD_MYLINKS_DBNOTUPDATED);
