@@ -37,7 +37,7 @@ $cid = Mylinks\Utility::cleanVars($_GET, 'cid', 0, 'int', ['min' => 0]);
 if (!$xoopsUser || (!$xoopsUser->isAdmin($xoopsModule->mid()))
     || ($xoopsUser->isAdmin($xoopsModule->mid())
         && $helper->getConfig('incadmin'))) {
-    $sql = sprintf('UPDATE `%s` SET hits = hits+1 WHERE lid = %u AND STATUS > 0', $xoopsDB->prefix('mylinks_links'), $lid);
+    $sql = sprintf('UPDATE `%s` SET hits = hits+1 WHERE lid = %u AND status > 0', $xoopsDB->prefix('mylinks_links'), $lid);
     $xoopsDB->queryF($sql);
 }
 $result = $xoopsDB->query('SELECT url FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE lid={$lid} AND status>0");
