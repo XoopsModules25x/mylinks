@@ -1581,7 +1581,7 @@ function addLink()
     if ($error) {
         xoops_cp_header();
         $displayMsg = implode('<br>', $errormsg);
-        echo "<div class='center;'><fieldset>{$displayMsg}</fieldset></div>\n";
+        echo "<div class='center'><fieldset>{$displayMsg}</fieldset></div>\n";
         xoops_cp_footer();
         exit();
     }
