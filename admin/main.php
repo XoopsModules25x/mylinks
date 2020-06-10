@@ -1587,7 +1587,7 @@ function addLink()
     }
 
     $newid  = $xoopsDB->genId($xoopsDB->prefix('mylinks_links') . '_lid_seq');
-    $sql    = sprintf("INSERT INTO `%s` (lid, cid, title, url, logourl, submitter, STATUS, DATE, hits, rating, votes, comments) VALUES (%u, %u, '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u)", $xoopsDB->prefix('mylinks_links'), $newid, $cid, $title, $url, $logourl, $submitter, 1, time(), 0, 0, 0, 0);
+    $sql    = sprintf("INSERT INTO `%s` (lid, cid, title, url, logourl, submitter, status, date, hits, rating, votes, comments) VALUES (%u, %u, '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u)", $xoopsDB->prefix('mylinks_links'), $newid, $cid, $title, $url, $logourl, $submitter, 1, time(), 0, 0, 0, 0);
     $result = $xoopsDB->query($sql);
     if (!$result) {
         Mylinks\Utility::show_message(_MD_MYLINKS_NORECORDFOUND);
