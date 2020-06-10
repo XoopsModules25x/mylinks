@@ -276,8 +276,9 @@ function GoogleCH($url, $length = null, $init = GOOGLE_MAGIC)
  */
 function strord($string)
 {
-    for ($i = 0, $iMax = mb_strlen($string); $i < $iMax; ++$i) {
-        $result[$i] = ord($string[$i]);
+    $iMax = mb_strlen($string);
+    for ($i = 0; $i < $iMax; ++$i) {
+        $result[$i] = ord($string{$i});
     }
 
     return $result;
