@@ -26,7 +26,7 @@ use XoopsModules\Mylinks\Utility;
 
 require_once __DIR__ . '/admin_header.php';
 
-xoops_loadLanguage('main', $xoopsModule->getVar('dirname'));
+//soops_loadLanguage('main', $xoopsModule->getVar('dirname'));
 // require_once  dirname(__DIR__) . '/class/Utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
 
