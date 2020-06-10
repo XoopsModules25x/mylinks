@@ -35,8 +35,9 @@ require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 require_once XOOPS_ROOT_PATH . '/include/xoopscodes.php';
 //require_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
 
-/** @var \XoopsModules\Mylinks\Helper $helper */
-$helper = \XoopsModules\Mylinks\Helper::getInstance();
+/** Defined via inclusion of ./admin/admin_header.php
+ * @var \XoopsModules\Mylinks\Helper $helper
+ */
 
 if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
     require_once $GLOBALS['xoops']->path('class/theme.php');
