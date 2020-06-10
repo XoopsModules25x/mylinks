@@ -476,7 +476,7 @@ function modLink()
         //v3.11 changed to let SQL do calculations instead of PHP
         $result2 = $xoopsDB->query('SELECT COUNT(), FORMAT(AVG(rating),2) FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE ratinguser = '$ratinguser'");
         list($uservotes, $useravgrating) = $xoopsDB->fetchRow($result2);
-        //        $useravgrating = ($rating2) ? sprintf("%01.2f", ($useravgrating / $uservotes)): 0;
+        //$useravgrating = ($rating2) ? sprintf("%01.2f", ($useravgrating / $uservotes)) : 0;
         /*
                 $result2=$xoopsDB->query("SELECT rating FROM ".$xoopsDB->prefix("mylinks_votedata")." WHERE ratinguser = '$ratinguser'");
                 $uservotes = $xoopsDB->getRowsNum($result2);
