@@ -464,7 +464,7 @@ function modLink()
          . "</td>\n"
          . "        </tr>\n";
     if (0 == $votes) {
-        echo "        <tr><td class='center;' colspan='7'>" . _MD_MYLINKS_NOREGVOTES . "<br></td></tr>\n";
+        echo "        <tr><td class='center' colspan='7'>" . _MD_MYLINKS_NOREGVOTES . "<br></td></tr>\n";
     }
 
     $x           = 0;
