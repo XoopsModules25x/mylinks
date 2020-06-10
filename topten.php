@@ -21,6 +21,7 @@ use XoopsModules\Mylinks;
 use XoopsModules\Mylinks\Utility;
 
 require_once __DIR__ . '/header.php';
+require_once dirname(__DIR__, 2) . '/class/tree.php';
 $myts = \MyTextSanitizer::getInstance(); // MyTextSanitizer object
 
 $categoryHandler = $helper->getHandler('Category');
