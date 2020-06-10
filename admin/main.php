@@ -564,6 +564,8 @@ function listBrokenLinks()
     global $xoopsDB, $xoopsModule, $pathIcon16, $myts;
 
     $result           = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('mylinks_broken') . ' GROUP BY lid ORDER BY reportid DESC');
+    global $pathIcon16;
+
     $totalBrokenLinks = $xoopsDB->getRowsNum($result);
     xoops_cp_header();
 
