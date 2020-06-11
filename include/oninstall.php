@@ -26,7 +26,7 @@ use XoopsModules\Mylinks\Common;
  *
  * @return bool true if ready to install, false if not
  */
-function xoops_module_pre_install_xxxx(\XoopsModule $module)
+function xoops_module_pre_install_mylinks(\XoopsModule $module)
 {
     //    include __DIR__ . '/../preloads/autoloader.php';
     include __DIR__ . '/common.php';
