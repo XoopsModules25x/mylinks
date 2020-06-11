@@ -54,7 +54,7 @@ function xoops_module_pre_install_xxxx(\XoopsModule $module)
  *
  * @return bool true if installation successful, false if not
  */
-function xoops_module_install_xxxx(\XoopsModule $module)
+function xoops_module_install_mylinks(\XoopsModule $module)
 {
     require_once dirname(__DIR__) . '/preloads/autoloader.php';
 
