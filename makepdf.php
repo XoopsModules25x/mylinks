@@ -68,7 +68,7 @@ $pdf_data['author']      = '';
 
 // strip out unwanted html code from description
 $description         = html_entity_decode($description, ENT_QUOTES, 'UTF-8');
-$allowable_tags      = '<br><br><br><b><i><u><em><strong><p>';
+$allowable_tags      = '<br><br/><br /><b><i><u><em><strong><p>';
 $description         = strip_tags($description, $allowable_tags);
 $pdf_data['content'] = $myts->displayTarea($description, 1);
 

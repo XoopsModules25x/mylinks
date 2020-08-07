@@ -100,6 +100,7 @@ function xoops_module_install_mylinks_base(\XoopsModule $module)
 
 /**
  * eval functions to support module relocation (directory renaming)
+ * @TODO remove this method of module relocation - seucrity concern using eval()
  */
 eval(
     'function xoops_module_install_' . $mylinksDir . '(\XoopsModule $module=NULL)

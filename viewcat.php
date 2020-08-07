@@ -156,7 +156,7 @@ if (!isset($_GET['list'])) {
     $thisPageTitle = $categoryPath;
     $xoopsTpl->assign('category_path', $categoryPath);
 
-    $LinkCountResult = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE title LIKE '" . $myts->addSlashes($_GET['list']) . "%' AND STATUS>0");
+    $LinkCountResult = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('mylinks_links') . " WHERE title LIKE '" . $myts->addSlashes($_GET['list']) . "%' AND status>0");
 }
 $useShots = $helper->getConfig('useshots');
 if (1 == $useShots) {

@@ -26,7 +26,7 @@ use XoopsModules\Mylinks\Utility;
 
 require_once __DIR__ . '/admin_header.php';
 
-xoops_loadLanguage('main', $xoopsModule->getVar('dirname'));
+//xoops_loadLanguage('main', $xoopsModule->getVar('dirname'));
 // require_once  dirname(__DIR__) . '/class/Utility.php';
 //xoops_load('utility', $xoopsModule->getVar('dirname'));
 
@@ -35,8 +35,9 @@ require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 require_once XOOPS_ROOT_PATH . '/include/xoopscodes.php';
 //require_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
 
-/** @var \XoopsModules\Mylinks\Helper $helper */
-$helper = \XoopsModules\Mylinks\Helper::getInstance();
+/** Defined via inclusion of ./admin/admin_header.php
+ * @var \XoopsModules\Mylinks\Helper $helper
+ */
 
 if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
     require_once $GLOBALS['xoops']->path('class/theme.php');
@@ -463,7 +464,7 @@ function modLink()
          . "</td>\n"
          . "        </tr>\n";
     if (0 == $votes) {
-        echo "        <tr><td class='center;' colspan='7'>" . _MD_MYLINKS_NOREGVOTES . "<br></td></tr>\n";
+        echo "        <tr><td class='center' colspan='7'>" . _MD_MYLINKS_NOREGVOTES . "<br></td></tr>\n";
     }
 
     $x           = 0;
@@ -475,7 +476,7 @@ function modLink()
         //v3.11 changed to let SQL do calculations instead of PHP
         $result2 = $xoopsDB->query('SELECT COUNT(), FORMAT(AVG(rating),2) FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE ratinguser = '$ratinguser'");
         list($uservotes, $useravgrating) = $xoopsDB->fetchRow($result2);
-        //        $useravgrating = ($rating2) ? sprintf("%01.2f", ($useravgrating / $uservotes)): 0;
+        //$useravgrating = ($rating2) ? sprintf("%01.2f", ($useravgrating / $uservotes)) : 0;
         /*
                 $result2=$xoopsDB->query("SELECT rating FROM ".$xoopsDB->prefix("mylinks_votedata")." WHERE ratinguser = '$ratinguser'");
                 $uservotes = $xoopsDB->getRowsNum($result2);
@@ -521,7 +522,7 @@ function modLink()
          . "<br></th>\n"
          . "        </tr>\n";
     if (0 == $votes) {
-        echo "        <tr><td colspan='7' class='center;'>" . _MD_MYLINKS_NOUNREGVOTES . "<br></td></tr>\n";
+        echo "        <tr><td colspan='7' class='center'>" . _MD_MYLINKS_NOUNREGVOTES . "<br></td></tr>\n";
     }
     $x           = 0;
     $colorswitch = '#DDDDDD';
@@ -563,6 +564,8 @@ function listBrokenLinks()
     global $xoopsDB, $xoopsModule, $pathIcon16, $myts;
 
     $result           = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('mylinks_broken') . ' GROUP BY lid ORDER BY reportid DESC');
+    global $pathIcon16;
+
     $totalBrokenLinks = $xoopsDB->getRowsNum($result);
     xoops_cp_header();
 
@@ -1158,7 +1161,7 @@ function changeModReq()
         $title       = addslashes($title);
         $description = addslashes($description);
 
-        $sql    = sprintf("UPDATE `%s` SET cid = %u, title = '%s', url = '%s', logourl = '%s', STATUS = 1, DATE = %u WHERE lid = %u", $xoopsDB->prefix('mylinks_links'), $cid, $title, $url, $logourl, time(), $lid);
+        $sql    = sprintf("UPDATE `%s` SET cid = %u, title = '%s', url = '%s', logourl = '%s', status = 1, date = %u WHERE lid = %u", $xoopsDB->prefix('mylinks_links'), $cid, $title, $url, $logourl, time(), $lid);
         $result = $xoopsDB->query($sql);
         if (!$result) {
             Mylinks\Utility::show_message(_MD_MYLINKS_DBNOTUPDATED);
@@ -1578,13 +1581,13 @@ function addLink()
     if ($error) {
         xoops_cp_header();
         $displayMsg = implode('<br>', $errormsg);
-        echo "<div class='center;'><fieldset>{$displayMsg}</fieldset></div>\n";
+        echo "<div class='center'><fieldset>{$displayMsg}</fieldset></div>\n";
         xoops_cp_footer();
         exit();
     }
 
     $newid  = $xoopsDB->genId($xoopsDB->prefix('mylinks_links') . '_lid_seq');
-    $sql    = sprintf("INSERT INTO `%s` (lid, cid, title, url, logourl, submitter, STATUS, DATE, hits, rating, votes, comments) VALUES (%u, %u, '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u)", $xoopsDB->prefix('mylinks_links'), $newid, $cid, $title, $url, $logourl, $submitter, 1, time(), 0, 0, 0, 0);
+    $sql    = sprintf("INSERT INTO `%s` (lid, cid, title, url, logourl, submitter, status, date, hits, rating, votes, comments) VALUES (%u, %u, '%s', '%s', '%s', %u, %u, %u, %u, %u, %u, %u)", $xoopsDB->prefix('mylinks_links'), $newid, $cid, $title, $url, $logourl, $submitter, 1, time(), 0, 0, 0, 0);
     $result = $xoopsDB->query($sql);
     if (!$result) {
         Mylinks\Utility::show_message(_MD_MYLINKS_NORECORDFOUND);

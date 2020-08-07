@@ -21,8 +21,9 @@ $mylinksDir = basename(dirname(__DIR__));
 
 /**
  * @param $xoopsModule
- * @param $prev_version
+ * @param $prev_version	
  * @return bool
+ * @TODO refactor this code without eval() - security risk
  */
 function xoops_module_update_mylinks_base(\XoopsObject $xoopsModule, $prev_version)
 {

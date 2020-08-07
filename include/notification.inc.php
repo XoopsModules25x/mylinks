@@ -45,6 +45,7 @@ function mylinks_notify_iteminfo($category, $item_id)
     switch ($category) {
         case 'category':
             // Assume we have a valid category id
+            $helper          = \Xmf\Module\Helper::getHelper('mylinks');
             $categoryHandler = $helper->getHandler('Category');
             $catObj            = $categoryHandler->get($item_id);
             if ($catObj) {

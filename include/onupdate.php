@@ -67,7 +67,8 @@ function xoops_module_update_mylinks(\XoopsModule $module, $previousVersion = nu
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-    /** @var Mylinks\Helper $helper */ /** @var Mylinks\Utility $utility */
+    /** @var Mylinks\Helper $helper */
+    /** @var Mylinks\Utility $utility */
     /** @var Mylinks\Common\Configurator $configurator */
     $helper       = Mylinks\Helper::getInstance();
     $utility      = new Mylinks\Utility();
