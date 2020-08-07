@@ -64,24 +64,10 @@ function xoops_module_pre_install_mylinks_base(&$xoopsModule)
 
         if ($retVal) {
             // Check if this XOOPS version is supported
-            $minSupportedVersion = explode('.', $minXoopsVersion);
             $curXoopsVersion     = substr(XOOPS_VERSION, 6);
-            $currentVersion      = explode('.', $curXoopsVersion);
-
-            //            $xoopsErrMsg = "<span style='color: red; font-weight: bold;'>YOUR XOOPS VERSION ({$curXoopsVersion}) MUST BE UPGRADED TO AT LEAST VERSION {$minXoopsVersion} TO USE THIS MODULE</span>";
-            if ($currentVersion[0] < $minSupportedVersion[0]) {
+            if (version_compare($curXoopsVersion, $minXoopsVersion, '<')) {
                 $retVal = false;
-                $xoopsModule->setErrors($xoopsErrMsg);
-            } elseif ($currentVersion[0] == $minSupportedVersion[0]) {
-                if ($currentVersion[1] < $minSupportedVersion[1]) {
-                    $retVal = false;
-                    $xoopsModule->setErrors($xoopsErrMsg);
-                } elseif (($currentVersion[1] == $minSupportedVersion[1])
-                          && ($currentVersion[2] < $minSupportedVersion[2])
-                ) {
-                    $retVal = false;
-                    $xoopsModule->setErrors($xoopsErrMsg);
-                }
+                $xoopsModule->setErrors(sprintf($xoopsErrMsg, $minXoopsVersion, $curXoopsVersion));
             }
         }
     }
