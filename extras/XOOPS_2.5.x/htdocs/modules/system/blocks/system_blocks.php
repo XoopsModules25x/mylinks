@@ -214,7 +214,7 @@ function b_system_waiting_show()
     if (xoops_isActiveModule('mylinks') && $moduleHandler->getCount(new \Criteria('dirname', 'mylinks'))) {
         $mlMod      = $moduleHandler->getByDirname('mylinks');
         $tbl_prefix = ($mlMod->version() < 312) ? '' : 'mod_';
-        $result     = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix("{$table_prefix}mylinks_links") . ' WHERE STATUS=0');
+        $result     = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix("{$table_prefix}mylinks_links") . ' WHERE status=0');
         if ($result) {
             $block['modules'][1]['adminlink'] = XOOPS_URL . '/modules/mylinks/admin/main.php?op=listNewLinks';
             list($block['modules'][1]['pendingnum']) = $xoopsDB->fetchRow($result);

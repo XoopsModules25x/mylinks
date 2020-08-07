@@ -13,9 +13,9 @@ if (empty($lid) || empty($cid)) {
 $lid = isset($_GET['lid']) ? (int)($_GET['lid']): 0;
 $cid = isset($_GET['cid']) ? (int)($_GET['cid']): 0;
 if ( empty($lid) ) {
-  die("No lid!");
+  exit("No lid!");
 } elseif ( empty($cid) ) {
-  die("No cid!");
+  exit("No cid!");
 }
 */
 $result = $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.url FROM ' . $xoopsDB->prefix('mylinks_links') . ' l, ' . $xoopsDB->prefix('mylinks_text') . " t where l.lid={$lid} AND l.lid=t.lid AND status>0");
@@ -58,7 +58,7 @@ if ($mylinks_can_bookmark == 0) {
 }
 
 if ( empty($can_bookmark) ) {
-  die("Not allowed now!");
+  exit("Not allowed now!");
 }
 
 $can_qrcode = 0;
@@ -77,7 +77,7 @@ if ($mylinks_can_qrcode == 0) {
 }
 
 if ( empty($can_qrcode) ) {
-  die("Not allowed now!");
+  exit("Not allowed now!");
 }
 */
 

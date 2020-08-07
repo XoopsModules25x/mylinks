@@ -52,7 +52,7 @@ class Text_Diff_Renderer
     public function getParams()
     {
         $params = [];
-        foreach (get_object_vars($this) as $k => $v) {
+        foreach (\get_object_vars($this) as $k => $v) {
             if ('_' === $k[0]) {
                 $params[mb_substr($k, 1)] = $v;
             }
@@ -80,13 +80,13 @@ class Text_Diff_Renderer
         $output = $this->_startDiff();
 
         foreach ($diff->getDiff() as $edit) {
-            if (is_a($edit, 'Text_Diff_Op_copy')) {
-                if (is_array($block)) {
-                    if (count($edit->orig) <= $nlead + $ntrail) {
+            if (\is_a($edit, 'Text_Diff_Op_copy')) {
+                if (\is_array($block)) {
+                    if (\count($edit->orig) <= $nlead + $ntrail) {
                         $block[] = $edit;
                     } else {
                         if ($ntrail) {
-                            $context = array_slice($edit->orig, 0, $ntrail);
+                            $context = \array_slice($edit->orig, 0, $ntrail);
                             $block[] = new Text_Diff_Op_copy($context);
                         }
                         $output .= $this->_block($x0, $ntrail + $xi - $x0, $y0, $ntrail + $yi - $y0, $block);
@@ -95,10 +95,10 @@ class Text_Diff_Renderer
                 }
                 $context = $edit->orig;
             } else {
-                if (!is_array($block)) {
-                    $context = array_slice($context, count($context) - $nlead);
-                    $x0      = $xi - count($context);
-                    $y0      = $yi - count($context);
+                if (!\is_array($block)) {
+                    $context = \array_slice($context, \count($context) - $nlead);
+                    $x0      = $xi - \count($context);
+                    $y0      = $yi - \count($context);
                     $block   = [];
                     if ($context) {
                         $block[] = new Text_Diff_Op_copy($context);
@@ -108,14 +108,14 @@ class Text_Diff_Renderer
             }
 
             if ($edit->orig) {
-                $xi += count($edit->orig);
+                $xi += \count($edit->orig);
             }
             if ($edit->final) {
-                $yi += count($edit->final);
+                $yi += \count($edit->final);
             }
         }
 
-        if (is_array($block)) {
+        if (\is_array($block)) {
             $output .= $this->_block($x0, $xi - $x0, $y0, $yi - $y0, $block);
         }
 
@@ -135,7 +135,7 @@ class Text_Diff_Renderer
         $output = $this->_startBlock($this->_blockHeader($xbeg, $xlen, $ybeg, $ylen));
 
         foreach ($edits as $edit) {
-            switch (mb_strtolower(get_class($edit))) {
+            switch (mb_strtolower(\get_class($edit))) {
                 case 'text_diff_op_copy':
                     $output .= $this->_context($edit->orig);
                     break;
@@ -213,7 +213,7 @@ class Text_Diff_Renderer
      */
     public function _lines($lines, $prefix = ' ')
     {
-        return $prefix . implode("\n$prefix", $lines) . "\n";
+        return $prefix . \implode("\n$prefix", $lines) . "\n";
     }
 
     /**

@@ -28,8 +28,8 @@ use XoopsModules\Mylinks\Common;
  */
 function xoops_module_pre_install_xxxx(\XoopsModule $module)
 {
-    //    include __DIR__ . '/../preloads/autoloader.php';
-    include __DIR__ . '/common.php';
+    //    require  dirname(__DIR__) . '/preloads/autoloader.php';
+    require __DIR__ . '/common.php';
     /** @var \XoopsModules\Mylinks\Utility $utility */
     $utility = new \XoopsModules\Mylinks\Utility();
     //check for minimum XOOPS version

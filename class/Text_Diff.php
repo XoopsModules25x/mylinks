@@ -34,10 +34,10 @@ class Text_Diff
      */
     public function __construct($from_lines, $to_lines)
     {
-        array_walk($from_lines, [$this, '_trimNewlines']);
-        array_walk($to_lines, [$this, '_trimNewlines']);
+        \array_walk($from_lines, [$this, '_trimNewlines']);
+        \array_walk($to_lines, [$this, '_trimNewlines']);
 
-        if (extension_loaded('xdiff')) {
+        if (\extension_loaded('xdiff')) {
             $engine = new Text_Diff_Engine_xdiff();
         } else {
             $engine = new Text_Diff_Engine_native();
@@ -70,7 +70,7 @@ class Text_Diff
      */
     public function reverse()
     {
-        if (version_compare(zend_version(), '2', '>')) {
+        if (\version_compare(\zend_version(), '2', '>')) {
             $rev = clone $this;
         } else {
             $rev = $this;
@@ -91,7 +91,7 @@ class Text_Diff
     public function isEmpty()
     {
         foreach ($this->_edits as $edit) {
-            if (!is_a($edit, 'Text_Diff_Op_copy')) {
+            if (!\is_a($edit, 'Text_Diff_Op_copy')) {
                 return false;
             }
         }
@@ -110,8 +110,8 @@ class Text_Diff
     {
         $lcs = 0;
         foreach ($this->_edits as $edit) {
-            if (is_a($edit, 'Text_Diff_Op_copy')) {
-                $lcs += count($edit->orig);
+            if (\is_a($edit, 'Text_Diff_Op_copy')) {
+                $lcs += \count($edit->orig);
             }
         }
 
@@ -130,7 +130,7 @@ class Text_Diff
         $lines = [];
         foreach ($this->_edits as $edit) {
             if ($edit->orig) {
-                array_splice($lines, count($lines), 0, $edit->orig);
+                \array_splice($lines, \count($lines), 0, $edit->orig);
             }
         }
 
@@ -149,7 +149,7 @@ class Text_Diff
         $lines = [];
         foreach ($this->_edits as $edit) {
             if ($edit->final) {
-                array_splice($lines, count($lines), 0, $edit->final);
+                \array_splice($lines, \count($lines), 0, $edit->final);
             }
         }
 
@@ -165,7 +165,7 @@ class Text_Diff
      */
     public function _trimNewlines(&$line, $key)
     {
-        $line = str_replace(["\n", "\r"], '', $line);
+        $line = \str_replace(["\n", "\r"], '', $line);
     }
 
     /**
@@ -178,27 +178,27 @@ class Text_Diff
      */
     public function _check($from_lines, $to_lines)
     {
-        if (serialize($from_lines) != serialize($this->getOriginal())) {
-            trigger_error("Reconstructed original doesn't match", E_USER_ERROR);
+        if (\serialize($from_lines) != \serialize($this->getOriginal())) {
+            \trigger_error("Reconstructed original doesn't match", \E_USER_ERROR);
         }
-        if (serialize($to_lines) != serialize($this->getFinal())) {
-            trigger_error("Reconstructed final doesn't match", E_USER_ERROR);
+        if (\serialize($to_lines) != \serialize($this->getFinal())) {
+            \trigger_error("Reconstructed final doesn't match", \E_USER_ERROR);
         }
 
         $rev = $this->reverse();
-        if (serialize($to_lines) != serialize($rev->getOriginal())) {
-            trigger_error("Reversed original doesn't match", E_USER_ERROR);
+        if (\serialize($to_lines) != \serialize($rev->getOriginal())) {
+            \trigger_error("Reversed original doesn't match", \E_USER_ERROR);
         }
-        if (serialize($from_lines) != serialize($rev->getFinal())) {
-            trigger_error("Reversed final doesn't match", E_USER_ERROR);
+        if (\serialize($from_lines) != \serialize($rev->getFinal())) {
+            \trigger_error("Reversed final doesn't match", \E_USER_ERROR);
         }
 
         $prevtype = null;
         foreach ($this->_edits as $edit) {
-            if ($prevtype == get_class($edit)) {
-                trigger_error('Edit sequence is non-optimal', E_USER_ERROR);
+            if ($prevtype == \get_class($edit)) {
+                \trigger_error('Edit sequence is non-optimal', \E_USER_ERROR);
             }
-            $prevtype = get_class($edit);
+            $prevtype = \get_class($edit);
         }
 
         return true;
@@ -231,23 +231,23 @@ class Text_MappedDiff extends Text_Diff
      */
     public function __construct($from_lines, $to_lines, $mapped_from_lines, $mapped_to_lines)
     {
-        assert(count($from_lines) == count($mapped_from_lines));
-        assert(count($to_lines) == count($mapped_to_lines));
+        \assert(\count($from_lines) == \count($mapped_from_lines));
+        \assert(\count($to_lines) == \count($mapped_to_lines));
 
         parent::__construct($mapped_from_lines, $mapped_to_lines);
 
         $xi = $yi = 0;
-        for ($i = 0, $iMax = count($this->_edits); $i < $iMax; ++$i) {
+        for ($i = 0, $iMax = \count($this->_edits); $i < $iMax; ++$i) {
             $orig = &$this->_edits[$i]->orig;
-            if (is_array($orig)) {
-                $orig = array_slice($from_lines, $xi, count($orig));
-                $xi   += count($orig);
+            if (\is_array($orig)) {
+                $orig = \array_slice($from_lines, $xi, \count($orig));
+                $xi   += \count($orig);
             }
 
             $final = &$this->_edits[$i]->final;
-            if (is_array($final)) {
-                $final = array_slice($to_lines, $yi, count($final));
-                $yi    += count($final);
+            if (\is_array($final)) {
+                $final = \array_slice($to_lines, $yi, \count($final));
+                $yi    += \count($final);
             }
         }
     }
@@ -273,12 +273,12 @@ class Text_Diff_Engine_xdiff
     public function diff($from_lines, $to_lines)
     {
         /* Convert the two input arrays into strings for xdiff processing. */
-        $from_string = implode("\n", $from_lines);
-        $to_string   = implode("\n", $to_lines);
+        $from_string = \implode("\n", $from_lines);
+        $to_string   = \implode("\n", $to_lines);
 
         /* Diff the two strings and convert the result to an array. */
-        $diff = xdiff_string_diff($from_string, $to_string, count($to_lines));
-        $diff = explode("\n", $diff);
+        $diff = xdiff_string_diff($from_string, $to_string, \count($to_lines));
+        $diff = \explode("\n", $diff);
 
         /* Walk through the diff one line at a time.  We build the $edits
          * array of diff operations by reading the first character of the
@@ -340,8 +340,8 @@ class Text_Diff_Engine_native
      */
     public function diff($from_lines, $to_lines)
     {
-        $n_from = count($from_lines);
-        $n_to   = count($to_lines);
+        $n_from = \count($from_lines);
+        $n_to   = \count($to_lines);
 
         $this->xchanged = $this->ychanged = [];
         $this->xv       = $this->yv = [];
@@ -391,7 +391,7 @@ class Text_Diff_Engine_native
         }
 
         // Find the LCS.
-        $this->_compareseq(0, count($this->xv), 0, count($this->yv));
+        $this->_compareseq(0, \count($this->xv), 0, \count($this->yv));
 
         // Merge edits when possible.
         $this->_shiftBoundaries($from_lines, $this->xchanged, $this->ychanged);
@@ -401,8 +401,8 @@ class Text_Diff_Engine_native
         $edits = [];
         $xi    = $yi = 0;
         while ($xi < $n_from || $yi < $n_to) {
-            assert($yi < $n_to || $this->xchanged[$xi]);
-            assert($xi < $n_from || $this->ychanged[$yi]);
+            \assert($yi < $n_to || $this->xchanged[$xi]);
+            \assert($xi < $n_from || $this->ychanged[$yi]);
 
             // Skip matching "snake".
             $copy = [];
@@ -467,7 +467,7 @@ class Text_Diff_Engine_native
             /* Things seems faster (I'm not sure I understand why) when the
              * shortest sequence is in X. */
             $flip = true;
-            list($xoff, $xlim, $yoff, $ylim) = [$yoff, $ylim, $xoff, $xlim];
+            [$xoff, $xlim, $yoff, $ylim] = [$yoff, $ylim, $xoff, $xlim];
         }
 
         if ($flip) {
@@ -504,7 +504,7 @@ class Text_Diff_Engine_native
                 foreach ($matches as $y) {
                     if (empty($this->in_seq[$y])) {
                         $k = $this->_lcsPos($y);
-                        assert($k > 0);
+                        \assert($k > 0);
                         $ymids[$k] = $ymids[$k - 1];
                         break;
                     }
@@ -513,7 +513,7 @@ class Text_Diff_Engine_native
                 //                while (list($junk, $y) = each($matches)) {
                 foreach ($matches as $junk => $y) {
                     if ($y > $this->seq[$k - 1]) {
-                        assert($y < $this->seq[$k]);
+                        \assert($y < $this->seq[$k]);
                         /* Optimization: this is a common case: next match is
                          * just replacing previous match. */
                         $this->in_seq[$this->seq[$k]] = false;
@@ -521,7 +521,7 @@ class Text_Diff_Engine_native
                         $this->in_seq[$y]             = 1;
                     } elseif (empty($this->in_seq[$y])) {
                         $k = $this->_lcsPos($y);
-                        assert($k > 0);
+                        \assert($k > 0);
                         $ymids[$k] = $ymids[$k - 1];
                     }
                 }
@@ -565,7 +565,7 @@ class Text_Diff_Engine_native
             }
         }
 
-        assert($ypos != $this->seq[$end]);
+        \assert($ypos != $this->seq[$end]);
 
         $this->in_seq[$this->seq[$end]] = false;
         $this->seq[$end]                = $ypos;
@@ -610,8 +610,8 @@ class Text_Diff_Engine_native
             /* This is ad hoc but seems to work well.  $nchunks =
              * sqrt(min($xlim - $xoff, $ylim - $yoff) / 2.5); $nchunks =
              * max(2,min(8,(int) $nchunks)); */
-            $nchunks = min(7, $xlim - $xoff, $ylim - $yoff) + 1;
-            list($lcs, $seps) = $this->_diag($xoff, $xlim, $yoff, $ylim, $nchunks);
+            $nchunks = \min(7, $xlim - $xoff, $ylim - $yoff) + 1;
+            [$lcs, $seps] = $this->_diag($xoff, $xlim, $yoff, $ylim, $nchunks);
         }
 
         if (0 == $lcs) {
@@ -625,9 +625,9 @@ class Text_Diff_Engine_native
             }
         } else {
             /* Use the partitions to split this problem into subproblems. */
-            reset($seps);
+            \reset($seps);
             $pt1 = $seps[0];
-            while ($pt2 = next($seps)) {
+            while ($pt2 = \next($seps)) {
                 $this->_compareseq($pt1[0], $pt2[0], $pt1[1], $pt2[1]);
                 $pt1 = $pt2;
             }
@@ -654,9 +654,9 @@ class Text_Diff_Engine_native
         $i = 0;
         $j = 0;
 
-        assert(count($lines) == count($changed));
-        $len       = count($lines);
-        $other_len = count($other_changed);
+        \assert(\count($lines) == \count($changed));
+        $len       = \count($lines);
+        $other_len = \count($other_changed);
 
         while (1) {
             /* Scan forward to find the beginning of another run of
@@ -675,7 +675,7 @@ class Text_Diff_Engine_native
             }
 
             while ($i < $len && !$changed[$i]) {
-                assert($j < $other_len && !$other_changed[$j]);
+                \assert($j < $other_len && !$other_changed[$j]);
                 ++$i;
                 ++$j;
                 while ($j < $other_len && $other_changed[$j]) {
@@ -708,11 +708,11 @@ class Text_Diff_Engine_native
                     while ($start > 0 && $changed[$start - 1]) {
                         $start--;
                     }
-                    assert($j > 0);
+                    \assert($j > 0);
                     while ($other_changed[--$j]) {
                         continue;
                     }
-                    assert($j >= 0 && !$other_changed[$j]);
+                    \assert($j >= 0 && !$other_changed[$j]);
                 }
 
                 /* Set CORRESPONDING to the end of the changed run, at the
@@ -733,7 +733,7 @@ class Text_Diff_Engine_native
                         ++$i;
                     }
 
-                    assert($j < $other_len && !$other_changed[$j]);
+                    \assert($j < $other_len && !$other_changed[$j]);
                     ++$j;
                     if ($j < $other_len && $other_changed[$j]) {
                         $corresponding = $i;
@@ -749,11 +749,11 @@ class Text_Diff_Engine_native
             while ($corresponding < $i) {
                 $changed[--$start] = 1;
                 $changed[--$i]     = 0;
-                assert($j > 0);
+                \assert($j > 0);
                 while ($other_changed[--$j]) {
                     continue;
                 }
-                assert($j >= 0 && !$other_changed[$j]);
+                \assert($j >= 0 && !$other_changed[$j]);
             }
         }
     }
@@ -772,7 +772,7 @@ class Text_Diff_Op
 
     public function reverse()
     {
-        trigger_error('Abstract method', E_USER_ERROR);
+        \trigger_error('Abstract method', \E_USER_ERROR);
     }
 
     /**
@@ -780,7 +780,7 @@ class Text_Diff_Op
      */
     public function norig()
     {
-        return $this->orig ? count($this->orig) : 0;
+        return $this->orig ? \count($this->orig) : 0;
     }
 
     /**
@@ -788,7 +788,7 @@ class Text_Diff_Op
      */
     public function nfinal()
     {
-        return $this->final ? count($this->final) : 0;
+        return $this->final ? \count($this->final) : 0;
     }
 }
 
@@ -807,7 +807,7 @@ class Text_Diff_Op_copy extends Text_Diff_Op
      */
     public function __construct($orig, $final = false)
     {
-        if (!is_array($final)) {
+        if (!\is_array($final)) {
             $final = $orig;
         }
         $this->orig  = $orig;

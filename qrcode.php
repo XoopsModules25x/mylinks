@@ -31,9 +31,9 @@ if (empty($lid) || empty($cid)) {
 $lid = isset($_GET['lid']) ? (int)($_GET['lid']): 0;
 $cid = isset($_GET['cid']) ? (int)($_GET['cid']): 0;
 if ( empty($lid) ) {
-  die("No lid!");
+  exit("No lid!");
 } elseif ( empty($cid) ) {
-  die("No cid!");
+  exit("No cid!");
 }
 */
 $result = $xoopsDB->query('SELECT l.lid, l.cid, l.title, l.url, l.logourl, l.status, l.date, l.hits, l.rating, l.votes, l.comments, t.description FROM ' . $xoopsDB->prefix('mylinks_links') . ' l, ' . $xoopsDB->prefix('mylinks_text') . " t where l.lid={$lid} AND l.lid=t.lid and status>0");

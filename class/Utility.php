@@ -9,7 +9,7 @@ namespace XoopsModules\Mylinks;
  * @license   ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package   ::    mylinks
  * @subpackage:: class
- * @author    ::     zyspec (owners@zyspec.com)
+ * @author    ::     zyspec (zyspec@yahoo.com)
  * @since     ::     File available since Release 3.11
  */
 
@@ -38,27 +38,27 @@ class Utility extends Common\SysUtility
     {
         switch ($type) {
             case 'string':
-                if (defined('FILTER_SANITIZE_ADD_SLASHES')) {
-                    $ret = isset($global[$key]) ? filter_var($global[$key], FILTER_SANITIZE_ADD_SLASHES) : $default;
+                if (\defined('FILTER_SANITIZE_ADD_SLASHES')) {
+                    $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_ADD_SLASHES) : $default;
                 } else {
-                    $ret = isset($global[$key]) ? filter_var($global[$key], FILTER_SANITIZE_MAGIC_QUOTES) : $default;
+                    $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_MAGIC_QUOTES) : $default;
                 }
                 break;
             case 'email':
-                $ret = isset($global[$key]) ? filter_var($global[$key], FILTER_SANITIZE_EMAIL) : $default;
+                $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_EMAIL) : $default;
                 break;
             case 'url':
-                $ret = isset($global[$key]) ? filter_var($global[$key], FILTER_SANITIZE_URL) : $default;
+                $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_URL) : $default;
                 break;
             case 'int':
             default:
                 $default = (int)$default;
-                $ret     = isset($global[$key]) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : false;
-                if (isset($limit) && is_array($limit) && (false !== $ret)) {
-                    if (array_key_exists('min', $limit)) {
+                $ret     = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_NUMBER_INT) : false;
+                if (isset($limit) && \is_array($limit) && (false !== $ret)) {
+                    if (\array_key_exists('min', $limit)) {
                         $ret = ($ret >= $limit['min']) ? $ret : false;
                     }
-                    if (array_key_exists('max', $limit)) {
+                    if (\array_key_exists('max', $limit)) {
                         $ret = ($ret <= $limit['max']) ? $ret : false;
                     }
                 }
@@ -90,7 +90,7 @@ class Utility extends Common\SysUtility
         echo "<div{$div_class}><strong>{$xoopsConfig['sitename']} Error</strong><br><br>\n" . "Error Code: {$e_code}<br><br><br>\n" . "<strong>ERROR:</strong> {$msg}<br>\n";
         $pages = (int)$pages;
         if (0 != $pages) {
-            $pages = '-' . abs($pages);
+            $pages = '-' . \abs($pages);
             echo "<br><br>\n" . "[ <a href='javascript:history.go({$pages})'>" . _BACK . '</a> ]</div>';
         }
         require_once XOOPS_ROOT_PATH . '/footer.php';
@@ -106,13 +106,13 @@ class Utility extends Common\SysUtility
     {
         $count     = 7;
         $new       = '';
-        $startdate = (time() - (86400 * $count));
+        $startdate = (\time() - (86400 * $count));
 
         if ($startdate < $time) {
             if (1 == $status) {
-                $new = "&nbsp;<img src='" . self::getIconURL('newred.gif') . "' alt='" . _MD_MYLINKS_NEWTHISWEEK . "'>";
+                $new = "&nbsp;<img src='" . self::getIconURL('newred.gif') . "' alt='" . \_MD_MYLINKS_NEWTHISWEEK . "'>";
             } elseif (2 == $status) {
-                $new = "&nbsp;<img src='" . self::getIconURL('update.gif') . "' alt='" . _MD_MYLINKS_UPTHISWEEK . "'>";
+                $new = "&nbsp;<img src='" . self::getIconURL('update.gif') . "' alt='" . \_MD_MYLINKS_UPTHISWEEK . "'>";
             }
         }
 
@@ -130,7 +130,7 @@ class Utility extends Common\SysUtility
         $retVal = '';
 
         if (isset($hits) && ($hits >= $helper->getConfig('popular'))) {
-            $retVal = "&nbsp;<img src='" . self::getIconURL('pop.gif') . "' alt='" . _MD_MYLINKS_POPULAR . "'>";
+            $retVal = "&nbsp;<img src='" . self::getIconURL('pop.gif') . "' alt='" . \_MD_MYLINKS_POPULAR . "'>";
         }
 
         return $retVal;
@@ -148,7 +148,7 @@ class Utility extends Common\SysUtility
      */
     public static function convertorderbyin($orderby)
     {
-        $orderby = (isset($orderby) && ('' != trim($orderby))) ? trim($orderby) : '';
+        $orderby = (isset($orderby) && ('' != \trim($orderby))) ? \trim($orderby) : '';
         switch ($orderby) {
             case 'titleA':
                 $orderby = 'title ASC';
@@ -186,32 +186,32 @@ class Utility extends Common\SysUtility
      */
     public static function convertorderbytrans($orderby)
     {
-        $orderby = (isset($orderby) && ('' != trim($orderby))) ? trim($orderby) : '';
+        $orderby = (isset($orderby) && ('' != \trim($orderby))) ? \trim($orderby) : '';
         switch ($orderby) {
             case 'title ASC':
-                $orderbyTrans = '' . _MD_MYLINKS_TITLEATOZ . '';
+                $orderbyTrans = '' . \_MD_MYLINKS_TITLEATOZ . '';
                 break;
             case 'hits ASC':
-                $orderbyTrans = '' . _MD_MYLINKS_POPULARITYLTOM . '';
+                $orderbyTrans = '' . \_MD_MYLINKS_POPULARITYLTOM . '';
                 break;
             case 'rating ASC':
-                $orderbyTrans = '' . _MD_MYLINKS_RATINGLTOH . '';
+                $orderbyTrans = '' . \_MD_MYLINKS_RATINGLTOH . '';
                 break;
             case 'date ASC':
-                $orderbyTrans = '' . _MD_MYLINKS_DATEOLD . '';
+                $orderbyTrans = '' . \_MD_MYLINKS_DATEOLD . '';
                 break;
             case 'title DESC':
-                $orderbyTrans = '' . _MD_MYLINKS_TITLEZTOA . '';
+                $orderbyTrans = '' . \_MD_MYLINKS_TITLEZTOA . '';
                 break;
             case 'hits DESC':
-                $orderbyTrans = '' . _MD_MYLINKS_POPULARITYMTOL . '';
+                $orderbyTrans = '' . \_MD_MYLINKS_POPULARITYMTOL . '';
                 break;
             case 'rating DESC':
-                $orderbyTrans = '' . _MD_MYLINKS_RATINGHTOL . '';
+                $orderbyTrans = '' . \_MD_MYLINKS_RATINGHTOL . '';
                 break;
             case 'date DESC':
             default:
-                $orderbyTrans = '' . _MD_MYLINKS_DATENEW . '';
+                $orderbyTrans = '' . \_MD_MYLINKS_DATENEW . '';
                 break;
         }
 
@@ -224,7 +224,7 @@ class Utility extends Common\SysUtility
      */
     public static function convertorderbyout($orderby)
     {
-        $orderby = (isset($orderby) && ('' != trim($orderby))) ? trim($orderby) : '';
+        $orderby = (isset($orderby) && ('' != \trim($orderby))) ? \trim($orderby) : '';
         switch ($orderby) {
             case 'title ASC':
                 $orderby = 'titleA';
@@ -268,7 +268,7 @@ class Utility extends Common\SysUtility
         $sql        = 'SELECT COUNT(*), FORMAT(AVG(rating),4) FROM ' . $xoopsDB->prefix('mylinks_votedata') . " WHERE lid={$sel_id}";
         $voteResult = $xoopsDB->query($sql);
         if ($voteResult) {
-            list($votesDB, $finalrating) = $xoopsDB->fetchRow($voteResult);
+            [$votesDB, $finalrating] = $xoopsDB->fetchRow($voteResult);
             /*
                 $query = "SELECT rating FROM " . $xoopsDB->prefix("mylinks_votedata") . " WHERE lid={$sel_id}";
                 $voteresult = $xoopsDB->query($query);
@@ -281,7 +281,7 @@ class Utility extends Common\SysUtility
                 $finalrating = number_format($finalrating, 4);
             */
             $query = 'UPDATE ' . $xoopsDB->prefix('mylinks_links') . " SET rating={$finalrating}, votes={$votesDB} WHERE lid = {$sel_id}";
-            $xoopsDB->query($query) || exit();
+            $xoopsDB->query($query) or exit();
         }
     }
 
@@ -294,7 +294,7 @@ class Utility extends Common\SysUtility
      */
     public static function getTotalItems($sel_id = null, $status = '', $oper = '>')
     {
-        $sel_id = filter_var($sel_id, FILTER_VALIDATE_INT, ['options' => ['default' => 0, 'min_range' => 0]]);
+        $sel_id = \filter_var($sel_id, \FILTER_VALIDATE_INT, ['options' => ['default' => 0, 'min_range' => 0]]);
         $count  = 0;
         $arr    = [];
 
@@ -321,7 +321,7 @@ class Utility extends Common\SysUtility
         $query = 'SELECT COUNT(*) FROM ' . $GLOBALS['xoopsDB']->prefix('mylinks_links') . " WHERE {$whereClause}";
         if ('' !== $status) {
             $status = (int)$status;
-            if (preg_match('/^[!]*[<=>]{1}[=>]*$/', $oper, $match)) {
+            if (\preg_match('/^[!]*[<=>]{1}[=>]*$/', $oper, $match)) {
                 $oper = $match[0];
             } else {
                 $oper = '>';
@@ -330,7 +330,7 @@ class Utility extends Common\SysUtility
             $query .= " AND status{$oper}{$status}";
         }
         $result = $GLOBALS['xoopsDB']->query($query);
-        list($linkCount) = $GLOBALS['xoopsDB']->fetchRow($result);
+        [$linkCount] = $GLOBALS['xoopsDB']->fetchRow($result);
 
         return $linkCount;
     }
@@ -381,13 +381,13 @@ class Utility extends Common\SysUtility
     public static function getStyleURL($aFile)
     {
         global $mylinks_theme;
-        $StyleURL = XOOPSMYLINKINCURL . "/{$mylinks_theme}/icons/{$aFile}";
+        $StyleURL = \XOOPSMYLINKINCURL . "/{$mylinks_theme}/icons/{$aFile}";
 
-        if (file_exists(XOOPSMYLINKINCPATH . "/{$mylinks_theme}/icons/{$aFile}")) {
+        if (\file_exists(\XOOPSMYLINKINCPATH . "/{$mylinks_theme}/icons/{$aFile}")) {
             return $StyleURL;
         }
 
-        return XOOPSMYLINKINCURL . "/icons/{$aFile}";
+        return \XOOPSMYLINKINCURL . "/icons/{$aFile}";
     }
 
     /**
@@ -398,11 +398,11 @@ class Utility extends Common\SysUtility
     {
         global $mylinks_theme;
 
-        if (file_exists(XOOPSMYLINKIMGPATH . "/{$mylinks_theme}/icons/{$aFile}")) {
-            return XOOPSMYLINKIMGURL . "/{$mylinks_theme}/icons/{$aFile}";
+        if (\file_exists(\XOOPSMYLINKIMGPATH . "/{$mylinks_theme}/icons/{$aFile}")) {
+            return \XOOPSMYLINKIMGURL . "/{$mylinks_theme}/icons/{$aFile}";
         }
 
-        return XOOPSMYLINKIMGURL . "/icons/{$aFile}";
+        return \XOOPSMYLINKIMGURL . "/icons/{$aFile}";
     }
 
     /**
@@ -415,14 +415,14 @@ class Utility extends Common\SysUtility
     {
         global $mylinks_theme, $xoopsModule;
         //sanitize subPath to make sure it's only contains valid path chars
-        $subPath = (!preg_match('/^(\D+)(\d*)$/', $subPath, $regs)) ? '' : $subPath;
+        $subPath = (!\preg_match('/^(\D+)(\d*)$/', $subPath, $regs)) ? '' : $subPath;
 
-        $path = $subPath ? 'modules/' . $xoopsModule->getVar('dirname') : XOOPSMYLINKPATH . '/modules/' . $xoopsModule->getVar('dirname') . '/';
+        $path = $subPath ? 'modules/' . $xoopsModule->getVar('dirname') : \XOOPSMYLINKPATH . '/modules/' . $xoopsModule->getVar('dirname') . '/';
 
         $subPath   = !empty($subPath) ? "/{$subPath}" : '';
         $stylePath = "{$path}{$subPath}/{$mylinks_theme}/{$aFile}";
 
-        return file_exists($stylePath) ? $stylePath : "{$path}{$subPath}/{$aFile}";
+        return \file_exists($stylePath) ? $stylePath : "{$path}{$subPath}/{$aFile}";
     }
 
     /**
@@ -432,8 +432,8 @@ class Utility extends Common\SysUtility
     {
         global $xoopsDB, $xoopsModule;
 
-        xoops_loadLanguage('main', $xoopsModule->getVar('dirname'));
-        $alphabet = explode(',', _MD_MYLINKS_LTRCHARS);
+        \xoops_loadLanguage('main', $xoopsModule->getVar('dirname'));
+        $alphabet = \explode(',', \_MD_MYLINKS_LTRCHARS);
 
         $result      = $xoopsDB->query('SELECT COUNT(*), LEFT(title, 1) AS sletter FROM ' . $xoopsDB->prefix('mylinks_links') . ' WHERE status>0 GROUP BY sletter');
         $letterArray = [];
@@ -442,14 +442,14 @@ class Utility extends Common\SysUtility
             $letterArray[$sletter] = $count;
         }
 
-        $letterchoice = "<div class='browsebyletter'>" . _MD_MYLINKS_BROWSETOTOPIC . '</div>';
+        $letterchoice = "<div class='browsebyletter'>" . \_MD_MYLINKS_BROWSETOTOPIC . '</div>';
         $letterchoice .= '[  ';
-        $num          = count($alphabet) - 1;
-        $halfNum      = round($num / 2);
+        $num          = \count($alphabet) - 1;
+        $halfNum      = \round($num / 2);
         $counter      = 0;
         foreach ($alphabet as $key => $ltr) {
-            if (array_key_exists($ltr, $letterArray)) {
-                $letterchoice .= "<a class='browsebyletter' href='" . XOOPSMYLINKURL . "/viewcat.php?list={$ltr}'>{$ltr}</a>";
+            if (\array_key_exists($ltr, $letterArray)) {
+                $letterchoice .= "<a class='browsebyletter' href='" . \XOOPSMYLINKURL . "/viewcat.php?list={$ltr}'>{$ltr}</a>";
             } else {
                 $letterchoice .= $ltr;
             }
@@ -474,11 +474,11 @@ class Utility extends Common\SysUtility
         /** @var Mylinks\Helper $helper */
         $helper = Mylinks\Helper::getInstance();
 
-        $toolbar = "[ <a href='index.php' class='toolbar'>" . _MD_MYLINKS_MAIN . '</a> | ';
-        if (is_object($xoopsUser) || (!is_object($xoopsUser) && $helper->getConfig('anonpost'))) {
-            $toolbar .= "<a href='submit.php' class='toolbar'>" . _MI_MYLINKS_SMNAME1 . '</a> | ';
+        $toolbar = "[ <a href='index.php' class='toolbar'>" . \_MD_MYLINKS_MAIN . '</a> | ';
+        if (\is_object($xoopsUser) || (!\is_object($xoopsUser) && $helper->getConfig('anonpost'))) {
+            $toolbar .= "<a href='submit.php' class='toolbar'>" . \_MI_MYLINKS_SMNAME1 . '</a> | ';
         }
-        $toolbar .= "<a href='topten.php?sort=2' class='toolbar'>" . _MI_MYLINKS_SMNAME2 . "</a> | <a href='topten.php?sort=1' class='toolbar'>" . _MI_MYLINKS_SMNAME3 . "</a> | <a href='topten.php?sort=3' class='toolbar'>" . _MI_MYLINKS_SMNAME4 . '</a> ]';
+        $toolbar .= "<a href='topten.php?sort=2' class='toolbar'>" . \_MI_MYLINKS_SMNAME2 . "</a> | <a href='topten.php?sort=1' class='toolbar'>" . \_MI_MYLINKS_SMNAME3 . "</a> | <a href='topten.php?sort=3' class='toolbar'>" . \_MI_MYLINKS_SMNAME4 . '</a> ]';
 
         return $toolbar;
     }

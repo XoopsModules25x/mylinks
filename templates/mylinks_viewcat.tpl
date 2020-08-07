@@ -41,9 +41,9 @@
             <br>
             <hr>
 
-            <{if $show_links == true}>
+            <{if $show_links === true}>
 
-            <{if $show_nav == true}>
+            <{if $show_nav === true}>
                 <div>
                     <{$lang_sortby}>&nbsp;&nbsp;<{$lang_title}> (
                     <a href='viewcat.php?cid=<{$category_id}>&amp;orderby=titleA'><img src='assets/images/icons/up.gif'
@@ -86,10 +86,10 @@
         </td>
     </tr>
 </table>
-    <{if ($list_mode != true && $mylinksshowfeed) || ($mylinksshowthemechanger) }>
+    <{if ($list_mode !== true && $mylinksshowfeed) || ($mylinksshowthemechanger) }>
         <table class='width100' style='margin: 0px;'>
             <tr>
-                <{if $list_mode != true && $mylinksshowfeed}>
+                <{if $list_mode !== true && $mylinksshowfeed}>
                     <td class='left'>
                         <a href="javascript:openWithSelfMain('<{$mylinks_weburl}>/feedsubscription.php?feedtype=RSS&feedurl=<{"$mylinks_weburl/rss.php?cid=$category_id"|escape:"url"}>','modulefeedsubscription',300,500);">
                             <img src='<{$mylinks_imgurl}>/icons/feed-icon.gif' alt='<{$lang_feedsubscript}>'
@@ -152,7 +152,7 @@
     </tr>
     </table>
 <{/if}>
-<{if $list_mode != true}><{$moremetasearch}><{/if}>
+<{if $list_mode !== true}><{$moremetasearch}><{/if}>
 <{if $show_screenshot && ('' != $shot_attribution)}>
     <div class='center'><{$shot_attribution}></div>
     <div class='clear'></div>

@@ -11,7 +11,7 @@
  * @copyright:: XOOPS Project (https://xoops.org)
  * @license  ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package  ::   mylinks
- * @author   ::    zyspec (owners@zyspec.com)
+ * @author   ::    zyspec (zyspec@yahoo.com)
  * @since    ::     File available since Release 3.11
  */
 

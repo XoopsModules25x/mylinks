@@ -27,6 +27,5 @@ class MylinksCorePreload extends \XoopsPreloadItem
     public static function eventCoreIncludeCommonEnd($args)
     {
         require_once __DIR__ . '/autoloader.php';
-        require_once dirname(__DIR__) . '/vendor/autoload.php';
     }
 }

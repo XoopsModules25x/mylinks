@@ -59,7 +59,7 @@ class Pagepeeker implements Mylinks\ThumbPlugin
     public function __construct()
     {
         global $xoopsModule;
-        $this->_dirname = basename(dirname(dirname(__DIR__)));
+        $this->_dirname = \basename(\dirname(\dirname(__DIR__)));
     }
 
     /**
@@ -74,18 +74,18 @@ class Pagepeeker implements Mylinks\ThumbPlugin
         if (!empty($key)) {
             $query_string['code'] = $this->key;
             $query_string['wait'] = 5;  // generate screenshot if it doesn't exist (waits xx sec)
-            ksort($query_string);
+            \ksort($query_string);
         }
-        $query = http_build_query($query_string);
+        $query = \http_build_query($query_string);
         $query = empty($query) ? '' : '?' . $query;
 
         // now fix provider URL
-        $_mHandler = xoops_getHandler('module');
+        $_mHandler = \xoops_getHandler('module');
         $_mlModule = $_mHandler->getByDirname($this->_dirname);
         $myKey     = $_mlModule->getInfo('shotpubkey');
         /* change the provider URL if the key is set */
         if (!empty($myKey)) {
-            $providerUrl = str_ireplace('http://free', 'http://api', $this->provider_url);
+            $providerUrl = \str_ireplace('http://free', 'http://api', $this->provider_url);
         } else {
             $providerUrl = $this->provider_url;
         }
@@ -113,13 +113,13 @@ class Pagepeeker implements Mylinks\ThumbPlugin
         $validY  = [68, 90, 150, 300, 360];
         $sizeMap = [0 => 't', 1 => 's', 2 => 'm', 3 => 'l', 4 => 'x'];
 
-        if (is_array($sz)) { /* size is an array (width, height) */
+        if (\is_array($sz)) { /* size is an array (width, height) */
             $x = (int)$sz['width'];
-            if (in_array($x, $validX)) {
-                $Xdilav           = array_flip($validX);
+            if (\in_array($x, $validX)) {
+                $Xdilav           = \array_flip($validX);
                 $this->image_size = $sizeMap[$Xdilav[$x]];
             } else {
-                $max_i = count($validX);
+                $max_i = \count($validX);
                 for ($i = 0; $i < $max_i; ++$i) {
                     if ($validX[$i] > $x) {
                         break;
@@ -127,8 +127,8 @@ class Pagepeeker implements Mylinks\ThumbPlugin
                 }
                 $this->image_size = $sizeMap[$i];
             }
-        } elseif (is_numeric($sz)) { /* size is a number */
-            $max_i = count($validX);
+        } elseif (\is_numeric($sz)) { /* size is a number */
+            $max_i = \count($validX);
             for ($i = 0; $i < $max_i; ++$i) {
                 if ($validX[$i] > $sz) {
                     break;
@@ -137,13 +137,13 @@ class Pagepeeker implements Mylinks\ThumbPlugin
             $this->image_size = $sizeMap[$i];
         } else { /* size is relative - t|s|m|l|x */
             $sz = mb_strtolower($sz);
-            if (array_key_exists($sz, $sizeMap)) {
+            if (\array_key_exists($sz, $sizeMap)) {
                 $this->image_size = $sizeMap[$sz];
             } else {
                 $this->image_size = 'm';
             }
         }
-        $paMezis            = array_flip($sizeMap);
+        $paMezis            = \array_flip($sizeMap);
         $aKey               = $paMezis[$this->image_size];
         $this->image_width  = $validX[$aKey];
         $this->image_height = $validY[$aKey];
@@ -164,7 +164,7 @@ class Pagepeeker implements Mylinks\ThumbPlugin
     public function setSiteUrl($url)
     {
         //@todo: sanitize url;
-        $this->site_url = formatURL($url);
+        $this->site_url = \formatURL($url);
     }
 
     /**
@@ -172,7 +172,7 @@ class Pagepeeker implements Mylinks\ThumbPlugin
      */
     public function getSiteUrl()
     {
-        return urlencode($this->site_url);
+        return \urlencode($this->site_url);
     }
 
     /**

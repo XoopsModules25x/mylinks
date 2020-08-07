@@ -935,7 +935,7 @@ function listModReq()
             $to_len          = mb_strlen($to);
             $use_stdlib_diff = !empty($_REQUEST['stdlib']) && ctype_digit($_REQUEST['stdlib']) && 1 === (int)$_REQUEST['stdlib'];
 
-            //require_once 'Text/Diff.php';
+            //require_once __DIR__ . '/Text/Diff.php';
 
             $start_time = gettimeofday(true);
             if ($use_stdlib_diff) {
@@ -1079,17 +1079,17 @@ function listModReq()
                     <div><textarea name="to" class="pane"><?php echo htmlentities($to); ?></textarea></div>
                 </div>
                 <p id="params">Granularity:<input name="granularity" type="radio" value="0"<?php if (0 === $granularity) {
-                        echo ' checked="checked"';
+                        echo ' checked';
                     } ?>>&thinsp;Paragraph/lines&ensp;<input name="granularity" type="radio" value="1"<?php if (1 === $granularity) {
-                        echo ' checked="checked"';
+                        echo ' checked';
                     } ?>>&thinsp;Sentence&ensp;<input name="granularity" type="radio" value="2"<?php if (2 === $granularity) {
-                        echo ' checked="checked"';
+                        echo ' checked';
                     } ?>>&thinsp;Word&ensp;<input name="granularity" type="radio" value="3"<?php if (3 === $granularity) {
-                        echo ' checked="checked"';
+                        echo ' checked';
                     } ?>>&thinsp;Character&ensp;<input name="granularity" type="radio" value="4"<?php if (4 === $granularity) {
-                        echo ' checked="checked"';
+                        echo ' checked';
                     } ?>>&thinsp;Binary&emsp;<!-- <input name="XDEBUG_PROFILE" type="hidden" value=""> --><input type="submit" value="Compute diff">&emsp;<input name="stdlib" type="checkbox" value="1"<?php if ($use_stdlib_diff) {
-                        echo ' checked="checked"';
+                        echo ' checked';
                     } ?>><a href="http://pear.php.net/package/Text_Diff/"><code>Text_Diff</code></a> lib (for comparison purpose) <sup style="font-size:x-small"><a href="#notes">see notes</a></sup></p>
             </form>
             <div class="panecontainer"><p>Diff stats:</p>
@@ -1106,7 +1106,7 @@ function listModReq()
                     </div>
                 </div>
             </div>
-            <div class="panecontainer"><p>Rendered Diff:&emsp;<span style="font-size:smaller">Show <input type="radio" name="htmldiffshow" onclick="setHTMLDiffVisibility('deletions');">Deletions only&ensp;<input type="radio" name="htmldiffshow" checked="checked" onclick="setHTMLDiffVisibility();">All&ensp;<input
+            <div class="panecontainer"><p>Rendered Diff:&emsp;<span style="font-size:smaller">Show <input type="radio" name="htmldiffshow" onclick="setHTMLDiffVisibility('deletions');">Deletions only&ensp;<input type="radio" name="htmldiffshow" checked onclick="setHTMLDiffVisibility();">All&ensp;<input
                                 type="radio" name="htmldiffshow" onclick="setHTMLDiffVisibility('insertions');">Insertions only</span></p>
                 <div id="htmldiff">
                     <div class="pane" style="white-space:pre-wrap"><?php echo $rendered_diff; ?></div>
@@ -1499,7 +1499,7 @@ function importCats()
             $importFile = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/english/sql/mylinks_cat.dat';
         }
 
-        if (file_exists($importFile)) {
+        if (is_file($importFile)) {
             /* the following will not work on some shared servers even though it's the most efficient
             $sql = "LOAD DATA INFILE '{$importFile}' INTO TABLE " . $xoopsDB->prefix('mylinks_cat') . " FIELDS TERMINATED BY ',' IGNORE 1 LINES";
             $result = $xoopsDB->query($sql);

@@ -15,7 +15,7 @@ require_once XOOPS_ROOT_PATH . '/class/template.php';
 
 // require_once  dirname(__DIR__) . '/class/Text_Diff.php';
 // require_once  dirname(__DIR__) . '/class/Text_Diff_Renderer.php';
-// require_once  dirname(__DIR__) . '/class/Text_Diff_Renderer_unified.php';
+// require_once  dirname(__DIR__) . '/class/Text_Diff_Renderer_Unified.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
@@ -60,7 +60,7 @@ $tpl_tplset4sql = addslashes($tpl_tplset);
 $sql = 'SELECT * FROM ' . $db->prefix('tplfile') . ' f NATURAL LEFT JOIN ' . $db->prefix('tplsource') . " s WHERE f.tpl_file='{$tpl_file4sql}' AND f.tpl_tplset='{$tpl_tplset4sql}'";
 $tpl = $db->fetchArray($db->query($sql));
 if (empty($tpl)) {
-    die('Invalid tpl_file or tpl_tplset.');
+    exit('Invalid tpl_file or tpl_tplset.');
 }
 
 //************//
@@ -76,7 +76,7 @@ if (!empty($_POST['do_modify'])) {
     while (list($tpl_id) = $db->fetchRow($result)) {
         $sql = 'UPDATE ' . $db->prefix('tplsource') . " SET tpl_source='" . addslashes($myts->stripSlashesGPC($_POST['tpl_source'])) . "' WHERE tpl_id=$tpl_id";
         if (!$db->query($sql)) {
-            die('SQL Error');
+            exit('SQL Error');
         }
         $db->query('UPDATE ' . $db->prefix('tplfile') . " SET tpl_lastmodified=UNIX_TIMESTAMP() WHERE tpl_id={$tpl_id}");
         xoops_template_touch($tpl_id);

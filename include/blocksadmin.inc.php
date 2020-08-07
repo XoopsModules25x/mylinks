@@ -47,7 +47,7 @@ if (\Xmf\Request::hasVar('previewblock', 'POST')) {
     }
 
     if (empty($bid)) {
-        die('Invalid bid.');
+        exit('Invalid bid.');
     }
 
     $bside      = \Xmf\Request::getInt('bside', 0, 'POST');

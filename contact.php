@@ -71,7 +71,7 @@ if (!isset($_POST['submit'])) {
     $tfform->display();
     require_once $GLOBALS['xoops']->path('footer.php');
 } else {
-    if ($GLOBALS['xoopsSecurity'] instanceof XoopsSecurity) {
+    if ($GLOBALS['xoopsSecurity'] instanceof \XoopsSecurity) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             // failed xoops security check
             redirect_header('index.php', 3, $GLOBALS['xoopsSecurity']->getErrors(true));

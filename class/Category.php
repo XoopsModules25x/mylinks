@@ -24,7 +24,7 @@ namespace XoopsModules\Mylinks;
 
 
 
-$mylinksDir = basename(dirname(__DIR__));
+$mylinksDir = \basename(\dirname(__DIR__));
 
 /**
  * Class mylinksCategory_base
@@ -38,10 +38,10 @@ class Category extends \XoopsObject
     {
         parent::__construct();
         //definitions of the table field names from the database
-        $this->initVar('cid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('pid', XOBJ_DTYPE_INT, 0, true);
-        $this->initVar('title', XOBJ_DTYPE_TXTBOX, null, true, 50);
-        $this->initVar('imgurl', XOBJ_DTYPE_TXTAREA);
+        $this->initVar('cid', \XOBJ_DTYPE_INT, null, false);
+        $this->initVar('pid', \XOBJ_DTYPE_INT, 0, true);
+        $this->initVar('title', \XOBJ_DTYPE_TXTBOX, null, true, 50);
+        $this->initVar('imgurl', \XOBJ_DTYPE_TXTAREA);
     }
 
     /**

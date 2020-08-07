@@ -39,15 +39,15 @@ class HordeTextDiff
     public function __construct($engine, $params)
     {
         if ('auto' == $engine) {
-            $engine = extension_loaded('xdiff') ? 'Xdiff' : 'Native';
+            $engine = \extension_loaded('xdiff') ? 'Xdiff' : 'Native';
         } else {
-            $engine = Horde_String::ucfirst(basename($engine));
+            $engine = Horde_String::ucfirst(\basename($engine));
         }
 
         $class       = 'HordeTextDiffEngine_' . $engine;
         $diff_engine = new $class();
 
-        $this->_edits = call_user_func_array([$diff_engine, 'diff'], $params);
+        $this->_edits = \call_user_func_array([$diff_engine, 'diff'], $params);
     }
 
     /**
@@ -110,7 +110,7 @@ class HordeTextDiff
      */
     public function reverse()
     {
-        if (version_compare(zend_version(), '2', '>')) {
+        if (\version_compare(\zend_version(), '2', '>')) {
             $rev = clone $this;
         } else {
             $rev = $this;
@@ -151,7 +151,7 @@ class HordeTextDiff
         $lcs = 0;
         foreach ($this->_edits as $edit) {
             if ($edit instanceof HordeTextDiffOp_Copy) {
-                $lcs += count($edit->orig);
+                $lcs += \count($edit->orig);
             }
         }
 
@@ -170,7 +170,7 @@ class HordeTextDiff
         $lines = [];
         foreach ($this->_edits as $edit) {
             if ($edit->orig) {
-                array_splice($lines, count($lines), 0, $edit->orig);
+                \array_splice($lines, \count($lines), 0, $edit->orig);
             }
         }
 
@@ -189,7 +189,7 @@ class HordeTextDiff
         $lines = [];
         foreach ($this->_edits as $edit) {
             if ($edit->final) {
-                array_splice($lines, count($lines), 0, $edit->final);
+                \array_splice($lines, \count($lines), 0, $edit->final);
             }
         }
 
@@ -205,7 +205,7 @@ class HordeTextDiff
      */
     public static function trimNewlines(&$line, $key)
     {
-        $line = str_replace(["\n", "\r"], '', $line);
+        $line = \str_replace(["\n", "\r"], '', $line);
     }
 
     /**
@@ -218,27 +218,27 @@ class HordeTextDiff
      */
     protected function _check($from_lines, $to_lines)
     {
-        if (serialize($from_lines) != serialize($this->getOriginal())) {
-            trigger_error("Reconstructed original doesn't match", E_USER_ERROR);
+        if (\serialize($from_lines) != \serialize($this->getOriginal())) {
+            \trigger_error("Reconstructed original doesn't match", \E_USER_ERROR);
         }
-        if (serialize($to_lines) != serialize($this->getFinal())) {
-            trigger_error("Reconstructed final doesn't match", E_USER_ERROR);
+        if (\serialize($to_lines) != \serialize($this->getFinal())) {
+            \trigger_error("Reconstructed final doesn't match", \E_USER_ERROR);
         }
 
         $rev = $this->reverse();
-        if (serialize($to_lines) != serialize($rev->getOriginal())) {
-            trigger_error("Reversed original doesn't match", E_USER_ERROR);
+        if (\serialize($to_lines) != \serialize($rev->getOriginal())) {
+            \trigger_error("Reversed original doesn't match", \E_USER_ERROR);
         }
-        if (serialize($from_lines) != serialize($rev->getFinal())) {
-            trigger_error("Reversed final doesn't match", E_USER_ERROR);
+        if (\serialize($from_lines) != \serialize($rev->getFinal())) {
+            \trigger_error("Reversed final doesn't match", \E_USER_ERROR);
         }
 
         $prevtype = null;
         foreach ($this->_edits as $edit) {
-            if ($prevtype == get_class($edit)) {
-                trigger_error('Edit sequence is non-optimal', E_USER_ERROR);
+            if ($prevtype == \get_class($edit)) {
+                \trigger_error('Edit sequence is non-optimal', \E_USER_ERROR);
             }
-            $prevtype = get_class($edit);
+            $prevtype = \get_class($edit);
         }
 
         return true;

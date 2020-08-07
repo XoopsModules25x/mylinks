@@ -41,7 +41,7 @@ function xoops_module_pre_uninstall_mylinks(\XoopsModule $module)
  */
 function xoops_module_uninstall_mylinks(\XoopsModule $module)
 {
-    include __DIR__ . '/common.php';
+    require __DIR__ . '/common.php';
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 

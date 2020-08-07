@@ -1,5 +1,5 @@
 ![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
-## MyLinks module for  [XOOPS CMS 2.5.9+](https://xoops.org)
+## MyLinks module for  [XOOPS CMS 2.5.10+](https://xoops.org)
 [![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -7,7 +7,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/6ed3bd6222f84d2d8271019b78d2a6c9)](https://www.codacy.com/app/mambax7/mylinks_2/)
 [![Code Climate](https://img.shields.io/codeclimate/github/XoopsModules25x/mylinks.svg?style=flat)](https://codeclimate.com/github/XoopsModules25x/mylinks)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/aacda134-0f78-4d73-997a-b37194cfd7c4/mini.png)](https://insight.sensiolabs.com/projects/aacda134-0f78-4d73-997a-b37194cfd7c4)
-[![Latest Pre-Resease](https://img.shields.io/github/tag/XoopsModules25x/mylinks.svg?style=flat)](https://github.com/XoopsModules25x/mylinks/tags/)
+[![Latest Pre-Release](https://img.shields.io/github/tag/XoopsModules25x/mylinks.svg?style=flat)](https://github.com/XoopsModules25x/mylinks/tags/)
 [![Latest Version](https://img.shields.io/github/release/XoopsModules25x/mylinks.svg?style=flat)](https://github.com/XoopsModules25x/mylinks/releases/)
 
 **MyLinks** module for [XOOPS CMS](https://xoops.org) is a XOOPS module that allows an administrator to create a series of website links. The module provides the ability for other users to submit sites for inclusion in the list which can be monitored by the administrator and then approved if desired.
@@ -19,6 +19,6 @@ To contribute to the Tutorial, [fork it on GitHub](https://github.com/XoopsDocs/
 
 Please visit us on  [https://xoops.org](https://xoops.org)
 
-Current and upcoming "next generation" versions of XOOPS CMS are being crafted on GitHub at: https://github.com/XOOPS
+Current and upcoming "next generation" versions of XOOPS CMS are crafted on GitHub at: https://github.com/XOOPS
 
 

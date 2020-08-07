@@ -85,10 +85,10 @@ class Nemui implements Mylinks\ThumbPlugin
      */
     public function setShotSize($sz)
     {
-        if (is_array($sz)) {
-            if (array_key_exists('width', $sz)) {
+        if (\is_array($sz)) {
+            if (\array_key_exists('width', $sz)) {
                 $this->image_width = (int)$sz['width'];
-                if (array_key_exists('height', $sz)) {
+                if (\array_key_exists('height', $sz)) {
                     $this->image_height = (int)$sz['height'];
                 } else {
                     $this->image_height = (int)($this->image_width / $this->image_ratio);
@@ -118,7 +118,7 @@ class Nemui implements Mylinks\ThumbPlugin
     public function setSiteUrl($url)
     {
         //@todo: sanitize url;
-        $this->site_url = formatURL($url);
+        $this->site_url = \formatURL($url);
     }
 
     /**
@@ -126,7 +126,7 @@ class Nemui implements Mylinks\ThumbPlugin
      */
     public function getSiteUrl()
     {
-        return urlencode($this->site_url);
+        return \urlencode($this->site_url);
     }
 
     /**

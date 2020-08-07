@@ -12,7 +12,7 @@
  * @copyright:: XOOPS Project (https://xoops.org)
  * @license  ::    {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @package  ::   mylinks
- * @author   ::    zyspec (owners@zyspec.com)
+ * @author   ::    zyspec (zyspec@yahoo.com)
  * @since    ::     File available since Release 3.11
  */
 $mylinksDir = basename(dirname(__DIR__));
@@ -48,7 +48,7 @@ function xoops_module_pre_install_mylinks_base(\XoopsModule $module)
         $result          = $xoopsDB->fetchObject($sql);
         $currSQLVer      = $result->sqlver;
         $sqlVerArray     = explode('.', $currSQLVer);
-        $sqlVerArray     = array_map('intval', $sqlVerArray); //strip off non-integer revision chars
+        $sqlVerArray     = array_map('\intval', $sqlVerArray); //strip off non-integer revision chars
 
         if ($sqlVerArray[0] < $minSQLSupported[0]) {
             $retVal = false;

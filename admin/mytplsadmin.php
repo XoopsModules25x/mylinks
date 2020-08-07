@@ -81,18 +81,18 @@ if (!empty($_POST['clone_tplset_do']) && !empty($_POST['clone_tplset_from']) && 
     //TODO: move text strings to language files
     // check tplset_name "from" and "to"
     if (!preg_match('/^[0-9A-Za-z_-]{1,16}$/', $_POST['clone_tplset_from'])) {
-        die('A wrong template name is specified.');
+        exit('A wrong template name is specified.');
     }
     if (!preg_match('/^[0-9A-Za-z_-]{1,16}$/', $_POST['clone_tplset_to'])) {
-        die('A wrong template name is specified.');
+        exit('A wrong template name is specified.');
     }
     list($is_exist) = $db->fetchRow($db->query('SELECT COUNT(*) FROM ' . $db->prefix('tplfile') . " WHERE tpl_tplset='" . addslashes($tplset_to) . "'"));
     if ($is_exist) {
-        die('The template already exists.');
+        exit('The template already exists.');
     }
     list($is_exist) = $db->fetchRow($db->query('SELECT COUNT(*) FROM ' . $db->prefix('tplset') . " WHERE tplset_name='" . addslashes($tplset_to) . "'"));
     if ($is_exist) {
-        die('The template already exists.');
+        exit('The template already exists.');
     }
     // insert tplset table
     $db->query('INSERT INTO ' . $db->prefix('tplset') . " SET tplset_name='" . addslashes($tplset_to) . "', tplset_desc='Created by tplsadmin', tplset_created=UNIX_TIMESTAMP()");
@@ -111,10 +111,10 @@ if (is_array(@$_POST['copy_do'])) {
 
             $tplset_from = $myts->stripSlashesGPC($tplset_from_tmp);
             if (empty($_POST['copy_to'][$tplset_from]) || $_POST['copy_to'][$tplset_from] == $tplset_from) {
-                die('Specify valid tplset.');
+                exit('Specify valid tplset.');
             }
             if (empty($_POST["{$tplset_from}_check"])) {
-                die('No template is specified');
+                exit('No template is specified');
             }
             $tplset_to = $myts->stripSlashesGPC($_POST['copy_to'][$tplset_from]);
             foreach ($_POST["{$tplset_from}_check"] as $tplfile_tmp => $val) {
@@ -137,10 +137,10 @@ if (!empty($_POST['copyf2db_do'])) {
     }
 
     if (empty($_POST['copyf2db_to'])) {
-        die('Specify valid tplset.');
+        exit('Specify valid tplset.');
     }
     if (empty($_POST['basecheck'])) {
-        die('No template is specified');
+        exit('No template is specified');
     }
     $tplset_to = $myts->stripSlashesGPC($_POST['copyf2db_to']);
     foreach ($_POST['basecheck'] as $tplfile_tmp => $val) {
@@ -164,7 +164,7 @@ if (is_array(@$_POST['del_do'])) {
 
             $tplset_from = $myts->stripSlashesGPC($tplset_from_tmp);
             if ('default' === $tplset_from) {
-                die("You can't remove 'default' template.");
+                exit("You can't remove 'default' template.");
             }
             foreach ($_POST["{$tplset_from}_check"] as $tplfile_tmp => $val) {
                 if (empty($val)) {

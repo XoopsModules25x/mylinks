@@ -43,10 +43,10 @@ $modversion['module_website_url']  = 'https://xoops.org';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['author_website_url']  = 'https://xoops.org';
 $modversion['author_website_name'] = 'XOOPS';
-$modversion['min_php']             = '7.1';
+$modversion['min_php']             = '7.2';
 $modversion['min_xoops']           = '2.5.10';
 $modversion['min_db']              = ['mysql' => '5.5'];
-$modversion['min_admin']           = '1.1';
+$modversion['min_admin']           = '1.2';
 $modversion['modicons16']          = 'assets/images/icons/16';
 $modversion['modicons32']          = 'assets/images/icons/32';
 //$modversion['release_date']= 1300453080;
@@ -329,7 +329,7 @@ foreach ($fileList as $filename) {
         //        $provClass   = ucfirst($modversion['dirname']) . $providerKey;
         $provClass = '\\XoopsModules\\Mylinks\\Providers\\' . $providerKey;
         $provObj   = new $provClass();
-        if ($provObj instanceof XoopsModules\Mylinks\ThumbPlugin) {
+        if ($provObj instanceof \XoopsModules\Mylinks\ThumbPlugin) {
             $options[$providerKey] = $provObj->getProviderName();
         }
     }

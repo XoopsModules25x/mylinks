@@ -45,7 +45,7 @@ if (!empty($_POST['submit'])) {
     }
     $newid = $xoopsDB->genId($xoopsDB->prefix('mylinks_broken') . '_reportid_seq');
     $sql   = sprintf("INSERT INTO `%s` (reportid, lid, sender, ip) VALUES (%u, %u, %u, '%s')", $xoopsDB->prefix('mylinks_broken'), $newid, $lid, $sender, $ip);
-    $xoopsDB->query($sql) || exit();
+    $xoopsDB->query($sql) or exit();
     $tags                      = [];
     $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listBrokenLinks';
     $notificationHandler       = xoops_getHandler('notification');

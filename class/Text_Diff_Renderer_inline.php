@@ -85,14 +85,14 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
     public function _lines($lines, $prefix = ' ', $encode = true)
     {
         if ($encode) {
-            array_walk($lines, [&$this, '_encode']);
+            \array_walk($lines, [&$this, '_encode']);
         }
 
         if ('words' === $this->_split_level) {
-            return implode('', $lines);
+            return \implode('', $lines);
         }
 
-        return implode("\n", $lines) . "\n";
+        return \implode("\n", $lines) . "\n";
     }
 
     /**
@@ -101,9 +101,9 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
      */
     public function _added($lines)
     {
-        array_walk($lines, [&$this, '_encode']);
-        $lines[0]                 = $this->_ins_prefix . $lines[0];
-        $lines[count($lines) - 1] .= $this->_ins_suffix;
+        \array_walk($lines, [&$this, '_encode']);
+        $lines[0]                  = $this->_ins_prefix . $lines[0];
+        $lines[\count($lines) - 1] .= $this->_ins_suffix;
 
         return $this->_lines($lines, ' ', false);
     }
@@ -115,9 +115,9 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
      */
     public function _deleted($lines, $words = false)
     {
-        array_walk($lines, [&$this, '_encode']);
-        $lines[0]                 = $this->_del_prefix . $lines[0];
-        $lines[count($lines) - 1] .= $this->_del_suffix;
+        \array_walk($lines, [&$this, '_encode']);
+        $lines[0]                  = $this->_del_prefix . $lines[0];
+        $lines[\count($lines) - 1] .= $this->_del_suffix;
 
         return $this->_lines($lines, ' ', false);
     }
@@ -143,8 +143,8 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
             return $prefix . $this->_deleted($orig) . $this->_added($final);
         }
 
-        $text1 = implode("\n", $orig);
-        $text2 = implode("\n", $final);
+        $text1 = \implode("\n", $orig);
+        $text2 = \implode("\n", $final);
 
         /* Non-printing newline marker. */
         $nl = "\0";
@@ -155,11 +155,11 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
         $diff = new Text_Diff($this->_splitOnWords($text1, $nl), $this->_splitOnWords($text2, $nl));
 
         /* Get the diff in inline format. */
-        $renderer = new self(array_merge($this->getParams(), ['split_level' => 'words']));
+        $renderer = new self(\array_merge($this->getParams(), ['split_level' => 'words']));
 
         /* Run the diff and get the output. */
 
-        return str_replace($nl, "\n", $renderer->render($diff)) . "\n";
+        return \str_replace($nl, "\n", $renderer->render($diff)) . "\n";
     }
 
     /**
@@ -175,9 +175,9 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
 
         while ($pos < $length) {
             // Eat a word with any preceding whitespace.
-            $spaces  = strspn(mb_substr($string, $pos), " \n");
-            $nextpos = strcspn(mb_substr($string, $pos + $spaces), " \n");
-            $words[] = str_replace("\n", $newlineEscape, mb_substr($string, $pos, $spaces + $nextpos));
+            $spaces  = \strspn(mb_substr($string, $pos), " \n");
+            $nextpos = \strcspn(mb_substr($string, $pos + $spaces), " \n");
+            $words[] = \str_replace("\n", $newlineEscape, mb_substr($string, $pos, $spaces + $nextpos));
             $pos     += $spaces + $nextpos;
         }
 
@@ -189,6 +189,6 @@ class Text_Diff_Renderer_inline extends Text_Diff_Renderer
      */
     public function _encode(&$string)
     {
-        $string = htmlspecialchars($string, ENT_QUOTES | ENT_HTML5);
+        $string = \htmlspecialchars($string, \ENT_QUOTES | \ENT_HTML5);
     }
 }

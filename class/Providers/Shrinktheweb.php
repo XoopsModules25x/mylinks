@@ -68,7 +68,7 @@ class Shrinktheweb implements Mylinks\ThumbPlugin
             'stwxmax'        => $this->image_width,
             'stwurl'         => $this->site_url,
         ];
-        $query        = http_build_query($query_string);
+        $query        = \http_build_query($query_string);
         $query        = empty($query) ? '' : '?' . $query;
         $providerUrl  = $this->provider_url . $query;
 
@@ -90,7 +90,7 @@ class Shrinktheweb implements Mylinks\ThumbPlugin
     public function setShotSize($sz)
     {
         if (isset($sz)) {
-            if (is_array($sz) && array_key_exists('width', $sz)) {
+            if (\is_array($sz) && \array_key_exists('width', $sz)) {
                 $this->image_width = (int)$sz['width'];
             } else {
                 $this->image_width = (int)$sz;
@@ -113,7 +113,7 @@ class Shrinktheweb implements Mylinks\ThumbPlugin
     public function setSiteUrl($url)
     {
         //@todo: sanitize url;
-        $this->site_url = formatURL($url);
+        $this->site_url = \formatURL($url);
     }
 
     /**
@@ -121,7 +121,7 @@ class Shrinktheweb implements Mylinks\ThumbPlugin
      */
     public function getSiteUrl()
     {
-        return urlencode($this->site_url);
+        return \urlencode($this->site_url);
     }
 
     /**

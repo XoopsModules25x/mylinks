@@ -24,7 +24,7 @@ namespace XoopsModules\Mylinks;
 
 
 
-$mylinksDir = basename(dirname(__DIR__));
+$mylinksDir = \basename(\dirname(__DIR__));
 
 /**
  * Class mylinksCategoryHandler_base
@@ -45,7 +45,7 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
      */
     public function __construct(\XoopsDatabase $db = null)
     {
-        $mylinksDir = basename(dirname(__DIR__));
+        $mylinksDir = \basename(\dirname(__DIR__));
         parent::__construct($db, 'mylinks_cat', Category::class, 'cid');
     }
 
@@ -60,8 +60,8 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
     {
         $catTitles = [];
         $criteria  = new \CriteriaCompo();
-        if (isset($cats) && is_array($cats)) {
-            $catIdString = !empty($cats) ? '(' . implode(',', $cats) . ')' : '';
+        if (isset($cats) && \is_array($cats)) {
+            $catIdString = !empty($cats) ? '(' . \implode(',', $cats) . ')' : '';
             if ($catIdString) {
                 $criteria->add(new \Criteria('cid', $catIdString, 'IN'));
             }
@@ -71,7 +71,7 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
         $catFields     = ['title'];
         $categoryArray = $this->getAll($criteria, $catFields, false);
         $catTitles     = [];
-        if (is_array($categoryArray) && count($categoryArray)) {
+        if (\is_array($categoryArray) && \count($categoryArray)) {
             foreach ($categoryArray as $catItem) {
                 $catTitles[$catItem['cid']] = $catItem['title'];
             }
